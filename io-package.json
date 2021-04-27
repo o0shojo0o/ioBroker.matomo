@@ -1,0 +1,93 @@
+{
+	"common": {
+		"name": "matomo",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"titleLang": {
+			"en": "Matomo",
+			"de": "Matomo",
+			"ru": "Matomo",
+			"pt": "Matomo",
+			"nl": "Matomo",
+			"fr": "Matomo",
+			"it": "Matomo",
+			"es": "Matomo",
+			"pl": "Matomo",
+			"zh-cn": "马托莫"
+		},
+		"desc": {
+			"en": "Imports statistical data from Matomo",
+			"de": "Importiert statistische Daten aus Matomo",
+			"ru": "Импортирует статистические данные из Matomo.",
+			"pt": "Importa dados estatísticos do Matomo",
+			"nl": "Importeert statistische gegevens uit Matomo",
+			"fr": "Importe des données statistiques de Matomo",
+			"it": "Importa dati statistici da Matomo",
+			"es": "Importa datos estadísticos de Matomo",
+			"pl": "Importuje dane statystyczne z Matomo",
+			"zh-cn": "从Matomo导入统计数据"
+		},
+		"authors": ["Dennis Rathjen <dennis.rathjen@outlook.de>"],
+		"keywords": ["matomo", "web analytics"],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"icon": "matomo.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/o0shojo0o/ioBroker.matomo/master/admin/matomo.png",
+		"readme": "https://github.com/o0shojo0o/ioBroker.matomo/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "misc-data",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"serverAdresse": "https://",
+		"port": "443",
+		"pollingInterval": "10"
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		}
+	]
+}

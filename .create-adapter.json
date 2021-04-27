@@ -1,0 +1,50 @@
+{
+	"expert": "yes",
+	"cli": false,
+	"adapterName": "matomo",
+	"title": "Matomo",
+	"description": "Imports statistical data from Matomo",
+	"keywords": ["matomo", "web analytics"],
+	"contributors": "",
+	"authorName": "Dennis Rathjen",
+	"authorGithub": "o0shojo0o",
+	"authorEmail": "dennis.rathjen@outlook.de",
+	"features": ["adapter"],
+	"adminFeatures": [],
+	"type": "misc-data",
+	"startMode": "daemon",
+	"connectionType": "cloud",
+	"dataSource": "poll",
+	"connectionIndicator": "yes",
+	"adapterSettings": [
+		{
+			"key": "serverAdresse",
+			"label": "Server Adresse",
+			"inputType": "text",
+			"defaultValue": "https://"
+		},
+		{
+			"key": "port",
+			"label": "Port",
+			"inputType": "number",
+			"defaultValue": "443"
+		},
+		{
+			"key": "pollingInterval",
+			"label": "Polling interval",
+			"inputType": "number",
+			"defaultValue": "10"
+		}
+	],
+	"language": "TypeScript",
+	"adminReact": "yes",
+	"indentation": "Tab",
+	"quotes": "double",
+	"es6class": "yes",
+	"tools": ["ESLint", "Prettier", "devcontainer"],
+	"gitRemoteProtocol": "HTTPS",
+	"license": "MIT License",
+	"ci": "gh-actions",
+	"dependabot": "yes",
+	"creatorVersion": "1.33.0"
+}

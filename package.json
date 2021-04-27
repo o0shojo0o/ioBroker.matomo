@@ -1,0 +1,87 @@
+{
+  "name": "iobroker.matomo",
+  "version": "0.0.1",
+  "description": "Imports statistical data from Matomo",
+  "author": {
+    "name": "Dennis Rathjen",
+    "email": "dennis.rathjen@outlook.de"
+  },
+  "homepage": "https://github.com/o0shojo0o/ioBroker.matomo",
+  "license": "MIT",
+  "keywords": [
+    "matomo",
+    "web analytics"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/o0shojo0o/ioBroker.matomo"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^2.4.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.13.16",
+    "@babel/plugin-proposal-decorators": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-typescript": "^7.13.0",
+    "@iobroker/adapter-react": "^1.6.10",
+    "@iobroker/testing": "^2.4.4",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@types/chai": "^4.2.17",
+    "@types/chai-as-promised": "^7.1.3",
+    "@types/gulp": "^4.0.8",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^14.14.42",
+    "@types/proxyquire": "^1.3.28",
+    "@types/react-dom": "^16.9.12",
+    "@types/react": "^16.14.5",
+    "@types/sinon": "^10.0.0",
+    "@types/sinon-chai": "^3.2.5",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "axios": "^0.21.1",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "gulp": "^4.0.2",
+    "mocha": "^8.3.2",
+    "parcel-bundler": "^1.12.5",
+    "prettier": "^2.2.1",
+    "proxyquire": "^2.1.3",
+    "react-dom": "^16.14.0",
+    "react-icons": "^4.2.0",
+    "react": "^16.14.0",
+    "rimraf": "^3.0.2",
+    "sinon": "^10.0.0",
+    "sinon-chai": "^3.6.0",
+    "source-map-support": "^0.5.19",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "main": "build/main.js",
+  "scripts": {
+    "prebuild": "rimraf ./build",
+    "build:parcel": "parcel build admin/src/index.tsx -d admin/build",
+    "build:ts": "tsc -p tsconfig.build.json",
+    "build": "npm run build:ts && npm run build:parcel",
+    "watch:parcel": "parcel admin/src/index.tsx -d admin/build --hmr-port 1235",
+    "watch:ts": "tsc -p tsconfig.build.json --watch",
+    "watch": "npm run watch:ts",
+    "test:ts": "mocha --config test/mocharc.custom.json src/**/*.test.ts",
+    "test:package": "mocha test/package --exit",
+    "test:unit": "mocha test/unit --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:ts && npm run test:package",
+    "check": "tsc --noEmit",
+    "lint": "eslint --ext .ts,.tsx src/ admin/src/"
+  },
+  "bugs": {
+    "url": "https://github.com/o0shojo0o/ioBroker.matomo/issues"
+  },
+  "readmeFilename": "README.md"
+}
