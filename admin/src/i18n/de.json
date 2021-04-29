@@ -1,6 +1,7 @@
 {
-	"matomo adapter settings": "Adaptereinstellungen für matomo",
-	"serverAdresse": "Server Adresse",
-	"port": "Hafen",
-	"pollingInterval": "Polling interval"
+    "matomo adapter settings": "Adaptereinstellungen für matomo",
+    "serverAdresse": "Server Adresse",
+    "port": "Hafen",
+    "pollingInterval": "Polling interval",
+    "apiKey": "API-Schlüssel"
 }

@@ -5,9 +5,12 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
+import axios from "axios";
+import { SiteLiveCounter } from "./lib/site-live-counter";
+import { SiteStats } from "./lib/site-states";
 
-// Load your modules here, e.g.:
-// import * as fs from "fs";
+let adapter: Matomo;
+let currentTimeout: NodeJS.Timeout;
 
 class Matomo extends utils.Adapter {
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -16,9 +19,6 @@ class Matomo extends utils.Adapter {
 			name: "matomo",
 		});
 		this.on("ready", this.onReady.bind(this));
-		this.on("stateChange", this.onStateChange.bind(this));
-		// this.on("objectChange", this.onObjectChange.bind(this));
-		// this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
 	}
 
@@ -26,124 +26,76 @@ class Matomo extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	private async onReady(): Promise<void> {
-		// Initialize your adapter here
-
-		// Reset the connection indicator during startup
+		adapter = this;
 		this.setState("info.connection", false, true);
-
-		// The adapters config (in the instance object everything under the attribute "native") is accessible via
-		// this.config:
 		this.log.info("config serverAdresse: " + this.config.serverAdresse);
 		this.log.info("config port: " + this.config.port);
+		this.log.info("config apiKey: **************");
 		this.log.info("config pollingInterval: " + this.config.pollingInterval);
 
-		/*
-		For every state in the system there has to be also an object of type state
-		Here a simple template for a boolean variable named "testVariable"
-		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-		*/
-		await this.setObjectNotExistsAsync("testVariable", {
-			type: "state",
-			common: {
-				name: "testVariable",
-				type: "boolean",
-				role: "indicator",
-				read: true,
-				write: true,
-			},
-			native: {},
-		});
-
-		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-		this.subscribeStates("testVariable");
-		// You can also add a subscription for multiple states. The following line watches all states starting with "lights."
-		// this.subscribeStates("lights.*");
-		// Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
-		// this.subscribeStates("*");
-
-		/*
-			setState examples
-			you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-		*/
-		// the variable testVariable is set to true as command (ack=false)
-		await this.setStateAsync("testVariable", true);
-
-		// same thing, but the value is flagged "ack"
-		// ack should be always set to true if the value is received from or acknowledged from the target system
-		await this.setStateAsync("testVariable", { val: true, ack: true });
-
-		// same thing, but the state is deleted after 30s (getState will return null afterwards)
-		await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-
-		// examples for the checkPassword/checkGroup functions
-		let result = await this.checkPasswordAsync("admin", "iobroker");
-		this.log.info("check user admin pw iobroker: " + result);
-
-		result = await this.checkGroupAsync("admin", "admin");
-		this.log.info("check group user admin group admin: " + result);
+		worker(this.config.serverAdresse, this.config.apiKey);
+		intervalTimer(this.config.serverAdresse, this.config.apiKey, this.config.pollingInterval * 1000);
 	}
-
-	/**
-	 * Is called when adapter shuts down - callback has to be called under any circumstances!
-	 */
 	private onUnload(callback: () => void): void {
 		try {
-			// Here you must clear all timeouts or intervals that may still be active
-			// clearTimeout(timeout1);
-			// clearTimeout(timeout2);
-			// ...
-			// clearInterval(interval1);
-
+			clearTimeout(currentTimeout);
 			callback();
 		} catch (e) {
 			callback();
 		}
 	}
+}
 
-	// If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
-	// You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
-	// /**
-	//  * Is called if a subscribed object changes
-	//  */
-	// private onObjectChange(id: string, obj: ioBroker.Object | null | undefined): void {
-	// 	if (obj) {
-	// 		// The object was changed
-	// 		this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-	// 	} else {
-	// 		// The object was deleted
-	// 		this.log.info(`object ${id} deleted`);
-	// 	}
-	// }
-
-	/**
-	 * Is called if a subscribed state changes
-	 */
-	private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
-		if (state) {
-			// The state was changed
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-		} else {
-			// The state was deleted
-			this.log.info(`state ${id} deleted`);
-		}
+async function intervalTimer(matomoUrl: string, apiKey: string, pollingInterval: number): Promise<void> {
+	if (currentTimeout) {
+		clearTimeout(currentTimeout);
 	}
 
-	// If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-	// /**
-	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-	//  */
-	// private onMessage(obj: ioBroker.Message): void {
-	// 	if (typeof obj === "object" && obj.message) {
-	// 		if (obj.command === "send") {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info("send command");
+	currentTimeout = setTimeout(async () => {
+		worker(matomoUrl, apiKey);
+		intervalTimer(matomoUrl, apiKey, pollingInterval);
+	}, pollingInterval);
+}
 
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-	// 		}
-	// 	}
-	// }
+async function worker(matomoUrl: string, apiKey: string): Promise<void> {
+	const siteStats = await getAllSitesStats(matomoUrl, apiKey);
+	for (const key in siteStats) {
+		if (Object.prototype.hasOwnProperty.call(siteStats, key)) {
+			siteStats[key].visits_evolution = parseFloat(String(siteStats[key].visits_evolution).replace(",", "."));
+			siteStats[key].actions_evolution = parseFloat(String(siteStats[key].actions_evolution).replace(",", "."));
+			siteStats[key].pageviews_evolution = parseFloat(String(siteStats[key].pageviews_evolution).replace(",", "."));
+			siteStats[key].revenue_evolution = parseFloat(String(siteStats[key].revenue_evolution).replace(",", "."));
+			siteStats[key].siteLiveCounter = await getLiveCounters(matomoUrl, siteStats[key].idsite, apiKey);
+			siteStats[key].siteLiveCounter.visits = parseInt(siteStats[key].siteLiveCounter.visits);
+		}
+	}
+	adapter.log.debug(JSON.stringify(siteStats));
+}
+
+async function getAllSitesStats(matomoUrl: string, apiKey: string): Promise<Array<SiteStats>> {
+	// Create API url with params
+	const apiUrl = new URL("index.php", matomoUrl);
+	apiUrl.searchParams.append("module", "API");
+	apiUrl.searchParams.append("method", "MultiSites.getAll");
+	apiUrl.searchParams.append("period", "day");
+	apiUrl.searchParams.append("date", "today");
+	apiUrl.searchParams.append("format", "JSON");
+	apiUrl.searchParams.append("token_auth", apiKey);
+
+	return (await axios.get(apiUrl.href)).data;
+}
+
+async function getLiveCounters(matomoUrl: string, idSite: number, apiKey: string): Promise<SiteLiveCounter> {
+	// Create API url with params
+	const apiUrl = new URL("index.php", matomoUrl);
+	apiUrl.searchParams.append("module", "API");
+	apiUrl.searchParams.append("method", "Live.getCounters");
+	apiUrl.searchParams.append("idSite", idSite.toString());
+	apiUrl.searchParams.append("lastMinutes", "3");
+	apiUrl.searchParams.append("format", "JSON");
+	apiUrl.searchParams.append("token_auth", apiKey);
+
+	return (await axios.get(apiUrl.href)).data;
 }
 
 if (require.main !== module) {

@@ -1,6 +1,7 @@
 {
-	"matomo adapter settings": "matomo的适配器设置",
-	"serverAdresse": "Server Adresse",
-	"port": "港口",
-	"pollingInterval": "Polling interval"
+    "matomo adapter settings": "matomo的适配器设置",
+    "serverAdresse": "Server Adresse",
+    "port": "港口",
+    "pollingInterval": "Polling interval",
+    "apiKey": "API密钥"
 }

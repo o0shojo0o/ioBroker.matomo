@@ -6,6 +6,7 @@ declare global {
 		interface AdapterConfig {
 			serverAdresse: string;
 			port: number;
+			apiKey: string;
 			pollingInterval: number;
 		}
 	}

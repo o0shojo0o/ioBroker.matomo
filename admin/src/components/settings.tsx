@@ -133,6 +133,8 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
 				<br />
 				{this.renderInput("Port", "port", "number")}
 				<br />
+				{this.renderInput("API Key", "apiKey", "password")}
+				<br />
 				{this.renderInput("Polling interval", "pollingInterval", "number")}
 			</form>
 		);

@@ -1,6 +1,7 @@
 {
-	"matomo adapter settings": "Impostazioni dell'adattatore per matomo",
-	"serverAdresse": "Server Adresse",
-	"port": "Porta",
-	"pollingInterval": "Polling interval"
+    "matomo adapter settings": "Impostazioni dell'adattatore per matomo",
+    "serverAdresse": "Server Adresse",
+    "port": "Porta",
+    "pollingInterval": "Polling interval",
+    "apiKey": "Chiave API"
 }
