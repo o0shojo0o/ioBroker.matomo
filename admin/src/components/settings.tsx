@@ -63,24 +63,10 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
 	}
 
 	renderInput(title: AdminWord, attr: string, type: string) {
-		return (
-			<TextField
-				label={I18n.t(title)}
-				className={`${this.props.classes.input} ${this.props.classes.controlElement}`}
-				value={this.props.native[attr]}
-				type={type || "text"}
-				onChange={(e) => this.props.onChange(attr, e.target.value)}
-				margin="normal"
-			/>
-		);
+		return <TextField label={I18n.t(title)} className={`${this.props.classes.input} ${this.props.classes.controlElement}`} value={this.props.native[attr]} type={type || "text"} onChange={(e) => this.props.onChange(attr, e.target.value)} margin="normal" />;
 	}
 
-	renderSelect(
-		title: AdminWord,
-		attr: string,
-		options: { value: string; title: AdminWord }[],
-		style?: React.CSSProperties,
-	) {
+	renderSelect(title: AdminWord, attr: string, options: { value: string; title: AdminWord }[], style?: React.CSSProperties) {
 		return (
 			<FormControl
 				className={`${this.props.classes.input} ${this.props.classes.controlElement}`}
@@ -89,11 +75,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
 					...style,
 				}}
 			>
-				<Select
-					value={this.props.native[attr] || "_"}
-					onChange={(e) => this.props.onChange(attr, e.target.value === "_" ? "" : e.target.value)}
-					input={<Input name={attr} id={attr + "-helper"} />}
-				>
+				<Select value={this.props.native[attr] || "_"} onChange={(e) => this.props.onChange(attr, e.target.value === "_" ? "" : e.target.value)} input={<Input name={attr} id={attr + "-helper"} />}>
 					{options.map((item) => (
 						<MenuItem key={"key-" + item.value} value={item.value || "_"}>
 							{I18n.t(item.title)}
@@ -114,13 +96,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
 					...style,
 				}}
 				className={this.props.classes.controlElement}
-				control={
-					<Checkbox
-						checked={this.props.native[attr]}
-						onChange={() => this.props.onChange(attr, !this.props.native[attr])}
-						color="primary"
-					/>
-				}
+				control={<Checkbox checked={this.props.native[attr]} onChange={() => this.props.onChange(attr, !this.props.native[attr])} color="primary" />}
 				label={I18n.t(title)}
 			/>
 		);
@@ -129,13 +105,13 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
 	render() {
 		return (
 			<form className={this.props.classes.tab}>
-				{this.renderInput("Server Adresse", "serverAdresse", "text")}
+				{this.renderInput("serverAdresse", "serverAdresse", "text")}
 				<br />
-				{this.renderInput("Port", "port", "number")}
+				{this.renderInput("port", "port", "number")}
 				<br />
-				{this.renderInput("API Key", "apiKey", "password")}
+				{this.renderInput("apiKey", "apiKey", "password")}
 				<br />
-				{this.renderInput("Polling interval", "pollingInterval", "number")}
+				{this.renderInput("pollingInterval", "pollingInterval", "number")}
 			</form>
 		);
 	}
