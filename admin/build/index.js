@@ -30716,9 +30716,9 @@ var _chainPropTypes = _interopRequireDefault(require("./chainPropTypes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function isClassComponent(elementType) {
   // elementType.prototype?.isReactComponent
@@ -33744,9 +33744,9 @@ Object.keys(_typography).forEach(function (key) {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 },{"./borders":"../../node_modules/@material-ui/system/esm/borders.js","./breakpoints":"../../node_modules/@material-ui/system/esm/breakpoints.js","./compose":"../../node_modules/@material-ui/system/esm/compose.js","./css":"../../node_modules/@material-ui/system/esm/css.js","./display":"../../node_modules/@material-ui/system/esm/display.js","./flexbox":"../../node_modules/@material-ui/system/esm/flexbox.js","./grid":"../../node_modules/@material-ui/system/esm/grid.js","./palette":"../../node_modules/@material-ui/system/esm/palette.js","./positions":"../../node_modules/@material-ui/system/esm/positions.js","./shadows":"../../node_modules/@material-ui/system/esm/shadows.js","./sizing":"../../node_modules/@material-ui/system/esm/sizing.js","./spacing":"../../node_modules/@material-ui/system/esm/spacing.js","./style":"../../node_modules/@material-ui/system/esm/style.js","./typography":"../../node_modules/@material-ui/system/esm/typography.js"}],"../../node_modules/@material-ui/core/esm/styles/createSpacing.js":[function(require,module,exports) {
 "use strict";
 
@@ -38474,9 +38474,9 @@ Object.keys(_StylesProvider).forEach(function (key) {
   });
 });
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 },{"./StylesProvider":"../../node_modules/@material-ui/styles/esm/StylesProvider/StylesProvider.js"}],"../../node_modules/@material-ui/styles/esm/makeStyles/indexCounter.js":[function(require,module,exports) {
 "use strict";
 
@@ -39921,9 +39921,9 @@ Object.keys(_withTheme).forEach(function (key) {
   });
 });
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 },{"./withTheme":"../../node_modules/@material-ui/styles/esm/withTheme/withTheme.js"}],"../../node_modules/@material-ui/styles/esm/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -40208,9 +40208,9 @@ Object.keys(_withTheme).forEach(function (key) {
   });
 });
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /** @license Material-UI v4.11.4
  *
@@ -41274,6 +41274,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var NAMESPACE = 'material';
 var days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var QUALITY_BITS = {
+  0x00: '0x00 - good',
+  0x01: '0x01 - general problem',
+  0x02: '0x02 - no connection problem',
+  0x10: '0x10 - substitute value from controller',
+  0x20: '0x20 - substitute initial value',
+  0x40: '0x40 - substitute value from device or instance',
+  0x80: '0x80 - substitute value from sensor',
+  0x11: '0x11 - general problem by instance',
+  0x41: '0x41 - general problem by device',
+  0x81: '0x81 - general problem by sensor',
+  0x12: '0x12 - instance not connected',
+  0x42: '0x42 - device not connected',
+  0x82: '0x82 - sensor not connected',
+  0x44: '0x44 - device reports error',
+  0x84: '0x84 - sensor reports error'
+};
 
 var Utils = /*#__PURE__*/function () {
   function Utils() {
@@ -42348,12 +42365,39 @@ var Utils = /*#__PURE__*/function () {
       } while (Math.abs(bytes) >= 1024 && u < units.length - 1);
 
       return bytes.toFixed(1) + ' ' + units[u];
+    }
+    /**
+     * Invert the given color according to theme type to get the inverted text color for background
+     * @param {string} color Color in the format '#rrggbb' or '#rgb' (or without hash)
+     * @param {string} themeType theme type
+     * @param {string} invert dark theme has light color in control or light theme has light color in control
+     * @returns {string}
+     */
+
+  }, {
+    key: "getInvertedColor",
+    value: function getInvertedColor(color, themeType, invert) {
+      if (!color) {
+        return undefined;
+      } else {
+        var invertedColor = Utils.invertColor(color, true);
+
+        if (invertedColor === '#FFFFFF' && (themeType === 'dark' || invert && themeType === 'light')) {
+          return '#DDD';
+        }
+
+        if (invertedColor === '#000000' && (themeType === 'light' || invert && themeType === 'dark')) {
+          return '#222';
+        }
+
+        return undefined;
+      }
     } // Big thanks to : https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
 
     /**
      * Invert the given color
      * @param {string} hex Color in the format '#rrggbb' or '#rgb' (or without hash)
-     * @param {boolean} [bw] Set to black or white.
+     * @param {boolean} bw Set to black or white.
      * @returns {string}
      */
 
@@ -42732,16 +42776,103 @@ var Utils = /*#__PURE__*/function () {
 
       return text;
     }
+    /**
+     * Generate the json file on the file for download.
+     * @param {string} filename file name
+     * @returns {object} json structure (not stringified)
+     */
+
   }, {
     key: "generateFile",
-    value: function generateFile(filename, obj) {
+    value: function generateFile(filename, json) {
       var el = document.createElement('a');
-      el.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj, null, 2)));
+      el.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(json, null, 2)));
       el.setAttribute('download', filename);
       el.style.display = 'none';
       document.body.appendChild(el);
       el.click();
       document.body.removeChild(el);
+    }
+    /**
+     * Convert quality code into text
+     * @param {number} quality code
+     * @returns {array<string>} lines that decode qulity
+     */
+
+  }, {
+    key: "quality2text",
+    value: function quality2text(quality) {
+      var custom = quality & 0xFFFF0000;
+      var text = QUALITY_BITS[quality];
+      var result;
+
+      if (text) {
+        result = [text];
+      } else if (quality & 0x01) {
+        result = [QUALITY_BITS[0x01], '0x' + (quality & (0xFFFF & ~1)).toString(16)];
+      } else if (quality & 0x02) {
+        result = [QUALITY_BITS[0x02], '0x' + (quality & (0xFFFF & ~2)).toString(16)];
+      } else {
+        result = ['0x' + quality.toString(16)];
+      }
+
+      if (custom) {
+        result.push('0x' + (custom >> 16).toString(16).toUpperCase());
+      }
+
+      return result;
+    }
+    /**
+     * Deep copy object
+     * @param {object} object
+     * @returns {object}
+     */
+
+  }, {
+    key: "clone",
+    value: function clone(object) {
+      return JSON.parse(JSON.stringify(object));
+    }
+    /**
+     * Get states of object
+     * @param {object} obj
+     * @returns {object} states as an object in form {"value1": "label1", "value2": "label2"} or null
+     */
+
+  }, {
+    key: "getStates",
+    value: function getStates(obj) {
+      var _obj$common;
+
+      var states = obj === null || obj === void 0 ? void 0 : (_obj$common = obj.common) === null || _obj$common === void 0 ? void 0 : _obj$common.states;
+
+      if (states) {
+        if (typeof states === 'string' && states[0] === '{') {
+          try {
+            states = JSON.parse(states);
+          } catch (ex) {
+            console.error("Cannot parse states: ".concat(states));
+            states = null;
+          }
+        } else // if old format val1:text1;val2:text2
+          if (typeof states === 'string') {
+            var parts = states.split(';');
+            states = {};
+
+            for (var p = 0; p < parts.length; p++) {
+              var s = parts[p].split(':');
+              states[s[0]] = s[1];
+            }
+          } else if (Array.isArray(states)) {
+            var result = {};
+            states.forEach(function (value, key) {
+              return result[key] = value;
+            });
+            return result;
+          }
+      }
+
+      return states;
     }
   }]);
 
@@ -42830,7 +42961,8 @@ var Connection = /*#__PURE__*/function () {
     this.props.protocol = this.props.protocol || window.location.protocol;
     this.props.host = this.props.host || window.location.hostname;
     this.props.port = this.props.port || (window.location.port === '3000' ? 8081 : window.location.port);
-    this.props.ioTimeout = Math.max(this.props.ioTimeout || 20000, 20000); // breaking change. Do not load all objects by default is true
+    this.props.ioTimeout = Math.max(this.props.ioTimeout || 20000, 20000);
+    this.props.cmdTimeout = Math.max(this.props.cmdTimeout || 5000, 5000); // breaking change. Do not load all objects by default is true
 
     this.doNotLoadAllObjects = this.props.doNotLoadAllObjects === undefined ? true : this.props.doNotLoadAllObjects;
     this.doNotLoadACL = this.props.doNotLoadACL === undefined ? true : this.props.doNotLoadACL;
@@ -43846,13 +43978,20 @@ var Connection = /*#__PURE__*/function () {
             reject(err);
           } else {
             resolve(doc.rows.map(function (item) {
-              return item.value;
+              var obj = item.value;
+
+              Connection._fixAdminUI(obj);
+
+              return obj;
             }));
           }
         });
       });
       return this._promises['instances_' + adapter];
     }
+  }, {
+    key: "getAdapters",
+
     /**
      * Get all adapters.
      * @param {boolean} [update] Force update.
@@ -43865,9 +44004,6 @@ var Connection = /*#__PURE__*/function () {
     * @param {boolean} [update] Force update.
     * @returns {Promise<ioBroker.Object[]>}
     */
-
-  }, {
-    key: "getAdapters",
     value: function getAdapters(adapter, update) {
       var _this18 = this;
 
@@ -43895,7 +44031,11 @@ var Connection = /*#__PURE__*/function () {
             reject(err);
           } else {
             resolve(doc.rows.map(function (item) {
-              return item.value;
+              var obj = item.value;
+
+              Connection._fixAdminUI(obj);
+
+              return obj;
             }).filter(function (obj) {
               return obj && (!adapter || obj.common && obj.common.name === adapter);
             }));
@@ -44621,7 +44761,7 @@ var Connection = /*#__PURE__*/function () {
 
   }, {
     key: "getHostInfo",
-    value: function getHostInfo(host, update) {
+    value: function getHostInfo(host, update, timeoutMs) {
       var _this36 = this;
 
       if (Connection.isWeb()) {
@@ -44644,9 +44784,9 @@ var Connection = /*#__PURE__*/function () {
         var timeout = setTimeout(function () {
           if (timeout) {
             timeout = null;
-            reject('timeout');
+            reject('getHostInfo timeout');
           }
-        }, 5000);
+        }, timeoutMs || _this36.props.cmdTimeout);
 
         _this36._socket.emit('sendToHost', host, 'getHostInfo', null, function (data) {
           if (timeout) {
@@ -44670,12 +44810,13 @@ var Connection = /*#__PURE__*/function () {
      * @param {string} host
      * @param {any} [args]
      * @param {boolean} [update] Force update.
+     * @param {number} [timeoutMs] timeout in ms.
      * @returns {Promise<any>}
      */
 
   }, {
     key: "getRepository",
-    value: function getRepository(host, args, update) {
+    value: function getRepository(host, args, update, timeoutMs) {
       var _this37 = this;
 
       if (Connection.isWeb()) {
@@ -44698,9 +44839,9 @@ var Connection = /*#__PURE__*/function () {
         var timeout = setTimeout(function () {
           if (timeout) {
             timeout = null;
-            reject('timeout');
+            reject('getRepository timeout');
           }
-        }, 5000);
+        }, timeoutMs || _this37.props.cmdTimeout);
 
         _this37._socket.emit('sendToHost', host, 'getRepository', args, function (data) {
           if (timeout) {
@@ -44728,7 +44869,7 @@ var Connection = /*#__PURE__*/function () {
 
   }, {
     key: "getInstalled",
-    value: function getInstalled(host, update) {
+    value: function getInstalled(host, update, cmdTimeout) {
       var _this38 = this;
 
       if (Connection.isWeb()) {
@@ -44751,9 +44892,9 @@ var Connection = /*#__PURE__*/function () {
         var timeout = setTimeout(function () {
           if (timeout) {
             timeout = null;
-            reject('timeout');
+            reject('getInstalled timeout');
           }
-        }, 5000);
+        }, cmdTimeout || _this38.props.cmdTimeout);
 
         _this38._socket.emit('sendToHost', host, 'getInstalled', null, function (data) {
           if (timeout) {
@@ -44801,9 +44942,9 @@ var Connection = /*#__PURE__*/function () {
         var timeout = setTimeout(function () {
           if (timeout) {
             timeout = null;
-            reject('timeout');
+            reject('cmdExec timeout');
           }
-        }, 5000);
+        }, _this39.props.cmdTimeout);
 
         _this39._socket.emit('cmdExec', host, cmdId, cmd, null, function (err) {
           if (timeout) {
@@ -44871,9 +45012,9 @@ var Connection = /*#__PURE__*/function () {
             var timeout = setTimeout(function () {
               if (timeout) {
                 timeout = null;
-                reject('timeout');
+                reject('readBaseSettings timeout');
               }
-            }, 5000);
+            }, _this41.props.cmdTimeout);
 
             _this41._socket.emit('sendToHost', host, 'readBaseSettings', null, function (data) {
               if (timeout) {
@@ -44921,9 +45062,9 @@ var Connection = /*#__PURE__*/function () {
             var timeout = setTimeout(function () {
               if (timeout) {
                 timeout = null;
-                reject('timeout');
+                reject('writeBaseSettings timeout');
               }
-            }, 5000);
+            }, _this42.props.cmdTimeout);
 
             _this42._socket.emit('sendToHost', host, 'writeBaseSettings', config, function (data) {
               if (timeout) {
@@ -45535,10 +45676,112 @@ var Connection = /*#__PURE__*/function () {
         });
       });
     }
+    /**
+     * Read current user
+     * @returns {Promise<string>}
+     */
+
+  }, {
+    key: "getCurrentUser",
+    value: function getCurrentUser() {
+      var _this63 = this;
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      return new Promise(function (resolve) {
+        return _this63._socket.emit('authEnabled', function (isSecure, user) {
+          return resolve(user);
+        });
+      });
+    }
+    /**
+     * Read adapter ratings
+     * @returns {Promise<any>}
+     */
+
+  }, {
+    key: "getRatings",
+    value: function getRatings(update) {
+      var _this64 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      return new Promise(function (resolve, reject) {
+        return _this64._socket.emit('getRatings', update, function (err, ratings) {
+          return err ? reject(err) : resolve(ratings);
+        });
+      });
+    }
+    /**
+     * Read current web, socketio or admin namespace, like admin.0
+     * @returns {Promise<string>}
+     */
+
+  }, {
+    key: "getCurrentInstance",
+    value: function getCurrentInstance() {
+      var _this65 = this;
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      this._promises.currentInstance = this._promises.currentInstance || new Promise(function (resolve, reject) {
+        return _this65._socket.emit('getCurrentInstance', function (err, namespace) {
+          return err ? reject(err) : resolve(namespace);
+        });
+      });
+      return this._promises.currentInstance;
+    }
   }], [{
     key: "isWeb",
     value: function isWeb() {
       return window.socketUrl !== undefined;
+    }
+  }, {
+    key: "_fixAdminUI",
+    value: function _fixAdminUI(obj) {
+      if (obj && obj.common && !obj.common.adminUI) {
+        if (obj.common.noConfig) {
+          obj.common.adminUI = obj.common.adminUI || {};
+          obj.common.adminUI.config = 'none';
+        } else if (obj.common.jsonConfig) {
+          obj.common.adminUI = obj.common.adminUI || {};
+          obj.common.adminUI.config = 'json';
+        } else if (obj.common.materialize) {
+          obj.common.adminUI = obj.common.adminUI || {};
+          obj.common.adminUI.config = 'materialize';
+        } else {
+          obj.common.adminUI = obj.common.adminUI || {};
+          obj.common.adminUI.config = 'html';
+        }
+
+        if (obj.common.jsonCustom) {
+          obj.common.adminUI = obj.common.adminUI || {};
+          obj.common.adminUI.config = 'json';
+        } else if (obj.common.supportCustoms) {
+          obj.common.adminUI = obj.common.adminUI || {};
+          obj.common.adminUI.custom = 'json';
+        }
+
+        if (obj.common.materializeTab && obj.common.adminTab) {
+          obj.common.adminUI = obj.common.adminUI || {};
+          obj.common.adminUI.tab = 'materialize';
+        } else if (obj.common.adminTab) {
+          obj.common.adminUI = obj.common.adminUI || {};
+          obj.common.adminUI.tab = 'html';
+        }
+
+        obj.common.adminUI && console.log("Please add to \"".concat(obj._id.replace(/\.\d+$/, ''), "\" common.adminUI=").concat(JSON.stringify(obj.common.adminUI)));
+      }
     }
   }]);
 
@@ -52868,7 +53111,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.SDK_VERSION = void 0;
-var SDK_VERSION = '6.3.3';
+var SDK_VERSION = '6.3.5';
 exports.SDK_VERSION = SDK_VERSION;
 },{}],"../../node_modules/@sentry/core/esm/integrations/functiontostring.js":[function(require,module,exports) {
 "use strict";
@@ -53364,9 +53607,9 @@ var Integrations = _interopRequireWildcard(require("./integrations"));
 
 exports.Integrations = Integrations;
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 },{"@sentry/minimal":"../../node_modules/@sentry/minimal/esm/index.js","@sentry/hub":"../../node_modules/@sentry/hub/esm/index.js","./api":"../../node_modules/@sentry/core/esm/api.js","./baseclient":"../../node_modules/@sentry/core/esm/baseclient.js","./basebackend":"../../node_modules/@sentry/core/esm/basebackend.js","./request":"../../node_modules/@sentry/core/esm/request.js","./sdk":"../../node_modules/@sentry/core/esm/sdk.js","./transports/noop":"../../node_modules/@sentry/core/esm/transports/noop.js","./version":"../../node_modules/@sentry/core/esm/version.js","./integrations":"../../node_modules/@sentry/core/esm/integrations/index.js"}],"../../node_modules/@sentry/browser/esm/tracekit.js":[function(require,module,exports) {
 "use strict";
 
@@ -56371,9 +56614,9 @@ var Transports = _interopRequireWildcard(require("./transports"));
 
 exports.Transports = Transports;
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var windowIntegrations = {}; // This block is needed to add compatibility with the integrations packages when used with a CDN
 
@@ -57859,9 +58102,9 @@ var _setRef = _interopRequireDefault(require("./setRef"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function useForkRef(refA, refB) {
   /**
@@ -57890,9 +58133,9 @@ exports.default = useEventCallback;
 
 var React = _interopRequireWildcard(require("react"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var useEnhancedEffect = typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 /**
@@ -57923,9 +58166,9 @@ var React = _interopRequireWildcard(require("react"));
 
 var ReactDOM = _interopRequireWildcard(require("react-dom"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 // based on https://github.com/WICG/focus-visible/blob/v4.1.5/src/focus-visible.js
 var hadKeyboardEvent = true;
@@ -60130,9 +60373,9 @@ var _useEventCallback = _interopRequireDefault(require("../utils/useEventCallbac
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var useEnhancedEffect = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
 /**
@@ -60256,9 +60499,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _Ripple = _interopRequireDefault(require("./Ripple"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60605,9 +60848,9 @@ var _useIsFocusVisible2 = _interopRequireDefault(require("../utils/useIsFocusVis
 
 var _TouchRipple = _interopRequireDefault(require("./TouchRipple"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61160,9 +61403,9 @@ var _ButtonBase = _interopRequireDefault(require("../ButtonBase"));
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61647,9 +61890,9 @@ var _useForkRef = _interopRequireDefault(require("../utils/useForkRef"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function getContainer(container) {
   container = typeof container === 'function' ? container() : container; // #StrictMode ready
@@ -62137,9 +62380,9 @@ var _utils = require("@material-ui/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /* eslint-disable consistent-return, jsx-a11y/no-noninteractive-tabindex, camelcase */
 
@@ -62375,9 +62618,9 @@ var React = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62470,9 +62713,9 @@ var _Unstable_TrapFocus = _interopRequireDefault(require("../Unstable_TrapFocus"
 
 var _SimpleBackdrop = _interopRequireDefault(require("./SimpleBackdrop"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62933,9 +63176,9 @@ var _utils = require("../transitions/utils");
 
 var _useForkRef = _interopRequireDefault(require("../utils/useForkRef"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63160,9 +63403,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _Fade = _interopRequireDefault(require("../Fade"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63296,9 +63539,9 @@ var _utils = require("@material-ui/utils");
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63462,9 +63705,9 @@ var _transitions = require("../styles/transitions");
 
 var _Paper = _interopRequireDefault(require("../Paper"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63914,9 +64157,9 @@ var _clsx = _interopRequireDefault(require("clsx"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64018,9 +64261,9 @@ var _clsx = _interopRequireDefault(require("clsx"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64131,9 +64374,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64422,9 +64665,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _Typography = _interopRequireDefault(require("../Typography"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64504,9 +64747,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _Typography = _interopRequireDefault(require("../Typography"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64646,7 +64889,7 @@ var styles = function styles(theme) {
  * @typedef {object} DialogErrorProps
  * @property {string} [key] The key to identify this component.
  * @property {string} [title] The dialog title; default: Error (translated)
- * @property {string} text The dialog text.
+ * @property {string | JSX.Element} text The dialog text.
  * @property {() => void} [onClose] Close handler.
  * @property {{titleBackground: string; titleColor: string}} classes The styling class names.
  *
@@ -64711,7 +64954,7 @@ DialogError.propTypes = {
   key: _propTypes["default"].string,
   onClose: _propTypes["default"].func,
   title: _propTypes["default"].string,
-  text: _propTypes["default"].string,
+  text: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
   icon: _propTypes["default"].object
 };
 /** @type {typeof DialogError} */
@@ -64746,9 +64989,9 @@ var _utils = require("@material-ui/utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function mapEventPropToEvent(eventProp) {
   return eventProp.substring(2).toLowerCase();
@@ -64971,9 +65214,9 @@ var _utils = require("../transitions/utils");
 
 var _useForkRef = _interopRequireDefault(require("../utils/useForkRef"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65262,9 +65505,9 @@ var _Paper = _interopRequireDefault(require("../Paper"));
 
 var _colorManipulator = require("../styles/colorManipulator");
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65414,9 +65657,9 @@ var _Grow = _interopRequireDefault(require("../Grow"));
 
 var _SnackbarContent = _interopRequireDefault(require("../SnackbarContent"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65852,9 +66095,9 @@ var _ButtonBase = _interopRequireDefault(require("../ButtonBase"));
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66169,9 +66412,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66457,9 +66700,9 @@ exports.default = isMuiElement;
 
 var React = _interopRequireWildcard(require("react"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function isMuiElement(element, muiNames) {
   return /*#__PURE__*/React.isValidElement(element) && muiNames.indexOf(element.type.muiName) !== -1;
@@ -66524,9 +66767,9 @@ exports.default = useControlled;
 
 var React = _interopRequireWildcard(require("react"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /* eslint-disable react-hooks/rules-of-hooks, react-hooks/exhaustive-deps */
 function useControlled(_ref) {
@@ -66579,9 +66822,9 @@ exports.default = useId;
 
 var React = _interopRequireWildcard(require("react"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /**
  * Private module reserved for @material-ui/x packages.
@@ -67088,7 +67331,14 @@ var Router = /*#__PURE__*/function (_React$Component) {
     value: function getLocation() {
       var hash = window.location.hash;
       hash = hash.replace(/^#/, '');
-      var parts = hash.split('/'); // #tabName/dialogName/deviceId
+      var parts = hash.split('/').map(function (item) {
+        try {
+          return item ? decodeURIComponent(item) : '';
+        } catch (e) {
+          console.error('Router: Cannot decode ' + item);
+          return item || '';
+        }
+      }); // #tabName/dialogName/deviceId
 
       return {
         tab: parts[0] || '',
@@ -67178,9 +67428,9 @@ var _ButtonBase = _interopRequireDefault(require("../ButtonBase"));
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -67461,9 +67711,9 @@ var _clsx = _interopRequireDefault(require("clsx"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68028,2230 +68278,2249 @@ module.exports = {
   "ra_Edit custom config": "Edit custom config",
   "ra_Collapse one step node": "Collapse one level",
   "ra_Expand one step node": "Expand one level",
-  "ra_Refresh tree": "Refresh tree"
+  "ra_Refresh tree": "Refresh tree",
+  "ra_Expand all nodes": "Expand all nodes"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/de.json":[function(require,module,exports) {
 module.exports = {
-  "ra_filter_func": "Funktion",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "Name",
-  "ra_filter_type": "Typ",
-  "ra_filter_customs": "Einstellungen",
-  "ra_filter_role": "Rolle",
-  "ra_filter_room": "Zimmer",
-  "ra_tooltip_ack": "Bestätigt",
-  "ra_tooltip_from": "Von",
-  "ra_tooltip_lc": "Zuletzt geändert",
-  "ra_tooltip_quality": "Qualität",
-  "ra_tooltip_ts": "Zeitstempel",
-  "ra_tooltip_user": "Nutzer",
-  "ra_tooltip_value": "Wert",
-  "ra_Are you sure?": "Bist du sicher?",
-  "ra_Cancel": "Abbrechen",
-  "ra_Copied": "Kopiert",
-  "ra_Copied %s": "%s kopiert",
-  "ra_Define functions": "Funktionen definieren",
-  "ra_Define rooms": "Räume definieren",
-  "ra_Error": "Error",
-  "ra_Message": "Meldung",
-  "ra_Ok": "OK",
-  "ra_Please select object ID...": "Bitte Objekt-ID auswählen...",
-  "ra_Selected": "Ausgewählt",
-  "ra_Unknown error!": "Unbekannter Fehler!",
-  "ra_Value": "Wert",
-  "ra_invalidConfig": "Ungültige Einstellungen",
-  "ra_otherConfig": "Einstellungen von anderen Adaptern %s",
-  "ra_tooltip_copyState": "Kopieren Sie den Statuswert",
-  "ra_tooltip_customConfig": "Benutzerdefinierte Einstellungen",
-  "ra_tooltip_deleteObject": "Objekt löschen",
-  "ra_tooltip_editObject": "Objekt bearbeiten",
-  "ra_tooltip_editState": "Bearbeiten Sie den Statuswert",
-  "ra_dow_Fr": "Fr",
-  "ra_dow_Mo": "Mo",
-  "ra_dow_Sa": "Sa",
-  "ra_dow_Su": "So",
-  "ra_dow_Th": "Do",
-  "ra_dow_Tu": "Di",
-  "ra_dow_We": "Mi",
-  "ra_Listen on all IPs": "Hören Sie auf alle IPs",
-  "ra_Save": "Speichern",
-  "ra_Save and close": "Speichern und schließen",
-  "ra_Close": "Schließen",
-  "ra_Auto (no custom columns)": "Auto (keine benutzerdefinierten Spalten)",
-  "ra_Transparent dialog": "Transparenter Dialog",
-  "ra_Width": "Breite",
-  "ra_val": "Wert",
-  "ra_buttons": "Tasten",
-  "ra_Configure visible columns": "Spalten Konfigurieren",
-  "ra_close": "Schließen",
-  "ra_Cannot update attribute, because not found in the object": "Attribut kann nicht aktualisiert werden, da es nicht im Objekt gefunden wurde",
-  "ra_Edit object field": "Objektfeld bearbeiten",
-  "ra_Hide empty folders": "Leere Ordner ausblenden",
-  "ra_Reload files": "Dateien neu laden",
-  "ra_Create folder": "Ordner erstellen",
-  "ra_Upload file": "Datei hochladen",
-  "ra_User files": "Benutzerdaten",
-  "ra_Confirm deletion of %s": "Bestätigen Sie das Löschen von %s",
-  "ra_Delete (no confirm for 5 mins)": "Löschen (keine Bestätigung für 5 Minuten)",
-  "ra_Delete": "Löschen",
-  "ra_Toggle expert mode": "Expertenmodus umschalten",
-  "ra_Toggle view mode": "Ansichtsmodus umschalten",
-  "re_Root": "Anfang",
-  "re_Back to %s": "Zurück zu %s",
-  "ra_Place your files here or click here to open the browse dialog": "Platzieren Sie Ihre Dateien hier oder klicken Sie hier, um den Suchdialog zu öffnen",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "Wenn im Ordner keine Datei erstellt wird, verschwindet diese nach dem Schließen des Browsers",
-  "ra_Folder name": "Ordnernamen",
-  "ra_Create new folder in %s": "Erstellen Sie einen neuen Ordner in %s",
-  "ra_Duplicate name": "Doppelter Name",
-  "ra_Invalid parent folder!": "Ungültiger übergeordneter Ordner!",
-  "ra_Drop file here": "Datei hier ablegen",
-  "ra_Suppress question for next %s minutes": "Frage für die nächsten %s Minuten unterdrücken",
-  "ra_Clear filter": "Filter löschen",
-  "ra_Update": "Aktualisieren",
-  "ra_Load configuration from file": "Konfiguration aus Datei laden",
-  "ra_Save configuration to file": "Konfiguration in Datei speichern",
-  "sc_cron": "CRON",
-  "sc_date": "Datum",
-  "sc_dates": "Tage",
-  "sc_dows": "Wochentage",
-  "sc_every": "Jeden",
-  "sc_everyN_dates": "alle N Tage",
-  "sc_everyN_dows": "alle N Wochentage",
-  "sc_everyN_hours": "alle N Stunden",
-  "sc_everyN_minutes": "alle N Minuten",
-  "sc_everyN_months": "alle N Monate",
-  "sc_everyN_seconds": "alle N Sekunden",
-  "sc_every_dates": "jeden Tag",
-  "sc_every_dows": "jeden tag der woche",
-  "sc_every_hours": "jede Stunde",
-  "sc_every_minutes": "jede Minute",
-  "sc_every_months": "jeden Monat",
-  "sc_every_seconds": "jede Sekunde",
-  "sc_from": "Von",
-  "sc_hours": "Stunden",
-  "sc_interval": "Intervall",
-  "sc_intervalBetween": "Intervall zwischen",
-  "sc_minutes": "Minuten",
-  "sc_months": "Monate",
-  "sc_once": "Einmal",
-  "sc_period": "Zeitraum",
-  "sc_seconds": "Sekunden",
-  "sc_simple": "Einfach",
-  "sc_specific": "Bestimmte Zeit",
-  "sc_specific_dates": "bestimmte Tage",
-  "sc_specific_dows": "bestimmten Wochentag",
-  "sc_specific_hours": "bestimmte Stunden",
-  "sc_specific_minutes": "bestimmte Minuten",
-  "sc_specific_months": "bestimmte Monate",
-  "sc_specific_seconds": "bestimmte Sekunden",
-  "sc_time": "Zeit",
-  "sc_to": "Bis",
-  "sc_wizard": "Wizard",
-  "sch_all": "alle",
-  "sch_astroDay": "Tag",
-  "sch_astroNight": "Nachts",
-  "sch_astro_dawn": "Morgendämmerung",
-  "sch_astro_dusk": "Abenddämmerung",
-  "sch_astro_goldenHour": "Goldene Stunde",
-  "sch_astro_goldenHourEnd": "Goldenes Stundenende",
-  "sch_astro_nadir": "Nadir",
-  "sch_astro_nauticalDawn": "Nautische Morgendämmerung",
-  "sch_astro_nauticalDusk": "Nautische Abenddämmerung",
-  "sch_astro_night": "Nacht",
-  "sch_astro_nightEnd": "Nachtsende",
-  "sch_astro_solarNoon": "Sonnenmittag",
-  "sch_astro_sunrise": "Sonnenaufgang",
-  "sch_astro_sunriseEnd": "Sonnenaufgangende",
-  "sch_astro_sunset": "Sonnenuntergang",
-  "sch_astro_sunsetStart": "Sonnenuntergangstart",
-  "sch_at": "am",
-  "sch_desc_atTime": "um %s",
-  "sch_desc_everyDay": "jeden Tag",
-  "sch_desc_everyHour": "jede Stunde",
-  "sch_desc_everyMinute": "jede Minute",
-  "sch_desc_everyMonth": "jeden Monat",
-  "sch_desc_everyNDay": "jeden %s Tag",
-  "sch_desc_everyNHours": "alle %s Stunden",
-  "sch_desc_everyNMinutes": "alle %s Minuten",
-  "sch_desc_everyNMonths": "alle %s Monate",
-  "sch_desc_everyNWeeks": "alle %s Wochen",
-  "sch_desc_everyNYears": "alle %s Jahre",
-  "sch_desc_everyWeek": "jede Woche",
-  "sch_desc_everyYear": "jedes Jahr",
-  "sch_desc_intervalFromTo": "von %s bis %s",
-  "sch_desc_never": "noch nie",
-  "sch_desc_onDate": "am %s von %s",
-  "sch_desc_onDates": "am %s und %s von",
-  "sch_desc_onEveryDate": "an jedem Datum von",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s und %s",
-  "sch_desc_onWeekday": "auf %s",
-  "sch_desc_onWeekdays": "auf %s und %s",
-  "sch_desc_onWeekends": "an Wochenenden",
-  "sch_desc_onWorkdays": "an Werktagen",
-  "sch_desc_onceInPast": "wird ne nicht mehr ausgeführt, weil start in der vergangenheit ist",
-  "sch_desc_once_on": "auf %s",
-  "sch_desc_validFrom": "von %s",
-  "sch_desc_validFromTo": "Ausführen von bis",
-  "sch_desc_validTo": "bis %s",
-  "sch_every": "jeden",
-  "sch_exactTime": "Bestimmte Zeit",
-  "sch_from": "von",
-  "sch_fromTo": "Von bis",
-  "sch_intervalTime": "Zeitintervall",
-  "sch_invert": "umkehren",
-  "sch_no_one": "keiner",
-  "sch_on": "am",
-  "sch_period": "Zeitraum",
-  "sch_periodDaily": "Täglich",
-  "sch_periodDates": "Daten",
-  "sch_periodDay": "Tag",
-  "sch_periodEvery": "Jeden",
-  "sch_periodEveryDay": "Jeden Tag",
-  "sch_periodEveryMonth": "Jeden Monat",
-  "sch_periodEveryWeek": "Jede Woche",
-  "sch_periodEveryYear": "Jedes Jahr",
-  "sch_periodHours": "Std",
-  "sch_periodMinutes": "Protokoll",
-  "sch_periodMonth": "Monat",
-  "sch_periodMonthly": "Monatlich",
-  "sch_periodOnce": "Einmal",
-  "sch_periodSpecificMonths": "Bestimmte Monate",
-  "sch_periodWeek": "Woche",
-  "sch_periodWeekdays": "Wochentage",
-  "sch_periodWeekend": "Wochenende",
-  "sch_periodWeekly": "Wöchentlich",
-  "sch_periodWorkdays": "Arbeitstage",
-  "sch_periodYear": "Jahr",
-  "sch_periodYearly": "Jährlich",
-  "sch_specificTime": "Bestimmte Zeit",
-  "sch_time": "Zeit",
-  "sch_to": "zu",
-  "sch_valid": "Gültigkeit",
-  "sch_validFrom": "von",
-  "sch_validTo": "bis",
-  "sch_wholeDay": "Ganzer Tag",
-  "sch_yearEveryMonth": "jeden Monat",
-  "ra_Define schedule...": "Zeitplan definieren ...",
-  "ra_Repeat": "Wiederholen",
-  "ra_use seconds": "Sekunden benutzen",
-  "ra_months_Apr": "Apr",
-  "ra_months_Aug": "Aug",
-  "ra_months_Dec": "Dez",
-  "ra_months_Jan": "Jan",
-  "ra_months_Feb": "Feb",
-  "ra_months_Jul": "Jul",
-  "ra_months_Jun": "Jun",
-  "ra_months_Mai": "Mai",
-  "ra_months_Mar": "Mär",
-  "ra_months_Nov": "Nov",
-  "ra_months_Oct": "Oct",
-  "ra_months_Sep": "Sep",
-  "ra_Toggle the states view": "Statusansicht umschalten ",
-  "ra_Add new child object to selected parent": "Dem ausgewählten übergeordneten Objekt ein neues untergeordnetes Objekt hinzufügen",
-  "ra_Add objects tree from JSON file": "Einen Objektbaum aus der JSON-Datei hinzufügen",
-  "ra_Save objects tree as JSON file": "Den Objektbaum als JSON-Datei speichern ",
-  "ra_Objects": "Objekte",
-  "ra_States": "Zustände",
-  "ra_object_changed_by_user": "Objekt zuletzt geändert um",
-  "ra_object_changed_by": "Objekt geändert von",
-  "ra_state_changed_from": "Objekt geändert von",
-  "ra_state_changed_by": "Zustand geändert durch",
-  "ra_aclOwner_read_object": "Besitzer kann Objekt lesen",
-  "ra_aclOwner_read_state": "Besitzer kann Zustand lesen",
-  "ra_aclOwner_write_object": "Besitzer kann Objekt schreiben",
-  "ra_aclOwner_write_state": "Besitzer kann Zustand schreiben",
-  "ra_aclGroup_read_object": "Gruppe kann Objekt lesen",
-  "ra_aclGroup_read_state": "Gruppe kann Status lesen",
-  "ra_aclGroup_write_object": "Gruppe kann Objekt schreiben",
-  "ra_aclGroup_write_state": "Gruppe kann Status schreiben",
-  "ra_aclEveryone_read_object": "Jeder kann Objekt lesen",
-  "ra_aclEveryone_read_state": "Jeder kann Zustand lesen",
-  "ra_aclEveryone_write_object": "Jeder kann ein Objekt schreiben",
-  "ra_aclEveryone_write_state": "Jeder kann Zustand schreiben",
-  "ra_Folders always first": "Ordner immer zuerst",
-  "ra_changedFrom": "Gewechselt von",
-  "ra_qualityCode": "Qualitätscode",
-  "ra_timestamp": "Zeitstempel",
-  "ra_lastChange": "Letzte Änderung",
-  "ra_Owner group": "Besitzergruppe",
-  "ra_Owner user": "Besitzer Benutzer",
-  "ra_Create": "Erstellen",
-  "ra_Changed from": "Geändert von",
-  "ra_Quality code": "Qualität",
-  "ra_Timestamp": "Zeitstempel",
-  "ra_Last change": "Letzte Änderung",
-  "ra_Collapse all nodes": "Alle Knoten zuklappen",
-  "ra_Edit custom config": "Benutzerdefinierte Konfiguration bearbeiten",
-  "ra_Collapse one step node": "Eine Ebene zuklappen",
-  "ra_Expand one step node": "Eine Ebene aufklappen",
-  "ra_Refresh tree": "Baum aktualisieren"
-};
+    "ra_filter_func": "Funktion",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "Name",
+    "ra_filter_type": "Typ",
+    "ra_filter_customs": "Einstellungen",
+    "ra_filter_role": "Rolle",
+    "ra_filter_room": "Zimmer",
+    "ra_tooltip_ack": "Bestätigt",
+    "ra_tooltip_from": "Von",
+    "ra_tooltip_lc": "Zuletzt geändert",
+    "ra_tooltip_quality": "Qualität",
+    "ra_tooltip_ts": "Zeitstempel",
+    "ra_tooltip_user": "Nutzer",
+    "ra_tooltip_value": "Wert",
+    "ra_Are you sure?": "Bist du sicher?",
+    "ra_Cancel": "Abbrechen",
+    "ra_Copied": "Kopiert",
+    "ra_Copied %s": "%s kopiert",
+    "ra_Define functions": "Funktionen definieren",
+    "ra_Define rooms": "Räume definieren",
+    "ra_Error": "Error",
+    "ra_Message": "Meldung",
+    "ra_Ok": "OK",
+    "ra_Please select object ID...": "Bitte Objekt-ID auswählen...",
+    "ra_Selected": "Ausgewählt",
+    "ra_Unknown error!": "Unbekannter Fehler!",
+    "ra_Value": "Wert",
+    "ra_invalidConfig": "Ungültige Einstellungen",
+    "ra_otherConfig": "Einstellungen von anderen Adaptern %s",
+    "ra_tooltip_copyState": "Kopieren Sie den Statuswert",
+    "ra_tooltip_customConfig": "Benutzerdefinierte Einstellungen",
+    "ra_tooltip_deleteObject": "Objekt löschen",
+    "ra_tooltip_editObject": "Objekt bearbeiten",
+    "ra_tooltip_editState": "Bearbeiten Sie den Statuswert",
+    "ra_dow_Fr": "Fr",
+    "ra_dow_Mo": "Mo",
+    "ra_dow_Sa": "Sa",
+    "ra_dow_Su": "So",
+    "ra_dow_Th": "Do",
+    "ra_dow_Tu": "Di",
+    "ra_dow_We": "Mi",
+    "ra_Listen on all IPs": "Hören Sie auf alle IPs",
+    "ra_Save": "Speichern",
+    "ra_Save and close": "Speichern und schließen",
+    "ra_Close": "Schließen",
+    "ra_Auto (no custom columns)": "Auto (keine benutzerdefinierten Spalten)",
+    "ra_Transparent dialog": "Transparenter Dialog",
+    "ra_Width": "Breite",
+    "ra_val": "Wert",
+    "ra_buttons": "Tasten",
+    "ra_Configure visible columns": "Spalten Konfigurieren",
+    "ra_close": "Schließen",
+    "ra_Cannot update attribute, because not found in the object": "Attribut kann nicht aktualisiert werden, da es nicht im Objekt gefunden wurde",
+    "ra_Edit object field": "Objektfeld bearbeiten",
+    "ra_Hide empty folders": "Leere Ordner ausblenden",
+    "ra_Reload files": "Dateien neu laden",
+    "ra_Create folder": "Ordner erstellen",
+    "ra_Upload file": "Datei hochladen",
+    "ra_User files": "Benutzerdaten",
+    "ra_Confirm deletion of %s": "Bestätigen Sie das Löschen von %s",
+    "ra_Delete (no confirm for 5 mins)": "Löschen (keine Bestätigung für 5 Minuten)",
+    "ra_Delete": "Löschen",
+    "ra_Toggle expert mode": "Expertenmodus umschalten",
+    "ra_Toggle view mode": "Ansichtsmodus umschalten",
+    "re_Root": "Anfang",
+    "re_Back to %s": "Zurück zu %s",
+    "ra_Place your files here or click here to open the browse dialog": "Platzieren Sie Ihre Dateien hier oder klicken Sie hier, um den Suchdialog zu öffnen",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Wenn im Ordner keine Datei erstellt wird, verschwindet diese nach dem Schließen des Browsers",
+    "ra_Folder name": "Ordnernamen",
+    "ra_Create new folder in %s": "Erstellen Sie einen neuen Ordner in %s",
+    "ra_Duplicate name": "Doppelter Name",
+    "ra_Invalid parent folder!": "Ungültiger übergeordneter Ordner!",
+    "ra_Drop file here": "Datei hier ablegen",
+    "ra_Suppress question for next %s minutes": "Frage für die nächsten %s Minuten unterdrücken",
+    "ra_Clear filter": "Filter löschen",
+    "ra_Update": "Aktualisieren",
+    "ra_Load configuration from file": "Konfiguration aus Datei laden",
+    "ra_Save configuration to file": "Konfiguration in Datei speichern",
+    "sc_cron": "CRON",
+    "sc_date": "Datum",
+    "sc_dates": "Tage",
+    "sc_dows": "Wochentage",
+    "sc_every": "Jeden",
+    "sc_everyN_dates": "alle N Tage",
+    "sc_everyN_dows": "alle N Wochentage",
+    "sc_everyN_hours": "alle N Stunden",
+    "sc_everyN_minutes": "alle N Minuten",
+    "sc_everyN_months": "alle N Monate",
+    "sc_everyN_seconds": "alle N Sekunden",
+    "sc_every_dates": "jeden Tag",
+    "sc_every_dows": "jeden tag der woche",
+    "sc_every_hours": "jede Stunde",
+    "sc_every_minutes": "jede Minute",
+    "sc_every_months": "jeden Monat",
+    "sc_every_seconds": "jede Sekunde",
+    "sc_from": "Von",
+    "sc_hours": "Stunden",
+    "sc_interval": "Intervall",
+    "sc_intervalBetween": "Intervall zwischen",
+    "sc_minutes": "Minuten",
+    "sc_months": "Monate",
+    "sc_once": "Einmal",
+    "sc_period": "Zeitraum",
+    "sc_seconds": "Sekunden",
+    "sc_simple": "Einfach",
+    "sc_specific": "Bestimmte Zeit",
+    "sc_specific_dates": "bestimmte Tage",
+    "sc_specific_dows": "bestimmten Wochentag",
+    "sc_specific_hours": "bestimmte Stunden",
+    "sc_specific_minutes": "bestimmte Minuten",
+    "sc_specific_months": "bestimmte Monate",
+    "sc_specific_seconds": "bestimmte Sekunden",
+    "sc_time": "Zeit",
+    "sc_to": "Bis",
+    "sc_wizard": "Wizard",
+    "sch_all": "alle",
+    "sch_astroDay": "Tag",
+    "sch_astroNight": "Nachts",
+    "sch_astro_dawn": "Morgendämmerung",
+    "sch_astro_dusk": "Abenddämmerung",
+    "sch_astro_goldenHour": "Goldene Stunde",
+    "sch_astro_goldenHourEnd": "Goldenes Stundenende",
+    "sch_astro_nadir": "Nadir",
+    "sch_astro_nauticalDawn": "Nautische Morgendämmerung",
+    "sch_astro_nauticalDusk": "Nautische Abenddämmerung",
+    "sch_astro_night": "Nacht",
+    "sch_astro_nightEnd": "Nachtsende",
+    "sch_astro_solarNoon": "Sonnenmittag",
+    "sch_astro_sunrise": "Sonnenaufgang",
+    "sch_astro_sunriseEnd": "Sonnenaufgangende",
+    "sch_astro_sunset": "Sonnenuntergang",
+    "sch_astro_sunsetStart": "Sonnenuntergangstart",
+    "sch_at": "am",
+    "sch_desc_atTime": "um %s",
+    "sch_desc_everyDay": "jeden Tag",
+    "sch_desc_everyHour": "jede Stunde",
+    "sch_desc_everyMinute": "jede Minute",
+    "sch_desc_everyMonth": "jeden Monat",
+    "sch_desc_everyNDay": "jeden %s Tag",
+    "sch_desc_everyNHours": "alle %s Stunden",
+    "sch_desc_everyNMinutes": "alle %s Minuten",
+    "sch_desc_everyNMonths": "alle %s Monate",
+    "sch_desc_everyNWeeks": "alle %s Wochen",
+    "sch_desc_everyNYears": "alle %s Jahre",
+    "sch_desc_everyWeek": "jede Woche",
+    "sch_desc_everyYear": "jedes Jahr",
+    "sch_desc_intervalFromTo": "von %s bis %s",
+    "sch_desc_never": "noch nie",
+    "sch_desc_onDate": "am %s von %s",
+    "sch_desc_onDates": "am %s und %s von",
+    "sch_desc_onEveryDate": "an jedem Datum von",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s und %s",
+    "sch_desc_onWeekday": "auf %s",
+    "sch_desc_onWeekdays": "auf %s und %s",
+    "sch_desc_onWeekends": "an Wochenenden",
+    "sch_desc_onWorkdays": "an Werktagen",
+    "sch_desc_onceInPast": "wird ne nicht mehr ausgeführt, weil start in der vergangenheit ist",
+    "sch_desc_once_on": "auf %s",
+    "sch_desc_validFrom": "von %s",
+    "sch_desc_validFromTo": "Ausführen von bis",
+    "sch_desc_validTo": "bis %s",
+    "sch_every": "jeden",
+    "sch_exactTime": "Bestimmte Zeit",
+    "sch_from": "von",
+    "sch_fromTo": "Von bis",
+    "sch_intervalTime": "Zeitintervall",
+    "sch_invert": "umkehren",
+    "sch_no_one": "keiner",
+    "sch_on": "am",
+    "sch_period": "Zeitraum",
+    "sch_periodDaily": "Täglich",
+    "sch_periodDates": "Daten",
+    "sch_periodDay": "Tag",
+    "sch_periodEvery": "Jeden",
+    "sch_periodEveryDay": "Jeden Tag",
+    "sch_periodEveryMonth": "Jeden Monat",
+    "sch_periodEveryWeek": "Jede Woche",
+    "sch_periodEveryYear": "Jedes Jahr",
+    "sch_periodHours": "Std",
+    "sch_periodMinutes": "Protokoll",
+    "sch_periodMonth": "Monat",
+    "sch_periodMonthly": "Monatlich",
+    "sch_periodOnce": "Einmal",
+    "sch_periodSpecificMonths": "Bestimmte Monate",
+    "sch_periodWeek": "Woche",
+    "sch_periodWeekdays": "Wochentage",
+    "sch_periodWeekend": "Wochenende",
+    "sch_periodWeekly": "Wöchentlich",
+    "sch_periodWorkdays": "Arbeitstage",
+    "sch_periodYear": "Jahr",
+    "sch_periodYearly": "Jährlich",
+    "sch_specificTime": "Bestimmte Zeit",
+    "sch_time": "Zeit",
+    "sch_to": "zu",
+    "sch_valid": "Gültigkeit",
+    "sch_validFrom": "von",
+    "sch_validTo": "bis",
+    "sch_wholeDay": "Ganzer Tag",
+    "sch_yearEveryMonth": "jeden Monat",
+    "ra_Define schedule...": "Zeitplan definieren ...",
+    "ra_Repeat": "Wiederholen",
+    "ra_use seconds": "Sekunden benutzen",
+    "ra_months_Apr": "Apr",
+    "ra_months_Aug": "Aug",
+    "ra_months_Dec": "Dez",
+    "ra_months_Jan": "Jan",
+    "ra_months_Feb": "Feb",
+    "ra_months_Jul": "Jul",
+    "ra_months_Jun": "Jun",
+    "ra_months_Mai": "Mai",
+    "ra_months_Mar": "Mär",
+    "ra_months_Nov": "Nov",
+    "ra_months_Oct": "Oct",
+    "ra_months_Sep": "Sep",
+    "ra_Toggle the states view": "Statusansicht umschalten ",
+    "ra_Add new child object to selected parent": "Dem ausgewählten übergeordneten Objekt ein neues untergeordnetes Objekt hinzufügen",
+    "ra_Add objects tree from JSON file": "Einen Objektbaum aus der JSON-Datei hinzufügen",
+    "ra_Save objects tree as JSON file": "Den Objektbaum als JSON-Datei speichern ",
+    "ra_Objects": "Objekte",
+    "ra_States": "Zustände",
+    "ra_object_changed_by_user": "Objekt zuletzt geändert um",
+    "ra_object_changed_by": "Objekt geändert von",
+    "ra_state_changed_from": "Objekt geändert von",
+    "ra_state_changed_by": "Zustand geändert durch",
+    "ra_aclOwner_read_object": "Besitzer kann Objekt lesen",
+    "ra_aclOwner_read_state": "Besitzer kann Zustand lesen",
+    "ra_aclOwner_write_object": "Besitzer kann Objekt schreiben",
+    "ra_aclOwner_write_state": "Besitzer kann Zustand schreiben",
+    "ra_aclGroup_read_object": "Gruppe kann Objekt lesen",
+    "ra_aclGroup_read_state": "Gruppe kann Status lesen",
+    "ra_aclGroup_write_object": "Gruppe kann Objekt schreiben",
+    "ra_aclGroup_write_state": "Gruppe kann Status schreiben",
+    "ra_aclEveryone_read_object": "Jeder kann Objekt lesen",
+    "ra_aclEveryone_read_state": "Jeder kann Zustand lesen",
+    "ra_aclEveryone_write_object": "Jeder kann ein Objekt schreiben",
+    "ra_aclEveryone_write_state": "Jeder kann Zustand schreiben",
+    "ra_Folders always first": "Ordner immer zuerst",
+    "ra_changedFrom": "Gewechselt von",
+    "ra_qualityCode": "Qualitätscode",
+    "ra_timestamp": "Zeitstempel",
+    "ra_lastChange": "Letzte Änderung",
+    "ra_Owner group": "Besitzergruppe",
+    "ra_Owner user": "Besitzer Benutzer",
+    "ra_Create": "Erstellen",
+    "ra_Changed from": "Geändert von",
+    "ra_Quality code": "Qualität",
+    "ra_Timestamp": "Zeitstempel",
+    "ra_Last change": "Letzte Änderung",
+    "ra_Collapse all nodes": "Alle Knoten zuklappen",
+    "ra_Edit custom config": "Benutzerdefinierte Konfiguration bearbeiten",
+    "ra_Collapse one step node": "Eine Ebene zuklappen",
+    "ra_Expand one step node": "Eine Ebene aufklappen",
+    "ra_Refresh tree": "Baum aktualisieren",
+    "ra_Expand all nodes": "Alle Knoten aufklappen"
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/ru.json":[function(require,module,exports) {
 module.exports = {
-  "ra_filter_func": "функция",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "Имя",
-  "ra_filter_role": "роль",
-  "ra_filter_room": "комната",
-  "ra_tooltip_ack": "Подтверждено",
-  "ra_tooltip_from": "От",
-  "ra_tooltip_lc": "Последнее изменение",
-  "ra_tooltip_quality": "Качество",
-  "ra_tooltip_ts": "Отметка времени",
-  "ra_tooltip_user": "пользователь",
-  "ra_tooltip_value": "Значение",
-  "ra_Are you sure?": "Вы уверены?",
-  "ra_Cancel": "Отмена",
-  "ra_Copied": "скопировано",
-  "ra_Copied %s": "Скопировано %s",
-  "ra_Define functions": "Задать функции",
-  "ra_Define rooms": "Задать комнаты",
-  "ra_Error": "Ошибка",
-  "ra_Message": "Сообщение",
-  "ra_Ok": "Ok",
-  "ra_Please select object ID...": "Пожалуйста, выберите идентификатор объекта ...",
-  "ra_Selected": "выбранный",
-  "ra_Unknown error!": "Неизвестная ошибка!",
-  "ra_Value": "Значение",
-  "ra_filter_type": "Тип",
-  "ra_invalidConfig": "Неверные настройки",
-  "ra_otherConfig": "Настройки из другого адаптера %s",
-  "ra_tooltip_copyState": "Скопируйте значение состояния",
-  "ra_tooltip_customConfig": "Пользовательские настройки",
-  "ra_tooltip_deleteObject": "Удалить объект",
-  "ra_tooltip_editObject": "Редактировать объект",
-  "ra_tooltip_editState": "Изменить значение состояния",
-  "ra_filter_customs": "настройки",
-  "ra_dow_Fr": "Пт",
-  "ra_dow_Mo": "Пн",
-  "ra_dow_Sa": "Сб",
-  "ra_dow_Su": "Вс",
-  "ra_dow_Th": "Чт",
-  "ra_dow_Tu": "Вт",
-  "ra_dow_We": "Ср",
-  "ra_Listen on all IPs": "Слушай на всех IP",
-  "ra_Save": "Сохранить",
-  "ra_Save and close": "Сохранить и закрыть",
-  "ra_Close": "Закрыть",
-  "ra_Auto (no custom columns)": "Авто (без настраиваемых столбцов)",
-  "ra_Transparent dialog": "Прозрачный диалог",
-  "ra_Width": "Ширина",
-  "ra_val": "Значение",
-  "ra_buttons": "Кнопки",
-  "ra_Configure visible columns": "Настроить видимые столбцы",
-  "ra_Cannot update attribute, because not found in the object": "Невозможно обновить атрибут, потому что он не найден в объекте",
-  "ra_Edit object field": "Поле редактирования объекта",
-  "ra_Hide empty folders": "Скрыть пустые папки",
-  "ra_Reload files": "Обновить",
-  "ra_Create folder": "Создать папку",
-  "ra_Upload file": "Загрузить файл",
-  "ra_User files": "Файлы пользователя",
-  "ra_Confirm deletion of %s": "Подтвердите удаление %s",
-  "ra_Delete (no confirm for 5 mins)": "Удалить (без подтверждения в течение 5 минут)",
-  "ra_Delete": "Удалить",
-  "ra_Toggle expert mode": "Переключить экспертный режим",
-  "ra_Toggle view mode": "Переключить режим просмотра",
-  "re_Root": "Начало",
-  "re_Back to %s": "Вернуться к %s",
-  "ra_Place your files here or click here to open the browse dialog": "Поместите свои файлы сюда или щелкните здесь, чтобы открыть диалоговое окно выбора",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "Если в папке не будет создан файл, он исчезнет после закрытия браузера.",
-  "ra_Folder name": "Имя папки",
-  "ra_Create new folder in %s": "Создать новую папку в %s",
-  "ra_Duplicate name": "Повторяющееся имя",
-  "ra_Invalid parent folder!": "Неверная родительская папка!",
-  "ra_Drop file here": "Перетащите файл сюда",
-  "ra_Suppress question for next %s minutes": "Скрыть вопрос на следующие %s минут(ы)",
-  "ra_Clear filter": "Очистить фильтр",
-  "ra_Update": "Обновить",
-  "ra_Load configuration from file": "Загрузить конфигурацию из файла",
-  "ra_Save configuration to file": "Сохранить конфигурацию в файл",
-  "sc_cron": "CRON",
-  "sc_date": "Дата",
-  "sc_dates": "Даты",
-  "sc_dows": "День недели",
-  "sc_every": "каждый(ую/ые)",
-  "sc_everyN_dates": "каждый N день",
-  "sc_everyN_dows": "каждый N день недели",
-  "sc_everyN_hours": "каждые N часов",
-  "sc_everyN_minutes": "каждые N минут",
-  "sc_everyN_months": "каждые N месяцев",
-  "sc_everyN_seconds": "каждые N секунд",
-  "sc_every_dates": "каждый день",
-  "sc_every_dows": "каждый день недели",
-  "sc_every_hours": "каждый час",
-  "sc_every_minutes": "каждую минуту",
-  "sc_every_months": "каждый месяц",
-  "sc_every_seconds": "каждую секунду",
-  "sc_from": "От",
-  "sc_hours": "часы",
-  "sc_interval": "Интервал",
-  "sc_intervalBetween": "Интервал между",
-  "sc_minutes": "минуты",
-  "sc_months": "Месяцы",
-  "sc_once": "один раз",
-  "sc_period": "Период",
-  "sc_seconds": "секунды",
-  "sc_simple": "Просто",
-  "sc_specific": "Конкретное время",
-  "sc_specific_dates": "конкретные даты",
-  "sc_specific_dows": "конкретный день недели",
-  "sc_specific_hours": "конкретные часы",
-  "sc_specific_minutes": "конкретные минуты",
-  "sc_specific_months": "конкретные месяцы",
-  "sc_specific_seconds": "конкретные секунды",
-  "sc_time": "Время",
-  "sc_to": "До",
-  "sc_wizard": "Форма",
-  "sch_all": "все",
-  "sch_astroDay": "днём",
-  "sch_astroNight": "ночью",
-  "sch_astro_dawn": "Рассвет",
-  "sch_astro_dusk": "Сумерки",
-  "sch_astro_goldenHour": "Золотой час",
-  "sch_astro_goldenHourEnd": "Конец золотого часа",
-  "sch_astro_nadir": "Надир",
-  "sch_astro_nauticalDawn": "Морской рассвет",
-  "sch_astro_nauticalDusk": "Морские сумерки",
-  "sch_astro_night": "Ночь",
-  "sch_astro_nightEnd": "Конец ночи",
-  "sch_astro_solarNoon": "Солнечный полдень",
-  "sch_astro_sunrise": "Восход",
-  "sch_astro_sunriseEnd": "Восход солнца",
-  "sch_astro_sunset": "Заход солнца",
-  "sch_astro_sunsetStart": "Начало заката",
-  "sch_at": "дата",
-  "sch_desc_atTime": "в %s",
-  "sch_desc_everyDay": "каждый день",
-  "sch_desc_everyHour": "каждый час",
-  "sch_desc_everyMinute": "каждую минуту",
-  "sch_desc_everyMonth": "каждый месяц",
-  "sch_desc_everyNDay": "каждый %s день",
-  "sch_desc_everyNHours": "каждый %s часов",
-  "sch_desc_everyNMinutes": "каждые %s минут",
-  "sch_desc_everyNMonths": "каждые %s месяцев",
-  "sch_desc_everyNWeeks": "каждые %s недель",
-  "sch_desc_everyNYears": "каждые %s лет",
-  "sch_desc_everyWeek": "каждую неделю",
-  "sch_desc_everyYear": "каждый год",
-  "sch_desc_intervalFromTo": "от %s до %s",
-  "sch_desc_never": "никогда",
-  "sch_desc_onDate": "%s %s",
-  "sch_desc_onDates": "%s и %s",
-  "sch_desc_onEveryDate": "в каждый день",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s и %s",
-  "sch_desc_onWeekday": "%s",
-  "sch_desc_onWeekdays": "%s и %s",
-  "sch_desc_onWeekends": "на выходных",
-  "sch_desc_onWorkdays": "в рабочие дни",
-  "sch_desc_onceInPast": "не будет больше выполняться, потому что начало в прошлом",
-  "sch_desc_once_on": "%s",
-  "sch_desc_validFrom": "%s",
-  "sch_desc_validFromTo": "Выполнить с",
-  "sch_desc_validTo": "%s",
-  "sch_every": "каждый",
-  "sch_exactTime": "Конкретное время",
-  "sch_from": "от",
-  "sch_fromTo": "От и до",
-  "sch_intervalTime": "Интервал времени",
-  "sch_invert": "инвертировать",
-  "sch_no_one": "никакой",
-  "sch_on": "на",
-  "sch_period": "период",
-  "sch_periodDaily": "Ежедневно",
-  "sch_periodDates": "Даты",
-  "sch_periodDay": "День",
-  "sch_periodEvery": "каждый",
-  "sch_periodEveryDay": "Каждый день",
-  "sch_periodEveryMonth": "Каждый месяц",
-  "sch_periodEveryWeek": "Каждую неделю",
-  "sch_periodEveryYear": "Каждый год",
-  "sch_periodHours": "часов",
-  "sch_periodMinutes": "минут",
-  "sch_periodMonth": "месяц",
-  "sch_periodMonthly": "ежемесячно",
-  "sch_periodOnce": "однажды",
-  "sch_periodSpecificMonths": "Конкретные месяцы",
-  "sch_periodWeek": "Неделю",
-  "sch_periodWeekdays": "Будние дни",
-  "sch_periodWeekend": "выходные",
-  "sch_periodWeekly": "еженедельно",
-  "sch_periodWorkdays": "Рабочие дни",
-  "sch_periodYear": "Год",
-  "sch_periodYearly": "каждый год",
-  "sch_specificTime": "Конкретное время",
-  "sch_time": "Время",
-  "sch_to": "в",
-  "sch_valid": "действительный",
-  "sch_validFrom": "от",
-  "sch_validTo": "в",
-  "sch_wholeDay": "Весь день",
-  "sch_yearEveryMonth": "каждый месяц",
-  "ra_Define schedule...": "Определить расписание ...",
-  "ra_Repeat": "Повторение",
-  "ra_use seconds": "секунды",
-  "ra_close": "Закрыть",
-  "ra_months_Sep": "Сен",
-  "ra_months_Oct": "Окт",
-  "ra_months_Nov": "Ноя",
-  "ra_months_Mar": "Март",
-  "ra_months_Mai": "Май",
-  "ra_months_Jun": "Июль",
-  "ra_months_Jul": "Июнь",
-  "ra_months_Jan": "Янв",
-  "ra_months_Feb": "Фев",
-  "ra_months_Dec": "Дек",
-  "ra_months_Aug": "Авг",
-  "ra_months_Apr": "Апр",
-  "ra_Toggle the states view": "Переключить режим просмотра состояний",
-  "ra_Add new child object to selected parent": "Добавить новый дочерний объект к выбранному родительскому объекту",
-  "ra_Add objects tree from JSON file": "Добавить дерево объектов из файла JSON",
-  "ra_Save objects tree as JSON file": "Сохранить дерево объектов как файл JSON",
-  "ra_Objects": "Объекты",
-  "ra_States": "Состояния",
-  "ra_object_changed_by_user": "Последний раз объект изменен в",
-  "ra_object_changed_by": "Объект изменен",
-  "ra_state_changed_from": "Объект изменен с",
-  "ra_state_changed_by": "Состояние изменено",
-  "ra_aclOwner_read_object": "Владелец может читать объект",
-  "ra_aclOwner_read_state": "Владелец может читать состояние",
-  "ra_aclOwner_write_object": "Владелец может писать объект",
-  "ra_aclOwner_write_state": "Владелец может писать состояние",
-  "ra_aclGroup_read_object": "Группа может читать объект",
-  "ra_aclGroup_read_state": "Группа может читать состояние",
-  "ra_aclGroup_write_object": "Группа может писать объект",
-  "ra_aclGroup_write_state": "Группа может записывать состояние",
-  "ra_aclEveryone_read_object": "Каждый может читать объект",
-  "ra_aclEveryone_read_state": "Каждый может читать состояние",
-  "ra_aclEveryone_write_object": "Каждый может написать объект",
-  "ra_aclEveryone_write_state": "Каждый может написать состояние",
-  "ra_Folders always first": "Папки всегда на первом месте",
-  "ra_changedFrom": "Изменено с",
-  "ra_qualityCode": "Код качества",
-  "ra_timestamp": "Отметка времени",
-  "ra_lastChange": "Последнее изменение",
-  "ra_Owner group": "Группа владельцев",
-  "ra_Owner user": "Пользователь-владелец",
-  "ra_Create": "Создать",
-  "ra_Changed from": "Изменено",
-  "ra_Quality code": "Валидность",
-  "ra_Timestamp": "Времени",
-  "ra_Last change": "Последнее изменение",
-  "ra_Collapse all nodes": "Свернуть все узлы",
-  "ra_Edit custom config": "Редактировать настраиваемую конфигурацию",
-  "ra_Collapse one step node": "Свернуть один уровень",
-  "ra_Expand one step node": "Открыть один уровень",
-  "ra_Refresh tree": "Обновить дерево"
-};
+    "ra_filter_func": "функция",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "Имя",
+    "ra_filter_role": "роль",
+    "ra_filter_room": "комната",
+    "ra_tooltip_ack": "Подтверждено",
+    "ra_tooltip_from": "От",
+    "ra_tooltip_lc": "Последнее изменение",
+    "ra_tooltip_quality": "Качество",
+    "ra_tooltip_ts": "Отметка времени",
+    "ra_tooltip_user": "пользователь",
+    "ra_tooltip_value": "Значение",
+    "ra_Are you sure?": "Вы уверены?",
+    "ra_Cancel": "Отмена",
+    "ra_Copied": "скопировано",
+    "ra_Copied %s": "Скопировано %s",
+    "ra_Define functions": "Задать функции",
+    "ra_Define rooms": "Задать комнаты",
+    "ra_Error": "Ошибка",
+    "ra_Message": "Сообщение",
+    "ra_Ok": "Ok",
+    "ra_Please select object ID...": "Пожалуйста, выберите идентификатор объекта ...",
+    "ra_Selected": "выбранный",
+    "ra_Unknown error!": "Неизвестная ошибка!",
+    "ra_Value": "Значение",
+    "ra_filter_type": "Тип",
+    "ra_invalidConfig": "Неверные настройки",
+    "ra_otherConfig": "Настройки из другого адаптера %s",
+    "ra_tooltip_copyState": "Скопируйте значение состояния",
+    "ra_tooltip_customConfig": "Пользовательские настройки",
+    "ra_tooltip_deleteObject": "Удалить объект",
+    "ra_tooltip_editObject": "Редактировать объект",
+    "ra_tooltip_editState": "Изменить значение состояния",
+    "ra_filter_customs": "настройки",
+    "ra_dow_Fr": "Пт",
+    "ra_dow_Mo": "Пн",
+    "ra_dow_Sa": "Сб",
+    "ra_dow_Su": "Вс",
+    "ra_dow_Th": "Чт",
+    "ra_dow_Tu": "Вт",
+    "ra_dow_We": "Ср",
+    "ra_Listen on all IPs": "Слушай на всех IP",
+    "ra_Save": "Сохранить",
+    "ra_Save and close": "Сохранить и закрыть",
+    "ra_Close": "Закрыть",
+    "ra_Auto (no custom columns)": "Авто (без настраиваемых столбцов)",
+    "ra_Transparent dialog": "Прозрачный диалог",
+    "ra_Width": "Ширина",
+    "ra_val": "Значение",
+    "ra_buttons": "Кнопки",
+    "ra_Configure visible columns": "Настроить видимые столбцы",
+    "ra_Cannot update attribute, because not found in the object": "Невозможно обновить атрибут, потому что он не найден в объекте",
+    "ra_Edit object field": "Поле редактирования объекта",
+    "ra_Hide empty folders": "Скрыть пустые папки",
+    "ra_Reload files": "Обновить",
+    "ra_Create folder": "Создать папку",
+    "ra_Upload file": "Загрузить файл",
+    "ra_User files": "Файлы пользователя",
+    "ra_Confirm deletion of %s": "Подтвердите удаление %s",
+    "ra_Delete (no confirm for 5 mins)": "Удалить (без подтверждения в течение 5 минут)",
+    "ra_Delete": "Удалить",
+    "ra_Toggle expert mode": "Переключить экспертный режим",
+    "ra_Toggle view mode": "Переключить режим просмотра",
+    "re_Root": "Начало",
+    "re_Back to %s": "Вернуться к %s",
+    "ra_Place your files here or click here to open the browse dialog": "Поместите свои файлы сюда или щелкните здесь, чтобы открыть диалоговое окно выбора",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Если в папке не будет создан файл, он исчезнет после закрытия браузера.",
+    "ra_Folder name": "Имя папки",
+    "ra_Create new folder in %s": "Создать новую папку в %s",
+    "ra_Duplicate name": "Повторяющееся имя",
+    "ra_Invalid parent folder!": "Неверная родительская папка!",
+    "ra_Drop file here": "Перетащите файл сюда",
+    "ra_Suppress question for next %s minutes": "Скрыть вопрос на следующие %s минут(ы)",
+    "ra_Clear filter": "Очистить фильтр",
+    "ra_Update": "Обновить",
+    "ra_Load configuration from file": "Загрузить конфигурацию из файла",
+    "ra_Save configuration to file": "Сохранить конфигурацию в файл",
+    "sc_cron": "CRON",
+    "sc_date": "Дата",
+    "sc_dates": "Даты",
+    "sc_dows": "День недели",
+    "sc_every": "каждый(ую/ые)",
+    "sc_everyN_dates": "каждый N день",
+    "sc_everyN_dows": "каждый N день недели",
+    "sc_everyN_hours": "каждые N часов",
+    "sc_everyN_minutes": "каждые N минут",
+    "sc_everyN_months": "каждые N месяцев",
+    "sc_everyN_seconds": "каждые N секунд",
+    "sc_every_dates": "каждый день",
+    "sc_every_dows": "каждый день недели",
+    "sc_every_hours": "каждый час",
+    "sc_every_minutes": "каждую минуту",
+    "sc_every_months": "каждый месяц",
+    "sc_every_seconds": "каждую секунду",
+    "sc_from": "От",
+    "sc_hours": "часы",
+    "sc_interval": "Интервал",
+    "sc_intervalBetween": "Интервал между",
+    "sc_minutes": "минуты",
+    "sc_months": "Месяцы",
+    "sc_once": "один раз",
+    "sc_period": "Период",
+    "sc_seconds": "секунды",
+    "sc_simple": "Просто",
+    "sc_specific": "Конкретное время",
+    "sc_specific_dates": "конкретные даты",
+    "sc_specific_dows": "конкретный день недели",
+    "sc_specific_hours": "конкретные часы",
+    "sc_specific_minutes": "конкретные минуты",
+    "sc_specific_months": "конкретные месяцы",
+    "sc_specific_seconds": "конкретные секунды",
+    "sc_time": "Время",
+    "sc_to": "До",
+    "sc_wizard": "Форма",
+    "sch_all": "все",
+    "sch_astroDay": "днём",
+    "sch_astroNight": "ночью",
+    "sch_astro_dawn": "Рассвет",
+    "sch_astro_dusk": "Сумерки",
+    "sch_astro_goldenHour": "Золотой час",
+    "sch_astro_goldenHourEnd": "Конец золотого часа",
+    "sch_astro_nadir": "Надир",
+    "sch_astro_nauticalDawn": "Морской рассвет",
+    "sch_astro_nauticalDusk": "Морские сумерки",
+    "sch_astro_night": "Ночь",
+    "sch_astro_nightEnd": "Конец ночи",
+    "sch_astro_solarNoon": "Солнечный полдень",
+    "sch_astro_sunrise": "Восход",
+    "sch_astro_sunriseEnd": "Восход солнца",
+    "sch_astro_sunset": "Заход солнца",
+    "sch_astro_sunsetStart": "Начало заката",
+    "sch_at": "дата",
+    "sch_desc_atTime": "в %s",
+    "sch_desc_everyDay": "каждый день",
+    "sch_desc_everyHour": "каждый час",
+    "sch_desc_everyMinute": "каждую минуту",
+    "sch_desc_everyMonth": "каждый месяц",
+    "sch_desc_everyNDay": "каждый %s день",
+    "sch_desc_everyNHours": "каждый %s часов",
+    "sch_desc_everyNMinutes": "каждые %s минут",
+    "sch_desc_everyNMonths": "каждые %s месяцев",
+    "sch_desc_everyNWeeks": "каждые %s недель",
+    "sch_desc_everyNYears": "каждые %s лет",
+    "sch_desc_everyWeek": "каждую неделю",
+    "sch_desc_everyYear": "каждый год",
+    "sch_desc_intervalFromTo": "от %s до %s",
+    "sch_desc_never": "никогда",
+    "sch_desc_onDate": "%s %s",
+    "sch_desc_onDates": "%s и %s",
+    "sch_desc_onEveryDate": "в каждый день",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s и %s",
+    "sch_desc_onWeekday": "%s",
+    "sch_desc_onWeekdays": "%s и %s",
+    "sch_desc_onWeekends": "на выходных",
+    "sch_desc_onWorkdays": "в рабочие дни",
+    "sch_desc_onceInPast": "не будет больше выполняться, потому что начало в прошлом",
+    "sch_desc_once_on": "%s",
+    "sch_desc_validFrom": "%s",
+    "sch_desc_validFromTo": "Выполнить с",
+    "sch_desc_validTo": "%s",
+    "sch_every": "каждый",
+    "sch_exactTime": "Конкретное время",
+    "sch_from": "от",
+    "sch_fromTo": "От и до",
+    "sch_intervalTime": "Интервал времени",
+    "sch_invert": "инвертировать",
+    "sch_no_one": "никакой",
+    "sch_on": "на",
+    "sch_period": "период",
+    "sch_periodDaily": "Ежедневно",
+    "sch_periodDates": "Даты",
+    "sch_periodDay": "День",
+    "sch_periodEvery": "каждый",
+    "sch_periodEveryDay": "Каждый день",
+    "sch_periodEveryMonth": "Каждый месяц",
+    "sch_periodEveryWeek": "Каждую неделю",
+    "sch_periodEveryYear": "Каждый год",
+    "sch_periodHours": "часов",
+    "sch_periodMinutes": "минут",
+    "sch_periodMonth": "месяц",
+    "sch_periodMonthly": "ежемесячно",
+    "sch_periodOnce": "однажды",
+    "sch_periodSpecificMonths": "Конкретные месяцы",
+    "sch_periodWeek": "Неделю",
+    "sch_periodWeekdays": "Будние дни",
+    "sch_periodWeekend": "выходные",
+    "sch_periodWeekly": "еженедельно",
+    "sch_periodWorkdays": "Рабочие дни",
+    "sch_periodYear": "Год",
+    "sch_periodYearly": "каждый год",
+    "sch_specificTime": "Конкретное время",
+    "sch_time": "Время",
+    "sch_to": "в",
+    "sch_valid": "действительный",
+    "sch_validFrom": "от",
+    "sch_validTo": "в",
+    "sch_wholeDay": "Весь день",
+    "sch_yearEveryMonth": "каждый месяц",
+    "ra_Define schedule...": "Определить расписание ...",
+    "ra_Repeat": "Повторение",
+    "ra_use seconds": "секунды",
+    "ra_close": "Закрыть",
+    "ra_months_Sep": "Сен",
+    "ra_months_Oct": "Окт",
+    "ra_months_Nov": "Ноя",
+    "ra_months_Mar": "Март",
+    "ra_months_Mai": "Май",
+    "ra_months_Jun": "Июль",
+    "ra_months_Jul": "Июнь",
+    "ra_months_Jan": "Янв",
+    "ra_months_Feb": "Фев",
+    "ra_months_Dec": "Дек",
+    "ra_months_Aug": "Авг",
+    "ra_months_Apr": "Апр",
+    "ra_Toggle the states view": "Переключить режим просмотра состояний",
+    "ra_Add new child object to selected parent": "Добавить новый дочерний объект к выбранному родительскому объекту",
+    "ra_Add objects tree from JSON file": "Добавить дерево объектов из файла JSON",
+    "ra_Save objects tree as JSON file": "Сохранить дерево объектов как файл JSON",
+    "ra_Objects": "Объекты",
+    "ra_States": "Состояния",
+    "ra_object_changed_by_user": "Последний раз объект изменен в",
+    "ra_object_changed_by": "Объект изменен",
+    "ra_state_changed_from": "Объект изменен с",
+    "ra_state_changed_by": "Состояние изменено",
+    "ra_aclOwner_read_object": "Владелец может читать объект",
+    "ra_aclOwner_read_state": "Владелец может читать состояние",
+    "ra_aclOwner_write_object": "Владелец может писать объект",
+    "ra_aclOwner_write_state": "Владелец может писать состояние",
+    "ra_aclGroup_read_object": "Группа может читать объект",
+    "ra_aclGroup_read_state": "Группа может читать состояние",
+    "ra_aclGroup_write_object": "Группа может писать объект",
+    "ra_aclGroup_write_state": "Группа может записывать состояние",
+    "ra_aclEveryone_read_object": "Каждый может читать объект",
+    "ra_aclEveryone_read_state": "Каждый может читать состояние",
+    "ra_aclEveryone_write_object": "Каждый может написать объект",
+    "ra_aclEveryone_write_state": "Каждый может написать состояние",
+    "ra_Folders always first": "Папки всегда на первом месте",
+    "ra_changedFrom": "Изменено с",
+    "ra_qualityCode": "Код качества",
+    "ra_timestamp": "Отметка времени",
+    "ra_lastChange": "Последнее изменение",
+    "ra_Owner group": "Группа владельцев",
+    "ra_Owner user": "Пользователь-владелец",
+    "ra_Create": "Создать",
+    "ra_Changed from": "Изменено",
+    "ra_Quality code": "Валидность",
+    "ra_Timestamp": "Времени",
+    "ra_Last change": "Последнее изменение",
+    "ra_Collapse all nodes": "Свернуть все узлы",
+    "ra_Edit custom config": "Редактировать настраиваемую конфигурацию",
+    "ra_Collapse one step node": "Свернуть один уровень",
+    "ra_Expand one step node": "Открыть один уровень",
+    "ra_Refresh tree": "Обновить дерево",
+    "ra_Expand all nodes": "Развернуть все узлы"
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/pt.json":[function(require,module,exports) {
 module.exports = {
-  "ra_filter_func": "Função",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "Nome",
-  "ra_filter_role": "Papel (Função)",
-  "ra_filter_room": "Quarto",
-  "ra_tooltip_ack": "Confirmado",
-  "ra_tooltip_from": "De",
-  "ra_tooltip_lc": "Última alteração",
-  "ra_tooltip_quality": "Qualidade",
-  "ra_tooltip_ts": "Timestamp",
-  "ra_tooltip_user": "Usuário",
-  "ra_tooltip_value": "Valor",
-  "ra_Are you sure?": "Você tem certeza?",
-  "ra_Cancel": "Cancelar",
-  "ra_Copied": "Copiado",
-  "ra_Copied %s": "%s copiado",
-  "ra_Define functions": "Definir funções",
-  "ra_Define rooms": "Definir quartos",
-  "ra_Error": "Erro",
-  "ra_Message": "mensagem",
-  "ra_Ok": "Está bem",
-  "ra_Please select object ID...": "Selecione o ID do objeto ...",
-  "ra_Selected": "Selecionado",
-  "ra_Unknown error!": "Erro desconhecido!",
-  "ra_Value": "Valor",
-  "ra_filter_type": "Tipo",
-  "ra_invalidConfig": "Configurações inválidas",
-  "ra_otherConfig": "Configurações de outro adaptador %s",
-  "ra_tooltip_copyState": "Copie o valor do estado",
-  "ra_tooltip_customConfig": "Opções customizadas",
-  "ra_tooltip_deleteObject": "Excluir objeto",
-  "ra_tooltip_editObject": "Editar objeto",
-  "ra_tooltip_editState": "Edite o valor do estado",
-  "ra_filter_customs": "Configurações",
-  "ra_Listen on all IPs": "Ouça em todos os IPs",
-  "ra_dow_Fr": "Fr",
-  "ra_dow_Mo": "Mo",
-  "ra_dow_Sa": "Sa",
-  "ra_dow_Su": "Su",
-  "ra_dow_Th": "º",
-  "ra_Save": "Salve ",
-  "ra_Save and close": "Salvar e fechar",
-  "ra_Close": "Perto",
-  "ra_Auto (no custom columns)": "Auto (sem colunas personalizadas)",
-  "ra_Transparent dialog": "Diálogo transparente",
-  "ra_Width": "Largura",
-  "ra_val": "Valor",
-  "ra_buttons": "Botões",
-  "ra_Configure visible columns": "Configurar colunas visíveis",
-  "ra_Cannot update attribute, because not found in the object": "Não é possível atualizar o atributo, porque não foi encontrado no objeto",
-  "ra_Edit object field": "Editar campo de objeto",
-  "ra_Hide empty folders": "Esconder pastas vazias",
-  "ra_Reload files": "Recarregar arquivos",
-  "ra_Create folder": "Criar pasta",
-  "ra_Upload file": "Subir arquivo",
-  "ra_User files": "Arquivos do usuário",
-  "ra_Confirm deletion of %s": "Confirme a exclusão de %s",
-  "ra_Delete (no confirm for 5 mins)": "Excluir (sem confirmação por 5 minutos)",
-  "ra_Delete": "Excluir",
-  "ra_Toggle expert mode": "Alternar modo especialista",
-  "ra_Toggle view mode": "Alternar modo de visualização",
-  "re_Root": "Raiz",
-  "re_Back to %s": "Voltar para %s",
-  "ra_Place your files here or click here to open the browse dialog": "Coloque seus arquivos aqui ou clique aqui para abrir a janela de navegação",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "Se nenhum arquivo for criado na pasta, ele desaparecerá depois que o navegador for fechado",
-  "ra_Folder name": "Nome da pasta",
-  "ra_Create new folder in %s": "Crie uma nova pasta em %s",
-  "ra_Duplicate name": "Nome duplicado",
-  "ra_Invalid parent folder!": "Pasta pai inválida!",
-  "ra_Drop file here": "Solte o arquivo aqui",
-  "ra_Suppress question for next %s minutes": "Suprimir pergunta nos próximos %s minutos",
-  "ra_Clear filter": "Filtro limpo",
-  "ra_Update": "Atualizar",
-  "ra_Load configuration from file": "Carregar configuração do arquivo",
-  "ra_Save configuration to file": "Salvar configuração em arquivo",
-  "sc_cron": "CRON",
-  "sc_date": "Data",
-  "sc_dates": "Dias",
-  "sc_dows": "Dia da semana",
-  "sc_every": "todos",
-  "sc_everyN_dates": "a cada N dias",
-  "sc_everyN_dows": "todos os N dias da semana",
-  "sc_everyN_hours": "a cada N horas",
-  "sc_everyN_minutes": "a cada N minutos",
-  "sc_everyN_months": "a cada N meses",
-  "sc_everyN_seconds": "a cada N segundos",
-  "sc_every_dates": "todo dia",
-  "sc_every_dows": "todos os dias da semana",
-  "sc_every_hours": "toda hora",
-  "sc_every_minutes": "todo minuto",
-  "sc_every_months": "todo mês",
-  "sc_every_seconds": "todo segundo",
-  "sc_from": "de",
-  "sc_hours": "horas",
-  "sc_interval": "intervalo",
-  "sc_intervalBetween": "intervalo entre",
-  "sc_minutes": "minutos",
-  "sc_months": "meses",
-  "sc_once": "uma vez",
-  "sc_period": "período",
-  "sc_seconds": "segundos",
-  "sc_simple": "simples",
-  "sc_specific": "tempo específico",
-  "sc_specific_dates": "datas específicas",
-  "sc_specific_dows": "dia específico de semanas",
-  "sc_specific_hours": "horas específicas",
-  "sc_specific_minutes": "minutos específicos",
-  "sc_specific_months": "meses específicos",
-  "sc_specific_seconds": "segundos específicos",
-  "sc_time": "tempo",
-  "sc_to": "para",
-  "sc_wizard": "assistente",
-  "sch_all": "tudo",
-  "sch_astroDay": "dia astral",
-  "sch_astroNight": "noite astral",
-  "sch_astro_dawn": "amanhecer",
-  "sch_astro_dusk": "anoitecer",
-  "sch_astro_goldenHour": "hora dourada",
-  "sch_astro_goldenHourEnd": "Fim da hora dourada",
-  "sch_astro_nadir": "nadir",
-  "sch_astro_nauticalDawn": "Amanhecer náutico",
-  "sch_astro_nauticalDusk": "Anoitecer náutico",
-  "sch_astro_night": "noite",
-  "sch_astro_nightEnd": "fim da noite",
-  "sch_astro_solarNoon": "meio-dia solar",
-  "sch_astro_sunrise": "nascer do sol",
-  "sch_astro_sunriseEnd": "fim do nascer do sol",
-  "sch_astro_sunset": "pôr do sol",
-  "sch_astro_sunsetStart": "início do pôr do sol",
-  "sch_at": "às",
-  "sch_desc_atTime": "em %s",
-  "sch_desc_everyDay": "todo dia",
-  "sch_desc_everyHour": "toda hora",
-  "sch_desc_everyMinute": "todo minuto",
-  "sch_desc_everyMonth": "todo mês",
-  "sch_desc_everyNDay": "a cada %s dias",
-  "sch_desc_everyNHours": "a cada %s horas",
-  "sch_desc_everyNMinutes": "a cada %s minutos",
-  "sch_desc_everyNMonths": "a cada %s meses",
-  "sch_desc_everyNWeeks": "a cada %s semanas",
-  "sch_desc_everyNYears": "a cada %s anos",
-  "sch_desc_everyWeek": "toda semana",
-  "sch_desc_everyYear": "todo ano",
-  "sch_desc_intervalFromTo": "de %s para %s",
-  "sch_desc_never": "nunca",
-  "sch_desc_onDate": "em %s de %s",
-  "sch_desc_onDates": "em %s e %s de",
-  "sch_desc_onEveryDate": "em toda data de",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s e %s",
-  "sch_desc_onWeekday": "em %s",
-  "sch_desc_onWeekdays": "em %s e %s",
-  "sch_desc_onWeekends": "nos fins de semana",
-  "sch_desc_onWorkdays": "em dias úteis",
-  "sch_desc_onceInPast": "não será mais executado, porque o começo está no passado",
-  "sch_desc_once_on": "em %s",
-  "sch_desc_validFrom": "de %s",
-  "sch_desc_validFromTo": "Executar de até",
-  "sch_desc_validTo": "até %s",
-  "sch_every": "cada",
-  "sch_exactTime": "tempo específico",
-  "sch_from": "de",
-  "sch_fromTo": "de a´t",
-  "sch_intervalTime": "tempo de intervalo",
-  "sch_invert": "invertido",
-  "sch_no_one": "nenhum",
-  "sch_on": "em",
-  "sch_period": "período",
-  "sch_periodDaily": "diariamente",
-  "sch_periodDates": "datas",
-  "sch_periodDay": "dia",
-  "sch_periodEvery": "todos",
-  "sch_periodEveryDay": "todo dia",
-  "sch_periodEveryMonth": "todo mês",
-  "sch_periodEveryWeek": "toda semana",
-  "sch_periodEveryYear": "todo ano",
-  "sch_periodHours": "horas",
-  "sch_periodMinutes": "minutos",
-  "sch_periodMonth": "mês",
-  "sch_periodMonthly": "por mês",
-  "sch_periodOnce": "uma vez",
-  "sch_periodSpecificMonths": "meses específicos",
-  "sch_periodWeek": "semana",
-  "sch_periodWeekdays": "dias úteis",
-  "sch_periodWeekend": "final de semana",
-  "sch_periodWeekly": "semanal",
-  "sch_periodWorkdays": "dias úteis",
-  "sch_periodYear": "ano",
-  "sch_periodYearly": "anual",
-  "sch_specificTime": "tempo específico",
-  "sch_time": "tempo",
-  "sch_to": "para",
-  "sch_valid": "válido",
-  "sch_validFrom": "de",
-  "sch_validTo": "para",
-  "sch_wholeDay": "dia inteiro",
-  "sch_yearEveryMonth": "todo mês",
-  "ra_Define schedule...": "Definir programação ...",
-  "ra_Repeat": "Repita",
-  "ra_use seconds": "use segundos",
-  "ra_close": "fechar",
-  "ra_dow_Tu": "Tu",
-  "ra_Toggle the states view": "Alternar a visualização dos estados",
-  "ra_Add new child object to selected parent": "Adicionar novo objeto filho ao pai selecionado",
-  "ra_Add objects tree from JSON file": "Adicionar árvore de objetos do arquivo JSON",
-  "ra_Save objects tree as JSON file": "Salvar árvore de objetos como arquivo JSON",
-  "ra_Objects": "Objetos",
-  "ra_States": "Estados",
-  "ra_object_changed_by_user": "Objeto alterado pela última vez em",
-  "ra_object_changed_by": "Objeto alterado por",
-  "ra_state_changed_from": "Objeto alterado de",
-  "ra_state_changed_by": "Estado alterado por",
-  "ra_aclOwner_read_object": "O proprietário pode ler o objeto",
-  "ra_aclOwner_read_state": "O proprietário pode ler o estado",
-  "ra_aclOwner_write_object": "O proprietário pode escrever o objeto",
-  "ra_aclOwner_write_state": "O proprietário pode escrever o estado",
-  "ra_aclGroup_read_object": "O grupo pode ler o objeto",
-  "ra_aclGroup_read_state": "O grupo pode ler o estado",
-  "ra_aclGroup_write_object": "O grupo pode escrever o objeto",
-  "ra_aclGroup_write_state": "O grupo pode escrever o estado",
-  "ra_aclEveryone_read_object": "Todos podem ler objetos",
-  "ra_aclEveryone_read_state": "Todos podem ler o estado",
-  "ra_aclEveryone_write_object": "Todos podem escrever objetos",
-  "ra_aclEveryone_write_state": "Todos podem escrever o estado",
-  "ra_Folders always first": "Pastas sempre primeiro",
-  "ra_changedFrom": "Mudou de",
-  "ra_qualityCode": "Código de qualidade",
-  "ra_timestamp": "Timestamp",
-  "ra_lastChange": "Última mudança",
-  "ra_Owner group": "Grupo proprietário",
-  "ra_Owner user": "Usuário proprietário",
-  "ra_Create": "Crio",
-  "ra_Changed from": "Mudou de",
-  "ra_Quality code": "Qualidade",
-  "ra_Timestamp": "Timestamp",
-  "ra_Last change": "Última mudança",
-  "ra_Collapse all nodes": "Recolher todos os nós",
-  "ra_Edit custom config": "Editar configuração personalizada",
-  "ra_Collapse one step node": "Recolher um nível",
-  "ra_Expand one step node": "Expanda um nível",
-  "ra_Refresh tree": "Atualizar árvore"
-};
+    "ra_filter_func": "Função",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "Nome",
+    "ra_filter_role": "Papel (Função)",
+    "ra_filter_room": "Quarto",
+    "ra_tooltip_ack": "Confirmado",
+    "ra_tooltip_from": "De",
+    "ra_tooltip_lc": "Última alteração",
+    "ra_tooltip_quality": "Qualidade",
+    "ra_tooltip_ts": "Timestamp",
+    "ra_tooltip_user": "Usuário",
+    "ra_tooltip_value": "Valor",
+    "ra_Are you sure?": "Você tem certeza?",
+    "ra_Cancel": "Cancelar",
+    "ra_Copied": "Copiado",
+    "ra_Copied %s": "%s copiado",
+    "ra_Define functions": "Definir funções",
+    "ra_Define rooms": "Definir quartos",
+    "ra_Error": "Erro",
+    "ra_Message": "mensagem",
+    "ra_Ok": "Está bem",
+    "ra_Please select object ID...": "Selecione o ID do objeto ...",
+    "ra_Selected": "Selecionado",
+    "ra_Unknown error!": "Erro desconhecido!",
+    "ra_Value": "Valor",
+    "ra_filter_type": "Tipo",
+    "ra_invalidConfig": "Configurações inválidas",
+    "ra_otherConfig": "Configurações de outro adaptador %s",
+    "ra_tooltip_copyState": "Copie o valor do estado",
+    "ra_tooltip_customConfig": "Opções customizadas",
+    "ra_tooltip_deleteObject": "Excluir objeto",
+    "ra_tooltip_editObject": "Editar objeto",
+    "ra_tooltip_editState": "Edite o valor do estado",
+    "ra_filter_customs": "Configurações",
+    "ra_Listen on all IPs": "Ouça em todos os IPs",
+    "ra_dow_Fr": "Fr",
+    "ra_dow_Mo": "Mo",
+    "ra_dow_Sa": "Sa",
+    "ra_dow_Su": "Su",
+    "ra_dow_Th": "º",
+    "ra_Save": "Salve ",
+    "ra_Save and close": "Salvar e fechar",
+    "ra_Close": "Perto",
+    "ra_Auto (no custom columns)": "Auto (sem colunas personalizadas)",
+    "ra_Transparent dialog": "Diálogo transparente",
+    "ra_Width": "Largura",
+    "ra_val": "Valor",
+    "ra_buttons": "Botões",
+    "ra_Configure visible columns": "Configurar colunas visíveis",
+    "ra_Cannot update attribute, because not found in the object": "Não é possível atualizar o atributo, porque não foi encontrado no objeto",
+    "ra_Edit object field": "Editar campo de objeto",
+    "ra_Hide empty folders": "Esconder pastas vazias",
+    "ra_Reload files": "Recarregar arquivos",
+    "ra_Create folder": "Criar pasta",
+    "ra_Upload file": "Subir arquivo",
+    "ra_User files": "Arquivos do usuário",
+    "ra_Confirm deletion of %s": "Confirme a exclusão de %s",
+    "ra_Delete (no confirm for 5 mins)": "Excluir (sem confirmação por 5 minutos)",
+    "ra_Delete": "Excluir",
+    "ra_Toggle expert mode": "Alternar modo especialista",
+    "ra_Toggle view mode": "Alternar modo de visualização",
+    "re_Root": "Raiz",
+    "re_Back to %s": "Voltar para %s",
+    "ra_Place your files here or click here to open the browse dialog": "Coloque seus arquivos aqui ou clique aqui para abrir a janela de navegação",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Se nenhum arquivo for criado na pasta, ele desaparecerá depois que o navegador for fechado",
+    "ra_Folder name": "Nome da pasta",
+    "ra_Create new folder in %s": "Crie uma nova pasta em %s",
+    "ra_Duplicate name": "Nome duplicado",
+    "ra_Invalid parent folder!": "Pasta pai inválida!",
+    "ra_Drop file here": "Solte o arquivo aqui",
+    "ra_Suppress question for next %s minutes": "Suprimir pergunta nos próximos %s minutos",
+    "ra_Clear filter": "Filtro limpo",
+    "ra_Update": "Atualizar",
+    "ra_Load configuration from file": "Carregar configuração do arquivo",
+    "ra_Save configuration to file": "Salvar configuração em arquivo",
+    "sc_cron": "CRON",
+    "sc_date": "Data",
+    "sc_dates": "Dias",
+    "sc_dows": "Dia da semana",
+    "sc_every": "todos",
+    "sc_everyN_dates": "a cada N dias",
+    "sc_everyN_dows": "todos os N dias da semana",
+    "sc_everyN_hours": "a cada N horas",
+    "sc_everyN_minutes": "a cada N minutos",
+    "sc_everyN_months": "a cada N meses",
+    "sc_everyN_seconds": "a cada N segundos",
+    "sc_every_dates": "todo dia",
+    "sc_every_dows": "todos os dias da semana",
+    "sc_every_hours": "toda hora",
+    "sc_every_minutes": "todo minuto",
+    "sc_every_months": "todo mês",
+    "sc_every_seconds": "todo segundo",
+    "sc_from": "de",
+    "sc_hours": "horas",
+    "sc_interval": "intervalo",
+    "sc_intervalBetween": "intervalo entre",
+    "sc_minutes": "minutos",
+    "sc_months": "meses",
+    "sc_once": "uma vez",
+    "sc_period": "período",
+    "sc_seconds": "segundos",
+    "sc_simple": "simples",
+    "sc_specific": "tempo específico",
+    "sc_specific_dates": "datas específicas",
+    "sc_specific_dows": "dia específico de semanas",
+    "sc_specific_hours": "horas específicas",
+    "sc_specific_minutes": "minutos específicos",
+    "sc_specific_months": "meses específicos",
+    "sc_specific_seconds": "segundos específicos",
+    "sc_time": "tempo",
+    "sc_to": "para",
+    "sc_wizard": "assistente",
+    "sch_all": "tudo",
+    "sch_astroDay": "dia astral",
+    "sch_astroNight": "noite astral",
+    "sch_astro_dawn": "amanhecer",
+    "sch_astro_dusk": "anoitecer",
+    "sch_astro_goldenHour": "hora dourada",
+    "sch_astro_goldenHourEnd": "Fim da hora dourada",
+    "sch_astro_nadir": "nadir",
+    "sch_astro_nauticalDawn": "Amanhecer náutico",
+    "sch_astro_nauticalDusk": "Anoitecer náutico",
+    "sch_astro_night": "noite",
+    "sch_astro_nightEnd": "fim da noite",
+    "sch_astro_solarNoon": "meio-dia solar",
+    "sch_astro_sunrise": "nascer do sol",
+    "sch_astro_sunriseEnd": "fim do nascer do sol",
+    "sch_astro_sunset": "pôr do sol",
+    "sch_astro_sunsetStart": "início do pôr do sol",
+    "sch_at": "às",
+    "sch_desc_atTime": "em %s",
+    "sch_desc_everyDay": "todo dia",
+    "sch_desc_everyHour": "toda hora",
+    "sch_desc_everyMinute": "todo minuto",
+    "sch_desc_everyMonth": "todo mês",
+    "sch_desc_everyNDay": "a cada %s dias",
+    "sch_desc_everyNHours": "a cada %s horas",
+    "sch_desc_everyNMinutes": "a cada %s minutos",
+    "sch_desc_everyNMonths": "a cada %s meses",
+    "sch_desc_everyNWeeks": "a cada %s semanas",
+    "sch_desc_everyNYears": "a cada %s anos",
+    "sch_desc_everyWeek": "toda semana",
+    "sch_desc_everyYear": "todo ano",
+    "sch_desc_intervalFromTo": "de %s para %s",
+    "sch_desc_never": "nunca",
+    "sch_desc_onDate": "em %s de %s",
+    "sch_desc_onDates": "em %s e %s de",
+    "sch_desc_onEveryDate": "em toda data de",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s e %s",
+    "sch_desc_onWeekday": "em %s",
+    "sch_desc_onWeekdays": "em %s e %s",
+    "sch_desc_onWeekends": "nos fins de semana",
+    "sch_desc_onWorkdays": "em dias úteis",
+    "sch_desc_onceInPast": "não será mais executado, porque o começo está no passado",
+    "sch_desc_once_on": "em %s",
+    "sch_desc_validFrom": "de %s",
+    "sch_desc_validFromTo": "Executar de até",
+    "sch_desc_validTo": "até %s",
+    "sch_every": "cada",
+    "sch_exactTime": "tempo específico",
+    "sch_from": "de",
+    "sch_fromTo": "de a´t",
+    "sch_intervalTime": "tempo de intervalo",
+    "sch_invert": "invertido",
+    "sch_no_one": "nenhum",
+    "sch_on": "em",
+    "sch_period": "período",
+    "sch_periodDaily": "diariamente",
+    "sch_periodDates": "datas",
+    "sch_periodDay": "dia",
+    "sch_periodEvery": "todos",
+    "sch_periodEveryDay": "todo dia",
+    "sch_periodEveryMonth": "todo mês",
+    "sch_periodEveryWeek": "toda semana",
+    "sch_periodEveryYear": "todo ano",
+    "sch_periodHours": "horas",
+    "sch_periodMinutes": "minutos",
+    "sch_periodMonth": "mês",
+    "sch_periodMonthly": "por mês",
+    "sch_periodOnce": "uma vez",
+    "sch_periodSpecificMonths": "meses específicos",
+    "sch_periodWeek": "semana",
+    "sch_periodWeekdays": "dias úteis",
+    "sch_periodWeekend": "final de semana",
+    "sch_periodWeekly": "semanal",
+    "sch_periodWorkdays": "dias úteis",
+    "sch_periodYear": "ano",
+    "sch_periodYearly": "anual",
+    "sch_specificTime": "tempo específico",
+    "sch_time": "tempo",
+    "sch_to": "para",
+    "sch_valid": "válido",
+    "sch_validFrom": "de",
+    "sch_validTo": "para",
+    "sch_wholeDay": "dia inteiro",
+    "sch_yearEveryMonth": "todo mês",
+    "ra_Define schedule...": "Definir programação ...",
+    "ra_Repeat": "Repita",
+    "ra_use seconds": "use segundos",
+    "ra_close": "fechar",
+    "ra_dow_Tu": "Tu",
+    "ra_Toggle the states view": "Alternar a visualização dos estados",
+    "ra_Add new child object to selected parent": "Adicionar novo objeto filho ao pai selecionado",
+    "ra_Add objects tree from JSON file": "Adicionar árvore de objetos do arquivo JSON",
+    "ra_Save objects tree as JSON file": "Salvar árvore de objetos como arquivo JSON",
+    "ra_Objects": "Objetos",
+    "ra_States": "Estados",
+    "ra_object_changed_by_user": "Objeto alterado pela última vez em",
+    "ra_object_changed_by": "Objeto alterado por",
+    "ra_state_changed_from": "Objeto alterado de",
+    "ra_state_changed_by": "Estado alterado por",
+    "ra_aclOwner_read_object": "O proprietário pode ler o objeto",
+    "ra_aclOwner_read_state": "O proprietário pode ler o estado",
+    "ra_aclOwner_write_object": "O proprietário pode escrever o objeto",
+    "ra_aclOwner_write_state": "O proprietário pode escrever o estado",
+    "ra_aclGroup_read_object": "O grupo pode ler o objeto",
+    "ra_aclGroup_read_state": "O grupo pode ler o estado",
+    "ra_aclGroup_write_object": "O grupo pode escrever o objeto",
+    "ra_aclGroup_write_state": "O grupo pode escrever o estado",
+    "ra_aclEveryone_read_object": "Todos podem ler objetos",
+    "ra_aclEveryone_read_state": "Todos podem ler o estado",
+    "ra_aclEveryone_write_object": "Todos podem escrever objetos",
+    "ra_aclEveryone_write_state": "Todos podem escrever o estado",
+    "ra_Folders always first": "Pastas sempre primeiro",
+    "ra_changedFrom": "Mudou de",
+    "ra_qualityCode": "Código de qualidade",
+    "ra_timestamp": "Timestamp",
+    "ra_lastChange": "Última mudança",
+    "ra_Owner group": "Grupo proprietário",
+    "ra_Owner user": "Usuário proprietário",
+    "ra_Create": "Crio",
+    "ra_Changed from": "Mudou de",
+    "ra_Quality code": "Qualidade",
+    "ra_Timestamp": "Timestamp",
+    "ra_Last change": "Última mudança",
+    "ra_Collapse all nodes": "Recolher todos os nós",
+    "ra_Edit custom config": "Editar configuração personalizada",
+    "ra_Collapse one step node": "Recolher um nível",
+    "ra_Expand one step node": "Expanda um nível",
+    "ra_Refresh tree": "Atualizar árvore",
+    "ra_Expand all nodes": "Expanda todos os nós"
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/nl.json":[function(require,module,exports) {
 module.exports = {
-  "ra_filter_func": "Functie",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "Naam",
-  "ra_filter_role": "Rol",
-  "ra_filter_room": "Kamer",
-  "ra_tooltip_ack": "Erkende vlag",
-  "ra_tooltip_from": "Van",
-  "ra_tooltip_lc": "Laatst gewijzigd",
-  "ra_tooltip_ts": "Tijdstempel",
-  "ra_tooltip_user": "Gebruiker",
-  "ra_tooltip_value": "Waarde",
-  "ra_Are you sure?": "Weet je het zeker?",
-  "ra_Cancel": "Annuleer",
-  "ra_Copied": "Gekopieerd",
-  "ra_Copied %s": "%s gekopieerd",
-  "ra_Define functions": "Definieer functies",
-  "ra_Define rooms": "Definieer kamers",
-  "ra_Error": "Fout",
-  "ra_Message": "Bericht",
-  "ra_Ok": "OK",
-  "ra_Please select object ID...": "Selecteer object-ID ...",
-  "ra_Selected": "Geselecteerd",
-  "ra_Unknown error!": "Onbekende fout!",
-  "ra_Value": "Waarde",
-  "ra_filter_type": "Type",
-  "ra_invalidConfig": "Ongeldige instellingen",
-  "ra_otherConfig": "Instellingen van andere adapter %s",
-  "ra_tooltip_copyState": "Kopieer de statuswaarde",
-  "ra_tooltip_customConfig": "Aangepaste instellingen",
-  "ra_tooltip_deleteObject": "Object verwijderen",
-  "ra_tooltip_editObject": "Object bewerken",
-  "ra_tooltip_editState": "Bewerk de statuswaarde",
-  "ra_filter_customs": "Instellingen",
-  "ra_tooltip_quality": "Kwaliteit",
-  "ra_Listen on all IPs": "Luister op alle IP's",
-  "ra_dow_Fr": "Fr",
-  "ra_dow_Mo": "Mo",
-  "ra_dow_Sa": "Za",
-  "ra_dow_Su": "Zo",
-  "ra_dow_Th": "Th",
-  "ra_Save": "Sparen",
-  "ra_Save and close": "Opslaan en afsluiten",
-  "ra_Close": "Dichtbij",
-  "ra_Auto (no custom columns)": "Auto (geen aangepaste kolommen)",
-  "ra_Transparent dialog": "Transparant dialoogvenster",
-  "ra_Width": "Breedte",
-  "ra_val": "Waarde",
-  "ra_buttons": "Toetsen",
-  "ra_Configure visible columns": "Configureer zichtbare kolommen",
-  "ra_Cannot update attribute, because not found in the object": "Kan kenmerk niet bijwerken, omdat het niet in het object is gevonden",
-  "ra_Edit object field": "Bewerk objectveld",
-  "ra_Hide empty folders": "Verberg lege mappen",
-  "ra_Reload files": "Laad bestanden opnieuw",
-  "ra_Create folder": "Map aanmaken",
-  "ra_Upload file": "Upload bestand",
-  "ra_User files": "Gebruikersbestanden",
-  "ra_Confirm deletion of %s": "Bevestig het verwijderen van %s",
-  "ra_Delete (no confirm for 5 mins)": "Verwijderen (geen bevestiging gedurende 5 minuten)",
-  "ra_Delete": "Verwijderen",
-  "ra_Toggle expert mode": "Schakel tussen expertmodus",
-  "ra_Toggle view mode": "Schakelen tussen weergavemodus",
-  "re_Root": "Wortel",
-  "re_Back to %s": "Terug naar %s",
-  "ra_Place your files here or click here to open the browse dialog": "Plaats uw bestanden hier of klik hier om het bladervenster te openen",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "Als er geen bestand in de map wordt gemaakt, verdwijnt het nadat de browser is gesloten",
-  "ra_Folder name": "Naam van de map",
-  "ra_Create new folder in %s": "Maak een nieuwe map in %s",
-  "ra_Duplicate name": "Dubbele naam",
-  "ra_Invalid parent folder!": "Ongeldige bovenliggende map!",
-  "ra_Drop file here": "Zet het bestand hier neer",
-  "ra_Suppress question for next %s minutes": "Vraag de volgende %s minuten onderdrukken",
-  "ra_Clear filter": "Filter wissen",
-  "ra_Update": "Bijwerken",
-  "ra_Load configuration from file": "Laad configuratie uit bestand",
-  "ra_Save configuration to file": "Sla de configuratie op in een bestand",
-  "sc_cron": "CRON",
-  "sc_date": "Datum",
-  "sc_dates": "data",
-  "sc_dows": "Dag van de week",
-  "sc_every": "elk",
-  "sc_everyN_dates": "elke N dagen",
-  "sc_everyN_dows": "elke N dag van de week",
-  "sc_everyN_hours": "elke N uur",
-  "sc_everyN_minutes": "elke N minuten",
-  "sc_everyN_months": "elke N maanden",
-  "sc_everyN_seconds": "elke N seconden",
-  "sc_every_dates": "elke dag",
-  "sc_every_dows": "elke dag van de week",
-  "sc_every_hours": "elk uur",
-  "sc_every_minutes": "elke minuut",
-  "sc_every_months": "elke maand",
-  "sc_every_seconds": "elke seconde",
-  "sc_from": "Van",
-  "sc_hours": "uren",
-  "sc_interval": "Interval",
-  "sc_intervalBetween": "Interval tussen",
-  "sc_minutes": "Notulen",
-  "sc_months": "maanden",
-  "sc_once": "Een keer",
-  "sc_period": "Periode",
-  "sc_seconds": "seconden",
-  "sc_simple": "Gemakkelijk",
-  "sc_specific": "Specifieke tijd",
-  "sc_specific_dates": "specifieke data",
-  "sc_specific_dows": "specifieke dag van weken",
-  "sc_specific_hours": "specifieke uren",
-  "sc_specific_minutes": "specifieke minuten",
-  "sc_specific_months": "specifieke maanden",
-  "sc_specific_seconds": "specifieke seconden",
-  "sc_time": "Tijd",
-  "sc_to": "Naar",
-  "sc_wizard": "tovenaar",
-  "sch_all": "allemaal",
-  "sch_astroDay": "Astro-dag",
-  "sch_astroNight": "Astro-nacht",
-  "sch_astro_dawn": "Dageraad",
-  "sch_astro_dusk": "Schemer",
-  "sch_astro_goldenHour": "gouden uur",
-  "sch_astro_goldenHourEnd": "Gouden uur einde",
-  "sch_astro_nadir": "Nadir",
-  "sch_astro_nauticalDawn": "Nautische dageraad",
-  "sch_astro_nauticalDusk": "Nautische schemering",
-  "sch_astro_night": "Nacht",
-  "sch_astro_nightEnd": "Nacht einde",
-  "sch_astro_solarNoon": "Zonne middag",
-  "sch_astro_sunrise": "zonsopkomst",
-  "sch_astro_sunriseEnd": "Sunrise einde",
-  "sch_astro_sunset": "Zonsondergang",
-  "sch_astro_sunsetStart": "Zonsondergang start",
-  "sch_at": "Bij",
-  "sch_desc_atTime": "op %s",
-  "sch_desc_everyDay": "elke dag",
-  "sch_desc_everyHour": "elk uur",
-  "sch_desc_everyMinute": "elke minuut",
-  "sch_desc_everyMonth": "elke maand",
-  "sch_desc_everyNDay": "elke %s dag",
-  "sch_desc_everyNHours": "elke %s uur",
-  "sch_desc_everyNMinutes": "elke %s minuten",
-  "sch_desc_everyNMonths": "elke %s maanden",
-  "sch_desc_everyNWeeks": "elke %s weken",
-  "sch_desc_everyNYears": "elke %s jaar",
-  "sch_desc_everyWeek": "elke week",
-  "sch_desc_everyYear": "elk jaar",
-  "sch_desc_intervalFromTo": "van %s tot %s",
-  "sch_desc_never": "nooit",
-  "sch_desc_onDate": "op %s van %s",
-  "sch_desc_onDates": "op %s en %s van",
-  "sch_desc_onEveryDate": "op elke datum van",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s en %s",
-  "sch_desc_onWeekday": "op %s",
-  "sch_desc_onWeekdays": "op %s en %s",
-  "sch_desc_onWeekends": "in het weekend",
-  "sch_desc_onWorkdays": "op werkdagen",
-  "sch_desc_onceInPast": "zal niet meer worden uitgevoerd, omdat start verleden tijd is",
-  "sch_desc_once_on": "op %s",
-  "sch_desc_validFrom": "van %s",
-  "sch_desc_validFromTo": "Uitvoeren van tot",
-  "sch_desc_validTo": "tot %s",
-  "sch_every": "elk",
-  "sch_exactTime": "Specifieke tijd",
-  "sch_from": "van",
-  "sch_fromTo": "Van naar",
-  "sch_intervalTime": "Interval tijd",
-  "sch_invert": "omkeren",
-  "sch_no_one": "geen",
-  "sch_on": "Aan",
-  "sch_period": "Periode",
-  "sch_periodDaily": "Dagelijks",
-  "sch_periodDates": "data",
-  "sch_periodDay": "Dag",
-  "sch_periodEvery": "elk",
-  "sch_periodEveryDay": "Elke dag",
-  "sch_periodEveryMonth": "Elke maand",
-  "sch_periodEveryWeek": "Elke week",
-  "sch_periodEveryYear": "Elk jaar",
-  "sch_periodHours": "uren",
-  "sch_periodMinutes": "Notulen",
-  "sch_periodMonth": "maand",
-  "sch_periodMonthly": "Maandelijks",
-  "sch_periodOnce": "Een keer",
-  "sch_periodSpecificMonths": "Specifieke maanden",
-  "sch_periodWeek": "Week",
-  "sch_periodWeekdays": "Doordeweekse dagen",
-  "sch_periodWeekend": "Weekend",
-  "sch_periodWeekly": "Wekelijks",
-  "sch_periodWorkdays": "werkdagen",
-  "sch_periodYear": "Jaar",
-  "sch_periodYearly": "jaar-",
-  "sch_specificTime": "Specifieke tijd",
-  "sch_time": "Tijd",
-  "sch_to": "naar",
-  "sch_valid": "Geldig",
-  "sch_validFrom": "van",
-  "sch_validTo": "naar",
-  "sch_wholeDay": "Hele dag",
-  "sch_yearEveryMonth": "elke maand",
-  "ra_Define schedule...": "Schema definiëren ...",
-  "ra_Repeat": "Herhaling",
-  "ra_use seconds": "gebruik seconden",
-  "ra_close": "dichtbij",
-  "ra_dow_Tu": "Tu",
-  "ra_Toggle the states view": "Schakel de statusweergave in of uit",
-  "ra_Add new child object to selected parent": "Voeg een nieuw kindobject toe aan het geselecteerde bovenliggende object",
-  "ra_Add objects tree from JSON file": "Objectenboom toevoegen vanuit JSON-bestand",
-  "ra_Save objects tree as JSON file": "Sla de objectenboom op als JSON-bestand",
-  "ra_Objects": "Voorwerpen",
-  "ra_States": "Staten",
-  "ra_object_changed_by_user": "Object voor het laatst gewijzigd om",
-  "ra_object_changed_by": "Object veranderd door",
-  "ra_state_changed_from": "Object veranderd van",
-  "ra_state_changed_by": "Staat veranderd door",
-  "ra_aclOwner_read_object": "Eigenaar kan object lezen",
-  "ra_aclOwner_read_state": "Eigenaar kan staat lezen",
-  "ra_aclOwner_write_object": "Eigenaar kan object schrijven",
-  "ra_aclOwner_write_state": "Eigenaar kan staat schrijven",
-  "ra_aclGroup_read_object": "Groep kan object lezen",
-  "ra_aclGroup_read_state": "Groep kan status lezen",
-  "ra_aclGroup_write_object": "Groep kan object schrijven",
-  "ra_aclGroup_write_state": "Groep kan staat schrijven",
-  "ra_aclEveryone_read_object": "Iedereen kan object lezen",
-  "ra_aclEveryone_read_state": "Iedereen kan staat lezen",
-  "ra_aclEveryone_write_object": "Iedereen kan object schrijven",
-  "ra_aclEveryone_write_state": "Iedereen kan staat schrijven",
-  "ra_Folders always first": "Mappen altijd eerst",
-  "ra_changedFrom": "Veranderd van",
-  "ra_qualityCode": "Kwaliteitscode",
-  "ra_timestamp": "Tijdstempel",
-  "ra_lastChange": "Laatste wijziging",
-  "ra_Owner group": "Eigenaarsgroep",
-  "ra_Owner user": "Eigenaar gebruiker",
-  "ra_Create": "Creëer",
-  "ra_Changed from": "Veranderd van",
-  "ra_Quality code": "Kwaliteit",
-  "ra_Timestamp": "Tijdstempel",
-  "ra_Last change": "Laatste wijziging",
-  "ra_Collapse all nodes": "Vouw alle knooppunten samen",
-  "ra_Edit custom config": "Bewerk aangepaste config",
-  "ra_Collapse one step node": "Eén niveau samenvouwen",
-  "ra_Expand one step node": "Vouw een niveau uit",
-  "ra_Refresh tree": "Vernieuw de boom"
-};
+    "ra_filter_func": "Functie",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "Naam",
+    "ra_filter_role": "Rol",
+    "ra_filter_room": "Kamer",
+    "ra_tooltip_ack": "Erkende vlag",
+    "ra_tooltip_from": "Van",
+    "ra_tooltip_lc": "Laatst gewijzigd",
+    "ra_tooltip_ts": "Tijdstempel",
+    "ra_tooltip_user": "Gebruiker",
+    "ra_tooltip_value": "Waarde",
+    "ra_Are you sure?": "Weet je het zeker?",
+    "ra_Cancel": "Annuleer",
+    "ra_Copied": "Gekopieerd",
+    "ra_Copied %s": "%s gekopieerd",
+    "ra_Define functions": "Definieer functies",
+    "ra_Define rooms": "Definieer kamers",
+    "ra_Error": "Fout",
+    "ra_Message": "Bericht",
+    "ra_Ok": "OK",
+    "ra_Please select object ID...": "Selecteer object-ID ...",
+    "ra_Selected": "Geselecteerd",
+    "ra_Unknown error!": "Onbekende fout!",
+    "ra_Value": "Waarde",
+    "ra_filter_type": "Type",
+    "ra_invalidConfig": "Ongeldige instellingen",
+    "ra_otherConfig": "Instellingen van andere adapter %s",
+    "ra_tooltip_copyState": "Kopieer de statuswaarde",
+    "ra_tooltip_customConfig": "Aangepaste instellingen",
+    "ra_tooltip_deleteObject": "Object verwijderen",
+    "ra_tooltip_editObject": "Object bewerken",
+    "ra_tooltip_editState": "Bewerk de statuswaarde",
+    "ra_filter_customs": "Instellingen",
+    "ra_tooltip_quality": "Kwaliteit",
+    "ra_Listen on all IPs": "Luister op alle IP's",
+    "ra_dow_Fr": "Fr",
+    "ra_dow_Mo": "Mo",
+    "ra_dow_Sa": "Za",
+    "ra_dow_Su": "Zo",
+    "ra_dow_Th": "Th",
+    "ra_Save": "Sparen",
+    "ra_Save and close": "Opslaan en afsluiten",
+    "ra_Close": "Dichtbij",
+    "ra_Auto (no custom columns)": "Auto (geen aangepaste kolommen)",
+    "ra_Transparent dialog": "Transparant dialoogvenster",
+    "ra_Width": "Breedte",
+    "ra_val": "Waarde",
+    "ra_buttons": "Toetsen",
+    "ra_Configure visible columns": "Configureer zichtbare kolommen",
+    "ra_Cannot update attribute, because not found in the object": "Kan kenmerk niet bijwerken, omdat het niet in het object is gevonden",
+    "ra_Edit object field": "Bewerk objectveld",
+    "ra_Hide empty folders": "Verberg lege mappen",
+    "ra_Reload files": "Laad bestanden opnieuw",
+    "ra_Create folder": "Map aanmaken",
+    "ra_Upload file": "Upload bestand",
+    "ra_User files": "Gebruikersbestanden",
+    "ra_Confirm deletion of %s": "Bevestig het verwijderen van %s",
+    "ra_Delete (no confirm for 5 mins)": "Verwijderen (geen bevestiging gedurende 5 minuten)",
+    "ra_Delete": "Verwijderen",
+    "ra_Toggle expert mode": "Schakel tussen expertmodus",
+    "ra_Toggle view mode": "Schakelen tussen weergavemodus",
+    "re_Root": "Wortel",
+    "re_Back to %s": "Terug naar %s",
+    "ra_Place your files here or click here to open the browse dialog": "Plaats uw bestanden hier of klik hier om het bladervenster te openen",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Als er geen bestand in de map wordt gemaakt, verdwijnt het nadat de browser is gesloten",
+    "ra_Folder name": "Naam van de map",
+    "ra_Create new folder in %s": "Maak een nieuwe map in %s",
+    "ra_Duplicate name": "Dubbele naam",
+    "ra_Invalid parent folder!": "Ongeldige bovenliggende map!",
+    "ra_Drop file here": "Zet het bestand hier neer",
+    "ra_Suppress question for next %s minutes": "Vraag de volgende %s minuten onderdrukken",
+    "ra_Clear filter": "Filter wissen",
+    "ra_Update": "Bijwerken",
+    "ra_Load configuration from file": "Laad configuratie uit bestand",
+    "ra_Save configuration to file": "Sla de configuratie op in een bestand",
+    "sc_cron": "CRON",
+    "sc_date": "Datum",
+    "sc_dates": "data",
+    "sc_dows": "Dag van de week",
+    "sc_every": "elk",
+    "sc_everyN_dates": "elke N dagen",
+    "sc_everyN_dows": "elke N dag van de week",
+    "sc_everyN_hours": "elke N uur",
+    "sc_everyN_minutes": "elke N minuten",
+    "sc_everyN_months": "elke N maanden",
+    "sc_everyN_seconds": "elke N seconden",
+    "sc_every_dates": "elke dag",
+    "sc_every_dows": "elke dag van de week",
+    "sc_every_hours": "elk uur",
+    "sc_every_minutes": "elke minuut",
+    "sc_every_months": "elke maand",
+    "sc_every_seconds": "elke seconde",
+    "sc_from": "Van",
+    "sc_hours": "uren",
+    "sc_interval": "Interval",
+    "sc_intervalBetween": "Interval tussen",
+    "sc_minutes": "Notulen",
+    "sc_months": "maanden",
+    "sc_once": "Een keer",
+    "sc_period": "Periode",
+    "sc_seconds": "seconden",
+    "sc_simple": "Gemakkelijk",
+    "sc_specific": "Specifieke tijd",
+    "sc_specific_dates": "specifieke data",
+    "sc_specific_dows": "specifieke dag van weken",
+    "sc_specific_hours": "specifieke uren",
+    "sc_specific_minutes": "specifieke minuten",
+    "sc_specific_months": "specifieke maanden",
+    "sc_specific_seconds": "specifieke seconden",
+    "sc_time": "Tijd",
+    "sc_to": "Naar",
+    "sc_wizard": "tovenaar",
+    "sch_all": "allemaal",
+    "sch_astroDay": "Astro-dag",
+    "sch_astroNight": "Astro-nacht",
+    "sch_astro_dawn": "Dageraad",
+    "sch_astro_dusk": "Schemer",
+    "sch_astro_goldenHour": "gouden uur",
+    "sch_astro_goldenHourEnd": "Gouden uur einde",
+    "sch_astro_nadir": "Nadir",
+    "sch_astro_nauticalDawn": "Nautische dageraad",
+    "sch_astro_nauticalDusk": "Nautische schemering",
+    "sch_astro_night": "Nacht",
+    "sch_astro_nightEnd": "Nacht einde",
+    "sch_astro_solarNoon": "Zonne middag",
+    "sch_astro_sunrise": "zonsopkomst",
+    "sch_astro_sunriseEnd": "Sunrise einde",
+    "sch_astro_sunset": "Zonsondergang",
+    "sch_astro_sunsetStart": "Zonsondergang start",
+    "sch_at": "Bij",
+    "sch_desc_atTime": "op %s",
+    "sch_desc_everyDay": "elke dag",
+    "sch_desc_everyHour": "elk uur",
+    "sch_desc_everyMinute": "elke minuut",
+    "sch_desc_everyMonth": "elke maand",
+    "sch_desc_everyNDay": "elke %s dag",
+    "sch_desc_everyNHours": "elke %s uur",
+    "sch_desc_everyNMinutes": "elke %s minuten",
+    "sch_desc_everyNMonths": "elke %s maanden",
+    "sch_desc_everyNWeeks": "elke %s weken",
+    "sch_desc_everyNYears": "elke %s jaar",
+    "sch_desc_everyWeek": "elke week",
+    "sch_desc_everyYear": "elk jaar",
+    "sch_desc_intervalFromTo": "van %s tot %s",
+    "sch_desc_never": "nooit",
+    "sch_desc_onDate": "op %s van %s",
+    "sch_desc_onDates": "op %s en %s van",
+    "sch_desc_onEveryDate": "op elke datum van",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s en %s",
+    "sch_desc_onWeekday": "op %s",
+    "sch_desc_onWeekdays": "op %s en %s",
+    "sch_desc_onWeekends": "in het weekend",
+    "sch_desc_onWorkdays": "op werkdagen",
+    "sch_desc_onceInPast": "zal niet meer worden uitgevoerd, omdat start verleden tijd is",
+    "sch_desc_once_on": "op %s",
+    "sch_desc_validFrom": "van %s",
+    "sch_desc_validFromTo": "Uitvoeren van tot",
+    "sch_desc_validTo": "tot %s",
+    "sch_every": "elk",
+    "sch_exactTime": "Specifieke tijd",
+    "sch_from": "van",
+    "sch_fromTo": "Van naar",
+    "sch_intervalTime": "Interval tijd",
+    "sch_invert": "omkeren",
+    "sch_no_one": "geen",
+    "sch_on": "Aan",
+    "sch_period": "Periode",
+    "sch_periodDaily": "Dagelijks",
+    "sch_periodDates": "data",
+    "sch_periodDay": "Dag",
+    "sch_periodEvery": "elk",
+    "sch_periodEveryDay": "Elke dag",
+    "sch_periodEveryMonth": "Elke maand",
+    "sch_periodEveryWeek": "Elke week",
+    "sch_periodEveryYear": "Elk jaar",
+    "sch_periodHours": "uren",
+    "sch_periodMinutes": "Notulen",
+    "sch_periodMonth": "maand",
+    "sch_periodMonthly": "Maandelijks",
+    "sch_periodOnce": "Een keer",
+    "sch_periodSpecificMonths": "Specifieke maanden",
+    "sch_periodWeek": "Week",
+    "sch_periodWeekdays": "Doordeweekse dagen",
+    "sch_periodWeekend": "Weekend",
+    "sch_periodWeekly": "Wekelijks",
+    "sch_periodWorkdays": "werkdagen",
+    "sch_periodYear": "Jaar",
+    "sch_periodYearly": "jaar-",
+    "sch_specificTime": "Specifieke tijd",
+    "sch_time": "Tijd",
+    "sch_to": "naar",
+    "sch_valid": "Geldig",
+    "sch_validFrom": "van",
+    "sch_validTo": "naar",
+    "sch_wholeDay": "Hele dag",
+    "sch_yearEveryMonth": "elke maand",
+    "ra_Define schedule...": "Schema definiëren ...",
+    "ra_Repeat": "Herhaling",
+    "ra_use seconds": "gebruik seconden",
+    "ra_close": "dichtbij",
+    "ra_dow_Tu": "Tu",
+    "ra_Toggle the states view": "Schakel de statusweergave in of uit",
+    "ra_Add new child object to selected parent": "Voeg een nieuw kindobject toe aan het geselecteerde bovenliggende object",
+    "ra_Add objects tree from JSON file": "Objectenboom toevoegen vanuit JSON-bestand",
+    "ra_Save objects tree as JSON file": "Sla de objectenboom op als JSON-bestand",
+    "ra_Objects": "Voorwerpen",
+    "ra_States": "Staten",
+    "ra_object_changed_by_user": "Object voor het laatst gewijzigd om",
+    "ra_object_changed_by": "Object veranderd door",
+    "ra_state_changed_from": "Object veranderd van",
+    "ra_state_changed_by": "Staat veranderd door",
+    "ra_aclOwner_read_object": "Eigenaar kan object lezen",
+    "ra_aclOwner_read_state": "Eigenaar kan staat lezen",
+    "ra_aclOwner_write_object": "Eigenaar kan object schrijven",
+    "ra_aclOwner_write_state": "Eigenaar kan staat schrijven",
+    "ra_aclGroup_read_object": "Groep kan object lezen",
+    "ra_aclGroup_read_state": "Groep kan status lezen",
+    "ra_aclGroup_write_object": "Groep kan object schrijven",
+    "ra_aclGroup_write_state": "Groep kan staat schrijven",
+    "ra_aclEveryone_read_object": "Iedereen kan object lezen",
+    "ra_aclEveryone_read_state": "Iedereen kan staat lezen",
+    "ra_aclEveryone_write_object": "Iedereen kan object schrijven",
+    "ra_aclEveryone_write_state": "Iedereen kan staat schrijven",
+    "ra_Folders always first": "Mappen altijd eerst",
+    "ra_changedFrom": "Veranderd van",
+    "ra_qualityCode": "Kwaliteitscode",
+    "ra_timestamp": "Tijdstempel",
+    "ra_lastChange": "Laatste wijziging",
+    "ra_Owner group": "Eigenaarsgroep",
+    "ra_Owner user": "Eigenaar gebruiker",
+    "ra_Create": "Creëer",
+    "ra_Changed from": "Veranderd van",
+    "ra_Quality code": "Kwaliteit",
+    "ra_Timestamp": "Tijdstempel",
+    "ra_Last change": "Laatste wijziging",
+    "ra_Collapse all nodes": "Vouw alle knooppunten samen",
+    "ra_Edit custom config": "Bewerk aangepaste config",
+    "ra_Collapse one step node": "Eén niveau samenvouwen",
+    "ra_Expand one step node": "Vouw een niveau uit",
+    "ra_Refresh tree": "Vernieuw de boom",
+    "ra_Expand all nodes": "Vouw alle knooppunten uit"
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/fr.json":[function(require,module,exports) {
 module.exports = {
-  "ra_filter_func": "Une fonction",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "Prénom",
-  "ra_filter_role": "Rôle",
-  "ra_filter_room": "Pièce",
-  "ra_tooltip_ack": "Drapeau reconnu",
-  "ra_tooltip_from": "De",
-  "ra_tooltip_lc": "Dernière modification",
-  "ra_tooltip_quality": "Qualité",
-  "ra_tooltip_ts": "Horodatage",
-  "ra_tooltip_user": "Utilisateur",
-  "ra_tooltip_value": "Valeur",
-  "ra_Are you sure?": "Êtes-vous sûr?",
-  "ra_Cancel": "Annuler",
-  "ra_Copied": "Copié",
-  "ra_Copied %s": "%s copié",
-  "ra_Define functions": "Définir des fonctions",
-  "ra_Define rooms": "Définir des pièces",
-  "ra_Error": "Erreur",
-  "ra_Message": "Message",
-  "ra_Ok": "D'accord",
-  "ra_Please select object ID...": "Veuillez sélectionner l'ID d'objet ...",
-  "ra_Selected": "Choisi",
-  "ra_Unknown error!": "Erreur inconnue!",
-  "ra_Value": "Valeur",
-  "ra_filter_type": "Type",
-  "ra_invalidConfig": "Paramètres invalides",
-  "ra_otherConfig": "Paramètres d'un autre adaptateur %s",
-  "ra_tooltip_copyState": "Copiez la valeur d'état",
-  "ra_tooltip_customConfig": "Paramètres personnalisés",
-  "ra_tooltip_deleteObject": "Supprimer un objet",
-  "ra_tooltip_editObject": "Modifier l'objet",
-  "ra_tooltip_editState": "Modifier la valeur d'état",
-  "ra_filter_customs": "Paramètres",
-  "ra_Listen on all IPs": "Écoutez sur toutes les adresses IP",
-  "ra_dow_Fr": "Fr",
-  "ra_dow_Mo": "Mo",
-  "ra_dow_Sa": "Sa",
-  "ra_dow_Su": "Su",
-  "ra_dow_Th": "Th",
-  "ra_Save": "sauver",
-  "ra_Save and close": "Sauver et fermer",
-  "ra_Close": "Fermer",
-  "ra_Auto (no custom columns)": "Auto (pas de colonnes personnalisées)",
-  "ra_Transparent dialog": "Dialogue transparent",
-  "ra_Width": "Largeur",
-  "ra_val": "Valeur",
-  "ra_buttons": "Boutons",
-  "ra_Configure visible columns": "Configurer les colonnes visibles",
-  "ra_Cannot update attribute, because not found in the object": "Impossible de mettre à jour l'attribut, car il est introuvable dans l'objet",
-  "ra_Edit object field": "Modifier le champ d'objet",
-  "ra_Hide empty folders": "Masquer les dossiers vides",
-  "ra_Reload files": "Recharger les fichiers",
-  "ra_Create folder": "Créer le dossier",
-  "ra_Upload file": "Téléverser un fichier",
-  "ra_User files": "Fichiers utilisateurs",
-  "ra_Confirm deletion of %s": "Confirmer la suppression de %s",
-  "ra_Delete (no confirm for 5 mins)": "Supprimer (pas de confirmation pendant 5 minutes)",
-  "ra_Delete": "Supprimer",
-  "ra_Toggle expert mode": "Basculer en mode expert",
-  "ra_Toggle view mode": "Basculer le mode d'affichage",
-  "re_Root": "Racine",
-  "re_Back to %s": "Retour à %s",
-  "ra_Place your files here or click here to open the browse dialog": "Placez vos fichiers ici ou cliquez ici pour ouvrir la boîte de dialogue de navigation",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "Si aucun fichier ne sera créé dans le dossier, il disparaîtra après la fermeture du navigateur",
-  "ra_Folder name": "Nom de dossier",
-  "ra_Create new folder in %s": "Créer un nouveau dossier dans %s",
-  "ra_Duplicate name": "Nom en double",
-  "ra_Invalid parent folder!": "Dossier parent non valide!",
-  "ra_Drop file here": "Déposer le fichier ici",
-  "ra_Suppress question for next %s minutes": "Supprimer la question pour les %s prochaines minutes",
-  "ra_Clear filter": "Effacer le filtre",
-  "ra_Update": "Mise à jour",
-  "ra_Load configuration from file": "Charger la configuration à partir du fichier",
-  "ra_Save configuration to file": "Enregistrer la configuration dans un fichier",
-  "sc_cron": "CRON",
-  "sc_date": "Date",
-  "sc_dates": "Rendez-vous",
-  "sc_dows": "Jour de la semaine",
-  "sc_every": "Chaque",
-  "sc_everyN_dates": "tous les N jours",
-  "sc_everyN_dows": "tous les N jours de la semaine",
-  "sc_everyN_hours": "toutes les N heures",
-  "sc_everyN_minutes": "toutes les N minutes",
-  "sc_everyN_months": "tous les N mois",
-  "sc_everyN_seconds": "toutes les N secondes",
-  "sc_every_dates": "tous les jours",
-  "sc_every_dows": "Chaque jour de la semaine",
-  "sc_every_hours": "Toutes les heures",
-  "sc_every_minutes": "chaque minute",
-  "sc_every_months": "chaque mois",
-  "sc_every_seconds": "chaque seconde",
-  "sc_from": "De",
-  "sc_hours": "Heures",
-  "sc_interval": "Intervalle",
-  "sc_intervalBetween": "Intervalle entre",
-  "sc_minutes": "Minutes",
-  "sc_months": "mois",
-  "sc_once": "Une fois que",
-  "sc_period": "Période",
-  "sc_seconds": "Secondes",
-  "sc_simple": "Facile",
-  "sc_specific": "Temps spécifique",
-  "sc_specific_dates": "dates spécifiques",
-  "sc_specific_dows": "jour spécifique de semaines",
-  "sc_specific_hours": "heures spécifiques",
-  "sc_specific_minutes": "minutes spécifiques",
-  "sc_specific_months": "mois spécifiques",
-  "sc_specific_seconds": "secondes spécifiques",
-  "sc_time": "Temps",
-  "sc_to": "À",
-  "sc_wizard": "sorcier",
-  "sch_all": "tout",
-  "sch_astroDay": "Journée astronomique",
-  "sch_astroNight": "Nuit astronomique",
-  "sch_astro_dawn": "Aube",
-  "sch_astro_dusk": "Crépuscule",
-  "sch_astro_goldenHour": "Heure d'or",
-  "sch_astro_goldenHourEnd": "Fin de l'heure d'or",
-  "sch_astro_nadir": "Nadir",
-  "sch_astro_nauticalDawn": "Aube nautique",
-  "sch_astro_nauticalDusk": "Crépuscule nautique",
-  "sch_astro_night": "Nuit",
-  "sch_astro_nightEnd": "Fin de nuit",
-  "sch_astro_solarNoon": "Midi solaire",
-  "sch_astro_sunrise": "lever du soleil",
-  "sch_astro_sunriseEnd": "Fin du lever du soleil",
-  "sch_astro_sunset": "Le coucher du soleil",
-  "sch_astro_sunsetStart": "Coucher du soleil",
-  "sch_at": "à",
-  "sch_desc_atTime": "à %s",
-  "sch_desc_everyDay": "tous les jours",
-  "sch_desc_everyHour": "Toutes les heures",
-  "sch_desc_everyMinute": "chaque minute",
-  "sch_desc_everyMonth": "chaque mois",
-  "sch_desc_everyNDay": "chaque %s jour",
-  "sch_desc_everyNHours": "chaque %s heures",
-  "sch_desc_everyNMinutes": "toutes les %s minutes",
-  "sch_desc_everyNMonths": "tous les %s mois",
-  "sch_desc_everyNWeeks": "chaque %s semaines",
-  "sch_desc_everyNYears": "tous les %s ans",
-  "sch_desc_everyWeek": "toutes les semaines",
-  "sch_desc_everyYear": "chaque année",
-  "sch_desc_intervalFromTo": "de %s à %s",
-  "sch_desc_never": "jamais",
-  "sch_desc_onDate": "sur %s de %s",
-  "sch_desc_onDates": "sur %s et %s de",
-  "sch_desc_onEveryDate": "à chaque date de",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s et %s",
-  "sch_desc_onWeekday": "sur %s",
-  "sch_desc_onWeekdays": "sur %s et %s",
-  "sch_desc_onWeekends": "les weekends",
-  "sch_desc_onWorkdays": "les jours ouvrables",
-  "sch_desc_onceInPast": "ne sera plus exécuté, car start est dans le passé",
-  "sch_desc_once_on": "sur %s",
-  "sch_desc_validFrom": "de %s",
-  "sch_desc_validFromTo": "Exécuter de à",
-  "sch_desc_validTo": "à %s",
-  "sch_every": "chaque",
-  "sch_exactTime": "Temps spécifique",
-  "sch_from": "de",
-  "sch_fromTo": "De à",
-  "sch_intervalTime": "Temps d'interval",
-  "sch_invert": "inverser",
-  "sch_no_one": "aucun",
-  "sch_on": "sur",
-  "sch_period": "Période",
-  "sch_periodDaily": "du quotidien",
-  "sch_periodDates": "Rendez-vous",
-  "sch_periodDay": "journée",
-  "sch_periodEvery": "Chaque",
-  "sch_periodEveryDay": "Tous les jours",
-  "sch_periodEveryMonth": "Chaque mois",
-  "sch_periodEveryWeek": "Toutes les semaines",
-  "sch_periodEveryYear": "Chaque année",
-  "sch_periodHours": "Heures",
-  "sch_periodMinutes": "Minutes",
-  "sch_periodMonth": "mois",
-  "sch_periodMonthly": "Mensuel",
-  "sch_periodOnce": "Une fois que",
-  "sch_periodSpecificMonths": "Mois spécifiques",
-  "sch_periodWeek": "La semaine",
-  "sch_periodWeekdays": "Jours de la semaine",
-  "sch_periodWeekend": "Weekend",
-  "sch_periodWeekly": "Hebdomadaire",
-  "sch_periodWorkdays": "Jours ouvrables",
-  "sch_periodYear": "Année",
-  "sch_periodYearly": "Annuel",
-  "sch_specificTime": "Temps spécifique",
-  "sch_time": "Temps",
-  "sch_to": "à",
-  "sch_valid": "Valide",
-  "sch_validFrom": "de",
-  "sch_validTo": "à",
-  "sch_wholeDay": "Toute la journée",
-  "sch_yearEveryMonth": "chaque mois",
-  "ra_Define schedule...": "Définir le calendrier ...",
-  "ra_Repeat": "Répéter",
-  "ra_use seconds": "utiliser les secondes",
-  "ra_close": "Fermer",
-  "ra_dow_Tu": "Tu",
-  "ra_Toggle the states view": "Basculer la vue des états",
-  "ra_Add new child object to selected parent": "Ajouter un nouvel objet enfant au parent sélectionné",
-  "ra_Add objects tree from JSON file": "Ajouter une arborescence d'objets à partir d'un fichier JSON",
-  "ra_Save objects tree as JSON file": "Enregistrer l'arborescence des objets en tant que fichier JSON",
-  "ra_Objects": "Objets",
-  "ra_States": "États",
-  "ra_object_changed_by_user": "Objet modifié pour la dernière fois à",
-  "ra_object_changed_by": "Objet modifié par",
-  "ra_state_changed_from": "Objet changé de",
-  "ra_state_changed_by": "État modifié par",
-  "ra_aclOwner_read_object": "Le propriétaire peut lire l'objet",
-  "ra_aclOwner_read_state": "Le propriétaire peut lire l'état",
-  "ra_aclOwner_write_object": "Le propriétaire peut écrire un objet",
-  "ra_aclOwner_write_state": "Le propriétaire peut écrire l'état",
-  "ra_aclGroup_read_object": "Le groupe peut lire l'objet",
-  "ra_aclGroup_read_state": "Le groupe peut lire l'état",
-  "ra_aclGroup_write_object": "Le groupe peut écrire un objet",
-  "ra_aclGroup_write_state": "Le groupe peut écrire l'état",
-  "ra_aclEveryone_read_object": "Tout le monde peut lire un objet",
-  "ra_aclEveryone_read_state": "Tout le monde peut lire l'état",
-  "ra_aclEveryone_write_object": "Tout le monde peut écrire un objet",
-  "ra_aclEveryone_write_state": "Tout le monde peut écrire l'état",
-  "ra_Folders always first": "Les dossiers toujours en premier",
-  "ra_changedFrom": "Changé de",
-  "ra_qualityCode": "Code de qualité",
-  "ra_timestamp": "Horodatage",
-  "ra_lastChange": "Dernier changement",
-  "ra_Owner group": "Groupe propriétaire",
-  "ra_Owner user": "Utilisateur propriétaire",
-  "ra_Create": "Créer",
-  "ra_Changed from": "Changé de",
-  "ra_Quality code": "Qualité",
-  "ra_Timestamp": "Horodatage",
-  "ra_Last change": "Dernier changement",
-  "ra_Collapse all nodes": "Réduire tous les nœuds",
-  "ra_Edit custom config": "Modifier la configuration personnalisée",
-  "ra_Collapse one step node": "Réduire d'un niveau",
-  "ra_Expand one step node": "Développer un niveau",
-  "ra_Refresh tree": "Rafraîchir l'arborescence"
-};
+    "ra_filter_func": "Une fonction",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "Prénom",
+    "ra_filter_role": "Rôle",
+    "ra_filter_room": "Pièce",
+    "ra_tooltip_ack": "Drapeau reconnu",
+    "ra_tooltip_from": "De",
+    "ra_tooltip_lc": "Dernière modification",
+    "ra_tooltip_quality": "Qualité",
+    "ra_tooltip_ts": "Horodatage",
+    "ra_tooltip_user": "Utilisateur",
+    "ra_tooltip_value": "Valeur",
+    "ra_Are you sure?": "Êtes-vous sûr?",
+    "ra_Cancel": "Annuler",
+    "ra_Copied": "Copié",
+    "ra_Copied %s": "%s copié",
+    "ra_Define functions": "Définir des fonctions",
+    "ra_Define rooms": "Définir des pièces",
+    "ra_Error": "Erreur",
+    "ra_Message": "Message",
+    "ra_Ok": "D'accord",
+    "ra_Please select object ID...": "Veuillez sélectionner l'ID d'objet ...",
+    "ra_Selected": "Choisi",
+    "ra_Unknown error!": "Erreur inconnue!",
+    "ra_Value": "Valeur",
+    "ra_filter_type": "Type",
+    "ra_invalidConfig": "Paramètres invalides",
+    "ra_otherConfig": "Paramètres d'un autre adaptateur %s",
+    "ra_tooltip_copyState": "Copiez la valeur d'état",
+    "ra_tooltip_customConfig": "Paramètres personnalisés",
+    "ra_tooltip_deleteObject": "Supprimer un objet",
+    "ra_tooltip_editObject": "Modifier l'objet",
+    "ra_tooltip_editState": "Modifier la valeur d'état",
+    "ra_filter_customs": "Paramètres",
+    "ra_Listen on all IPs": "Écoutez sur toutes les adresses IP",
+    "ra_dow_Fr": "Fr",
+    "ra_dow_Mo": "Mo",
+    "ra_dow_Sa": "Sa",
+    "ra_dow_Su": "Su",
+    "ra_dow_Th": "Th",
+    "ra_Save": "sauver",
+    "ra_Save and close": "Sauver et fermer",
+    "ra_Close": "Fermer",
+    "ra_Auto (no custom columns)": "Auto (pas de colonnes personnalisées)",
+    "ra_Transparent dialog": "Dialogue transparent",
+    "ra_Width": "Largeur",
+    "ra_val": "Valeur",
+    "ra_buttons": "Boutons",
+    "ra_Configure visible columns": "Configurer les colonnes visibles",
+    "ra_Cannot update attribute, because not found in the object": "Impossible de mettre à jour l'attribut, car il est introuvable dans l'objet",
+    "ra_Edit object field": "Modifier le champ d'objet",
+    "ra_Hide empty folders": "Masquer les dossiers vides",
+    "ra_Reload files": "Recharger les fichiers",
+    "ra_Create folder": "Créer le dossier",
+    "ra_Upload file": "Téléverser un fichier",
+    "ra_User files": "Fichiers utilisateurs",
+    "ra_Confirm deletion of %s": "Confirmer la suppression de %s",
+    "ra_Delete (no confirm for 5 mins)": "Supprimer (pas de confirmation pendant 5 minutes)",
+    "ra_Delete": "Supprimer",
+    "ra_Toggle expert mode": "Basculer en mode expert",
+    "ra_Toggle view mode": "Basculer le mode d'affichage",
+    "re_Root": "Racine",
+    "re_Back to %s": "Retour à %s",
+    "ra_Place your files here or click here to open the browse dialog": "Placez vos fichiers ici ou cliquez ici pour ouvrir la boîte de dialogue de navigation",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Si aucun fichier ne sera créé dans le dossier, il disparaîtra après la fermeture du navigateur",
+    "ra_Folder name": "Nom de dossier",
+    "ra_Create new folder in %s": "Créer un nouveau dossier dans %s",
+    "ra_Duplicate name": "Nom en double",
+    "ra_Invalid parent folder!": "Dossier parent non valide!",
+    "ra_Drop file here": "Déposer le fichier ici",
+    "ra_Suppress question for next %s minutes": "Supprimer la question pour les %s prochaines minutes",
+    "ra_Clear filter": "Effacer le filtre",
+    "ra_Update": "Mise à jour",
+    "ra_Load configuration from file": "Charger la configuration à partir du fichier",
+    "ra_Save configuration to file": "Enregistrer la configuration dans un fichier",
+    "sc_cron": "CRON",
+    "sc_date": "Date",
+    "sc_dates": "Rendez-vous",
+    "sc_dows": "Jour de la semaine",
+    "sc_every": "Chaque",
+    "sc_everyN_dates": "tous les N jours",
+    "sc_everyN_dows": "tous les N jours de la semaine",
+    "sc_everyN_hours": "toutes les N heures",
+    "sc_everyN_minutes": "toutes les N minutes",
+    "sc_everyN_months": "tous les N mois",
+    "sc_everyN_seconds": "toutes les N secondes",
+    "sc_every_dates": "tous les jours",
+    "sc_every_dows": "Chaque jour de la semaine",
+    "sc_every_hours": "Toutes les heures",
+    "sc_every_minutes": "chaque minute",
+    "sc_every_months": "chaque mois",
+    "sc_every_seconds": "chaque seconde",
+    "sc_from": "De",
+    "sc_hours": "Heures",
+    "sc_interval": "Intervalle",
+    "sc_intervalBetween": "Intervalle entre",
+    "sc_minutes": "Minutes",
+    "sc_months": "mois",
+    "sc_once": "Une fois que",
+    "sc_period": "Période",
+    "sc_seconds": "Secondes",
+    "sc_simple": "Facile",
+    "sc_specific": "Temps spécifique",
+    "sc_specific_dates": "dates spécifiques",
+    "sc_specific_dows": "jour spécifique de semaines",
+    "sc_specific_hours": "heures spécifiques",
+    "sc_specific_minutes": "minutes spécifiques",
+    "sc_specific_months": "mois spécifiques",
+    "sc_specific_seconds": "secondes spécifiques",
+    "sc_time": "Temps",
+    "sc_to": "À",
+    "sc_wizard": "sorcier",
+    "sch_all": "tout",
+    "sch_astroDay": "Journée astronomique",
+    "sch_astroNight": "Nuit astronomique",
+    "sch_astro_dawn": "Aube",
+    "sch_astro_dusk": "Crépuscule",
+    "sch_astro_goldenHour": "Heure d'or",
+    "sch_astro_goldenHourEnd": "Fin de l'heure d'or",
+    "sch_astro_nadir": "Nadir",
+    "sch_astro_nauticalDawn": "Aube nautique",
+    "sch_astro_nauticalDusk": "Crépuscule nautique",
+    "sch_astro_night": "Nuit",
+    "sch_astro_nightEnd": "Fin de nuit",
+    "sch_astro_solarNoon": "Midi solaire",
+    "sch_astro_sunrise": "lever du soleil",
+    "sch_astro_sunriseEnd": "Fin du lever du soleil",
+    "sch_astro_sunset": "Le coucher du soleil",
+    "sch_astro_sunsetStart": "Coucher du soleil",
+    "sch_at": "à",
+    "sch_desc_atTime": "à %s",
+    "sch_desc_everyDay": "tous les jours",
+    "sch_desc_everyHour": "Toutes les heures",
+    "sch_desc_everyMinute": "chaque minute",
+    "sch_desc_everyMonth": "chaque mois",
+    "sch_desc_everyNDay": "chaque %s jour",
+    "sch_desc_everyNHours": "chaque %s heures",
+    "sch_desc_everyNMinutes": "toutes les %s minutes",
+    "sch_desc_everyNMonths": "tous les %s mois",
+    "sch_desc_everyNWeeks": "chaque %s semaines",
+    "sch_desc_everyNYears": "tous les %s ans",
+    "sch_desc_everyWeek": "toutes les semaines",
+    "sch_desc_everyYear": "chaque année",
+    "sch_desc_intervalFromTo": "de %s à %s",
+    "sch_desc_never": "jamais",
+    "sch_desc_onDate": "sur %s de %s",
+    "sch_desc_onDates": "sur %s et %s de",
+    "sch_desc_onEveryDate": "à chaque date de",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s et %s",
+    "sch_desc_onWeekday": "sur %s",
+    "sch_desc_onWeekdays": "sur %s et %s",
+    "sch_desc_onWeekends": "les weekends",
+    "sch_desc_onWorkdays": "les jours ouvrables",
+    "sch_desc_onceInPast": "ne sera plus exécuté, car start est dans le passé",
+    "sch_desc_once_on": "sur %s",
+    "sch_desc_validFrom": "de %s",
+    "sch_desc_validFromTo": "Exécuter de à",
+    "sch_desc_validTo": "à %s",
+    "sch_every": "chaque",
+    "sch_exactTime": "Temps spécifique",
+    "sch_from": "de",
+    "sch_fromTo": "De à",
+    "sch_intervalTime": "Temps d'interval",
+    "sch_invert": "inverser",
+    "sch_no_one": "aucun",
+    "sch_on": "sur",
+    "sch_period": "Période",
+    "sch_periodDaily": "du quotidien",
+    "sch_periodDates": "Rendez-vous",
+    "sch_periodDay": "journée",
+    "sch_periodEvery": "Chaque",
+    "sch_periodEveryDay": "Tous les jours",
+    "sch_periodEveryMonth": "Chaque mois",
+    "sch_periodEveryWeek": "Toutes les semaines",
+    "sch_periodEveryYear": "Chaque année",
+    "sch_periodHours": "Heures",
+    "sch_periodMinutes": "Minutes",
+    "sch_periodMonth": "mois",
+    "sch_periodMonthly": "Mensuel",
+    "sch_periodOnce": "Une fois que",
+    "sch_periodSpecificMonths": "Mois spécifiques",
+    "sch_periodWeek": "La semaine",
+    "sch_periodWeekdays": "Jours de la semaine",
+    "sch_periodWeekend": "Weekend",
+    "sch_periodWeekly": "Hebdomadaire",
+    "sch_periodWorkdays": "Jours ouvrables",
+    "sch_periodYear": "Année",
+    "sch_periodYearly": "Annuel",
+    "sch_specificTime": "Temps spécifique",
+    "sch_time": "Temps",
+    "sch_to": "à",
+    "sch_valid": "Valide",
+    "sch_validFrom": "de",
+    "sch_validTo": "à",
+    "sch_wholeDay": "Toute la journée",
+    "sch_yearEveryMonth": "chaque mois",
+    "ra_Define schedule...": "Définir le calendrier ...",
+    "ra_Repeat": "Répéter",
+    "ra_use seconds": "utiliser les secondes",
+    "ra_close": "Fermer",
+    "ra_dow_Tu": "Tu",
+    "ra_Toggle the states view": "Basculer la vue des états",
+    "ra_Add new child object to selected parent": "Ajouter un nouvel objet enfant au parent sélectionné",
+    "ra_Add objects tree from JSON file": "Ajouter une arborescence d'objets à partir d'un fichier JSON",
+    "ra_Save objects tree as JSON file": "Enregistrer l'arborescence des objets en tant que fichier JSON",
+    "ra_Objects": "Objets",
+    "ra_States": "États",
+    "ra_object_changed_by_user": "Objet modifié pour la dernière fois à",
+    "ra_object_changed_by": "Objet modifié par",
+    "ra_state_changed_from": "Objet changé de",
+    "ra_state_changed_by": "État modifié par",
+    "ra_aclOwner_read_object": "Le propriétaire peut lire l'objet",
+    "ra_aclOwner_read_state": "Le propriétaire peut lire l'état",
+    "ra_aclOwner_write_object": "Le propriétaire peut écrire un objet",
+    "ra_aclOwner_write_state": "Le propriétaire peut écrire l'état",
+    "ra_aclGroup_read_object": "Le groupe peut lire l'objet",
+    "ra_aclGroup_read_state": "Le groupe peut lire l'état",
+    "ra_aclGroup_write_object": "Le groupe peut écrire un objet",
+    "ra_aclGroup_write_state": "Le groupe peut écrire l'état",
+    "ra_aclEveryone_read_object": "Tout le monde peut lire un objet",
+    "ra_aclEveryone_read_state": "Tout le monde peut lire l'état",
+    "ra_aclEveryone_write_object": "Tout le monde peut écrire un objet",
+    "ra_aclEveryone_write_state": "Tout le monde peut écrire l'état",
+    "ra_Folders always first": "Les dossiers toujours en premier",
+    "ra_changedFrom": "Changé de",
+    "ra_qualityCode": "Code de qualité",
+    "ra_timestamp": "Horodatage",
+    "ra_lastChange": "Dernier changement",
+    "ra_Owner group": "Groupe propriétaire",
+    "ra_Owner user": "Utilisateur propriétaire",
+    "ra_Create": "Créer",
+    "ra_Changed from": "Changé de",
+    "ra_Quality code": "Qualité",
+    "ra_Timestamp": "Horodatage",
+    "ra_Last change": "Dernier changement",
+    "ra_Collapse all nodes": "Réduire tous les nœuds",
+    "ra_Edit custom config": "Modifier la configuration personnalisée",
+    "ra_Collapse one step node": "Réduire d'un niveau",
+    "ra_Expand one step node": "Développer un niveau",
+    "ra_Refresh tree": "Rafraîchir l'arborescence",
+    "ra_Expand all nodes": "Développer tous les nœuds"
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/it.json":[function(require,module,exports) {
 module.exports = {
-  "ra_filter_func": "Funzione",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "Nome",
-  "ra_filter_role": "Ruolo",
-  "ra_filter_room": "Camera",
-  "ra_tooltip_ack": "Bandiera riconosciuta",
-  "ra_tooltip_from": "A partire dal",
-  "ra_tooltip_lc": "Ultima modifica",
-  "ra_tooltip_quality": "Qualità",
-  "ra_tooltip_ts": "Data e ora",
-  "ra_tooltip_user": "Utente",
-  "ra_tooltip_value": "Valore",
-  "ra_Are you sure?": "Sei sicuro?",
-  "ra_Cancel": "Annulla",
-  "ra_Copied": "Copiato",
-  "ra_Copied %s": "%s copiato",
-  "ra_Define functions": "Definire le funzioni",
-  "ra_Define rooms": "Definisci le stanze",
-  "ra_Error": "Errore",
-  "ra_Message": "Messaggio",
-  "ra_Ok": "Ok",
-  "ra_Please select object ID...": "Seleziona l'ID oggetto ...",
-  "ra_Selected": "Selezionato",
-  "ra_Unknown error!": "Errore sconosciuto!",
-  "ra_Value": "Valore",
-  "ra_filter_type": "genere",
-  "ra_invalidConfig": "Impostazioni non valide",
-  "ra_otherConfig": "Impostazioni dall'altro adattatore %s",
-  "ra_tooltip_copyState": "Copia il valore dello stato",
-  "ra_tooltip_customConfig": "Impostazioni personalizzate",
-  "ra_tooltip_deleteObject": "Elimina oggetto",
-  "ra_tooltip_editObject": "Modifica oggetto",
-  "ra_tooltip_editState": "Modifica il valore dello stato",
-  "ra_filter_customs": "impostazioni",
-  "ra_Listen on all IPs": "Ascolta su tutti gli IP",
-  "ra_dow_Fr": "fr",
-  "ra_dow_Mo": "momento",
-  "ra_dow_Sa": "Sa",
-  "ra_dow_Su": "su",
-  "ra_dow_Th": "th",
-  "ra_Save": "Salva",
-  "ra_Save and close": "Salva e chiudi",
-  "ra_Close": "Vicino",
-  "ra_Auto (no custom columns)": "Auto (nessuna colonna personalizzata)",
-  "ra_Transparent dialog": "Finestra di dialogo trasparente",
-  "ra_Width": "Larghezza",
-  "ra_val": "Valore",
-  "ra_buttons": "Bottoni",
-  "ra_Configure visible columns": "Configura colonne visibili",
-  "ra_Cannot update attribute, because not found in the object": "Impossibile aggiornare l'attributo, perché non trovato nell'oggetto",
-  "ra_Edit object field": "Modifica campo oggetto",
-  "ra_Hide empty folders": "Nascondi cartelle vuote",
-  "ra_Reload files": "Ricarica i file",
-  "ra_Create folder": "Creare una cartella",
-  "ra_Upload file": "Caricare un file",
-  "ra_User files": "File utente",
-  "ra_Confirm deletion of %s": "Conferma l'eliminazione di %s",
-  "ra_Delete (no confirm for 5 mins)": "Elimina (nessuna conferma per 5 minuti)",
-  "ra_Delete": "Elimina",
-  "ra_Toggle expert mode": "Attiva / disattiva la modalità esperto",
-  "ra_Toggle view mode": "Attiva / disattiva la modalità di visualizzazione",
-  "re_Root": "Radice",
-  "re_Back to %s": "Torna a %s",
-  "ra_Place your files here or click here to open the browse dialog": "Posiziona i file qui o fai clic qui per aprire la finestra di dialogo Sfoglia",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "Se nessun file verrà creato nella cartella, scomparirà dopo la chiusura del browser",
-  "ra_Folder name": "Nome della cartella",
-  "ra_Create new folder in %s": "Crea nuova cartella in %s",
-  "ra_Duplicate name": "Nome duplicato",
-  "ra_Invalid parent folder!": "Cartella principale non valida!",
-  "ra_Drop file here": "Trascina il file qui",
-  "ra_Suppress question for next %s minutes": "Sopprimi la domanda per i prossimi %s minuti",
-  "ra_Clear filter": "Filtro pulito",
-  "ra_Update": "Aggiornare",
-  "ra_Load configuration from file": "Carica la configurazione dal file",
-  "ra_Save configuration to file": "Salva la configurazione su file",
-  "sc_cron": "CRON",
-  "sc_date": "Data",
-  "sc_dates": "Date",
-  "sc_dows": "Giorno della settimana",
-  "sc_every": "Ogni",
-  "sc_everyN_dates": "ogni N giorni",
-  "sc_everyN_dows": "ogni N giorno della settimana",
-  "sc_everyN_hours": "ogni N ore",
-  "sc_everyN_minutes": "ogni N minuti",
-  "sc_everyN_months": "ogni N mesi",
-  "sc_everyN_seconds": "ogni N secondi",
-  "sc_every_dates": "ogni giorno",
-  "sc_every_dows": "Tutti i giorni della settimana",
-  "sc_every_hours": "ogni ora",
-  "sc_every_minutes": "ogni minuto",
-  "sc_every_months": "ogni mese",
-  "sc_every_seconds": "ogni secondo",
-  "sc_from": "A partire dal",
-  "sc_hours": "Ore",
-  "sc_interval": "Intervallo",
-  "sc_intervalBetween": "Intervallo tra",
-  "sc_minutes": "Minuti",
-  "sc_months": "mesi",
-  "sc_once": "Una volta",
-  "sc_period": "Periodo",
-  "sc_seconds": "secondi",
-  "sc_simple": "Semplice",
-  "sc_specific": "Orario preciso",
-  "sc_specific_dates": "date specifiche",
-  "sc_specific_dows": "giorno specifico delle settimane",
-  "sc_specific_hours": "orari specifici",
-  "sc_specific_minutes": "minuti specifici",
-  "sc_specific_months": "mesi specifici",
-  "sc_specific_seconds": "secondi specifici",
-  "sc_time": "Tempo",
-  "sc_to": "Per",
-  "sc_wizard": "procedura guidata",
-  "sch_all": "tutti",
-  "sch_astroDay": "Astro day",
-  "sch_astroNight": "Astro night",
-  "sch_astro_dawn": "Alba",
-  "sch_astro_dusk": "Crepuscolo",
-  "sch_astro_goldenHour": "Ora d'oro",
-  "sch_astro_goldenHourEnd": "Fine dell'ora d'oro",
-  "sch_astro_nadir": "Nadir",
-  "sch_astro_nauticalDawn": "Alba nautica",
-  "sch_astro_nauticalDusk": "Crepuscolo nautico",
-  "sch_astro_night": "Notte",
-  "sch_astro_nightEnd": "Fine della notte",
-  "sch_astro_solarNoon": "Mezzogiorno solare",
-  "sch_astro_sunrise": "Alba",
-  "sch_astro_sunriseEnd": "Fine dell'alba",
-  "sch_astro_sunset": "Tramonto",
-  "sch_astro_sunsetStart": "Inizio del tramonto",
-  "sch_at": "a",
-  "sch_desc_atTime": "a %s",
-  "sch_desc_everyDay": "ogni giorno",
-  "sch_desc_everyHour": "ogni ora",
-  "sch_desc_everyMinute": "ogni minuto",
-  "sch_desc_everyMonth": "ogni mese",
-  "sch_desc_everyNDay": "ogni %s giorno",
-  "sch_desc_everyNHours": "ogni %s ore",
-  "sch_desc_everyNMinutes": "ogni %s minuti",
-  "sch_desc_everyNMonths": "ogni %s mesi",
-  "sch_desc_everyNWeeks": "ogni %s settimane",
-  "sch_desc_everyNYears": "ogni %s anni",
-  "sch_desc_everyWeek": "ogni settimana",
-  "sch_desc_everyYear": "ogni anno",
-  "sch_desc_intervalFromTo": "da %s a %s",
-  "sch_desc_never": "mai",
-  "sch_desc_onDate": "su %s di %s",
-  "sch_desc_onDates": "su %s e %s di",
-  "sch_desc_onEveryDate": "in ogni data di",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s e %s",
-  "sch_desc_onWeekday": "su %s",
-  "sch_desc_onWeekdays": "su %s e %s",
-  "sch_desc_onWeekends": "nei finesettimana",
-  "sch_desc_onWorkdays": "nei giorni lavorativi",
-  "sch_desc_onceInPast": "non verrà più eseguito, perché start è nel passato",
-  "sch_desc_once_on": "su %s",
-  "sch_desc_validFrom": "da %s",
-  "sch_desc_validFromTo": "Eseguire da a",
-  "sch_desc_validTo": "a %s",
-  "sch_every": "ogni",
-  "sch_exactTime": "Orario preciso",
-  "sch_from": "a partire dal",
-  "sch_fromTo": "Da A",
-  "sch_intervalTime": "Intervallo di tempo",
-  "sch_invert": "invertire",
-  "sch_no_one": "nessuna",
-  "sch_on": "sopra",
-  "sch_period": "Periodo",
-  "sch_periodDaily": "Quotidiano",
-  "sch_periodDates": "Date",
-  "sch_periodDay": "Giorno",
-  "sch_periodEvery": "Ogni",
-  "sch_periodEveryDay": "Ogni giorno",
-  "sch_periodEveryMonth": "Ogni mese",
-  "sch_periodEveryWeek": "Ogni settimana",
-  "sch_periodEveryYear": "Ogni anno",
-  "sch_periodHours": "Ore",
-  "sch_periodMinutes": "Minuti",
-  "sch_periodMonth": "mese",
-  "sch_periodMonthly": "Mensile",
-  "sch_periodOnce": "Una volta",
-  "sch_periodSpecificMonths": "Mesi specifici",
-  "sch_periodWeek": "Settimana",
-  "sch_periodWeekdays": "Giorni della settimana",
-  "sch_periodWeekend": "Fine settimana",
-  "sch_periodWeekly": "settimanalmente",
-  "sch_periodWorkdays": "giorni feriali",
-  "sch_periodYear": "Anno",
-  "sch_periodYearly": "Annuale",
-  "sch_specificTime": "Orario preciso",
-  "sch_time": "Tempo",
-  "sch_to": "per",
-  "sch_valid": "Valido",
-  "sch_validFrom": "a partire dal",
-  "sch_validTo": "per",
-  "sch_wholeDay": "Giorno intero",
-  "sch_yearEveryMonth": "ogni mese",
-  "ra_Define schedule...": "Definisci pianificazione ...",
-  "ra_Repeat": "Ripetere",
-  "ra_use seconds": "usa i secondi",
-  "ra_close": "vicino",
-  "ra_dow_Tu": "Tu",
-  "ra_Toggle the states view": "Attiva o disattiva la visualizzazione degli stati",
-  "ra_Add new child object to selected parent": "Aggiungi un nuovo oggetto figlio al genitore selezionato",
-  "ra_Add objects tree from JSON file": "Aggiungi l'albero degli oggetti dal file JSON",
-  "ra_Save objects tree as JSON file": "Salva l'albero degli oggetti come file JSON",
-  "ra_Objects": "Oggetti",
-  "ra_States": "stati",
-  "ra_object_changed_by_user": "L'oggetto è stato modificato l'ultima volta alle",
-  "ra_object_changed_by": "Oggetto modificato da",
-  "ra_state_changed_from": "Oggetto cambiato da",
-  "ra_state_changed_by": "Stato cambiato da",
-  "ra_aclOwner_read_object": "Il proprietario può leggere l'oggetto",
-  "ra_aclOwner_read_state": "Il proprietario può leggere lo stato",
-  "ra_aclOwner_write_object": "Il proprietario può scrivere l'oggetto",
-  "ra_aclOwner_write_state": "Il proprietario può scrivere lo stato",
-  "ra_aclGroup_read_object": "Il gruppo può leggere l'oggetto",
-  "ra_aclGroup_read_state": "Il gruppo può leggere lo stato",
-  "ra_aclGroup_write_object": "Il gruppo può scrivere l'oggetto",
-  "ra_aclGroup_write_state": "Il gruppo può scrivere lo stato",
-  "ra_aclEveryone_read_object": "Tutti possono leggere gli oggetti",
-  "ra_aclEveryone_read_state": "Tutti possono leggere lo stato",
-  "ra_aclEveryone_write_object": "Tutti possono scrivere oggetti",
-  "ra_aclEveryone_write_state": "Tutti possono scrivere stato",
-  "ra_Folders always first": "Le cartelle sono sempre al primo posto",
-  "ra_changedFrom": "Cambiato da",
-  "ra_qualityCode": "Codice di qualità",
-  "ra_timestamp": "Timestamp",
-  "ra_lastChange": "Ultima modifica",
-  "ra_Owner group": "Gruppo di proprietari",
-  "ra_Owner user": "Utente proprietario",
-  "ra_Create": "Creare",
-  "ra_Changed from": "Cambiato da",
-  "ra_Quality code": "Qualità",
-  "ra_Timestamp": "Timestamp",
-  "ra_Last change": "Ultima modifica",
-  "ra_Collapse all nodes": "Comprimi tutti i nodi",
-  "ra_Edit custom config": "Modifica configurazione personalizzata",
-  "ra_Collapse one step node": "Comprimi un livello",
-  "ra_Expand one step node": "Espandi un livello",
-  "ra_Refresh tree": "Aggiorna l'albero"
-};
+    "ra_filter_func": "Funzione",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "Nome",
+    "ra_filter_role": "Ruolo",
+    "ra_filter_room": "Camera",
+    "ra_tooltip_ack": "Bandiera riconosciuta",
+    "ra_tooltip_from": "A partire dal",
+    "ra_tooltip_lc": "Ultima modifica",
+    "ra_tooltip_quality": "Qualità",
+    "ra_tooltip_ts": "Data e ora",
+    "ra_tooltip_user": "Utente",
+    "ra_tooltip_value": "Valore",
+    "ra_Are you sure?": "Sei sicuro?",
+    "ra_Cancel": "Annulla",
+    "ra_Copied": "Copiato",
+    "ra_Copied %s": "%s copiato",
+    "ra_Define functions": "Definire le funzioni",
+    "ra_Define rooms": "Definisci le stanze",
+    "ra_Error": "Errore",
+    "ra_Message": "Messaggio",
+    "ra_Ok": "Ok",
+    "ra_Please select object ID...": "Seleziona l'ID oggetto ...",
+    "ra_Selected": "Selezionato",
+    "ra_Unknown error!": "Errore sconosciuto!",
+    "ra_Value": "Valore",
+    "ra_filter_type": "genere",
+    "ra_invalidConfig": "Impostazioni non valide",
+    "ra_otherConfig": "Impostazioni dall'altro adattatore %s",
+    "ra_tooltip_copyState": "Copia il valore dello stato",
+    "ra_tooltip_customConfig": "Impostazioni personalizzate",
+    "ra_tooltip_deleteObject": "Elimina oggetto",
+    "ra_tooltip_editObject": "Modifica oggetto",
+    "ra_tooltip_editState": "Modifica il valore dello stato",
+    "ra_filter_customs": "impostazioni",
+    "ra_Listen on all IPs": "Ascolta su tutti gli IP",
+    "ra_dow_Fr": "fr",
+    "ra_dow_Mo": "momento",
+    "ra_dow_Sa": "Sa",
+    "ra_dow_Su": "su",
+    "ra_dow_Th": "th",
+    "ra_Save": "Salva",
+    "ra_Save and close": "Salva e chiudi",
+    "ra_Close": "Vicino",
+    "ra_Auto (no custom columns)": "Auto (nessuna colonna personalizzata)",
+    "ra_Transparent dialog": "Finestra di dialogo trasparente",
+    "ra_Width": "Larghezza",
+    "ra_val": "Valore",
+    "ra_buttons": "Bottoni",
+    "ra_Configure visible columns": "Configura colonne visibili",
+    "ra_Cannot update attribute, because not found in the object": "Impossibile aggiornare l'attributo, perché non trovato nell'oggetto",
+    "ra_Edit object field": "Modifica campo oggetto",
+    "ra_Hide empty folders": "Nascondi cartelle vuote",
+    "ra_Reload files": "Ricarica i file",
+    "ra_Create folder": "Creare una cartella",
+    "ra_Upload file": "Caricare un file",
+    "ra_User files": "File utente",
+    "ra_Confirm deletion of %s": "Conferma l'eliminazione di %s",
+    "ra_Delete (no confirm for 5 mins)": "Elimina (nessuna conferma per 5 minuti)",
+    "ra_Delete": "Elimina",
+    "ra_Toggle expert mode": "Attiva / disattiva la modalità esperto",
+    "ra_Toggle view mode": "Attiva / disattiva la modalità di visualizzazione",
+    "re_Root": "Radice",
+    "re_Back to %s": "Torna a %s",
+    "ra_Place your files here or click here to open the browse dialog": "Posiziona i file qui o fai clic qui per aprire la finestra di dialogo Sfoglia",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Se nessun file verrà creato nella cartella, scomparirà dopo la chiusura del browser",
+    "ra_Folder name": "Nome della cartella",
+    "ra_Create new folder in %s": "Crea nuova cartella in %s",
+    "ra_Duplicate name": "Nome duplicato",
+    "ra_Invalid parent folder!": "Cartella principale non valida!",
+    "ra_Drop file here": "Trascina il file qui",
+    "ra_Suppress question for next %s minutes": "Sopprimi la domanda per i prossimi %s minuti",
+    "ra_Clear filter": "Filtro pulito",
+    "ra_Update": "Aggiornare",
+    "ra_Load configuration from file": "Carica la configurazione dal file",
+    "ra_Save configuration to file": "Salva la configurazione su file",
+    "sc_cron": "CRON",
+    "sc_date": "Data",
+    "sc_dates": "Date",
+    "sc_dows": "Giorno della settimana",
+    "sc_every": "Ogni",
+    "sc_everyN_dates": "ogni N giorni",
+    "sc_everyN_dows": "ogni N giorno della settimana",
+    "sc_everyN_hours": "ogni N ore",
+    "sc_everyN_minutes": "ogni N minuti",
+    "sc_everyN_months": "ogni N mesi",
+    "sc_everyN_seconds": "ogni N secondi",
+    "sc_every_dates": "ogni giorno",
+    "sc_every_dows": "Tutti i giorni della settimana",
+    "sc_every_hours": "ogni ora",
+    "sc_every_minutes": "ogni minuto",
+    "sc_every_months": "ogni mese",
+    "sc_every_seconds": "ogni secondo",
+    "sc_from": "A partire dal",
+    "sc_hours": "Ore",
+    "sc_interval": "Intervallo",
+    "sc_intervalBetween": "Intervallo tra",
+    "sc_minutes": "Minuti",
+    "sc_months": "mesi",
+    "sc_once": "Una volta",
+    "sc_period": "Periodo",
+    "sc_seconds": "secondi",
+    "sc_simple": "Semplice",
+    "sc_specific": "Orario preciso",
+    "sc_specific_dates": "date specifiche",
+    "sc_specific_dows": "giorno specifico delle settimane",
+    "sc_specific_hours": "orari specifici",
+    "sc_specific_minutes": "minuti specifici",
+    "sc_specific_months": "mesi specifici",
+    "sc_specific_seconds": "secondi specifici",
+    "sc_time": "Tempo",
+    "sc_to": "Per",
+    "sc_wizard": "procedura guidata",
+    "sch_all": "tutti",
+    "sch_astroDay": "Astro day",
+    "sch_astroNight": "Astro night",
+    "sch_astro_dawn": "Alba",
+    "sch_astro_dusk": "Crepuscolo",
+    "sch_astro_goldenHour": "Ora d'oro",
+    "sch_astro_goldenHourEnd": "Fine dell'ora d'oro",
+    "sch_astro_nadir": "Nadir",
+    "sch_astro_nauticalDawn": "Alba nautica",
+    "sch_astro_nauticalDusk": "Crepuscolo nautico",
+    "sch_astro_night": "Notte",
+    "sch_astro_nightEnd": "Fine della notte",
+    "sch_astro_solarNoon": "Mezzogiorno solare",
+    "sch_astro_sunrise": "Alba",
+    "sch_astro_sunriseEnd": "Fine dell'alba",
+    "sch_astro_sunset": "Tramonto",
+    "sch_astro_sunsetStart": "Inizio del tramonto",
+    "sch_at": "a",
+    "sch_desc_atTime": "a %s",
+    "sch_desc_everyDay": "ogni giorno",
+    "sch_desc_everyHour": "ogni ora",
+    "sch_desc_everyMinute": "ogni minuto",
+    "sch_desc_everyMonth": "ogni mese",
+    "sch_desc_everyNDay": "ogni %s giorno",
+    "sch_desc_everyNHours": "ogni %s ore",
+    "sch_desc_everyNMinutes": "ogni %s minuti",
+    "sch_desc_everyNMonths": "ogni %s mesi",
+    "sch_desc_everyNWeeks": "ogni %s settimane",
+    "sch_desc_everyNYears": "ogni %s anni",
+    "sch_desc_everyWeek": "ogni settimana",
+    "sch_desc_everyYear": "ogni anno",
+    "sch_desc_intervalFromTo": "da %s a %s",
+    "sch_desc_never": "mai",
+    "sch_desc_onDate": "su %s di %s",
+    "sch_desc_onDates": "su %s e %s di",
+    "sch_desc_onEveryDate": "in ogni data di",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s e %s",
+    "sch_desc_onWeekday": "su %s",
+    "sch_desc_onWeekdays": "su %s e %s",
+    "sch_desc_onWeekends": "nei finesettimana",
+    "sch_desc_onWorkdays": "nei giorni lavorativi",
+    "sch_desc_onceInPast": "non verrà più eseguito, perché start è nel passato",
+    "sch_desc_once_on": "su %s",
+    "sch_desc_validFrom": "da %s",
+    "sch_desc_validFromTo": "Eseguire da a",
+    "sch_desc_validTo": "a %s",
+    "sch_every": "ogni",
+    "sch_exactTime": "Orario preciso",
+    "sch_from": "a partire dal",
+    "sch_fromTo": "Da A",
+    "sch_intervalTime": "Intervallo di tempo",
+    "sch_invert": "invertire",
+    "sch_no_one": "nessuna",
+    "sch_on": "sopra",
+    "sch_period": "Periodo",
+    "sch_periodDaily": "Quotidiano",
+    "sch_periodDates": "Date",
+    "sch_periodDay": "Giorno",
+    "sch_periodEvery": "Ogni",
+    "sch_periodEveryDay": "Ogni giorno",
+    "sch_periodEveryMonth": "Ogni mese",
+    "sch_periodEveryWeek": "Ogni settimana",
+    "sch_periodEveryYear": "Ogni anno",
+    "sch_periodHours": "Ore",
+    "sch_periodMinutes": "Minuti",
+    "sch_periodMonth": "mese",
+    "sch_periodMonthly": "Mensile",
+    "sch_periodOnce": "Una volta",
+    "sch_periodSpecificMonths": "Mesi specifici",
+    "sch_periodWeek": "Settimana",
+    "sch_periodWeekdays": "Giorni della settimana",
+    "sch_periodWeekend": "Fine settimana",
+    "sch_periodWeekly": "settimanalmente",
+    "sch_periodWorkdays": "giorni feriali",
+    "sch_periodYear": "Anno",
+    "sch_periodYearly": "Annuale",
+    "sch_specificTime": "Orario preciso",
+    "sch_time": "Tempo",
+    "sch_to": "per",
+    "sch_valid": "Valido",
+    "sch_validFrom": "a partire dal",
+    "sch_validTo": "per",
+    "sch_wholeDay": "Giorno intero",
+    "sch_yearEveryMonth": "ogni mese",
+    "ra_Define schedule...": "Definisci pianificazione ...",
+    "ra_Repeat": "Ripetere",
+    "ra_use seconds": "usa i secondi",
+    "ra_close": "vicino",
+    "ra_dow_Tu": "Tu",
+    "ra_Toggle the states view": "Attiva o disattiva la visualizzazione degli stati",
+    "ra_Add new child object to selected parent": "Aggiungi un nuovo oggetto figlio al genitore selezionato",
+    "ra_Add objects tree from JSON file": "Aggiungi l'albero degli oggetti dal file JSON",
+    "ra_Save objects tree as JSON file": "Salva l'albero degli oggetti come file JSON",
+    "ra_Objects": "Oggetti",
+    "ra_States": "stati",
+    "ra_object_changed_by_user": "L'oggetto è stato modificato l'ultima volta alle",
+    "ra_object_changed_by": "Oggetto modificato da",
+    "ra_state_changed_from": "Oggetto cambiato da",
+    "ra_state_changed_by": "Stato cambiato da",
+    "ra_aclOwner_read_object": "Il proprietario può leggere l'oggetto",
+    "ra_aclOwner_read_state": "Il proprietario può leggere lo stato",
+    "ra_aclOwner_write_object": "Il proprietario può scrivere l'oggetto",
+    "ra_aclOwner_write_state": "Il proprietario può scrivere lo stato",
+    "ra_aclGroup_read_object": "Il gruppo può leggere l'oggetto",
+    "ra_aclGroup_read_state": "Il gruppo può leggere lo stato",
+    "ra_aclGroup_write_object": "Il gruppo può scrivere l'oggetto",
+    "ra_aclGroup_write_state": "Il gruppo può scrivere lo stato",
+    "ra_aclEveryone_read_object": "Tutti possono leggere gli oggetti",
+    "ra_aclEveryone_read_state": "Tutti possono leggere lo stato",
+    "ra_aclEveryone_write_object": "Tutti possono scrivere oggetti",
+    "ra_aclEveryone_write_state": "Tutti possono scrivere stato",
+    "ra_Folders always first": "Le cartelle sono sempre al primo posto",
+    "ra_changedFrom": "Cambiato da",
+    "ra_qualityCode": "Codice di qualità",
+    "ra_timestamp": "Timestamp",
+    "ra_lastChange": "Ultima modifica",
+    "ra_Owner group": "Gruppo di proprietari",
+    "ra_Owner user": "Utente proprietario",
+    "ra_Create": "Creare",
+    "ra_Changed from": "Cambiato da",
+    "ra_Quality code": "Qualità",
+    "ra_Timestamp": "Timestamp",
+    "ra_Last change": "Ultima modifica",
+    "ra_Collapse all nodes": "Comprimi tutti i nodi",
+    "ra_Edit custom config": "Modifica configurazione personalizzata",
+    "ra_Collapse one step node": "Comprimi un livello",
+    "ra_Expand one step node": "Espandi un livello",
+    "ra_Refresh tree": "Aggiorna l'albero",
+    "ra_Expand all nodes": "Espandi tutti i nodi"
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/es.json":[function(require,module,exports) {
 module.exports = {
-  "ra_filter_func": "Función",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "Nombre",
-  "ra_filter_role": "Papel",
-  "ra_filter_room": "Habitación",
-  "ra_tooltip_ack": "Bandera reconocida",
-  "ra_tooltip_from": "Desde",
-  "ra_tooltip_lc": "Último cambio",
-  "ra_tooltip_quality": "Calidad",
-  "ra_tooltip_ts": "Sello de tiempo",
-  "ra_tooltip_user": "Usuario",
-  "ra_tooltip_value": "Valor",
-  "ra_Are you sure?": "¿Estás seguro?",
-  "ra_Cancel": "Cancelar",
-  "ra_Copied": "Copiado",
-  "ra_Copied %s": "Copiado %s",
-  "ra_Define functions": "Definir funciones",
-  "ra_Define rooms": "Definir habitaciones",
-  "ra_Error": "Error",
-  "ra_Message": "Mensaje",
-  "ra_Ok": "Okay",
-  "ra_Please select object ID...": "Por favor seleccione ID de objeto ...",
-  "ra_Selected": "Seleccionado",
-  "ra_Unknown error!": "¡Error desconocido!",
-  "ra_Value": "Valor",
-  "ra_filter_type": "Tipo",
-  "ra_invalidConfig": "Configuraciones inválidas",
-  "ra_otherConfig": "Configuraciones de otro adaptador %s",
-  "ra_tooltip_copyState": "Copie el valor del estado",
-  "ra_tooltip_customConfig": "Ajustes personalizados",
-  "ra_tooltip_deleteObject": "Eliminar objeto",
-  "ra_tooltip_editObject": "Editar objeto",
-  "ra_tooltip_editState": "Edite el valor del estado",
-  "ra_filter_customs": "Configuraciones",
-  "ra_Listen on all IPs": "Escuche en todas las IP",
-  "ra_dow_Fr": "Fr",
-  "ra_dow_Mo": "Mes",
-  "ra_dow_Sa": "Sa",
-  "ra_dow_Su": "Su",
-  "ra_dow_Th": "Th",
-  "ra_Save": "Salvar",
-  "ra_Save and close": "Guardar y cerrar",
-  "ra_Close": "Cerca",
-  "ra_Auto (no custom columns)": "Automático (sin columnas personalizadas)",
-  "ra_Transparent dialog": "Diálogo transparente",
-  "ra_Width": "Anchura",
-  "ra_val": "Valor",
-  "ra_buttons": "Botones",
-  "ra_Configure visible columns": "Configurar columnas visibles",
-  "ra_Cannot update attribute, because not found in the object": "No se puede actualizar el atributo porque no se encuentra en el objeto",
-  "ra_Edit object field": "Editar campo de objeto",
-  "ra_Hide empty folders": "Ocultar carpetas vacías",
-  "ra_Reload files": "Recargar archivos",
-  "ra_Create folder": "Crear carpeta",
-  "ra_Upload file": "Subir archivo",
-  "ra_User files": "Archivos de usuario",
-  "ra_Confirm deletion of %s": "Confirmar la eliminación de %s",
-  "ra_Delete (no confirm for 5 mins)": "Eliminar (sin confirmar durante 5 minutos)",
-  "ra_Delete": "Eliminar",
-  "ra_Toggle expert mode": "Alternar modo experto",
-  "ra_Toggle view mode": "Alternar modo de vista",
-  "re_Root": "Raíz",
-  "re_Back to %s": "Volver a %s",
-  "ra_Place your files here or click here to open the browse dialog": "Coloque sus archivos aquí o haga clic aquí para abrir el cuadro de diálogo de exploración",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "Si no se creará ningún archivo en la carpeta, desaparecerá después de que se cierre el navegador.",
-  "ra_Folder name": "Nombre de la carpeta",
-  "ra_Create new folder in %s": "Crear nueva carpeta en %s",
-  "ra_Duplicate name": "Nombre duplicado",
-  "ra_Invalid parent folder!": "Carpeta principal no válida.",
-  "ra_Drop file here": "Suelta el archivo aquí",
-  "ra_Suppress question for next %s minutes": "Suprimir pregunta durante los próximos %s minutos",
-  "ra_Clear filter": "Filtro claro",
-  "ra_Update": "Actualizar",
-  "ra_Load configuration from file": "Cargar configuración desde archivo",
-  "ra_Save configuration to file": "Guardar configuración en archivo",
-  "sc_cron": "CRON",
-  "sc_date": "Fecha",
-  "sc_dates": "fechas",
-  "sc_dows": "Día de la semana",
-  "sc_every": "Cada",
-  "sc_everyN_dates": "cada N días",
-  "sc_everyN_dows": "cada N día de la semana",
-  "sc_everyN_hours": "cada N horas",
-  "sc_everyN_minutes": "cada N minutos",
-  "sc_everyN_months": "cada N meses",
-  "sc_everyN_seconds": "cada N segundos",
-  "sc_every_dates": "cada día",
-  "sc_every_dows": "Cada día de la semana",
-  "sc_every_hours": "cada hora",
-  "sc_every_minutes": "cada minuto",
-  "sc_every_months": "cada mes",
-  "sc_every_seconds": "cada segundo",
-  "sc_from": "De",
-  "sc_hours": "Horas",
-  "sc_interval": "Intervalo",
-  "sc_intervalBetween": "Intervalo entre",
-  "sc_minutes": "Minutos",
-  "sc_months": "meses",
-  "sc_once": "Una vez",
-  "sc_period": "Período",
-  "sc_seconds": "Segundos",
-  "sc_simple": "Sencillo",
-  "sc_specific": "Tiempo específico",
-  "sc_specific_dates": "fechas especificas",
-  "sc_specific_dows": "día específico de semanas",
-  "sc_specific_hours": "horas específicas",
-  "sc_specific_minutes": "minutos específicos",
-  "sc_specific_months": "meses específicos",
-  "sc_specific_seconds": "segundos específicos",
-  "sc_time": "Hora",
-  "sc_to": "A",
-  "sc_wizard": "Mago",
-  "sch_all": "todas",
-  "sch_astroDay": "Día astro",
-  "sch_astroNight": "Noche astro",
-  "sch_astro_dawn": "Amanecer",
-  "sch_astro_dusk": "Oscuridad",
-  "sch_astro_goldenHour": "hora dorada",
-  "sch_astro_goldenHourEnd": "Fin de la hora dorada",
-  "sch_astro_nadir": "Nadir",
-  "sch_astro_nauticalDawn": "Amanecer náutico",
-  "sch_astro_nauticalDusk": "Anochecer náutico",
-  "sch_astro_night": "Noche",
-  "sch_astro_nightEnd": "Fin de la noche",
-  "sch_astro_solarNoon": "Mediodía solar",
-  "sch_astro_sunrise": "amanecer",
-  "sch_astro_sunriseEnd": "Fin del amanecer",
-  "sch_astro_sunset": "Puesta de sol",
-  "sch_astro_sunsetStart": "Puesta de sol",
-  "sch_at": "a",
-  "sch_desc_atTime": "en %s",
-  "sch_desc_everyDay": "cada día",
-  "sch_desc_everyHour": "cada hora",
-  "sch_desc_everyMinute": "cada minuto",
-  "sch_desc_everyMonth": "cada mes",
-  "sch_desc_everyNDay": "cada %s días",
-  "sch_desc_everyNHours": "cada %s horas",
-  "sch_desc_everyNMinutes": "cada %s minutos",
-  "sch_desc_everyNMonths": "cada %s meses",
-  "sch_desc_everyNWeeks": "cada %s semanas",
-  "sch_desc_everyNYears": "cada %s años",
-  "sch_desc_everyWeek": "cada semana",
-  "sch_desc_everyYear": "todos los años",
-  "sch_desc_intervalFromTo": "de %s a %s",
-  "sch_desc_never": "Nunca",
-  "sch_desc_onDate": "en %s de %s",
-  "sch_desc_onDates": "en %s y %s de",
-  "sch_desc_onEveryDate": "en cada fecha de",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s y %s",
-  "sch_desc_onWeekday": "en %s",
-  "sch_desc_onWeekdays": "en %s y %s",
-  "sch_desc_onWeekends": "en los fines de semana",
-  "sch_desc_onWorkdays": "en días laborables",
-  "sch_desc_onceInPast": "ya no se ejecutará más, porque el inicio está en el pasado",
-  "sch_desc_once_on": "en %s",
-  "sch_desc_validFrom": "de %s",
-  "sch_desc_validFromTo": "Ejecutar desde hasta",
-  "sch_desc_validTo": "a %s",
-  "sch_every": "cada",
-  "sch_exactTime": "Tiempo específico",
-  "sch_from": "de",
-  "sch_fromTo": "De-a",
-  "sch_intervalTime": "Tiempo de intervalo",
-  "sch_invert": "invertir; poner boca abajo o en la posición opuesta, orden o arreglo; Boca abajo",
-  "sch_no_one": "ninguna",
-  "sch_on": "en",
-  "sch_period": "Período",
-  "sch_periodDaily": "Diario",
-  "sch_periodDates": "fechas",
-  "sch_periodDay": "Día",
-  "sch_periodEvery": "Cada",
-  "sch_periodEveryDay": "Cada día",
-  "sch_periodEveryMonth": "Cada mes",
-  "sch_periodEveryWeek": "Cada semana",
-  "sch_periodEveryYear": "Todos los años",
-  "sch_periodHours": "Horas",
-  "sch_periodMinutes": "Minutos",
-  "sch_periodMonth": "mes",
-  "sch_periodMonthly": "Mensual",
-  "sch_periodOnce": "Una vez",
-  "sch_periodSpecificMonths": "Meses específicos",
-  "sch_periodWeek": "Semana",
-  "sch_periodWeekdays": "Días laborables",
-  "sch_periodWeekend": "Fin de semana",
-  "sch_periodWeekly": "Semanal",
-  "sch_periodWorkdays": "Días laborables",
-  "sch_periodYear": "Año",
-  "sch_periodYearly": "Anual",
-  "sch_specificTime": "Tiempo específico",
-  "sch_time": "Hora",
-  "sch_to": "a",
-  "sch_valid": "Válido",
-  "sch_validFrom": "de",
-  "sch_validTo": "a",
-  "sch_wholeDay": "Todo el dia",
-  "sch_yearEveryMonth": "cada mes",
-  "ra_Define schedule...": "Definir horario ...",
-  "ra_Repeat": "Repetir",
-  "ra_use seconds": "usar segundos",
-  "ra_close": "cerrar",
-  "ra_dow_Tu": "Tu",
-  "ra_Toggle the states view": "Alternar la vista de estados",
-  "ra_Add new child object to selected parent": "Agregar nuevo objeto hijo al padre seleccionado",
-  "ra_Add objects tree from JSON file": "Agregar árbol de objetos desde el archivo JSON",
-  "ra_Save objects tree as JSON file": "Guardar el árbol de objetos como archivo JSON",
-  "ra_Objects": "Objetos",
-  "ra_States": "Estados",
-  "ra_object_changed_by_user": "Objeto cambiado por última vez a las",
-  "ra_object_changed_by": "Objeto cambiado por",
-  "ra_state_changed_from": "Objeto cambiado de",
-  "ra_state_changed_by": "Estado cambiado por",
-  "ra_aclOwner_read_object": "El propietario puede leer el objeto",
-  "ra_aclOwner_read_state": "El propietario puede leer el estado",
-  "ra_aclOwner_write_object": "El propietario puede escribir el objeto",
-  "ra_aclOwner_write_state": "El propietario puede escribir el estado",
-  "ra_aclGroup_read_object": "El grupo puede leer el objeto",
-  "ra_aclGroup_read_state": "El grupo puede leer el estado",
-  "ra_aclGroup_write_object": "El grupo puede escribir un objeto",
-  "ra_aclGroup_write_state": "El grupo puede escribir el estado",
-  "ra_aclEveryone_read_object": "Todo el mundo puede leer el objeto",
-  "ra_aclEveryone_read_state": "Todos pueden leer el estado",
-  "ra_aclEveryone_write_object": "Todos pueden escribir objetos",
-  "ra_aclEveryone_write_state": "Todos pueden escribir el estado",
-  "ra_Folders always first": "Carpetas siempre primero",
-  "ra_changedFrom": "Cambiaron desde",
-  "ra_qualityCode": "Código de calidad",
-  "ra_timestamp": "Marca de tiempo",
-  "ra_lastChange": "Ultimo cambio",
-  "ra_Owner group": "Grupo propietario",
-  "ra_Owner user": "Usuario propietario",
-  "ra_Create": "Crear",
-  "ra_Changed from": "Cambiaron desde",
-  "ra_Quality code": "Calidad",
-  "ra_Timestamp": "Marca de tiempo",
-  "ra_Last change": "Ultimo cambio",
-  "ra_Collapse all nodes": "Contraer todos los nodos",
-  "ra_Edit custom config": "Editar configuración personalizada",
-  "ra_Collapse one step node": "Contraer un nivel",
-  "ra_Expand one step node": "Expandir un nivel",
-  "ra_Refresh tree": "Actualizar árbol"
-};
+    "ra_filter_func": "Función",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "Nombre",
+    "ra_filter_role": "Papel",
+    "ra_filter_room": "Habitación",
+    "ra_tooltip_ack": "Bandera reconocida",
+    "ra_tooltip_from": "Desde",
+    "ra_tooltip_lc": "Último cambio",
+    "ra_tooltip_quality": "Calidad",
+    "ra_tooltip_ts": "Sello de tiempo",
+    "ra_tooltip_user": "Usuario",
+    "ra_tooltip_value": "Valor",
+    "ra_Are you sure?": "¿Estás seguro?",
+    "ra_Cancel": "Cancelar",
+    "ra_Copied": "Copiado",
+    "ra_Copied %s": "Copiado %s",
+    "ra_Define functions": "Definir funciones",
+    "ra_Define rooms": "Definir habitaciones",
+    "ra_Error": "Error",
+    "ra_Message": "Mensaje",
+    "ra_Ok": "Okay",
+    "ra_Please select object ID...": "Por favor seleccione ID de objeto ...",
+    "ra_Selected": "Seleccionado",
+    "ra_Unknown error!": "¡Error desconocido!",
+    "ra_Value": "Valor",
+    "ra_filter_type": "Tipo",
+    "ra_invalidConfig": "Configuraciones inválidas",
+    "ra_otherConfig": "Configuraciones de otro adaptador %s",
+    "ra_tooltip_copyState": "Copie el valor del estado",
+    "ra_tooltip_customConfig": "Ajustes personalizados",
+    "ra_tooltip_deleteObject": "Eliminar objeto",
+    "ra_tooltip_editObject": "Editar objeto",
+    "ra_tooltip_editState": "Edite el valor del estado",
+    "ra_filter_customs": "Configuraciones",
+    "ra_Listen on all IPs": "Escuche en todas las IP",
+    "ra_dow_Fr": "Fr",
+    "ra_dow_Mo": "Mes",
+    "ra_dow_Sa": "Sa",
+    "ra_dow_Su": "Su",
+    "ra_dow_Th": "Th",
+    "ra_Save": "Salvar",
+    "ra_Save and close": "Guardar y cerrar",
+    "ra_Close": "Cerca",
+    "ra_Auto (no custom columns)": "Automático (sin columnas personalizadas)",
+    "ra_Transparent dialog": "Diálogo transparente",
+    "ra_Width": "Anchura",
+    "ra_val": "Valor",
+    "ra_buttons": "Botones",
+    "ra_Configure visible columns": "Configurar columnas visibles",
+    "ra_Cannot update attribute, because not found in the object": "No se puede actualizar el atributo porque no se encuentra en el objeto",
+    "ra_Edit object field": "Editar campo de objeto",
+    "ra_Hide empty folders": "Ocultar carpetas vacías",
+    "ra_Reload files": "Recargar archivos",
+    "ra_Create folder": "Crear carpeta",
+    "ra_Upload file": "Subir archivo",
+    "ra_User files": "Archivos de usuario",
+    "ra_Confirm deletion of %s": "Confirmar la eliminación de %s",
+    "ra_Delete (no confirm for 5 mins)": "Eliminar (sin confirmar durante 5 minutos)",
+    "ra_Delete": "Eliminar",
+    "ra_Toggle expert mode": "Alternar modo experto",
+    "ra_Toggle view mode": "Alternar modo de vista",
+    "re_Root": "Raíz",
+    "re_Back to %s": "Volver a %s",
+    "ra_Place your files here or click here to open the browse dialog": "Coloque sus archivos aquí o haga clic aquí para abrir el cuadro de diálogo de exploración",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Si no se creará ningún archivo en la carpeta, desaparecerá después de que se cierre el navegador.",
+    "ra_Folder name": "Nombre de la carpeta",
+    "ra_Create new folder in %s": "Crear nueva carpeta en %s",
+    "ra_Duplicate name": "Nombre duplicado",
+    "ra_Invalid parent folder!": "Carpeta principal no válida.",
+    "ra_Drop file here": "Suelta el archivo aquí",
+    "ra_Suppress question for next %s minutes": "Suprimir pregunta durante los próximos %s minutos",
+    "ra_Clear filter": "Filtro claro",
+    "ra_Update": "Actualizar",
+    "ra_Load configuration from file": "Cargar configuración desde archivo",
+    "ra_Save configuration to file": "Guardar configuración en archivo",
+    "sc_cron": "CRON",
+    "sc_date": "Fecha",
+    "sc_dates": "fechas",
+    "sc_dows": "Día de la semana",
+    "sc_every": "Cada",
+    "sc_everyN_dates": "cada N días",
+    "sc_everyN_dows": "cada N día de la semana",
+    "sc_everyN_hours": "cada N horas",
+    "sc_everyN_minutes": "cada N minutos",
+    "sc_everyN_months": "cada N meses",
+    "sc_everyN_seconds": "cada N segundos",
+    "sc_every_dates": "cada día",
+    "sc_every_dows": "Cada día de la semana",
+    "sc_every_hours": "cada hora",
+    "sc_every_minutes": "cada minuto",
+    "sc_every_months": "cada mes",
+    "sc_every_seconds": "cada segundo",
+    "sc_from": "De",
+    "sc_hours": "Horas",
+    "sc_interval": "Intervalo",
+    "sc_intervalBetween": "Intervalo entre",
+    "sc_minutes": "Minutos",
+    "sc_months": "meses",
+    "sc_once": "Una vez",
+    "sc_period": "Período",
+    "sc_seconds": "Segundos",
+    "sc_simple": "Sencillo",
+    "sc_specific": "Tiempo específico",
+    "sc_specific_dates": "fechas especificas",
+    "sc_specific_dows": "día específico de semanas",
+    "sc_specific_hours": "horas específicas",
+    "sc_specific_minutes": "minutos específicos",
+    "sc_specific_months": "meses específicos",
+    "sc_specific_seconds": "segundos específicos",
+    "sc_time": "Hora",
+    "sc_to": "A",
+    "sc_wizard": "Mago",
+    "sch_all": "todas",
+    "sch_astroDay": "Día astro",
+    "sch_astroNight": "Noche astro",
+    "sch_astro_dawn": "Amanecer",
+    "sch_astro_dusk": "Oscuridad",
+    "sch_astro_goldenHour": "hora dorada",
+    "sch_astro_goldenHourEnd": "Fin de la hora dorada",
+    "sch_astro_nadir": "Nadir",
+    "sch_astro_nauticalDawn": "Amanecer náutico",
+    "sch_astro_nauticalDusk": "Anochecer náutico",
+    "sch_astro_night": "Noche",
+    "sch_astro_nightEnd": "Fin de la noche",
+    "sch_astro_solarNoon": "Mediodía solar",
+    "sch_astro_sunrise": "amanecer",
+    "sch_astro_sunriseEnd": "Fin del amanecer",
+    "sch_astro_sunset": "Puesta de sol",
+    "sch_astro_sunsetStart": "Puesta de sol",
+    "sch_at": "a",
+    "sch_desc_atTime": "en %s",
+    "sch_desc_everyDay": "cada día",
+    "sch_desc_everyHour": "cada hora",
+    "sch_desc_everyMinute": "cada minuto",
+    "sch_desc_everyMonth": "cada mes",
+    "sch_desc_everyNDay": "cada %s días",
+    "sch_desc_everyNHours": "cada %s horas",
+    "sch_desc_everyNMinutes": "cada %s minutos",
+    "sch_desc_everyNMonths": "cada %s meses",
+    "sch_desc_everyNWeeks": "cada %s semanas",
+    "sch_desc_everyNYears": "cada %s años",
+    "sch_desc_everyWeek": "cada semana",
+    "sch_desc_everyYear": "todos los años",
+    "sch_desc_intervalFromTo": "de %s a %s",
+    "sch_desc_never": "Nunca",
+    "sch_desc_onDate": "en %s de %s",
+    "sch_desc_onDates": "en %s y %s de",
+    "sch_desc_onEveryDate": "en cada fecha de",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s y %s",
+    "sch_desc_onWeekday": "en %s",
+    "sch_desc_onWeekdays": "en %s y %s",
+    "sch_desc_onWeekends": "en los fines de semana",
+    "sch_desc_onWorkdays": "en días laborables",
+    "sch_desc_onceInPast": "ya no se ejecutará más, porque el inicio está en el pasado",
+    "sch_desc_once_on": "en %s",
+    "sch_desc_validFrom": "de %s",
+    "sch_desc_validFromTo": "Ejecutar desde hasta",
+    "sch_desc_validTo": "a %s",
+    "sch_every": "cada",
+    "sch_exactTime": "Tiempo específico",
+    "sch_from": "de",
+    "sch_fromTo": "De-a",
+    "sch_intervalTime": "Tiempo de intervalo",
+    "sch_invert": "invertir; poner boca abajo o en la posición opuesta, orden o arreglo; Boca abajo",
+    "sch_no_one": "ninguna",
+    "sch_on": "en",
+    "sch_period": "Período",
+    "sch_periodDaily": "Diario",
+    "sch_periodDates": "fechas",
+    "sch_periodDay": "Día",
+    "sch_periodEvery": "Cada",
+    "sch_periodEveryDay": "Cada día",
+    "sch_periodEveryMonth": "Cada mes",
+    "sch_periodEveryWeek": "Cada semana",
+    "sch_periodEveryYear": "Todos los años",
+    "sch_periodHours": "Horas",
+    "sch_periodMinutes": "Minutos",
+    "sch_periodMonth": "mes",
+    "sch_periodMonthly": "Mensual",
+    "sch_periodOnce": "Una vez",
+    "sch_periodSpecificMonths": "Meses específicos",
+    "sch_periodWeek": "Semana",
+    "sch_periodWeekdays": "Días laborables",
+    "sch_periodWeekend": "Fin de semana",
+    "sch_periodWeekly": "Semanal",
+    "sch_periodWorkdays": "Días laborables",
+    "sch_periodYear": "Año",
+    "sch_periodYearly": "Anual",
+    "sch_specificTime": "Tiempo específico",
+    "sch_time": "Hora",
+    "sch_to": "a",
+    "sch_valid": "Válido",
+    "sch_validFrom": "de",
+    "sch_validTo": "a",
+    "sch_wholeDay": "Todo el dia",
+    "sch_yearEveryMonth": "cada mes",
+    "ra_Define schedule...": "Definir horario ...",
+    "ra_Repeat": "Repetir",
+    "ra_use seconds": "usar segundos",
+    "ra_close": "cerrar",
+    "ra_dow_Tu": "Tu",
+    "ra_Toggle the states view": "Alternar la vista de estados",
+    "ra_Add new child object to selected parent": "Agregar nuevo objeto hijo al padre seleccionado",
+    "ra_Add objects tree from JSON file": "Agregar árbol de objetos desde el archivo JSON",
+    "ra_Save objects tree as JSON file": "Guardar el árbol de objetos como archivo JSON",
+    "ra_Objects": "Objetos",
+    "ra_States": "Estados",
+    "ra_object_changed_by_user": "Objeto cambiado por última vez a las",
+    "ra_object_changed_by": "Objeto cambiado por",
+    "ra_state_changed_from": "Objeto cambiado de",
+    "ra_state_changed_by": "Estado cambiado por",
+    "ra_aclOwner_read_object": "El propietario puede leer el objeto",
+    "ra_aclOwner_read_state": "El propietario puede leer el estado",
+    "ra_aclOwner_write_object": "El propietario puede escribir el objeto",
+    "ra_aclOwner_write_state": "El propietario puede escribir el estado",
+    "ra_aclGroup_read_object": "El grupo puede leer el objeto",
+    "ra_aclGroup_read_state": "El grupo puede leer el estado",
+    "ra_aclGroup_write_object": "El grupo puede escribir un objeto",
+    "ra_aclGroup_write_state": "El grupo puede escribir el estado",
+    "ra_aclEveryone_read_object": "Todo el mundo puede leer el objeto",
+    "ra_aclEveryone_read_state": "Todos pueden leer el estado",
+    "ra_aclEveryone_write_object": "Todos pueden escribir objetos",
+    "ra_aclEveryone_write_state": "Todos pueden escribir el estado",
+    "ra_Folders always first": "Carpetas siempre primero",
+    "ra_changedFrom": "Cambiaron desde",
+    "ra_qualityCode": "Código de calidad",
+    "ra_timestamp": "Marca de tiempo",
+    "ra_lastChange": "Ultimo cambio",
+    "ra_Owner group": "Grupo propietario",
+    "ra_Owner user": "Usuario propietario",
+    "ra_Create": "Crear",
+    "ra_Changed from": "Cambiaron desde",
+    "ra_Quality code": "Calidad",
+    "ra_Timestamp": "Marca de tiempo",
+    "ra_Last change": "Ultimo cambio",
+    "ra_Collapse all nodes": "Contraer todos los nodos",
+    "ra_Edit custom config": "Editar configuración personalizada",
+    "ra_Collapse one step node": "Contraer un nivel",
+    "ra_Expand one step node": "Expandir un nivel",
+    "ra_Refresh tree": "Actualizar árbol",
+    "ra_Expand all nodes": "Expandir todos los nodos"
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/pl.json":[function(require,module,exports) {
 module.exports = {
-  "ra_filter_func": "Funkcjonować",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "Imię",
-  "ra_filter_role": "Rola",
-  "ra_filter_room": "Sala",
-  "ra_tooltip_ack": "Potwierdzon",
-  "ra_tooltip_from": "Z",
-  "ra_tooltip_lc": "Ostatnia zmiana",
-  "ra_tooltip_quality": "Jakość",
-  "ra_tooltip_ts": "Znak czasu",
-  "ra_tooltip_user": "Użytkownik",
-  "ra_tooltip_value": "Wartość",
-  "ra_Are you sure?": "Jesteś pewny?",
-  "ra_Cancel": "Anuluj",
-  "ra_Copied": "Skopiowano",
-  "ra_Copied %s": "Skopiowano %s",
-  "ra_Define functions": "Zdefiniuj funkcje",
-  "ra_Define rooms": "Zdefiniuj pokoje",
-  "ra_Error": "Błąd",
-  "ra_Message": "Wiadomość",
-  "ra_Ok": "Dobrze",
-  "ra_Please select object ID...": "Wybierz identyfikator obiektu ...",
-  "ra_Selected": "Wybrany",
-  "ra_Unknown error!": "Nieznany błąd!",
-  "ra_Value": "Wartość",
-  "ra_filter_type": "Rodzaj",
-  "ra_invalidConfig": "Nieprawidłowe ustawienia",
-  "ra_otherConfig": "Ustawienia z innego adaptera %s",
-  "ra_tooltip_copyState": "Skopiuj wartość stanu",
-  "ra_tooltip_customConfig": "Własne ustawienia",
-  "ra_tooltip_deleteObject": "Usuń obiekt",
-  "ra_tooltip_editObject": "Edytuj obiekt",
-  "ra_tooltip_editState": "Edytuj wartość stanu",
-  "ra_filter_customs": "Ustawienia",
-  "ra_Listen on all IPs": "Słuchaj na wszystkich adresach IP",
-  "ra_dow_Fr": "Ks",
-  "ra_dow_Mo": "Mo",
-  "ra_dow_Sa": "Sa",
-  "ra_dow_Su": "Su",
-  "ra_dow_Th": "Th",
-  "ra_Save": "Zapisać",
-  "ra_Save and close": "Zapisz i zamknij",
-  "ra_Close": "Blisko",
-  "ra_Auto (no custom columns)": "Auto (bez kolumn niestandardowych)",
-  "ra_Transparent dialog": "Przejrzyste okno dialogowe",
-  "ra_Width": "Szerokość",
-  "ra_val": "Wartość",
-  "ra_buttons": "guziki",
-  "ra_Configure visible columns": "Skonfiguruj widoczne kolumny",
-  "ra_Cannot update attribute, because not found in the object": "Nie można zaktualizować atrybutu, ponieważ nie znaleziono go w obiekcie",
-  "ra_Edit object field": "Edytuj pole obiektu",
-  "ra_Hide empty folders": "Ukryj puste foldery",
-  "ra_Reload files": "Załaduj ponownie pliki",
-  "ra_Create folder": "Utwórz folder",
-  "ra_Upload file": "Przesyłanie pliku",
-  "ra_User files": "Pliki użytkownika",
-  "ra_Confirm deletion of %s": "Potwierdź usunięcie %s",
-  "ra_Delete (no confirm for 5 mins)": "Usuń (bez potwierdzenia przez 5 minut)",
-  "ra_Delete": "Usunąć",
-  "ra_Toggle expert mode": "Przełącz tryb eksperta",
-  "ra_Toggle view mode": "Przełącz tryb widoku",
-  "re_Root": "Korzeń",
-  "re_Back to %s": "Powrót do %s",
-  "ra_Place your files here or click here to open the browse dialog": "Umieść swoje pliki tutaj lub kliknij tutaj, aby otworzyć okno dialogowe przeglądania",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "Jeśli w folderze nie zostanie utworzony żaden plik, zniknie on po zamknięciu przeglądarki",
-  "ra_Folder name": "Nazwa folderu",
-  "ra_Create new folder in %s": "Utwórz nowy folder w %s",
-  "ra_Duplicate name": "Zduplikowana nazwa",
-  "ra_Invalid parent folder!": "Nieprawidłowy folder nadrzędny!",
-  "ra_Drop file here": "Upuść plik tutaj",
-  "ra_Suppress question for next %s minutes": "Ukryj pytanie przez następne %s minut",
-  "ra_Clear filter": "Czysty filtr",
-  "ra_Update": "Aktualizacja",
-  "ra_Load configuration from file": "Załaduj konfigurację z pliku",
-  "ra_Save configuration to file": "Zapisz konfigurację do pliku",
-  "sc_cron": "CRON",
-  "sc_date": "Data",
-  "sc_dates": "Daktyle",
-  "sc_dows": "Dzień tygodnia",
-  "sc_every": "Każdy",
-  "sc_everyN_dates": "co N dni",
-  "sc_everyN_dows": "co N dnia tygodnia",
-  "sc_everyN_hours": "co N godzin",
-  "sc_everyN_minutes": "co N minut",
-  "sc_everyN_months": "co N miesięcy",
-  "sc_everyN_seconds": "co N sekund",
-  "sc_every_dates": "codziennie",
-  "sc_every_dows": "każdy dzień tygodnia",
-  "sc_every_hours": "co godzinę",
-  "sc_every_minutes": "każda minuta",
-  "sc_every_months": "każdego miesiąca",
-  "sc_every_seconds": "każda sekunda",
-  "sc_from": "Od",
-  "sc_hours": "godziny",
-  "sc_interval": "Interwał",
-  "sc_intervalBetween": "Interwał między",
-  "sc_minutes": "Minuty",
-  "sc_months": "miesięcy",
-  "sc_once": "Pewnego razu",
-  "sc_period": "Kropka",
-  "sc_seconds": "sekundy",
-  "sc_simple": "Prosty",
-  "sc_specific": "Określony czas",
-  "sc_specific_dates": "konkretne daty",
-  "sc_specific_dows": "określony dzień tygodni",
-  "sc_specific_hours": "określone godziny",
-  "sc_specific_minutes": "określone minuty",
-  "sc_specific_months": "określone miesiące",
-  "sc_specific_seconds": "określone sekundy",
-  "sc_time": "Czas",
-  "sc_to": "Do",
-  "sc_wizard": "Czarodziej",
-  "sch_all": "wszystko",
-  "sch_astroDay": "Dzień Astro",
-  "sch_astroNight": "Noc Astro",
-  "sch_astro_dawn": "Świt",
-  "sch_astro_dusk": "Zmierzch",
-  "sch_astro_goldenHour": "złota godzina",
-  "sch_astro_goldenHourEnd": "Koniec złotej godziny",
-  "sch_astro_nadir": "Nadir",
-  "sch_astro_nauticalDawn": "Morski świt",
-  "sch_astro_nauticalDusk": "Morski zmierzch",
-  "sch_astro_night": "Noc",
-  "sch_astro_nightEnd": "Koniec nocy",
-  "sch_astro_solarNoon": "Południe słoneczne",
-  "sch_astro_sunrise": "wschód słońca",
-  "sch_astro_sunriseEnd": "Koniec wschodu słońca",
-  "sch_astro_sunset": "Zachód słońca",
-  "sch_astro_sunsetStart": "Początek zachodu słońca",
-  "sch_at": "w",
-  "sch_desc_atTime": "na %s",
-  "sch_desc_everyDay": "codziennie",
-  "sch_desc_everyHour": "co godzinę",
-  "sch_desc_everyMinute": "każda minuta",
-  "sch_desc_everyMonth": "każdego miesiąca",
-  "sch_desc_everyNDay": "każdego dnia %s",
-  "sch_desc_everyNHours": "co %s godzin",
-  "sch_desc_everyNMinutes": "co %s minut",
-  "sch_desc_everyNMonths": "co %s miesięcy",
-  "sch_desc_everyNWeeks": "co %s tygodni",
-  "sch_desc_everyNYears": "co %s lat",
-  "sch_desc_everyWeek": "co tydzień",
-  "sch_desc_everyYear": "każdego roku",
-  "sch_desc_intervalFromTo": "od %s do %s",
-  "sch_desc_never": "nigdy",
-  "sch_desc_onDate": "na %s z %s",
-  "sch_desc_onDates": "na %s i %s z",
-  "sch_desc_onEveryDate": "w każdą datę",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s i %s",
-  "sch_desc_onWeekday": "na %s",
-  "sch_desc_onWeekdays": "na %s i %s",
-  "sch_desc_onWeekends": "w weekendy",
-  "sch_desc_onWorkdays": "w dni robocze",
-  "sch_desc_onceInPast": "nie będzie już wykonywany, ponieważ start jest w przeszłości",
-  "sch_desc_once_on": "na %s",
-  "sch_desc_validFrom": "z %s",
-  "sch_desc_validFromTo": "Wykonaj od do",
-  "sch_desc_validTo": "do %s",
-  "sch_every": "każdy",
-  "sch_exactTime": "Określony czas",
-  "sch_from": "od",
-  "sch_fromTo": "Od-do",
-  "sch_intervalTime": "Czas przerwy",
-  "sch_invert": "odwracać",
-  "sch_no_one": "Żaden",
-  "sch_on": "na",
-  "sch_period": "Kropka",
-  "sch_periodDaily": "Codziennie",
-  "sch_periodDates": "Daktyle",
-  "sch_periodDay": "Dzień",
-  "sch_periodEvery": "Każdy",
-  "sch_periodEveryDay": "Codziennie",
-  "sch_periodEveryMonth": "Każdego miesiąca",
-  "sch_periodEveryWeek": "Co tydzień",
-  "sch_periodEveryYear": "Każdego roku",
-  "sch_periodHours": "godziny",
-  "sch_periodMinutes": "Minuty",
-  "sch_periodMonth": "miesiąc",
-  "sch_periodMonthly": "Miesięczny",
-  "sch_periodOnce": "Pewnego razu",
-  "sch_periodSpecificMonths": "Określone miesiące",
-  "sch_periodWeek": "Tydzień",
-  "sch_periodWeekdays": "Dni powszednie",
-  "sch_periodWeekend": "Weekend",
-  "sch_periodWeekly": "Co tydzień",
-  "sch_periodWorkdays": "Dni robocze",
-  "sch_periodYear": "Rok",
-  "sch_periodYearly": "Rocznie",
-  "sch_specificTime": "Określony czas",
-  "sch_time": "Czas",
-  "sch_to": "do",
-  "sch_valid": "Ważny",
-  "sch_validFrom": "od",
-  "sch_validTo": "do",
-  "sch_wholeDay": "Cały dzień",
-  "sch_yearEveryMonth": "każdego miesiąca",
-  "ra_Define schedule...": "Zdefiniuj harmonogram ...",
-  "ra_Repeat": "Powtarzać",
-  "ra_use seconds": "użyj sekund",
-  "ra_close": "blisko",
-  "ra_dow_Tu": "Tu",
-  "ra_Toggle the states view": "Przełącz widok stanów",
-  "ra_Add new child object to selected parent": "Dodaj nowy obiekt potomny do wybranego rodzica",
-  "ra_Add objects tree from JSON file": "Dodaj drzewo obiektów z pliku JSON",
-  "ra_Save objects tree as JSON file": "Zapisz drzewo obiektów jako plik JSON",
-  "ra_Objects": "Obiekty",
-  "ra_States": "Stany",
-  "ra_object_changed_by_user": "Obiekt ostatnio zmieniony o godz",
-  "ra_object_changed_by": "Obiekt zmieniony przez",
-  "ra_state_changed_from": "Obiekt zmieniony z",
-  "ra_state_changed_by": "Stan zmieniony przez",
-  "ra_aclOwner_read_object": "Właściciel może czytać obiekt",
-  "ra_aclOwner_read_state": "Właściciel może odczytać stan",
-  "ra_aclOwner_write_object": "Właściciel może napisać obiekt",
-  "ra_aclOwner_write_state": "Właściciel może pisać stan",
-  "ra_aclGroup_read_object": "Grupa może odczytać obiekt",
-  "ra_aclGroup_read_state": "Grupa może odczytać stan",
-  "ra_aclGroup_write_object": "Grupa może pisać obiekt",
-  "ra_aclGroup_write_state": "Grupa może pisać stan",
-  "ra_aclEveryone_read_object": "Każdy może czytać obiekt",
-  "ra_aclEveryone_read_state": "Każdy może czytać stan",
-  "ra_aclEveryone_write_object": "Każdy może pisać przedmiot",
-  "ra_aclEveryone_write_state": "Każdy może pisać stan",
-  "ra_Folders always first": "Foldery zawsze na pierwszym miejscu",
-  "ra_changedFrom": "Zmieniony z",
-  "ra_qualityCode": "Kod jakości",
-  "ra_timestamp": "Znak czasu",
-  "ra_lastChange": "Ostatnia zmiana",
-  "ra_Owner group": "Grupa właścicieli",
-  "ra_Owner user": "Właściciel użytkownika",
-  "ra_Create": "Stwórz",
-  "ra_Changed from": "Zmieniony z",
-  "ra_Quality code": "Jakości",
-  "ra_Timestamp": "Znak czasu",
-  "ra_Last change": "Ostatnia zmiana",
-  "ra_Collapse all nodes": "Zwiń wszystkie węzły",
-  "ra_Edit custom config": "Edytuj konfigurację niestandardową",
-  "ra_Collapse one step node": "Zwiń o jeden poziom",
-  "ra_Expand one step node": "Rozwiń o jeden poziom",
-  "ra_Refresh tree": "Odśwież drzewo"
-};
+    "ra_filter_func": "Funkcjonować",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "Imię",
+    "ra_filter_role": "Rola",
+    "ra_filter_room": "Sala",
+    "ra_tooltip_ack": "Potwierdzon",
+    "ra_tooltip_from": "Z",
+    "ra_tooltip_lc": "Ostatnia zmiana",
+    "ra_tooltip_quality": "Jakość",
+    "ra_tooltip_ts": "Znak czasu",
+    "ra_tooltip_user": "Użytkownik",
+    "ra_tooltip_value": "Wartość",
+    "ra_Are you sure?": "Jesteś pewny?",
+    "ra_Cancel": "Anuluj",
+    "ra_Copied": "Skopiowano",
+    "ra_Copied %s": "Skopiowano %s",
+    "ra_Define functions": "Zdefiniuj funkcje",
+    "ra_Define rooms": "Zdefiniuj pokoje",
+    "ra_Error": "Błąd",
+    "ra_Message": "Wiadomość",
+    "ra_Ok": "Dobrze",
+    "ra_Please select object ID...": "Wybierz identyfikator obiektu ...",
+    "ra_Selected": "Wybrany",
+    "ra_Unknown error!": "Nieznany błąd!",
+    "ra_Value": "Wartość",
+    "ra_filter_type": "Rodzaj",
+    "ra_invalidConfig": "Nieprawidłowe ustawienia",
+    "ra_otherConfig": "Ustawienia z innego adaptera %s",
+    "ra_tooltip_copyState": "Skopiuj wartość stanu",
+    "ra_tooltip_customConfig": "Własne ustawienia",
+    "ra_tooltip_deleteObject": "Usuń obiekt",
+    "ra_tooltip_editObject": "Edytuj obiekt",
+    "ra_tooltip_editState": "Edytuj wartość stanu",
+    "ra_filter_customs": "Ustawienia",
+    "ra_Listen on all IPs": "Słuchaj na wszystkich adresach IP",
+    "ra_dow_Fr": "Ks",
+    "ra_dow_Mo": "Mo",
+    "ra_dow_Sa": "Sa",
+    "ra_dow_Su": "Su",
+    "ra_dow_Th": "Th",
+    "ra_Save": "Zapisać",
+    "ra_Save and close": "Zapisz i zamknij",
+    "ra_Close": "Blisko",
+    "ra_Auto (no custom columns)": "Auto (bez kolumn niestandardowych)",
+    "ra_Transparent dialog": "Przejrzyste okno dialogowe",
+    "ra_Width": "Szerokość",
+    "ra_val": "Wartość",
+    "ra_buttons": "guziki",
+    "ra_Configure visible columns": "Skonfiguruj widoczne kolumny",
+    "ra_Cannot update attribute, because not found in the object": "Nie można zaktualizować atrybutu, ponieważ nie znaleziono go w obiekcie",
+    "ra_Edit object field": "Edytuj pole obiektu",
+    "ra_Hide empty folders": "Ukryj puste foldery",
+    "ra_Reload files": "Załaduj ponownie pliki",
+    "ra_Create folder": "Utwórz folder",
+    "ra_Upload file": "Przesyłanie pliku",
+    "ra_User files": "Pliki użytkownika",
+    "ra_Confirm deletion of %s": "Potwierdź usunięcie %s",
+    "ra_Delete (no confirm for 5 mins)": "Usuń (bez potwierdzenia przez 5 minut)",
+    "ra_Delete": "Usunąć",
+    "ra_Toggle expert mode": "Przełącz tryb eksperta",
+    "ra_Toggle view mode": "Przełącz tryb widoku",
+    "re_Root": "Korzeń",
+    "re_Back to %s": "Powrót do %s",
+    "ra_Place your files here or click here to open the browse dialog": "Umieść swoje pliki tutaj lub kliknij tutaj, aby otworzyć okno dialogowe przeglądania",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Jeśli w folderze nie zostanie utworzony żaden plik, zniknie on po zamknięciu przeglądarki",
+    "ra_Folder name": "Nazwa folderu",
+    "ra_Create new folder in %s": "Utwórz nowy folder w %s",
+    "ra_Duplicate name": "Zduplikowana nazwa",
+    "ra_Invalid parent folder!": "Nieprawidłowy folder nadrzędny!",
+    "ra_Drop file here": "Upuść plik tutaj",
+    "ra_Suppress question for next %s minutes": "Ukryj pytanie przez następne %s minut",
+    "ra_Clear filter": "Czysty filtr",
+    "ra_Update": "Aktualizacja",
+    "ra_Load configuration from file": "Załaduj konfigurację z pliku",
+    "ra_Save configuration to file": "Zapisz konfigurację do pliku",
+    "sc_cron": "CRON",
+    "sc_date": "Data",
+    "sc_dates": "Daktyle",
+    "sc_dows": "Dzień tygodnia",
+    "sc_every": "Każdy",
+    "sc_everyN_dates": "co N dni",
+    "sc_everyN_dows": "co N dnia tygodnia",
+    "sc_everyN_hours": "co N godzin",
+    "sc_everyN_minutes": "co N minut",
+    "sc_everyN_months": "co N miesięcy",
+    "sc_everyN_seconds": "co N sekund",
+    "sc_every_dates": "codziennie",
+    "sc_every_dows": "każdy dzień tygodnia",
+    "sc_every_hours": "co godzinę",
+    "sc_every_minutes": "każda minuta",
+    "sc_every_months": "każdego miesiąca",
+    "sc_every_seconds": "każda sekunda",
+    "sc_from": "Od",
+    "sc_hours": "godziny",
+    "sc_interval": "Interwał",
+    "sc_intervalBetween": "Interwał między",
+    "sc_minutes": "Minuty",
+    "sc_months": "miesięcy",
+    "sc_once": "Pewnego razu",
+    "sc_period": "Kropka",
+    "sc_seconds": "sekundy",
+    "sc_simple": "Prosty",
+    "sc_specific": "Określony czas",
+    "sc_specific_dates": "konkretne daty",
+    "sc_specific_dows": "określony dzień tygodni",
+    "sc_specific_hours": "określone godziny",
+    "sc_specific_minutes": "określone minuty",
+    "sc_specific_months": "określone miesiące",
+    "sc_specific_seconds": "określone sekundy",
+    "sc_time": "Czas",
+    "sc_to": "Do",
+    "sc_wizard": "Czarodziej",
+    "sch_all": "wszystko",
+    "sch_astroDay": "Dzień Astro",
+    "sch_astroNight": "Noc Astro",
+    "sch_astro_dawn": "Świt",
+    "sch_astro_dusk": "Zmierzch",
+    "sch_astro_goldenHour": "złota godzina",
+    "sch_astro_goldenHourEnd": "Koniec złotej godziny",
+    "sch_astro_nadir": "Nadir",
+    "sch_astro_nauticalDawn": "Morski świt",
+    "sch_astro_nauticalDusk": "Morski zmierzch",
+    "sch_astro_night": "Noc",
+    "sch_astro_nightEnd": "Koniec nocy",
+    "sch_astro_solarNoon": "Południe słoneczne",
+    "sch_astro_sunrise": "wschód słońca",
+    "sch_astro_sunriseEnd": "Koniec wschodu słońca",
+    "sch_astro_sunset": "Zachód słońca",
+    "sch_astro_sunsetStart": "Początek zachodu słońca",
+    "sch_at": "w",
+    "sch_desc_atTime": "na %s",
+    "sch_desc_everyDay": "codziennie",
+    "sch_desc_everyHour": "co godzinę",
+    "sch_desc_everyMinute": "każda minuta",
+    "sch_desc_everyMonth": "każdego miesiąca",
+    "sch_desc_everyNDay": "każdego dnia %s",
+    "sch_desc_everyNHours": "co %s godzin",
+    "sch_desc_everyNMinutes": "co %s minut",
+    "sch_desc_everyNMonths": "co %s miesięcy",
+    "sch_desc_everyNWeeks": "co %s tygodni",
+    "sch_desc_everyNYears": "co %s lat",
+    "sch_desc_everyWeek": "co tydzień",
+    "sch_desc_everyYear": "każdego roku",
+    "sch_desc_intervalFromTo": "od %s do %s",
+    "sch_desc_never": "nigdy",
+    "sch_desc_onDate": "na %s z %s",
+    "sch_desc_onDates": "na %s i %s z",
+    "sch_desc_onEveryDate": "w każdą datę",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s i %s",
+    "sch_desc_onWeekday": "na %s",
+    "sch_desc_onWeekdays": "na %s i %s",
+    "sch_desc_onWeekends": "w weekendy",
+    "sch_desc_onWorkdays": "w dni robocze",
+    "sch_desc_onceInPast": "nie będzie już wykonywany, ponieważ start jest w przeszłości",
+    "sch_desc_once_on": "na %s",
+    "sch_desc_validFrom": "z %s",
+    "sch_desc_validFromTo": "Wykonaj od do",
+    "sch_desc_validTo": "do %s",
+    "sch_every": "każdy",
+    "sch_exactTime": "Określony czas",
+    "sch_from": "od",
+    "sch_fromTo": "Od-do",
+    "sch_intervalTime": "Czas przerwy",
+    "sch_invert": "odwracać",
+    "sch_no_one": "Żaden",
+    "sch_on": "na",
+    "sch_period": "Kropka",
+    "sch_periodDaily": "Codziennie",
+    "sch_periodDates": "Daktyle",
+    "sch_periodDay": "Dzień",
+    "sch_periodEvery": "Każdy",
+    "sch_periodEveryDay": "Codziennie",
+    "sch_periodEveryMonth": "Każdego miesiąca",
+    "sch_periodEveryWeek": "Co tydzień",
+    "sch_periodEveryYear": "Każdego roku",
+    "sch_periodHours": "godziny",
+    "sch_periodMinutes": "Minuty",
+    "sch_periodMonth": "miesiąc",
+    "sch_periodMonthly": "Miesięczny",
+    "sch_periodOnce": "Pewnego razu",
+    "sch_periodSpecificMonths": "Określone miesiące",
+    "sch_periodWeek": "Tydzień",
+    "sch_periodWeekdays": "Dni powszednie",
+    "sch_periodWeekend": "Weekend",
+    "sch_periodWeekly": "Co tydzień",
+    "sch_periodWorkdays": "Dni robocze",
+    "sch_periodYear": "Rok",
+    "sch_periodYearly": "Rocznie",
+    "sch_specificTime": "Określony czas",
+    "sch_time": "Czas",
+    "sch_to": "do",
+    "sch_valid": "Ważny",
+    "sch_validFrom": "od",
+    "sch_validTo": "do",
+    "sch_wholeDay": "Cały dzień",
+    "sch_yearEveryMonth": "każdego miesiąca",
+    "ra_Define schedule...": "Zdefiniuj harmonogram ...",
+    "ra_Repeat": "Powtarzać",
+    "ra_use seconds": "użyj sekund",
+    "ra_close": "blisko",
+    "ra_dow_Tu": "Tu",
+    "ra_Toggle the states view": "Przełącz widok stanów",
+    "ra_Add new child object to selected parent": "Dodaj nowy obiekt potomny do wybranego rodzica",
+    "ra_Add objects tree from JSON file": "Dodaj drzewo obiektów z pliku JSON",
+    "ra_Save objects tree as JSON file": "Zapisz drzewo obiektów jako plik JSON",
+    "ra_Objects": "Obiekty",
+    "ra_States": "Stany",
+    "ra_object_changed_by_user": "Obiekt ostatnio zmieniony o godz",
+    "ra_object_changed_by": "Obiekt zmieniony przez",
+    "ra_state_changed_from": "Obiekt zmieniony z",
+    "ra_state_changed_by": "Stan zmieniony przez",
+    "ra_aclOwner_read_object": "Właściciel może czytać obiekt",
+    "ra_aclOwner_read_state": "Właściciel może odczytać stan",
+    "ra_aclOwner_write_object": "Właściciel może napisać obiekt",
+    "ra_aclOwner_write_state": "Właściciel może pisać stan",
+    "ra_aclGroup_read_object": "Grupa może odczytać obiekt",
+    "ra_aclGroup_read_state": "Grupa może odczytać stan",
+    "ra_aclGroup_write_object": "Grupa może pisać obiekt",
+    "ra_aclGroup_write_state": "Grupa może pisać stan",
+    "ra_aclEveryone_read_object": "Każdy może czytać obiekt",
+    "ra_aclEveryone_read_state": "Każdy może czytać stan",
+    "ra_aclEveryone_write_object": "Każdy może pisać przedmiot",
+    "ra_aclEveryone_write_state": "Każdy może pisać stan",
+    "ra_Folders always first": "Foldery zawsze na pierwszym miejscu",
+    "ra_changedFrom": "Zmieniony z",
+    "ra_qualityCode": "Kod jakości",
+    "ra_timestamp": "Znak czasu",
+    "ra_lastChange": "Ostatnia zmiana",
+    "ra_Owner group": "Grupa właścicieli",
+    "ra_Owner user": "Właściciel użytkownika",
+    "ra_Create": "Stwórz",
+    "ra_Changed from": "Zmieniony z",
+    "ra_Quality code": "Jakości",
+    "ra_Timestamp": "Znak czasu",
+    "ra_Last change": "Ostatnia zmiana",
+    "ra_Collapse all nodes": "Zwiń wszystkie węzły",
+    "ra_Edit custom config": "Edytuj konfigurację niestandardową",
+    "ra_Collapse one step node": "Zwiń o jeden poziom",
+    "ra_Expand one step node": "Rozwiń o jeden poziom",
+    "ra_Refresh tree": "Odśwież drzewo",
+    "ra_Expand all nodes": "Rozwiń wszystkie węzły"
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/zh-cn.json":[function(require,module,exports) {
 module.exports = {
-  "ra_filter_func": "功能",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "名称",
-  "ra_filter_role": "角色",
-  "ra_filter_room": "房间",
-  "ra_tooltip_ack": "致谢国旗",
-  "ra_tooltip_from": "从",
-  "ra_tooltip_lc": "最后改变了",
-  "ra_tooltip_quality": "质量",
-  "ra_tooltip_ts": "时间戳",
-  "ra_tooltip_user": "用户",
-  "ra_tooltip_value": "值",
-  "ra_Are you sure?": "你确定吗？",
-  "ra_Cancel": "取消",
-  "ra_Copied": "复制的",
-  "ra_Copied %s": "复制的%s",
-  "ra_Define functions": "定义功能",
-  "ra_Define rooms": "定义房间",
-  "ra_Error": "错误",
-  "ra_Message": "信息",
-  "ra_Ok": "好",
-  "ra_Please select object ID...": "请选择对象ID ...",
-  "ra_Selected": "已选",
-  "ra_Unknown error!": "未知错误！",
-  "ra_Value": "值",
-  "ra_filter_type": "类型",
-  "ra_invalidConfig": "无效的设定",
-  "ra_otherConfig": "来自其他适配器%s的设置",
-  "ra_tooltip_copyState": "复制状态值",
-  "ra_tooltip_customConfig": "自定义设置",
-  "ra_tooltip_deleteObject": "删除物件",
-  "ra_tooltip_editObject": "编辑物件",
-  "ra_tooltip_editState": "编辑状态值",
-  "ra_filter_customs": "设定值",
-  "ra_Listen on all IPs": "监听所有IP",
-  "ra_dow_Fr": "r",
-  "ra_dow_Mo": "莫",
-  "ra_dow_Sa": "萨",
-  "ra_dow_Su": "苏",
-  "ra_Save": "保存",
-  "ra_Save and close": "保存并关闭",
-  "ra_Close": "关",
-  "ra_Auto (no custom columns)": "自动（无自定义列）",
-  "ra_Transparent dialog": "透明对话框",
-  "ra_Width": "宽度",
-  "ra_val": "值",
-  "ra_buttons": "纽扣",
-  "ra_Configure visible columns": "配置可见列",
-  "ra_Cannot update attribute, because not found in the object": "无法更新属性，因为在对象中找不到",
-  "ra_Edit object field": "编辑对象字段",
-  "ra_Hide empty folders": "隐藏空文件夹",
-  "ra_Reload files": "重新载入文件",
-  "ra_Create folder": "创建文件夹",
-  "ra_Upload file": "上传文件",
-  "ra_User files": "用户档案",
-  "ra_Confirm deletion of %s": "确认删除%s",
-  "ra_Delete (no confirm for 5 mins)": "删除（5分钟内未确认）",
-  "ra_Delete": "删除",
-  "ra_Toggle expert mode": "切换专家模式",
-  "ra_Toggle view mode": "切换检视模式",
-  "re_Root": "根",
-  "re_Back to %s": "返回%s",
-  "ra_Place your files here or click here to open the browse dialog": "将文件放在此处或单击此处打开浏览对话框",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "如果在该文件夹中未创建任何文件，则该文件将在浏览器关闭后消失",
-  "ra_Folder name": "文件夹名称",
-  "ra_Create new folder in %s": "在%s中创建新文件夹",
-  "ra_Duplicate name": "名称重复",
-  "ra_Invalid parent folder!": "父文件夹无效！",
-  "ra_Drop file here": "将档案放在这里",
-  "ra_Suppress question for next %s minutes": "在接下来的%s分钟内取消提问",
-  "ra_Clear filter": "清除筛选",
-  "ra_Update": "更新资料",
-  "ra_Load configuration from file": "从文件加载配置",
-  "ra_Save configuration to file": "将配置保存到文件",
-  "sc_cron": "周期任务",
-  "sc_date": "日期",
-  "sc_dates": "日",
-  "sc_dows": "星期",
-  "sc_every": "每",
-  "sc_everyN_dates": "每N天",
-  "sc_everyN_dows": "每周N天",
-  "sc_everyN_hours": "每N小时一次",
-  "sc_everyN_minutes": "每N分钟",
-  "sc_everyN_months": "每N个月",
-  "sc_everyN_seconds": "每N秒",
-  "sc_every_dates": "每天",
-  "sc_every_dows": "一周的每一天",
-  "sc_every_hours": "每小时",
-  "sc_every_minutes": "每分钟",
-  "sc_every_months": "每月",
-  "sc_every_seconds": "每秒",
-  "sc_from": "从",
-  "sc_hours": "小时",
-  "sc_interval": "间隔",
-  "sc_intervalBetween": "间隔时间",
-  "sc_minutes": "分钟",
-  "sc_months": "月",
-  "sc_once": "一次",
-  "sc_period": "周期",
-  "sc_seconds": "秒",
-  "sc_simple": "简单模式",
-  "sc_specific": "特定的时间",
-  "sc_specific_dates": "特定的日子",
-  "sc_specific_dows": "特定的一周",
-  "sc_specific_hours": "特定的小时",
-  "sc_specific_minutes": "特定的分钟",
-  "sc_specific_months": "特定的月份",
-  "sc_specific_seconds": "特定的描述",
-  "sc_time": "时间",
-  "sc_to": "至",
-  "sc_wizard": "向导模式",
-  "sch_all": "全选",
-  "sch_astroDay": "天文白天",
-  "sch_astroNight": "天文夜晚",
-  "sch_astro_dawn": "黎明",
-  "sch_astro_dusk": "黄昏",
-  "sch_astro_goldenHour": "黄金时段",
-  "sch_astro_goldenHourEnd": "黄金时段结束",
-  "sch_astro_nadir": "天底",
-  "sch_astro_nauticalDawn": "航海黎明",
-  "sch_astro_nauticalDusk": "航海黄昏",
-  "sch_astro_night": "夜晚",
-  "sch_astro_nightEnd": "夜晚结束",
-  "sch_astro_solarNoon": "正午",
-  "sch_astro_sunrise": "日出",
-  "sch_astro_sunriseEnd": "日出结束",
-  "sch_astro_sunset": "日落",
-  "sch_astro_sunsetStart": "日落开始",
-  "sch_at": "在",
-  "sch_desc_atTime": "的%s",
-  "sch_desc_everyDay": "每天",
-  "sch_desc_everyHour": "每小时",
-  "sch_desc_everyMinute": "每分钟",
-  "sch_desc_everyMonth": "每月",
-  "sch_desc_everyNDay": "每%s天",
-  "sch_desc_everyNHours": "每%s小时",
-  "sch_desc_everyNMinutes": "每%s分钟",
-  "sch_desc_everyNMonths": "每%s月",
-  "sch_desc_everyNWeeks": "每%s周",
-  "sch_desc_everyNYears": "每%s年",
-  "sch_desc_everyWeek": "每周",
-  "sch_desc_everyYear": "每年",
-  "sch_desc_intervalFromTo": "从%s到%s",
-  "sch_desc_never": "决不",
-  "sch_desc_onDate": "在%s的%s上",
-  "sch_desc_onDates": "在%s和%s上",
-  "sch_desc_onEveryDate": "在每天",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s和%s",
-  "sch_desc_onWeekday": "在%s上",
-  "sch_desc_onWeekdays": "在%s和%s上",
-  "sch_desc_onWeekends": "在周末",
-  "sch_desc_onWorkdays": "在工作日",
-  "sch_desc_onceInPast": "将不再执行，因为起始时间已经是过去的时间了。",
-  "sch_desc_once_on": "在%s上",
-  "sch_desc_validFrom": "来自%s",
-  "sch_desc_validFromTo": "从执行到",
-  "sch_desc_validTo": "到%s",
-  "sch_every": "每",
-  "sch_exactTime": "特定的时间",
-  "sch_from": "从",
-  "sch_fromTo": "从到",
-  "sch_intervalTime": "间隔时间",
-  "sch_invert": "倒置",
-  "sch_no_one": "取消全选",
-  "sch_on": "的",
-  "sch_period": "周期",
-  "sch_periodDaily": "每天",
-  "sch_periodDates": "日期",
-  "sch_periodDay": "天",
-  "sch_periodEvery": "每",
-  "sch_periodEveryDay": "每天",
-  "sch_periodEveryMonth": "每月",
-  "sch_periodEveryWeek": "每周",
-  "sch_periodEveryYear": "每年",
-  "sch_periodHours": "小时",
-  "sch_periodMinutes": "分钟",
-  "sch_periodMonth": "月",
-  "sch_periodMonthly": "每月一次",
-  "sch_periodOnce": "一次",
-  "sch_periodSpecificMonths": "特定的月份",
-  "sch_periodWeek": "周",
-  "sch_periodWeekdays": "工作日",
-  "sch_periodWeekend": "周末",
-  "sch_periodWeekly": "每周",
-  "sch_periodWorkdays": "工作日",
-  "sch_periodYear": "年",
-  "sch_periodYearly": "每年",
-  "sch_specificTime": "特定的时间",
-  "sch_time": "时间",
-  "sch_to": "至",
-  "sch_valid": "生效",
-  "sch_validFrom": "从",
-  "sch_validTo": "至",
-  "sch_wholeDay": "一整天",
-  "sch_yearEveryMonth": "每月",
-  "ra_Define schedule...": "定义时间表...",
-  "ra_Repeat": "重复",
-  "ra_use seconds": "用秒",
-  "ra_close": "关闭",
-  "ra_dow_Th": "Th",
-  "ra_dow_Tu": "Tu",
-  "ra_Toggle the states view": "切换状态视图",
-  "ra_Add new child object to selected parent": "将新的子对象添加到选定的父对象",
-  "ra_Add objects tree from JSON file": "从JSON文件添加对象树",
-  "ra_Save objects tree as JSON file": "将对象树另存为JSON文件",
-  "ra_Objects": "对象",
-  "ra_States": "状态",
-  "ra_object_changed_by_user": "对象上次更改时间为",
-  "ra_object_changed_by": "物件变更者",
-  "ra_state_changed_from": "对象已从更改",
-  "ra_state_changed_by": "状态由",
-  "ra_aclOwner_read_object": "所有者可以读取对象",
-  "ra_aclOwner_read_state": "所有者可以读取状态",
-  "ra_aclOwner_write_object": "所有者可以写对象",
-  "ra_aclOwner_write_state": "所有者可以写状态",
-  "ra_aclGroup_read_object": "组可以读取对象",
-  "ra_aclGroup_read_state": "群组可以读取状态",
-  "ra_aclGroup_write_object": "组可以写对象",
-  "ra_aclGroup_write_state": "组可以写状态",
-  "ra_aclEveryone_read_object": "每个人都可以阅读对象",
-  "ra_aclEveryone_read_state": "每个人都可以阅读状态",
-  "ra_aclEveryone_write_object": "每个人都可以写对象",
-  "ra_aclEveryone_write_state": "每个人都可以写状态",
-  "ra_Folders always first": "资料夹永远优先",
-  "ra_changedFrom": "更改为",
-  "ra_qualityCode": "质量代码",
-  "ra_timestamp": "时间戳记",
-  "ra_lastChange": "最后一次变更",
-  "ra_Owner group": "所有者组",
-  "ra_Owner user": "所有者用户",
-  "ra_Create": "创建",
-  "ra_Changed from": "更改为",
-  "ra_Quality code": "质量代码",
-  "ra_Timestamp": "时间戳记",
-  "ra_Last change": "最后一次变更",
-  "ra_Collapse all nodes": "收合所有节点",
-  "ra_Edit custom config": "编辑自定义配置",
-  "ra_Collapse one step node": "折叠一级",
-  "ra_Expand one step node": "扩大一级",
-  "ra_Refresh tree": "刷新树"
-};
+    "ra_filter_func": "功能",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "名称",
+    "ra_filter_role": "角色",
+    "ra_filter_room": "房间",
+    "ra_tooltip_ack": "致谢国旗",
+    "ra_tooltip_from": "从",
+    "ra_tooltip_lc": "最后改变了",
+    "ra_tooltip_quality": "质量",
+    "ra_tooltip_ts": "时间戳",
+    "ra_tooltip_user": "用户",
+    "ra_tooltip_value": "值",
+    "ra_Are you sure?": "你确定吗？",
+    "ra_Cancel": "取消",
+    "ra_Copied": "复制的",
+    "ra_Copied %s": "复制的%s",
+    "ra_Define functions": "定义功能",
+    "ra_Define rooms": "定义房间",
+    "ra_Error": "错误",
+    "ra_Message": "信息",
+    "ra_Ok": "好",
+    "ra_Please select object ID...": "请选择对象ID ...",
+    "ra_Selected": "已选",
+    "ra_Unknown error!": "未知错误！",
+    "ra_Value": "值",
+    "ra_filter_type": "类型",
+    "ra_invalidConfig": "无效的设定",
+    "ra_otherConfig": "来自其他适配器%s的设置",
+    "ra_tooltip_copyState": "复制状态值",
+    "ra_tooltip_customConfig": "自定义设置",
+    "ra_tooltip_deleteObject": "删除物件",
+    "ra_tooltip_editObject": "编辑物件",
+    "ra_tooltip_editState": "编辑状态值",
+    "ra_filter_customs": "设定值",
+    "ra_Listen on all IPs": "监听所有IP",
+    "ra_dow_Fr": "r",
+    "ra_dow_Mo": "莫",
+    "ra_dow_Sa": "萨",
+    "ra_dow_Su": "苏",
+    "ra_Save": "保存",
+    "ra_Save and close": "保存并关闭",
+    "ra_Close": "关",
+    "ra_Auto (no custom columns)": "自动（无自定义列）",
+    "ra_Transparent dialog": "透明对话框",
+    "ra_Width": "宽度",
+    "ra_val": "值",
+    "ra_buttons": "纽扣",
+    "ra_Configure visible columns": "配置可见列",
+    "ra_Cannot update attribute, because not found in the object": "无法更新属性，因为在对象中找不到",
+    "ra_Edit object field": "编辑对象字段",
+    "ra_Hide empty folders": "隐藏空文件夹",
+    "ra_Reload files": "重新载入文件",
+    "ra_Create folder": "创建文件夹",
+    "ra_Upload file": "上传文件",
+    "ra_User files": "用户档案",
+    "ra_Confirm deletion of %s": "确认删除%s",
+    "ra_Delete (no confirm for 5 mins)": "删除（5分钟内未确认）",
+    "ra_Delete": "删除",
+    "ra_Toggle expert mode": "切换专家模式",
+    "ra_Toggle view mode": "切换检视模式",
+    "re_Root": "根",
+    "re_Back to %s": "返回%s",
+    "ra_Place your files here or click here to open the browse dialog": "将文件放在此处或单击此处打开浏览对话框",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "如果在该文件夹中未创建任何文件，则该文件将在浏览器关闭后消失",
+    "ra_Folder name": "文件夹名称",
+    "ra_Create new folder in %s": "在%s中创建新文件夹",
+    "ra_Duplicate name": "名称重复",
+    "ra_Invalid parent folder!": "父文件夹无效！",
+    "ra_Drop file here": "将档案放在这里",
+    "ra_Suppress question for next %s minutes": "在接下来的%s分钟内取消提问",
+    "ra_Clear filter": "清除筛选",
+    "ra_Update": "更新资料",
+    "ra_Load configuration from file": "从文件加载配置",
+    "ra_Save configuration to file": "将配置保存到文件",
+    "sc_cron": "周期任务",
+    "sc_date": "日期",
+    "sc_dates": "日",
+    "sc_dows": "星期",
+    "sc_every": "每",
+    "sc_everyN_dates": "每N天",
+    "sc_everyN_dows": "每周N天",
+    "sc_everyN_hours": "每N小时一次",
+    "sc_everyN_minutes": "每N分钟",
+    "sc_everyN_months": "每N个月",
+    "sc_everyN_seconds": "每N秒",
+    "sc_every_dates": "每天",
+    "sc_every_dows": "一周的每一天",
+    "sc_every_hours": "每小时",
+    "sc_every_minutes": "每分钟",
+    "sc_every_months": "每月",
+    "sc_every_seconds": "每秒",
+    "sc_from": "从",
+    "sc_hours": "小时",
+    "sc_interval": "间隔",
+    "sc_intervalBetween": "间隔时间",
+    "sc_minutes": "分钟",
+    "sc_months": "月",
+    "sc_once": "一次",
+    "sc_period": "周期",
+    "sc_seconds": "秒",
+    "sc_simple": "简单模式",
+    "sc_specific": "特定的时间",
+    "sc_specific_dates": "特定的日子",
+    "sc_specific_dows": "特定的一周",
+    "sc_specific_hours": "特定的小时",
+    "sc_specific_minutes": "特定的分钟",
+    "sc_specific_months": "特定的月份",
+    "sc_specific_seconds": "特定的描述",
+    "sc_time": "时间",
+    "sc_to": "至",
+    "sc_wizard": "向导模式",
+    "sch_all": "全选",
+    "sch_astroDay": "天文白天",
+    "sch_astroNight": "天文夜晚",
+    "sch_astro_dawn": "黎明",
+    "sch_astro_dusk": "黄昏",
+    "sch_astro_goldenHour": "黄金时段",
+    "sch_astro_goldenHourEnd": "黄金时段结束",
+    "sch_astro_nadir": "天底",
+    "sch_astro_nauticalDawn": "航海黎明",
+    "sch_astro_nauticalDusk": "航海黄昏",
+    "sch_astro_night": "夜晚",
+    "sch_astro_nightEnd": "夜晚结束",
+    "sch_astro_solarNoon": "正午",
+    "sch_astro_sunrise": "日出",
+    "sch_astro_sunriseEnd": "日出结束",
+    "sch_astro_sunset": "日落",
+    "sch_astro_sunsetStart": "日落开始",
+    "sch_at": "在",
+    "sch_desc_atTime": "的%s",
+    "sch_desc_everyDay": "每天",
+    "sch_desc_everyHour": "每小时",
+    "sch_desc_everyMinute": "每分钟",
+    "sch_desc_everyMonth": "每月",
+    "sch_desc_everyNDay": "每%s天",
+    "sch_desc_everyNHours": "每%s小时",
+    "sch_desc_everyNMinutes": "每%s分钟",
+    "sch_desc_everyNMonths": "每%s月",
+    "sch_desc_everyNWeeks": "每%s周",
+    "sch_desc_everyNYears": "每%s年",
+    "sch_desc_everyWeek": "每周",
+    "sch_desc_everyYear": "每年",
+    "sch_desc_intervalFromTo": "从%s到%s",
+    "sch_desc_never": "决不",
+    "sch_desc_onDate": "在%s的%s上",
+    "sch_desc_onDates": "在%s和%s上",
+    "sch_desc_onEveryDate": "在每天",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s和%s",
+    "sch_desc_onWeekday": "在%s上",
+    "sch_desc_onWeekdays": "在%s和%s上",
+    "sch_desc_onWeekends": "在周末",
+    "sch_desc_onWorkdays": "在工作日",
+    "sch_desc_onceInPast": "将不再执行，因为起始时间已经是过去的时间了。",
+    "sch_desc_once_on": "在%s上",
+    "sch_desc_validFrom": "来自%s",
+    "sch_desc_validFromTo": "从执行到",
+    "sch_desc_validTo": "到%s",
+    "sch_every": "每",
+    "sch_exactTime": "特定的时间",
+    "sch_from": "从",
+    "sch_fromTo": "从到",
+    "sch_intervalTime": "间隔时间",
+    "sch_invert": "倒置",
+    "sch_no_one": "取消全选",
+    "sch_on": "的",
+    "sch_period": "周期",
+    "sch_periodDaily": "每天",
+    "sch_periodDates": "日期",
+    "sch_periodDay": "天",
+    "sch_periodEvery": "每",
+    "sch_periodEveryDay": "每天",
+    "sch_periodEveryMonth": "每月",
+    "sch_periodEveryWeek": "每周",
+    "sch_periodEveryYear": "每年",
+    "sch_periodHours": "小时",
+    "sch_periodMinutes": "分钟",
+    "sch_periodMonth": "月",
+    "sch_periodMonthly": "每月一次",
+    "sch_periodOnce": "一次",
+    "sch_periodSpecificMonths": "特定的月份",
+    "sch_periodWeek": "周",
+    "sch_periodWeekdays": "工作日",
+    "sch_periodWeekend": "周末",
+    "sch_periodWeekly": "每周",
+    "sch_periodWorkdays": "工作日",
+    "sch_periodYear": "年",
+    "sch_periodYearly": "每年",
+    "sch_specificTime": "特定的时间",
+    "sch_time": "时间",
+    "sch_to": "至",
+    "sch_valid": "生效",
+    "sch_validFrom": "从",
+    "sch_validTo": "至",
+    "sch_wholeDay": "一整天",
+    "sch_yearEveryMonth": "每月",
+    "ra_Define schedule...": "定义时间表...",
+    "ra_Repeat": "重复",
+    "ra_use seconds": "用秒",
+    "ra_close": "关闭",
+    "ra_dow_Th": "Th",
+    "ra_dow_Tu": "Tu",
+    "ra_Toggle the states view": "切换状态视图",
+    "ra_Add new child object to selected parent": "将新的子对象添加到选定的父对象",
+    "ra_Add objects tree from JSON file": "从JSON文件添加对象树",
+    "ra_Save objects tree as JSON file": "将对象树另存为JSON文件",
+    "ra_Objects": "对象",
+    "ra_States": "状态",
+    "ra_object_changed_by_user": "对象上次更改时间为",
+    "ra_object_changed_by": "物件变更者",
+    "ra_state_changed_from": "对象已从更改",
+    "ra_state_changed_by": "状态由",
+    "ra_aclOwner_read_object": "所有者可以读取对象",
+    "ra_aclOwner_read_state": "所有者可以读取状态",
+    "ra_aclOwner_write_object": "所有者可以写对象",
+    "ra_aclOwner_write_state": "所有者可以写状态",
+    "ra_aclGroup_read_object": "组可以读取对象",
+    "ra_aclGroup_read_state": "群组可以读取状态",
+    "ra_aclGroup_write_object": "组可以写对象",
+    "ra_aclGroup_write_state": "组可以写状态",
+    "ra_aclEveryone_read_object": "每个人都可以阅读对象",
+    "ra_aclEveryone_read_state": "每个人都可以阅读状态",
+    "ra_aclEveryone_write_object": "每个人都可以写对象",
+    "ra_aclEveryone_write_state": "每个人都可以写状态",
+    "ra_Folders always first": "资料夹永远优先",
+    "ra_changedFrom": "更改为",
+    "ra_qualityCode": "质量代码",
+    "ra_timestamp": "时间戳记",
+    "ra_lastChange": "最后一次变更",
+    "ra_Owner group": "所有者组",
+    "ra_Owner user": "所有者用户",
+    "ra_Create": "创建",
+    "ra_Changed from": "更改为",
+    "ra_Quality code": "质量代码",
+    "ra_Timestamp": "时间戳记",
+    "ra_Last change": "最后一次变更",
+    "ra_Collapse all nodes": "收合所有节点",
+    "ra_Edit custom config": "编辑自定义配置",
+    "ra_Collapse one step node": "折叠一级",
+    "ra_Expand one step node": "扩大一级",
+    "ra_Refresh tree": "刷新树",
+    "ra_Expand all nodes": "展开所有节点"
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/GenericApp.js":[function(require,module,exports) {
 "use strict";
 
@@ -70361,6 +70630,28 @@ var GenericApp = /*#__PURE__*/function (_Router) {
 
     _this = _super.call(this, props);
 
+    _defineProperty(_assertThisInitialized(_this), "onSystemConfigChanged", function (id, obj) {
+      if (obj && id === 'system.config') {
+        var _obj$common;
+
+        if (_this.socket.systemLang !== (obj === null || obj === void 0 ? void 0 : obj.common.language)) {
+          _this.socket.systemLang = (obj === null || obj === void 0 ? void 0 : obj.common.language) || 'en';
+
+          _i18n["default"].setLanguage(_this.socket.systemLang);
+        }
+
+        if (_this._systemConfig.expertMode !== !!(obj !== null && obj !== void 0 && (_obj$common = obj.common) !== null && _obj$common !== void 0 && _obj$common.expertMode)) {
+          _this._systemConfig = (obj === null || obj === void 0 ? void 0 : obj.common) || {};
+
+          _this.setState({
+            expertMode: _this.getExpertMode()
+          });
+        } else {
+          _this._systemConfig = (obj === null || obj === void 0 ? void 0 : obj.common) || {};
+        }
+      }
+    });
+
     _defineProperty(_assertThisInitialized(_this), "onReceiveMessage", function (message) {
       if (message !== null && message !== void 0 && message.data) {
         if (message.data === 'updateTheme') {
@@ -70379,9 +70670,9 @@ var GenericApp = /*#__PURE__*/function (_Router) {
             _this.onThemeChanged && _this.onThemeChanged(newThemeName);
           });
         } else if (message.data === 'updateExpertMode') {
-          _this.onToggleExpertMode && _this.onToggleExpertMode(window.localStorage.getItem('App.expertMode') === 'true');
+          _this.onToggleExpertMode && _this.onToggleExpertMode(_this.getExpertMode());
         } else {
-          console.warn('Received unknown message: ' + message.data);
+          console.warn('Received unknown message: ' + JSON.stringify(message.data));
         }
       }
     });
@@ -70428,6 +70719,7 @@ var GenericApp = /*#__PURE__*/function (_Router) {
       connected: false,
       loaded: false,
       isConfigurationError: '',
+      expertMode: false,
       toast: '',
       theme: themeInstance,
       themeName: _this.getThemeName(themeInstance),
@@ -70483,9 +70775,12 @@ var GenericApp = /*#__PURE__*/function (_Router) {
         }
       },
       onReady: function onReady(objects, scripts) {
-        _i18n["default"].setLanguage(_this.socket.systemLang);
+        _i18n["default"].setLanguage(_this.socket.systemLang); // subscribe because of language and expert mode
 
-        _this.getSystemConfig().then(function (obj) {
+
+        _this.socket.subscribeObject('system.config', _this.onSystemConfigChanged).then(function () {
+          return _this.getSystemConfig();
+        }).then(function (obj) {
           _this._secret = typeof obj !== 'undefined' && obj["native"] && obj["native"].secret || 'Zgfr56gFe87jJOM';
           _this._systemConfig = (obj === null || obj === void 0 ? void 0 : obj.common) || {};
           return _this.socket.getObject(_this.instanceId);
@@ -70516,9 +70811,12 @@ var GenericApp = /*#__PURE__*/function (_Router) {
               _this.onPrepareLoad(obj["native"]); // decode all secrets
 
 
+              _this.savedNative = JSON.parse(JSON.stringify(obj["native"]));
+
               _this.setState({
                 "native": obj["native"],
-                loaded: true
+                loaded: true,
+                expertMode: _this.getExpertMode()
               }, function () {
                 return _this.onConnectionReady && _this.onConnectionReady();
               });
@@ -70527,7 +70825,8 @@ var GenericApp = /*#__PURE__*/function (_Router) {
 
               _this.setState({
                 "native": {},
-                loaded: true
+                loaded: true,
+                expertMode: _this.getExpertMode()
               }, function () {
                 return _this.onConnectionReady && _this.onConnectionReady();
               });
@@ -70543,13 +70842,13 @@ var GenericApp = /*#__PURE__*/function (_Router) {
     }));
     return _this;
   }
-  /**
-   * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
-   */
-
 
   _createClass(GenericApp, [{
     key: "componentDidMount",
+
+    /**
+     * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
+     */
     value: function componentDidMount() {
       window.addEventListener('resize', this.onResize, true);
       window.addEventListener('message', this.onReceiveMessage, false);
@@ -70883,6 +71182,7 @@ var GenericApp = /*#__PURE__*/function (_Router) {
         }
       }).then(function () {
         _this6.savedNative = oldObj["native"];
+        globalThis.changed = false;
 
         _this6.setState({
           changed: false
@@ -70972,7 +71272,15 @@ var GenericApp = /*#__PURE__*/function (_Router) {
     key: "getIsChanged",
     value: function getIsChanged(_native) {
       _native = _native || this.state["native"];
-      return JSON.stringify(_native) !== JSON.stringify(this.savedNative);
+      var isChanged = JSON.stringify(_native) !== JSON.stringify(this.savedNative);
+
+      if (isChanged) {
+        globalThis.changed = true;
+      } else {
+        globalThis.changed = false;
+      }
+
+      return isChanged;
     }
     /**
      * Gets called when loading the configuration.
@@ -71018,8 +71326,8 @@ var GenericApp = /*#__PURE__*/function (_Router) {
           theme: this.state.theme,
           noTextOnButtons: this.state.width === 'xs' || this.state.width === 'sm' || this.state.width === 'md',
           changed: this.state.changed,
-          onSave: function onSave() {
-            return _this9.onSave(true);
+          onSave: function onSave(isClose) {
+            return _this9.onSave(isClose);
           },
           onClose: function onClose() {
             return GenericApp.onClose();
@@ -71090,7 +71398,7 @@ var GenericApp = /*#__PURE__*/function (_Router) {
     }
     /**
      * Set the error text to be shown.
-     * @param {string} text
+     * @param {string | JSX.Element} text
      */
 
   }, {
@@ -71228,9 +71536,9 @@ exports.default = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /**
  * @ignore - internal component.
@@ -71267,9 +71575,9 @@ var _debounce = _interopRequireDefault(require("../utils/debounce"));
 
 var _useForkRef = _interopRequireDefault(require("../utils/useForkRef"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71566,9 +71874,9 @@ var _TextareaAutosize = _interopRequireDefault(require("../TextareaAutosize"));
 
 var _utils2 = require("./utils");
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72252,9 +72560,9 @@ var _InputBase = _interopRequireDefault(require("../InputBase"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72583,9 +72891,9 @@ var _InputBase = _interopRequireDefault(require("../InputBase"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72970,9 +73278,9 @@ var _useTheme = _interopRequireDefault(require("../styles/useTheme"));
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73161,9 +73469,9 @@ var _NotchedOutline = _interopRequireDefault(require("./NotchedOutline"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73503,9 +73811,9 @@ var _FormControlContext = _interopRequireDefault(require("./FormControlContext")
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function useFormControl() {
   return React.useContext(_FormControlContext.default);
@@ -73536,9 +73844,9 @@ var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73728,9 +74036,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _FormLabel = _interopRequireDefault(require("../FormLabel"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73978,9 +74286,9 @@ var _isMuiElement = _interopRequireDefault(require("../utils/isMuiElement"));
 
 var _FormControlContext = _interopRequireDefault(require("./FormControlContext"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74313,9 +74621,9 @@ var _useFormControl = _interopRequireDefault(require("../FormControl/useFormCont
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74527,9 +74835,9 @@ var _Grow = _interopRequireDefault(require("../Grow"));
 
 var _Paper = _interopRequireDefault(require("../Paper"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75096,9 +75404,9 @@ exports.default = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /**
  * @ignore - internal component.
@@ -75133,9 +75441,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _ListContext = _interopRequireDefault(require("./ListContext"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75279,9 +75587,9 @@ var _getScrollbarSize = _interopRequireDefault(require("../utils/getScrollbarSiz
 
 var _useForkRef = _interopRequireDefault(require("../utils/useForkRef"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75631,9 +75939,9 @@ var _setRef = _interopRequireDefault(require("../utils/setRef"));
 
 var _useTheme = _interopRequireDefault(require("../styles/useTheme"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75937,9 +76245,9 @@ var _useForkRef = _interopRequireDefault(require("../utils/useForkRef"));
 
 var _useControlled3 = _interopRequireDefault(require("../utils/useControlled"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -76525,9 +76833,9 @@ var _createSvgIcon = _interopRequireDefault(require("../../utils/createSvgIcon")
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /**
  * @ignore - internal component.
@@ -76559,9 +76867,9 @@ var _utils = require("@material-ui/utils");
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -76678,9 +76986,9 @@ var _ArrowDropDown = _interopRequireDefault(require("../internal/svg-icons/Arrow
 
 var _Input = _interopRequireDefault(require("../Input"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -76931,9 +77239,9 @@ var _FilledInput = _interopRequireDefault(require("../FilledInput"));
 
 var _OutlinedInput = _interopRequireDefault(require("../OutlinedInput"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -77234,9 +77542,9 @@ var _Select = _interopRequireDefault(require("../Select"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -77650,9 +77958,9 @@ var _ListContext = _interopRequireDefault(require("../List/ListContext"));
 
 var ReactDOM = _interopRequireWildcard(require("react-dom"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -77987,9 +78295,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _ListItem = _interopRequireDefault(require("../ListItem"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78166,9 +78474,9 @@ var _Typography = _interopRequireDefault(require("../Typography"));
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78386,9 +78694,9 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _IconButton = _interopRequireDefault(require("../IconButton"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78644,9 +78952,9 @@ var _createSvgIcon = _interopRequireDefault(require("../../utils/createSvgIcon")
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /**
  * @ignore - internal component.
@@ -78670,9 +78978,9 @@ var _createSvgIcon = _interopRequireDefault(require("../../utils/createSvgIcon")
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /**
  * @ignore - internal component.
@@ -78696,9 +79004,9 @@ var _createSvgIcon = _interopRequireDefault(require("../../utils/createSvgIcon")
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 /**
  * @ignore - internal component.
@@ -78742,9 +79050,9 @@ var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -79148,7 +79456,7 @@ function (_super) {
   Settings.prototype.render = function () {
     return react_1.default.createElement("form", {
       className: this.props.classes.tab
-    }, this.renderInput("Server Adresse", "serverAdresse", "text"), react_1.default.createElement("br", null), this.renderInput("Port", "port", "number"), react_1.default.createElement("br", null), this.renderInput("API Key", "apiKey", "password"), react_1.default.createElement("br", null), this.renderInput("Polling interval", "pollingInterval", "number"));
+    }, this.renderInput("serverAdresse", "serverAdresse", "text"), react_1.default.createElement("br", null), this.renderInput("port", "port", "number"), react_1.default.createElement("br", null), this.renderInput("apiKey", "apiKey", "password"), react_1.default.createElement("br", null), this.renderInput("pollingInterval", "pollingInterval", "number"));
   };
 
   return Settings;
