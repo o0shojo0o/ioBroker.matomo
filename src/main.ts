@@ -6,10 +6,9 @@
 // you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
 import axios from "axios";
-import { SiteLiveCounter } from "./lib/site-live-counter";
-import { SiteStats } from "./lib/site-states";
+import { MyObjectsDefinitions, objectDefinitions } from "./lib/object_definitions";
 
-let adapter: Matomo;
+let adapter: ioBroker.Adapter;
 let currentTimeout: NodeJS.Timeout;
 
 class Matomo extends utils.Adapter {
@@ -30,11 +29,18 @@ class Matomo extends utils.Adapter {
 		this.setState("info.connection", false, true);
 		this.log.info("config serverAdresse: " + this.config.serverAdresse);
 		this.log.info("config port: " + this.config.port);
-		this.log.info("config apiKey: **************");
+		this.log.info("config apiKey: *************");
 		this.log.info("config pollingInterval: " + this.config.pollingInterval);
 
-		worker(this.config.serverAdresse, this.config.apiKey);
-		intervalTimer(this.config.serverAdresse, this.config.apiKey, this.config.pollingInterval * 1000);
+		try {
+			await worker(this.config.serverAdresse, this.config.apiKey);
+			adapter.setState("info.connection", true, true);
+		} catch (error) {
+			this.log.debug(error);
+			this.log.warn(`No connection to the server could be established. (${error})`);
+		}
+
+		intervalTick(this.config.serverAdresse, this.config.apiKey, this.config.pollingInterval * 1000);
 	}
 	private onUnload(callback: () => void): void {
 		try {
@@ -46,30 +52,50 @@ class Matomo extends utils.Adapter {
 	}
 }
 
-async function intervalTimer(matomoUrl: string, apiKey: string, pollingInterval: number): Promise<void> {
+async function intervalTick(matomoUrl: string, apiKey: string, pollingInterval: number): Promise<void> {
 	if (currentTimeout) {
 		clearTimeout(currentTimeout);
 	}
 
 	currentTimeout = setTimeout(async () => {
-		worker(matomoUrl, apiKey);
-		intervalTimer(matomoUrl, apiKey, pollingInterval);
+		try {
+			await worker(matomoUrl, apiKey);
+			adapter.setState("info.connection", true, true);
+		} catch (error) {
+			adapter.setState("info.connection", false, true);
+		}
+
+		intervalTick(matomoUrl, apiKey, pollingInterval);
 	}, pollingInterval);
 }
 
 async function worker(matomoUrl: string, apiKey: string): Promise<void> {
-	const siteStats = await getAllSitesStats(matomoUrl, apiKey);
-	for (const key in siteStats) {
-		if (Object.prototype.hasOwnProperty.call(siteStats, key)) {
-			siteStats[key].visits_evolution = parseFloat(String(siteStats[key].visits_evolution).replace(",", "."));
-			siteStats[key].actions_evolution = parseFloat(String(siteStats[key].actions_evolution).replace(",", "."));
-			siteStats[key].pageviews_evolution = parseFloat(String(siteStats[key].pageviews_evolution).replace(",", "."));
-			siteStats[key].revenue_evolution = parseFloat(String(siteStats[key].revenue_evolution).replace(",", "."));
-			siteStats[key].siteLiveCounter = await getLiveCounters(matomoUrl, siteStats[key].idsite, apiKey);
-			siteStats[key].siteLiveCounter.visits = parseInt(siteStats[key].siteLiveCounter.visits);
+	const sitesStats = (await getAllSitesStats(matomoUrl, apiKey)) as any;
+
+	for (const key in sitesStats) {
+		if (Object.prototype.hasOwnProperty.call(sitesStats, key)) {
+			const stateBaseID = `sites.${sitesStats[key].idsite}`;
+			// Channel erstellen
+			await setObjectAndState("sites.site", stateBaseID, sitesStats[key].label, null);
+
+			// SiteStats Propertys durchlaufen und in State schreiben
+			for (const lKey in sitesStats[key]) {
+				if (Object.prototype.hasOwnProperty.call(sitesStats[key], lKey)) {
+					// sites.site.{visits} | sites.{0}.{visits} | 0
+					setObjectAndState(`sites.site.${lKey}`, `${stateBaseID}.${lKey}`, null, sitesStats[key][lKey]);
+				}
+			}
+
+			const liveCouter = (await getLiveCounters(matomoUrl, sitesStats[key].idsite, apiKey)) as any;
+			// LiveCouter Propertys durchlaufen und in State schreiben
+			for (const lKey in liveCouter) {
+				if (Object.prototype.hasOwnProperty.call(liveCouter, lKey)) {
+					// sites.site.{visits} | sites.{0}.{visits} | 0
+					setObjectAndState(`sites.site.${lKey}`, `${stateBaseID}.${lKey}`, null, liveCouter[lKey]);
+				}
+			}
 		}
 	}
-	adapter.log.debug(JSON.stringify(siteStats));
 }
 
 async function getAllSitesStats(matomoUrl: string, apiKey: string): Promise<Array<SiteStats>> {
@@ -82,7 +108,18 @@ async function getAllSitesStats(matomoUrl: string, apiKey: string): Promise<Arra
 	apiUrl.searchParams.append("format", "JSON");
 	apiUrl.searchParams.append("token_auth", apiKey);
 
-	return (await axios.get(apiUrl.href)).data;
+	const response = (await axios.get(apiUrl.href)).data;
+	// Correct data types
+	for (const key in response) {
+		if (Object.prototype.hasOwnProperty.call(response, key)) {
+			response[key].visits_evolution = parseFloat(String(response[key].visits_evolution).replace(",", "."));
+			response[key].actions_evolution = parseFloat(String(response[key].actions_evolution).replace(",", "."));
+			response[key].pageviews_evolution = parseFloat(String(response[key].pageviews_evolution).replace(",", "."));
+			response[key].revenue_evolution = parseFloat(String(response[key].revenue_evolution).replace(",", "."));
+		}
+	}
+
+	return response;
 }
 
 async function getLiveCounters(matomoUrl: string, idSite: number, apiKey: string): Promise<SiteLiveCounter> {
@@ -95,7 +132,39 @@ async function getLiveCounters(matomoUrl: string, idSite: number, apiKey: string
 	apiUrl.searchParams.append("format", "JSON");
 	apiUrl.searchParams.append("token_auth", apiKey);
 
-	return (await axios.get(apiUrl.href)).data;
+	const response = (await axios.get(apiUrl.href)).data[0];
+	// Correct data types
+	response.visits = parseInt(response.visits);
+	response.actions = parseInt(response.actions);
+	response.visitors = parseInt(response.visitors);
+	response.visitsConverted = parseInt(response.visitsConverted);
+
+	return response;
+}
+
+async function setObjectAndState(objectId: string, stateId: string, stateName: string | null, value: any | null): Promise<void> {
+	const obj: MyObjectsDefinitions = objectDefinitions[objectId];
+
+	if (!obj) {
+		return;
+	}
+
+	if (stateName !== null) {
+		obj.common.name = stateName;
+	}
+
+	await adapter.setObjectNotExistsAsync(stateId, {
+		type: obj.type,
+		common: JSON.parse(JSON.stringify(obj.common)),
+		native: JSON.parse(JSON.stringify(obj.native)),
+	});
+
+	if (value !== null) {
+		adapter.setStateChangedAsync(stateId, {
+			val: value,
+			ack: true,
+		});
+	}
 }
 
 if (require.main !== module) {
@@ -104,4 +173,35 @@ if (require.main !== module) {
 } else {
 	// otherwise start the instance directly
 	(() => new Matomo())();
+}
+
+interface SiteLiveCounter {
+	visits: number;
+	actions: number;
+	visitors: number;
+	visitsConverted: number;
+}
+
+interface SiteStats {
+	label: string;
+	// Number of Visits (30 min of inactivity considered a new visit)
+	nb_visits: number;
+	// Number of actions (page views, outlinks and downloads)
+	nb_actions: number;
+	//
+	nb_pageviews: number;
+	// Total revenue of goal conversions
+	revenue: number;
+	//
+	visits_evolution: number;
+	//
+	actions_evolution: number;
+	//
+	pageviews_evolution: number;
+	//
+	revenue_evolution: number;
+	//
+	idsite: number;
+	//
+	main_url: string;
 }
