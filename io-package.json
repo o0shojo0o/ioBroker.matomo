@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matomo",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "news": {
+            "0.0.3": {
+                "en": "deploys the final package to NPM",
+                "de": "stellt das endgültige Paket für NPM bereit",
+                "ru": "развертывает окончательный пакет в NPM",
+                "pt": "implanta o pacote final para NPM",
+                "nl": "implementeert het laatste pakket naar NPM",
+                "fr": "déploie le package final sur NPM",
+                "it": "distribuisce il pacchetto finale a NPM",
+                "es": "implementa el paquete final en NPM",
+                "pl": "wdraża ostateczny pakiet do NPM",
+                "zh-cn": "将最终程序包部署到NPM"
+            },
             "0.0.2": {
                 "en": "first version that provides data",
                 "de": "erste Version, die Daten bereitstellt",
