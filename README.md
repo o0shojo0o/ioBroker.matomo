@@ -14,7 +14,7 @@
 
 ## Matomo adapter for ioBroker
 
-Imports statistical data from Matomo
+Imports daily statistical data from Matomo.
 
 ## Configuration
 
