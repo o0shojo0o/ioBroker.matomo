@@ -35,6 +35,10 @@ Imports statistical data from Matomo
 	### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+-   (o0shojo0o) deploys the final package to NPM
+
 ### 0.0.2 (2021-05-04)
 
 -   (o0shojo0o) first version that provides data
