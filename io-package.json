@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matomo",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "news": {
+            "0.0.2": {
+                "en": "first version that provides data",
+                "de": "erste Version, die Daten bereitstellt",
+                "ru": "первая версия, которая предоставляет данные",
+                "pt": "primeira versão que fornece dados",
+                "nl": "eerste versie die gegevens levert",
+                "fr": "première version qui fournit des données",
+                "it": "prima versione che fornisce i dati",
+                "es": "primera versión que proporciona datos",
+                "pl": "pierwsza wersja, która dostarcza dane",
+                "zh-cn": "提供数据的第一个版本"
+            },
             "0.0.1": {
                 "en": "initial release",
                 "de": "Erstveröffentlichung",
