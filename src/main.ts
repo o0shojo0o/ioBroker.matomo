@@ -26,19 +26,13 @@ class Matomo extends utils.Adapter {
 	 */
 	private async onReady(): Promise<void> {
 		adapter = this;
-		this.setState("info.connection", false, true);
+		this.setStateChanged("info.connection", false, true);
 		this.log.info("config serverAdresse: " + this.config.serverAdresse);
 		this.log.info("config port: " + this.config.port);
-		this.log.info("config apiKey: *************");
+		this.log.info("config apiKey: " + this.config.apiKey);
 		this.log.info("config pollingInterval: " + this.config.pollingInterval);
 
-		try {
-			await worker(this.config.serverAdresse, this.config.apiKey);
-			adapter.setState("info.connection", true, true);
-		} catch (error) {
-			this.log.debug(error);
-			this.log.warn(`No connection to the server could be established. (${error})`);
-		}
+		await worker(this.config.serverAdresse, this.config.apiKey);
 
 		intervalTick(this.config.serverAdresse, this.config.apiKey, this.config.pollingInterval * 1000);
 	}
@@ -58,19 +52,20 @@ async function intervalTick(matomoUrl: string, apiKey: string, pollingInterval: 
 	}
 
 	currentTimeout = setTimeout(async () => {
-		try {
-			await worker(matomoUrl, apiKey);
-			adapter.setState("info.connection", true, true);
-		} catch (error) {
-			adapter.setState("info.connection", false, true);
-		}
-
 		intervalTick(matomoUrl, apiKey, pollingInterval);
 	}, pollingInterval);
 }
 
 async function worker(matomoUrl: string, apiKey: string): Promise<void> {
-	const sitesStats = (await getAllSitesStats(matomoUrl, apiKey)) as any;
+	adapter.setStateChanged("info.connection", true, true);
+
+	let sitesStats;
+	try {
+		sitesStats = (await getAllSitesStats(matomoUrl, apiKey)) as any;
+	} catch (error) {
+		throwWarn(error);
+		return;
+	}
 
 	for (const key in sitesStats) {
 		if (Object.prototype.hasOwnProperty.call(sitesStats, key)) {
@@ -86,7 +81,14 @@ async function worker(matomoUrl: string, apiKey: string): Promise<void> {
 				}
 			}
 
-			const liveCouter = (await getLiveCounters(matomoUrl, sitesStats[key].idsite, apiKey)) as any;
+			let liveCouter;
+			try {
+				liveCouter = (await getLiveCounters(matomoUrl, sitesStats[key].idsite, apiKey)) as any;
+			} catch (error) {
+				throwWarn(error);
+				return;
+			}
+
 			// LiveCouter Propertys durchlaufen und in State schreiben
 			for (const lKey in liveCouter) {
 				if (Object.prototype.hasOwnProperty.call(liveCouter, lKey)) {
@@ -109,6 +111,7 @@ async function getAllSitesStats(matomoUrl: string, apiKey: string): Promise<Arra
 	apiUrl.searchParams.append("token_auth", apiKey);
 
 	const response = (await axios.get(apiUrl.href)).data;
+
 	// Correct data types
 	for (const key in response) {
 		if (Object.prototype.hasOwnProperty.call(response, key)) {
@@ -133,6 +136,7 @@ async function getLiveCounters(matomoUrl: string, idSite: number, apiKey: string
 	apiUrl.searchParams.append("token_auth", apiKey);
 
 	const response = (await axios.get(apiUrl.href)).data[0];
+
 	// Correct data types
 	response.visits = parseInt(response.visits);
 	response.actions = parseInt(response.actions);
@@ -204,4 +208,15 @@ interface SiteStats {
 	idsite: number;
 	//
 	main_url: string;
+}
+
+function throwWarn(error: any): void {
+	let errorMessage = error;
+
+	if (error.response && error.response.data && error.response.data.message) {
+		errorMessage = error.response.data.message;
+	}
+
+	adapter.log.warn(`No connection to the server could be established. (${errorMessage})`);
+	adapter.setStateChanged("info.connection", false, true);
 }

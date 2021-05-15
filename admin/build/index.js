@@ -42392,7 +42392,7 @@ var Utils = /*#__PURE__*/function () {
 
         return undefined;
       }
-    } // Big thanks to : https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
+    } // Big thanks to: https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
 
     /**
      * Invert the given color
@@ -42404,7 +42404,11 @@ var Utils = /*#__PURE__*/function () {
   }, {
     key: "invertColor",
     value: function invertColor(hex, bw) {
-      if (hex.indexOf('#') === 0) {
+      if (hex === undefined || hex === null || hex === '' || typeof hex !== 'string') {
+        return '';
+      }
+
+      if (hex.startsWith('#')) {
         hex = hex.slice(1);
       } // convert 3-digit hex to 6-digits.
 
@@ -42675,6 +42679,27 @@ var Utils = /*#__PURE__*/function () {
       return text;
     }
   }, {
+    key: "formatTime",
+    value: function formatTime(seconds) {
+      if (seconds) {
+        seconds = Math.round(seconds);
+        var d = Math.floor(seconds / (3600 * 24));
+        var h = Math.floor(seconds % (3600 * 24) / 3600);
+        var m = Math.floor(seconds % 3600 / 60);
+        var s = seconds % 60;
+
+        if (d) {
+          return "".concat(d, ".").concat(h.toString().padStart(2, '0'), ":").concat(m.toString().padStart(2, '0'), ":").concat(s.toString().padStart(2, '0'));
+        } else if (h) {
+          return "".concat(h, ":").concat(m.toString().padStart(2, '0'), ":").concat(s.toString().padStart(2, '0'));
+        } else {
+          return "0:".concat(m.toString().padStart(2, '0'), ":").concat(s.toString().padStart(2, '0'));
+        }
+      } else {
+        return '0:00:00';
+      }
+    }
+  }, {
     key: "MDtext2link",
     value: function MDtext2link(text) {
       var m = text.match(/\d+\.\)\s/);
@@ -42873,6 +42898,30 @@ var Utils = /*#__PURE__*/function () {
       }
 
       return states;
+    }
+    /**
+     * Get svg file as text
+     * @param {string} url URL of SVG file
+     * @returns {object} Promise with "data:image..."
+     */
+
+  }, {
+    key: "getSvg",
+    value: function getSvg(url) {
+      return fetch(url).then(function (response) {
+        return response.blob();
+      }).then(function (blob) {
+        return new Promise(function (resolve) {
+          var reader = new FileReader();
+
+          reader.onload = function () {
+            // do not optimize this function. "this" is important.
+            resolve(this.result);
+          };
+
+          reader.readAsDataURL(blob);
+        });
+      });
     }
   }]);
 
@@ -43110,10 +43159,12 @@ var Connection = /*#__PURE__*/function () {
       });
 
       this._socket.on('reconnect', function () {
+        _this.onProgress(PROGRESS.READY);
+
         _this.connected = true;
 
         if (_this.waitForRestart) {
-          window.location.reload();
+          window.location.reload(false);
         } else {
           _this._subscribe(true);
 
@@ -43132,14 +43183,6 @@ var Connection = /*#__PURE__*/function () {
         _this.onConnectionHandlers.forEach(function (cb) {
           return cb(false);
         });
-      });
-
-      this._socket.on('reconnect', function () {
-        _this.onProgress(PROGRESS.READY);
-
-        if (_this.waitForRestart) {
-          window.location.reload();
-        }
       });
 
       this._socket.on('reauthenticate', function () {
@@ -43229,7 +43272,7 @@ var Connection = /*#__PURE__*/function () {
       this.isSecure = isSecure;
 
       if (this.waitForRestart) {
-        window.location.reload();
+        window.location.reload(false);
       } else {
         if (this.firstConnect) {
           // retry strategy
@@ -43309,7 +43352,7 @@ var Connection = /*#__PURE__*/function () {
         } // Read system configuration
 
 
-        return _this3.getSystemConfig().then(function (data) {
+        return _this3.getCompactSystemConfig().then(function (data) {
           if (_this3.doNotLoadACL) {
             if (_this3.loaded) {
               return;
@@ -43970,28 +44013,12 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['instances_' + adapter] = new Promise(function (resolve, reject) {
-        _this17._socket.emit('getObjectView', 'system', 'instance', {
-          startkey: "system.adapter.".concat(adapter || ''),
-          endkey: "system.adapter.".concat(adapter ? adapter + '.' : '', "\u9999")
-        }, function (err, doc) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(doc.rows.map(function (item) {
-              var obj = item.value;
-
-              Connection._fixAdminUI(obj);
-
-              return obj;
-            }));
-          }
+        return _this17._socket.emit('getAdapterInstances', adapter, function (err, instances) {
+          return err ? reject(err) : resolve(instances);
         });
       });
       return this._promises['instances_' + adapter];
     }
-  }, {
-    key: "getAdapters",
-    value:
     /**
      * Get all adapters.
      * @param {boolean} [update] Force update.
@@ -44004,7 +44031,10 @@ var Connection = /*#__PURE__*/function () {
     * @param {boolean} [update] Force update.
     * @returns {Promise<ioBroker.Object[]>}
     */
-    function getAdapters(adapter, update) {
+
+  }, {
+    key: "getAdapters",
+    value: function getAdapters(adapter, update) {
       var _this18 = this;
 
       if (typeof adapter === 'boolean') {
@@ -44023,23 +44053,8 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['adapter_' + adapter] = new Promise(function (resolve, reject) {
-        _this18._socket.emit('getObjectView', 'system', 'adapter', {
-          startkey: "system.adapter.".concat(adapter || ''),
-          endkey: "system.adapter.".concat(adapter || '', "\u9999")
-        }, function (err, doc) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(doc.rows.map(function (item) {
-              var obj = item.value;
-
-              Connection._fixAdminUI(obj);
-
-              return obj;
-            }).filter(function (obj) {
-              return obj && (!adapter || obj.common && obj.common.name === adapter);
-            }));
-          }
+        return _this18._socket.emit('getAdapters', adapter, function (err, instances) {
+          return err ? reject(err) : resolve(instances);
         });
       });
       return this._promises['adapter_' + adapter];
@@ -44636,6 +44651,32 @@ var Connection = /*#__PURE__*/function () {
       });
     }
     /**
+     * Delete a folder of an adapter.
+     * @param {string} adapter The adapter name.
+     * @param {string} folderName The folder name.
+     * @returns {Promise<void>}
+     */
+
+  }, {
+    key: "deleteFolder",
+    value: function deleteFolder(adapter, folderName) {
+      var _this33 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      return new Promise(function (resolve, reject) {
+        return _this33._socket.emit('deleteFolder', adapter, folderName, function (err) {
+          return err ? reject(err) : resolve();
+        });
+      });
+    }
+    /**
      * Get the list of all hosts.
      * @param {boolean} [update] Force update.
      * @returns {Promise<ioBroker.Object[]>}
@@ -44644,7 +44685,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHosts",
     value: function getHosts(update) {
-      var _this33 = this;
+      var _this34 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44659,7 +44700,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.hosts = new Promise(function (resolve, reject) {
-        return _this33._socket.emit('getObjectView', 'system', 'host', {
+        return _this34._socket.emit('getObjectView', 'system', 'host', {
           startkey: 'system.host.',
           endkey: "system.host.\u9999"
         }, function (err, doc) {
@@ -44683,7 +44724,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getUsers",
     value: function getUsers(update) {
-      var _this34 = this;
+      var _this35 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44698,7 +44739,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.users = new Promise(function (resolve, reject) {
-        return _this34._socket.emit('getObjectView', 'system', 'user', {
+        return _this35._socket.emit('getObjectView', 'system', 'user', {
           startkey: 'system.user.',
           endkey: "system.user.\u9999"
         }, function (err, doc) {
@@ -44722,7 +44763,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getGroups",
     value: function getGroups(update) {
-      var _this35 = this;
+      var _this36 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44737,7 +44778,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.groups = new Promise(function (resolve, reject) {
-        return _this35._socket.emit('getObjectView', 'system', 'group', {
+        return _this36._socket.emit('getObjectView', 'system', 'group', {
           startkey: 'system.group.',
           endkey: "system.group.\u9999"
         }, function (err, doc) {
@@ -44756,13 +44797,14 @@ var Connection = /*#__PURE__*/function () {
      * Get the host information.
      * @param {string} host
      * @param {boolean} [update] Force update.
+     * @param {number} [timeoutMs] optional read timeout.
      * @returns {Promise<any>}
      */
 
   }, {
     key: "getHostInfo",
     value: function getHostInfo(host, update, timeoutMs) {
-      var _this36 = this;
+      var _this37 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44786,9 +44828,9 @@ var Connection = /*#__PURE__*/function () {
             timeout = null;
             reject('getHostInfo timeout');
           }
-        }, timeoutMs || _this36.props.cmdTimeout);
+        }, timeoutMs || _this37.props.cmdTimeout);
 
-        _this36._socket.emit('sendToHost', host, 'getHostInfo', null, function (data) {
+        _this37._socket.emit('sendToHost', host, 'getHostInfo', null, function (data) {
           if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -44806,6 +44848,60 @@ var Connection = /*#__PURE__*/function () {
       return this._promises['hostInfo' + host];
     }
     /**
+     * Get the host information (short version).
+     * @param {string} host
+     * @param {boolean} [update] Force update.
+     * @param {number} [timeoutMs] optional read timeout.
+     * @returns {Promise<any>}
+     */
+
+  }, {
+    key: "getHostInfoShort",
+    value: function getHostInfoShort(host, update, timeoutMs) {
+      var _this38 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
+
+      if (!host.startsWith('system.host.')) {
+        host += 'system.host.' + host;
+      }
+
+      if (!update && this._promises['hostInfoShort' + host]) {
+        return this._promises['hostInfoShort' + host];
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      this._promises['hostInfoShort' + host] = new Promise(function (resolve, reject) {
+        var timeout = setTimeout(function () {
+          if (timeout) {
+            timeout = null;
+            reject('hostInfoShort timeout');
+          }
+        }, timeoutMs || _this38.props.cmdTimeout);
+
+        _this38._socket.emit('sendToHost', host, 'getHostInfoShort', null, function (data) {
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+
+            if (data === PERMISSION_ERROR) {
+              reject('May not read "getHostInfoShort"');
+            } else if (!data) {
+              reject('Cannot read "getHostInfoShort"');
+            } else {
+              resolve(data);
+            }
+          }
+        });
+      });
+      return this._promises['hostInfoShort' + host];
+    }
+    /**
      * Get the repository.
      * @param {string} host
      * @param {any} [args]
@@ -44817,7 +44913,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getRepository",
     value: function getRepository(host, args, update, timeoutMs) {
-      var _this37 = this;
+      var _this39 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44841,9 +44937,9 @@ var Connection = /*#__PURE__*/function () {
             timeout = null;
             reject('getRepository timeout');
           }
-        }, timeoutMs || _this37.props.cmdTimeout);
+        }, timeoutMs || _this39.props.cmdTimeout);
 
-        _this37._socket.emit('sendToHost', host, 'getRepository', args, function (data) {
+        _this39._socket.emit('sendToHost', host, 'getRepository', args, function (data) {
           if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -44864,20 +44960,23 @@ var Connection = /*#__PURE__*/function () {
      * Get the installed.
      * @param {string} host
      * @param {boolean} [update] Force update.
+     * @param {number} [cmdTimeout] timeout in ms (optional)
      * @returns {Promise<any>}
      */
 
   }, {
     key: "getInstalled",
     value: function getInstalled(host, update, cmdTimeout) {
-      var _this38 = this;
+      var _this40 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
-      if (!update && this._promises.installed) {
-        return this._promises.installed;
+      this._promises.installed = this._promises.installed || {};
+
+      if (!update && this._promises.installed[host]) {
+        return this._promises.installed[host];
       }
 
       if (!this.connected) {
@@ -44888,15 +44987,15 @@ var Connection = /*#__PURE__*/function () {
         host += 'system.host.' + host;
       }
 
-      this._promises.installed = new Promise(function (resolve, reject) {
+      this._promises.installed[host] = new Promise(function (resolve, reject) {
         var timeout = setTimeout(function () {
           if (timeout) {
             timeout = null;
             reject('getInstalled timeout');
           }
-        }, cmdTimeout || _this38.props.cmdTimeout);
+        }, cmdTimeout || _this40.props.cmdTimeout);
 
-        _this38._socket.emit('sendToHost', host, 'getInstalled', null, function (data) {
+        _this40._socket.emit('sendToHost', host, 'getInstalled', null, function (data) {
           if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -44911,20 +45010,21 @@ var Connection = /*#__PURE__*/function () {
           }
         });
       });
-      return this._promises.installed;
+      return this._promises.installed[host];
     }
     /**
      * Execute a command on a host.
      * @param {string} host The host name.
      * @param {string} cmd The command.
      * @param {string} cmdId The command ID.
+     * @param {number} cmdTimeout Timeout of command in ms
      * @returns {Promise<void>}
      */
 
   }, {
     key: "cmdExec",
-    value: function cmdExec(host, cmd, cmdId) {
-      var _this39 = this;
+    value: function cmdExec(host, cmd, cmdId, cmdTimeout) {
+      var _this41 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44939,16 +45039,16 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        var timeout = setTimeout(function () {
+        var timeout = cmdTimeout && setTimeout(function () {
           if (timeout) {
             timeout = null;
             reject('cmdExec timeout');
           }
-        }, _this39.props.cmdTimeout);
+        }, cmdTimeout);
 
-        _this39._socket.emit('cmdExec', host, cmdId, cmd, null, function (err) {
-          if (timeout) {
-            clearTimeout(timeout);
+        _this41._socket.emit('cmdExec', host, cmdId, cmd, null, function (err) {
+          if (!cmdTimeout || timeout) {
+            timeout && clearTimeout(timeout);
             timeout = null;
 
             if (err) {
@@ -44970,7 +45070,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "checkFeatureSupported",
     value: function checkFeatureSupported(feature, update) {
-      var _this40 = this;
+      var _this42 = this;
 
       if (!update && this._promises['supportedFeatures_' + feature]) {
         return this._promises['supportedFeatures_' + feature];
@@ -44981,7 +45081,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['supportedFeatures_' + feature] = new Promise(function (resolve, reject) {
-        return _this40._socket.emit('checkFeatureSupported', feature, function (err, features) {
+        return _this42._socket.emit('checkFeatureSupported', feature, function (err, features) {
           err ? reject(err) : resolve(features);
         });
       });
@@ -44996,7 +45096,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "readBaseSettings",
     value: function readBaseSettings(host) {
-      var _this41 = this;
+      var _this43 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45004,7 +45104,7 @@ var Connection = /*#__PURE__*/function () {
 
       return this.checkFeatureSupported('CONTROLLER_READWRITE_BASE_SETTINGS').then(function (result) {
         if (result) {
-          if (!_this41.connected) {
+          if (!_this43.connected) {
             return Promise.reject(NOT_CONNECTED);
           }
 
@@ -45014,9 +45114,13 @@ var Connection = /*#__PURE__*/function () {
                 timeout = null;
                 reject('readBaseSettings timeout');
               }
-            }, _this41.props.cmdTimeout);
+            }, _this43.props.cmdTimeout);
 
-            _this41._socket.emit('sendToHost', host, 'readBaseSettings', null, function (data) {
+            if (host.startsWith('system.host.')) {
+              host = host.replace(/^system\.host\./, '');
+            }
+
+            _this43._socket.emit('sendToHost', host, 'readBaseSettings', null, function (data) {
               if (timeout) {
                 clearTimeout(timeout);
                 timeout = null;
@@ -45046,7 +45150,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "writeBaseSettings",
     value: function writeBaseSettings(host, config) {
-      var _this42 = this;
+      var _this44 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45054,7 +45158,7 @@ var Connection = /*#__PURE__*/function () {
 
       return this.checkFeatureSupported('CONTROLLER_READWRITE_BASE_SETTINGS').then(function (result) {
         if (result) {
-          if (!_this42.connected) {
+          if (!_this44.connected) {
             return Promise.reject(NOT_CONNECTED);
           }
 
@@ -45064,9 +45168,9 @@ var Connection = /*#__PURE__*/function () {
                 timeout = null;
                 reject('writeBaseSettings timeout');
               }
-            }, _this42.props.cmdTimeout);
+            }, _this44.props.cmdTimeout);
 
-            _this42._socket.emit('sendToHost', host, 'writeBaseSettings', config, function (data) {
+            _this44._socket.emit('sendToHost', host, 'writeBaseSettings', config, function (data) {
               if (timeout) {
                 clearTimeout(timeout);
                 timeout = null;
@@ -45095,14 +45199,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "restartController",
     value: function restartController(host) {
-      var _this43 = this;
+      var _this45 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve, reject) {
-        _this43._socket.emit('sendToHost', host, 'restartController', null, function (error) {
+        _this45._socket.emit('sendToHost', host, 'restartController', null, function (error) {
           error ? reject(error) : resolve(true);
         });
       });
@@ -45117,14 +45221,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getDiagData",
     value: function getDiagData(host, typeOfDiag) {
-      var _this44 = this;
+      var _this46 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve) {
-        _this44._socket.emit('sendToHost', host, 'getDiagData', typeOfDiag, function (result) {
+        _this46._socket.emit('sendToHost', host, 'getDiagData', typeOfDiag, function (result) {
           return resolve(result);
         });
       });
@@ -45138,14 +45242,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getForeignStates",
     value: function getForeignStates(pattern) {
-      var _this45 = this;
+      var _this47 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this45._socket.emit('getForeignStates', pattern || '*', function (err, states) {
+        return _this47._socket.emit('getForeignStates', pattern || '*', function (err, states) {
           return err ? reject(err) : resolve(states);
         });
       });
@@ -45160,14 +45264,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getForeignObjects",
     value: function getForeignObjects(pattern, type) {
-      var _this46 = this;
+      var _this48 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this46._socket.emit('getForeignObjects', pattern || '*', type, function (err, states) {
+        return _this48._socket.emit('getForeignObjects', pattern || '*', type, function (err, states) {
           return err ? reject(err) : resolve(states);
         });
       });
@@ -45181,15 +45285,15 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getSystemConfig",
     value: function getSystemConfig(update) {
-      if (update) {
-        this._promises.systemConfig = null;
+      if (!update && this._promises.systemConfig) {
+        return this._promises.systemConfig;
       }
 
-      if (!this._promises.systemConfig && !this.connected) {
+      if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
-      this._promises.systemConfig = this._promises.systemConfig || this.getObject('system.config').then(function (systemConfig) {
+      this._promises.systemConfig = this.getObject('system.config').then(function (systemConfig) {
         systemConfig = systemConfig || {};
         systemConfig.common = systemConfig.common || {};
         systemConfig["native"] = systemConfig["native"] || {};
@@ -45206,10 +45310,10 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "setSystemConfig",
     value: function setSystemConfig(obj) {
-      var _this47 = this;
+      var _this49 = this;
 
       return this.setObject('system.config', obj).then(function () {
-        return _this47._promises.systemConfig = Promise.resolve(obj);
+        return _this49._promises.systemConfig = Promise.resolve(obj);
       });
     }
     /**
@@ -45232,14 +45336,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHistory",
     value: function getHistory(id, options) {
-      var _this48 = this;
+      var _this50 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this48._socket.emit('getHistory', id, options, function (err, values) {
+        return _this50._socket.emit('getHistory', id, options, function (err, values) {
           return err ? reject(err) : resolve(values);
         });
       });
@@ -45254,14 +45358,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHistoryEx",
     value: function getHistoryEx(id, options) {
-      var _this49 = this;
+      var _this51 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this49._socket.emit('getHistory', id, options, function (err, values, stepIgnore, sessionId) {
+        return _this51._socket.emit('getHistory', id, options, function (err, values, stepIgnore, sessionId) {
           return err ? reject(err) : resolve({
             values: values,
             sessionId: sessionId,
@@ -45280,14 +45384,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "changePassword",
     value: function changePassword(user, password) {
-      var _this50 = this;
+      var _this52 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve, reject) {
-        return _this50._socket.emit('changePassword', user, password, function (err) {
+        return _this52._socket.emit('changePassword', user, password, function (err) {
           return err ? reject(err) : resolve();
         });
       });
@@ -45329,7 +45433,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHostByIp",
     value: function getHostByIp(ipOrHostName, update) {
-      var _this51 = this;
+      var _this53 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45344,7 +45448,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['rIPs_' + ipOrHostName] = new Promise(function (resolve) {
-        return _this51._socket.emit('getHostByIp', ipOrHostName, function (ip, host) {
+        return _this53._socket.emit('getHostByIp', ipOrHostName, function (ip, host) {
           var _host$native, _host$native$hardware;
 
           var IPs4 = [{
@@ -45400,14 +45504,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "encrypt",
     value: function encrypt(text) {
-      var _this52 = this;
+      var _this54 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve, reject) {
-        return _this52._socket.emit('encrypt', text, function (err, text) {
+        return _this54._socket.emit('encrypt', text, function (err, text) {
           return err ? reject(err) : resolve(text);
         });
       });
@@ -45421,14 +45525,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "decrypt",
     value: function decrypt(encryptedText) {
-      var _this53 = this;
+      var _this55 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve, reject) {
-        return _this53._socket.emit('decrypt', encryptedText, function (err, text) {
+        return _this55._socket.emit('decrypt', encryptedText, function (err, text) {
           return err ? reject(err) : resolve(text);
         });
       });
@@ -45441,10 +45545,10 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getVersion",
     value: function getVersion() {
-      var _this54 = this;
+      var _this56 = this;
 
       this._promises.version = this._promises.version || new Promise(function (resolve, reject) {
-        return _this54._socket.emit('getVersion', function (err, version, serverName) {
+        return _this56._socket.emit('getVersion', function (err, version, serverName) {
           // support of old socket.io
           if (err && !version && typeof err === 'string' && err.match(/\d+\.\d+\.\d+/)) {
             resolve({
@@ -45469,10 +45573,10 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getWebServerName",
     value: function getWebServerName() {
-      var _this55 = this;
+      var _this57 = this;
 
       this._promises.webName = this._promises.webName || new Promise(function (resolve, reject) {
-        return _this55._socket.emit('getAdapterName', function (err, name) {
+        return _this57._socket.emit('getAdapterName', function (err, name) {
           return err ? reject(err) : resolve(name);
         });
       });
@@ -45501,7 +45605,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "chmodFile",
     value: function chmodFile(adapter, filename, options) {
-      var _this56 = this;
+      var _this58 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45512,7 +45616,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this56._socket.emit('chmodFile', adapter, filename, options, function (err, entries, id) {
+        return _this58._socket.emit('chmodFile', adapter, filename, options, function (err, entries, id) {
           return err ? reject(err) : resolve({
             entries: entries,
             id: id
@@ -45531,7 +45635,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "chownFile",
     value: function chownFile(adapter, filename, options) {
-      var _this57 = this;
+      var _this59 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45542,7 +45646,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this57._socket.emit('chownFile', adapter, filename, options, function (err, entries, id) {
+        return _this59._socket.emit('chownFile', adapter, filename, options, function (err, entries, id) {
           return err ? reject(err) : resolve({
             entries: entries,
             id: id
@@ -45560,14 +45664,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "fileExists",
     value: function fileExists(adapter, filename) {
-      var _this58 = this;
+      var _this60 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this58._socket.emit('fileExists', adapter, filename, function (err, exists) {
+        return _this60._socket.emit('fileExists', adapter, filename, function (err, exists) {
           return err ? reject(err) : resolve(exists);
         });
       });
@@ -45582,7 +45686,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getNotifications",
     value: function getNotifications(host, category) {
-      var _this59 = this;
+      var _this61 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45593,7 +45697,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve) {
-        return _this59._socket.emit('sendToHost', host, 'getNotifications', {
+        return _this61._socket.emit('sendToHost', host, 'getNotifications', {
           category: category
         }, function (notifications) {
           return resolve(notifications);
@@ -45610,7 +45714,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "clearNotifications",
     value: function clearNotifications(host, category) {
-      var _this60 = this;
+      var _this62 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45621,7 +45725,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve) {
-        return _this60._socket.emit('sendToHost', host, 'clearNotifications', {
+        return _this62._socket.emit('sendToHost', host, 'clearNotifications', {
           category: category
         }, function (notifications) {
           return resolve(notifications);
@@ -45636,7 +45740,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getIsEasyModeStrict",
     value: function getIsEasyModeStrict() {
-      var _this61 = this;
+      var _this63 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45647,7 +45751,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this61._socket.emit('getIsEasyModeStrict', function (error, isStrict) {
+        return _this63._socket.emit('getIsEasyModeStrict', function (error, isStrict) {
           return error ? reject(error) : resolve(isStrict);
         });
       });
@@ -45660,7 +45764,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getEasyMode",
     value: function getEasyMode() {
-      var _this62 = this;
+      var _this64 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45671,7 +45775,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this62._socket.emit('getEasyMode', function (error, config) {
+        return _this64._socket.emit('getEasyMode', function (error, config) {
           return error ? reject(error) : resolve(config);
         });
       });
@@ -45684,15 +45788,46 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCurrentUser",
     value: function getCurrentUser() {
-      var _this63 = this;
+      var _this65 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve) {
-        return _this63._socket.emit('authEnabled', function (isSecure, user) {
+        return _this65._socket.emit('authEnabled', function (isSecure, user) {
           return resolve(user);
+        });
+      });
+    }
+  }, {
+    key: "getCurrentSession",
+    value: function getCurrentSession(cmdTimeout) {
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      return new Promise(function (resolve, reject) {
+        var controller = new AbortController();
+        var timeout = setTimeout(function () {
+          if (timeout) {
+            timeout = null;
+            controller.abort();
+            reject('getCurrentSession timeout');
+          }
+        }, cmdTimeout || 5000);
+        return fetch('./session', {
+          signal: controller.signal
+        }).then(function (res) {
+          return res.json();
+        }).then(function (json) {
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+            resolve(json);
+          }
+        })["catch"](function (e) {
+          reject('getCurrentSession: ' + e);
         });
       });
     }
@@ -45704,7 +45839,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getRatings",
     value: function getRatings(update) {
-      var _this64 = this;
+      var _this66 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45715,7 +45850,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this64._socket.emit('getRatings', update, function (err, ratings) {
+        return _this66._socket.emit('getRatings', update, function (err, ratings) {
           return err ? reject(err) : resolve(ratings);
         });
       });
@@ -45728,60 +45863,251 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCurrentInstance",
     value: function getCurrentInstance() {
-      var _this65 = this;
+      var _this67 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       this._promises.currentInstance = this._promises.currentInstance || new Promise(function (resolve, reject) {
-        return _this65._socket.emit('getCurrentInstance', function (err, namespace) {
+        return _this67._socket.emit('getCurrentInstance', function (err, namespace) {
           return err ? reject(err) : resolve(namespace);
         });
       });
       return this._promises.currentInstance;
+    } // returns very optimized information for adapters to minimize connection load
+
+  }, {
+    key: "getCompactAdapters",
+    value: function getCompactAdapters(update) {
+      var _this68 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
+
+      if (!update && this._promises.compactAdapters) {
+        return this._promises.compactAdapters;
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      this._promises.compactAdapters = new Promise(function (resolve, reject) {
+        return _this68._socket.emit('getCompactAdapters', function (err, systemConfig) {
+          return err ? reject(err) : resolve(systemConfig);
+        });
+      });
+      return this._promises.compactAdapters;
+    } // returns very optimized information for adapters to minimize connection load
+
+  }, {
+    key: "getCompactInstances",
+    value: function getCompactInstances(update) {
+      var _this69 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
+
+      if (!update && this._promises.compactInstances) {
+        return this._promises.compactInstances;
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      this._promises.compactInstances = new Promise(function (resolve, reject) {
+        return _this69._socket.emit('getCompactInstances', function (err, systemConfig) {
+          return err ? reject(err) : resolve(systemConfig);
+        });
+      });
+      return this._promises.compactInstances;
+    } // returns very optimized information for adapters to minimize connection load
+    // reads only version of installed adapter
+
+  }, {
+    key: "getCompactInstalled",
+    value: function getCompactInstalled(host, update, cmdTimeout) {
+      var _this70 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
+
+      this._promises.installedCompact = this._promises.installedCompact || {};
+
+      if (!update && this._promises.installedCompact[host]) {
+        return this._promises.installedCompact[host];
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      if (!host.startsWith('system.host.')) {
+        host += 'system.host.' + host;
+      }
+
+      this._promises.installedCompact[host] = new Promise(function (resolve, reject) {
+        var timeout = setTimeout(function () {
+          if (timeout) {
+            timeout = null;
+            reject('getCompactInstalled timeout');
+          }
+        }, cmdTimeout || _this70.props.cmdTimeout);
+
+        _this70._socket.emit('getCompactInstalled', host, function (data) {
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+
+            if (data === PERMISSION_ERROR) {
+              reject('May not read "getCompactInstalled"');
+            } else if (!data) {
+              reject('Cannot read "getCompactInstalled"');
+            } else {
+              resolve(data);
+            }
+          }
+        });
+      });
+      return this._promises.installedCompact[host];
+    } // returns very optimized information for adapters to minimize connection load
+
+  }, {
+    key: "getCompactSystemConfig",
+    value: function getCompactSystemConfig(update) {
+      var _this71 = this;
+
+      if (!update && this._promises.systemConfigCommon) {
+        return this._promises.systemConfigCommon;
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      this._promises.systemConfigCommon = new Promise(function (resolve, reject) {
+        return _this71._socket.emit('getCompactSystemConfig', function (err, systemConfig) {
+          return err ? reject(err) : resolve(systemConfig);
+        });
+      });
+      return this._promises.systemConfigCommon;
+    }
+    /**
+     * Get the repository in compact form (only version and icon).
+     * @param {string} host
+     * @param {boolean} [update] Force update.
+     * @param {number} [timeoutMs] timeout in ms.
+     * @returns {Promise<any>}
+     */
+
+  }, {
+    key: "getCompactRepository",
+    value: function getCompactRepository(host, update, timeoutMs) {
+      var _this72 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
+
+      if (!update && this._promises.repoCompact) {
+        return this._promises.repoCompact;
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      if (!host.startsWith('system.host.')) {
+        host += 'system.host.' + host;
+      }
+
+      this._promises.repoCompact = new Promise(function (resolve, reject) {
+        var timeout = setTimeout(function () {
+          if (timeout) {
+            timeout = null;
+            reject('getCompactRepository timeout');
+          }
+        }, timeoutMs || _this72.props.cmdTimeout);
+
+        _this72._socket.emit('getCompactRepository', host, function (data) {
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+
+            if (data === PERMISSION_ERROR) {
+              reject('May not read "getCompactRepository"');
+            } else if (!data) {
+              reject('Cannot read "getCompactRepository"');
+            } else {
+              resolve(data);
+            }
+          }
+        });
+      });
+      return this._promises.repoCompact;
+    }
+    /**
+     * Get the list of all hosts in compact form (only _id, common.name, common.icon, common.color, native.hardware.networkInterfaces)
+     * @param {boolean} [update] Force update.
+     * @returns {Promise<ioBroker.Object[]>}
+     */
+
+  }, {
+    key: "getCompactHosts",
+    value: function getCompactHosts(update) {
+      var _this73 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
+
+      if (!update && this._promises.hostsCompact) {
+        return this._promises.hostsCompact;
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      this._promises.hostsCompact = new Promise(function (resolve, reject) {
+        return _this73._socket.emit('getCompactHosts', function (err, systemConfig) {
+          return err ? reject(err) : resolve(systemConfig);
+        });
+      });
+      return this._promises.hostsCompact;
+    }
+    /**
+     * Get uuid
+     * @returns {Promise<ioBroker.Object[]>}
+     */
+
+  }, {
+    key: "getUuid",
+    value: function getUuid() {
+      if (this._promises.uuid) {
+        return this._promises.uuid;
+      }
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      this._promises.uuid = this.getObject('system.meta.uuid').then(function (obj) {
+        var _obj$native;
+
+        return obj === null || obj === void 0 ? void 0 : (_obj$native = obj["native"]) === null || _obj$native === void 0 ? void 0 : _obj$native.uuid;
+      });
+      return this._promises.uuid;
     }
   }], [{
     key: "isWeb",
     value: function isWeb() {
       return window.socketUrl !== undefined;
-    }
-  }, {
-    key: "_fixAdminUI",
-    value: function _fixAdminUI(obj) {
-      if (obj && obj.common && !obj.common.adminUI) {
-        if (obj.common.noConfig) {
-          obj.common.adminUI = obj.common.adminUI || {};
-          obj.common.adminUI.config = 'none';
-        } else if (obj.common.jsonConfig) {
-          obj.common.adminUI = obj.common.adminUI || {};
-          obj.common.adminUI.config = 'json';
-        } else if (obj.common.materialize) {
-          obj.common.adminUI = obj.common.adminUI || {};
-          obj.common.adminUI.config = 'materialize';
-        } else {
-          obj.common.adminUI = obj.common.adminUI || {};
-          obj.common.adminUI.config = 'html';
-        }
-
-        if (obj.common.jsonCustom) {
-          obj.common.adminUI = obj.common.adminUI || {};
-          obj.common.adminUI.config = 'json';
-        } else if (obj.common.supportCustoms) {
-          obj.common.adminUI = obj.common.adminUI || {};
-          obj.common.adminUI.custom = 'json';
-        }
-
-        if (obj.common.materializeTab && obj.common.adminTab) {
-          obj.common.adminUI = obj.common.adminUI || {};
-          obj.common.adminUI.tab = 'materialize';
-        } else if (obj.common.adminTab) {
-          obj.common.adminUI = obj.common.adminUI || {};
-          obj.common.adminUI.tab = 'html';
-        }
-
-        obj.common.adminUI && console.log("Please add to \"".concat(obj._id.replace(/\.\d+$/, ''), "\" common.adminUI=").concat(JSON.stringify(obj.common.adminUI)));
-      }
     }
   }]);
 
@@ -47949,12 +48275,14 @@ var _string = require("./string");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
- * Wrap a given object method with a higher-order function
+ * Replace a method in an object with a wrapped version of itself.
  *
  * @param source An object that contains a method to be wrapped.
- * @param name A name of method to be wrapped.
- * @param replacementFactory A function that should be used to wrap a given method, returning the wrapped method which
- * will be substituted in for `source[name]`.
+ * @param name The name of the method to be wrapped.
+ * @param replacementFactory A higher-order function that takes the original version of the given method and returns a
+ * wrapped verstion. Note: The function returned by `replacementFactory` needs to be a non-arrow function, in order to
+ * preserve the correct value of `this`, and the original method must be called using `origMethod.call(this, <other
+ * args>)` or `origMethod.apply(this, [<other args>])` (rather than being called directly), again to preserve `this`.
  * @returns void
  */
 function fill(source, name, replacementFactory) {
@@ -53111,7 +53439,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.SDK_VERSION = void 0;
-var SDK_VERSION = '6.3.5';
+var SDK_VERSION = '6.3.6';
 exports.SDK_VERSION = SDK_VERSION;
 },{}],"../../node_modules/@sentry/core/esm/integrations/functiontostring.js":[function(require,module,exports) {
 "use strict";
@@ -67919,9 +68247,9 @@ var SaveCloseButtons = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
 
     try {
-      _this.isIFrame = window.self !== window.top;
+      _this.isIFrame = !props.newReact && window.self !== window.top;
     } catch (e) {
-      _this.isIFrame = true;
+      _this.isIFrame = !props.newReact;
     }
 
     return _this;
@@ -68007,7 +68335,8 @@ SaveCloseButtons.propTypes = {
   changed: _propTypes["default"].bool.isRequired,
   error: _propTypes["default"].bool,
   onSave: _propTypes["default"].func.isRequired,
-  onClose: _propTypes["default"].func.isRequired
+  onClose: _propTypes["default"].func.isRequired,
+  newReact: _propTypes["default"].bool
 };
 /** @type {typeof SaveCloseButtons} */
 
@@ -68025,261 +68354,275 @@ exports["default"] = _default;
       
 },{"_css_loader":"../../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../node_modules/@iobroker/adapter-react/i18n/en.json":[function(require,module,exports) {
 module.exports = {
-  "ra_Are you sure?": "Are you sure?",
-  "ra_Cancel": "Cancel",
-  "ra_Copied": "Copied",
-  "ra_Copied %s": "Copied %s",
-  "ra_Error": "Error",
-  "ra_Define functions": "Define functions",
-  "ra_Define rooms": "Define rooms",
-  "ra_Message": "Message",
-  "ra_Please select object ID...": "Please select object ID...",
-  "ra_Selected": "Selected",
-  "ra_Value": "Value",
-  "ra_Ok": "Ok",
-  "ra_dow_Su": "Su",
-  "ra_dow_Mo": "Mo",
-  "ra_dow_Tu": "Tu",
-  "ra_dow_We": "We",
-  "ra_dow_Th": "Th",
-  "ra_dow_Fr": "Fr",
-  "ra_dow_Sa": "Sa",
-  "ra_months_Jan": "Jan",
-  "ra_months_Feb": "Feb",
-  "ra_months_Mar": "Mar",
-  "ra_months_Apr": "Apr",
-  "ra_months_Mai": "Mai",
-  "ra_months_Jun": "Jun",
-  "ra_months_Jul": "Jul",
-  "ra_months_Aug": "Aug",
-  "ra_months_Sep": "Sep",
-  "ra_months_Oct": "Oct",
-  "ra_months_Nov": "Nov",
-  "ra_months_Dec": "Dec",
-  "ra_Unknown error!": "Unknown error!",
-  "ra_filter_customs": "Settings",
-  "ra_filter_func": "Function",
-  "ra_filter_id": "ID",
-  "ra_filter_name": "Name",
-  "ra_filter_role": "Role",
-  "ra_filter_room": "Room",
-  "ra_filter_type": "Type",
-  "ra_invalidConfig": "Invalid settings",
-  "ra_otherConfig": "Settings from other adapter %s",
-  "ra_tooltip_ack": "Acknowledged",
-  "ra_tooltip_from": "From",
-  "ra_tooltip_lc": "Last changed",
-  "ra_tooltip_quality": "Quality",
-  "ra_tooltip_ts": "Time stamp",
-  "ra_tooltip_user": "User",
-  "ra_tooltip_value": "Value",
-  "ra_tooltip_editObject": "Edit object",
-  "ra_tooltip_deleteObject": "Delete object",
-  "ra_tooltip_customConfig": "Custom settings",
-  "ra_tooltip_copyState": "Copy the state value",
-  "ra_tooltip_editState": "Edit the state value",
-  "ra_Listen on all IPs": "Listen on all IPs",
-  "ra_Save": "Save",
-  "ra_Save and close": "Save and close",
-  "ra_Close": "Close",
-  "ra_Auto (no custom columns)": "Auto (no custom columns)",
-  "ra_Transparent dialog": "Transparent dialog",
-  "ra_Width": "Width",
-  "ra_val": "Value",
-  "ra_buttons": "Buttons",
-  "ra_Configure visible columns": "Configure visible columns",
-  "ra_Cannot update attribute, because not found in the object": "Cannot update attribute, because not found in the object",
-  "ra_Edit object field": "Edit object field",
-  "ra_Hide empty folders": "Hide empty folders",
-  "ra_Reload files": "Reload files",
-  "ra_Create folder": "Create folder",
-  "ra_Upload file": "Upload file",
-  "ra_User files": "User files",
-  "ra_Confirm deletion of %s": "Confirm deletion of %s",
-  "ra_Delete (no confirm for 5 mins)": "Delete (no confirm for 5 mins)",
-  "ra_Delete": "Delete",
-  "ra_Toggle expert mode": "Toggle expert mode",
-  "ra_Toggle view mode": "Toggle view mode",
-  "re_Root": "Root",
-  "re_Back to %s": "Back to %s",
-  "ra_Place your files here or click here to open the browse dialog": "Place your files here or click here to open the browse dialog",
-  "ra_If no file will be created in the folder, it will disappear after the browser closed": "If no file will be created in the folder, it will disappear after the browser closed",
-  "ra_Folder name": "Folder name",
-  "ra_Create new folder in %s": "Create new folder in %s",
-  "ra_Duplicate name": "Duplicate name",
-  "ra_Invalid parent folder!": "Invalid parent folder!",
-  "ra_Drop file here": "Drop file here",
-  "ra_Suppress question for next %s minutes": "Suppress question for next %s minutes",
-  "ra_Clear filter": "Clear filter",
-  "ra_Update": "Update",
-  "ra_Load configuration from file": "Load configuration from file",
-  "ra_Save configuration to file": "Save configuration to file",
-  "sc_cron": "CRON",
-  "sc_date": "Date",
-  "sc_dates": "Dates",
-  "sc_dows": "Day of week",
-  "sc_every": "Every",
-  "sc_everyN_dates": "every N days",
-  "sc_everyN_dows": "every N day of week",
-  "sc_everyN_hours": "every N hours",
-  "sc_everyN_minutes": "every N minutes",
-  "sc_everyN_months": "every N months",
-  "sc_everyN_seconds": "every N seconds",
-  "sc_every_dates": "every day",
-  "sc_every_dows": "every day of the week",
-  "sc_every_hours": "every hour",
-  "sc_every_minutes": "every minute",
-  "sc_every_months": "every month",
-  "sc_every_seconds": "every second",
-  "sc_from": "From",
-  "sc_hours": "Hours",
-  "sc_interval": "Interval",
-  "sc_intervalBetween": "Interval between",
-  "sc_minutes": "Minutes",
-  "sc_months": "months",
-  "sc_once": "Once",
-  "sc_period": "Period",
-  "sc_seconds": "Seconds",
-  "sc_simple": "Simple",
-  "sc_specific": "Specific time",
-  "sc_specific_dates": "specific dates",
-  "sc_specific_dows": "specific day of weeks",
-  "sc_specific_hours": "specific hours",
-  "sc_specific_minutes": "specific minutes",
-  "sc_specific_months": "specific months",
-  "sc_specific_seconds": "specific seconds",
-  "sc_time": "Time",
-  "sc_to": "To",
-  "sc_wizard": "Wizard",
-  "sch_all": "all",
-  "sch_astroDay": "Astro day",
-  "sch_astroNight": "Astro night",
-  "sch_astro_dawn": "Dawn",
-  "sch_astro_dusk": "Dusk",
-  "sch_astro_goldenHour": "Golden hour",
-  "sch_astro_goldenHourEnd": "Golden hour end",
-  "sch_astro_nadir": "Nadir",
-  "sch_astro_nauticalDawn": "Nautical dawn",
-  "sch_astro_nauticalDusk": "Nautical dusk",
-  "sch_astro_night": "Night",
-  "sch_astro_nightEnd": "Night end",
-  "sch_astro_solarNoon": "Solar noon",
-  "sch_astro_sunrise": "Sunrise",
-  "sch_astro_sunriseEnd": "Sunrise end",
-  "sch_astro_sunset": "Sunset",
-  "sch_astro_sunsetStart": "Sunset start",
-  "sch_at": "at",
-  "sch_desc_atTime": "at %s",
-  "sch_desc_everyDay": "every day",
-  "sch_desc_everyHour": "every hour",
-  "sch_desc_everyMinute": "every minute",
-  "sch_desc_everyMonth": "every month",
-  "sch_desc_everyNDay": "every %s day",
-  "sch_desc_everyNHours": "every %s hours",
-  "sch_desc_everyNMinutes": "every %s minutes",
-  "sch_desc_everyNMonths": "every %s months",
-  "sch_desc_everyNWeeks": "every %s weeks",
-  "sch_desc_everyNYears": "every %s years",
-  "sch_desc_everyWeek": "every week",
-  "sch_desc_everyYear": "every year",
-  "sch_desc_intervalFromTo": "from %s to %s",
-  "sch_desc_never": "never",
-  "sch_desc_onDate": "on %s of %s",
-  "sch_desc_onDates": "on %s and %s of",
-  "sch_desc_onEveryDate": "on every date of",
-  "sch_desc_onMonth": "%s",
-  "sch_desc_onMonths": "%s and %s",
-  "sch_desc_onWeekday": "on %s",
-  "sch_desc_onWeekdays": "on %s and %s",
-  "sch_desc_onWeekends": "on weekends",
-  "sch_desc_onWorkdays": "on working days",
-  "sch_desc_onceInPast": "will ne be not executed any more, because start is in the past",
-  "sch_desc_once_on": "on %s",
-  "sch_desc_validFrom": "from %s",
-  "sch_desc_validFromTo": "Execute from to",
-  "sch_desc_validTo": "to %s",
-  "sch_every": "every",
-  "sch_exactTime": "Specific time",
-  "sch_from": "from",
-  "sch_fromTo": "From-to",
-  "sch_intervalTime": "Interval time",
-  "sch_invert": "invert",
-  "sch_no_one": "none",
-  "sch_on": "on",
-  "sch_period": "Period",
-  "sch_periodDaily": "Daily",
-  "sch_periodDates": "Dates",
-  "sch_periodDay": "Day",
-  "sch_periodEvery": "Every",
-  "sch_periodEveryDay": "Every day",
-  "sch_periodEveryMonth": "Every month",
-  "sch_periodEveryWeek": "Every week",
-  "sch_periodEveryYear": "Every year",
-  "sch_periodHours": "Hours",
-  "sch_periodMinutes": "Minutes",
-  "sch_periodMonth": "month",
-  "sch_periodMonthly": "Monthly",
-  "sch_periodOnce": "Once",
-  "sch_periodSpecificMonths": "Specific months",
-  "sch_periodWeek": "Week",
-  "sch_periodWeekdays": "Weekdays",
-  "sch_periodWeekend": "Weekend",
-  "sch_periodWeekly": "Weekly",
-  "sch_periodWorkdays": "Workdays",
-  "sch_periodYear": "Year",
-  "sch_periodYearly": "Yearly",
-  "sch_specificTime": "Specific time",
-  "sch_time": "Time",
-  "sch_to": "to",
-  "sch_valid": "Valid",
-  "sch_validFrom": "from",
-  "sch_validTo": "to",
-  "sch_wholeDay": "Whole day",
-  "sch_yearEveryMonth": "every month",
-  "ra_Define schedule...": "Define schedule...",
-  "ra_Repeat": "Repeat",
-  "ra_use seconds": "use seconds",
-  "ra_close": "close",
-  "ra_Toggle the states view": "Toggle the states view",
-  "ra_Add new child object to selected parent": "Add new child object to selected parent",
-  "ra_Add objects tree from JSON file": "Add objects tree from JSON file",
-  "ra_Save objects tree as JSON file": "Save objects tree as JSON file",
-  "ra_Objects": "Objects",
-  "ra_States": "States",
-  "ra_object_changed_by_user": "Object last changed at",
-  "ra_object_changed_by": "Object changed by",
-  "ra_state_changed_from": "Object changed from",
-  "ra_state_changed_by": "State changed by",
-  "ra_aclOwner_read_object": "Owner can read object",
-  "ra_aclOwner_read_state": "Owner can read state",
-  "ra_aclOwner_write_object": "Owner can write object",
-  "ra_aclOwner_write_state": "Owner can write state",
-  "ra_aclGroup_read_object": "Group can read object",
-  "ra_aclGroup_read_state": "Group can read state",
-  "ra_aclGroup_write_object": "Group can write object",
-  "ra_aclGroup_write_state": "Group can write state",
-  "ra_aclEveryone_read_object": "Everyone can read object",
-  "ra_aclEveryone_read_state": "Everyone can read state",
-  "ra_aclEveryone_write_object": "Everyone can write object",
-  "ra_aclEveryone_write_state": "Everyone can write state",
-  "ra_Folders always first": "Folders always first",
-  "ra_changedFrom": "Changed from",
-  "ra_qualityCode": "Quality code",
-  "ra_timestamp": "Timestamp",
-  "ra_lastChange": "Last change",
-  "ra_Owner group": "Owner group",
-  "ra_Owner user": "Owner user",
-  "ra_Create": "Create",
-  "ra_Changed from": "Changed from",
-  "ra_Quality code": "Quality",
-  "ra_Timestamp": "Timestamp",
-  "ra_Last change": "Last change",
-  "ra_Collapse all nodes": "Collapse all nodes",
-  "ra_Edit custom config": "Edit custom config",
-  "ra_Collapse one step node": "Collapse one level",
-  "ra_Expand one step node": "Expand one level",
-  "ra_Refresh tree": "Refresh tree",
-  "ra_Expand all nodes": "Expand all nodes"
+    "ra_Are you sure?": "Are you sure?",
+    "ra_Cancel": "Cancel",
+    "ra_Copied": "Copied",
+    "ra_Copied %s": "Copied %s",
+    "ra_Error": "Error",
+    "ra_Define functions": "Define functions",
+    "ra_Define rooms": "Define rooms",
+    "ra_Message": "Message",
+    "ra_Please select object ID...": "Please select object ID...",
+    "ra_Selected": "Selected",
+    "ra_Value": "Value",
+    "ra_Ok": "Ok",
+    "ra_dow_Su": "Su",
+    "ra_dow_Mo": "Mo",
+    "ra_dow_Tu": "Tu",
+    "ra_dow_We": "We",
+    "ra_dow_Th": "Th",
+    "ra_dow_Fr": "Fr",
+    "ra_dow_Sa": "Sa",
+    "ra_months_Jan": "Jan",
+    "ra_months_Feb": "Feb",
+    "ra_months_Mar": "Mar",
+    "ra_months_Apr": "Apr",
+    "ra_months_Mai": "Mai",
+    "ra_months_Jun": "Jun",
+    "ra_months_Jul": "Jul",
+    "ra_months_Aug": "Aug",
+    "ra_months_Sep": "Sep",
+    "ra_months_Oct": "Oct",
+    "ra_months_Nov": "Nov",
+    "ra_months_Dec": "Dec",
+    "ra_Unknown error!": "Unknown error!",
+    "ra_filter_customs": "Settings",
+    "ra_filter_func": "Function",
+    "ra_filter_id": "ID",
+    "ra_filter_name": "Name",
+    "ra_filter_role": "Role",
+    "ra_filter_room": "Room",
+    "ra_filter_type": "Type",
+    "ra_invalidConfig": "Invalid settings",
+    "ra_otherConfig": "Settings from other adapter %s",
+    "ra_tooltip_ack": "Acknowledged",
+    "ra_tooltip_from": "From",
+    "ra_tooltip_lc": "Last changed",
+    "ra_tooltip_quality": "Quality",
+    "ra_tooltip_ts": "Time stamp",
+    "ra_tooltip_user": "User",
+    "ra_tooltip_value": "Value",
+    "ra_tooltip_editObject": "Edit object",
+    "ra_tooltip_deleteObject": "Delete object",
+    "ra_tooltip_customConfig": "Custom settings",
+    "ra_tooltip_copyState": "Copy the state value",
+    "ra_tooltip_editState": "Edit the state value",
+    "ra_Listen on all IPs": "Listen on all IPs",
+    "ra_Save": "Save",
+    "ra_Save and close": "Save and close",
+    "ra_Close": "Close",
+    "ra_Auto (no custom columns)": "Auto (no custom columns)",
+    "ra_Transparent dialog": "Transparent dialog",
+    "ra_Width": "Width",
+    "ra_val": "Value",
+    "ra_buttons": "Buttons",
+    "ra_Configure visible columns": "Configure visible columns",
+    "ra_Cannot update attribute, because not found in the object": "Cannot update attribute, because not found in the object",
+    "ra_Edit object field": "Edit object field",
+    "ra_Hide empty folders": "Hide empty folders",
+    "ra_Reload files": "Reload files",
+    "ra_Create folder": "Create folder",
+    "ra_Upload file": "Upload file",
+    "ra_User files": "User files",
+    "ra_Confirm deletion of %s": "Confirm deletion of %s",
+    "ra_Delete (no confirm for 5 mins)": "Delete (no confirm for 5 mins)",
+    "ra_Delete": "Delete",
+    "ra_Toggle expert mode": "Toggle expert mode",
+    "ra_Toggle view mode": "Toggle view mode",
+    "re_Root": "Root",
+    "re_Back to %s": "Back to %s",
+    "ra_Place your files here or click here to open the browse dialog": "Place your files here or click here to open the browse dialog",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "If no file will be created in the folder, it will disappear after the browser closed",
+    "ra_Folder name": "Folder name",
+    "ra_Create new folder in %s": "Create new folder in %s",
+    "ra_Duplicate name": "Duplicate name",
+    "ra_Invalid parent folder!": "Invalid parent folder!",
+    "ra_Drop file here": "Drop file here",
+    "ra_Suppress question for next %s minutes": "Suppress question for next %s minutes",
+    "ra_Clear filter": "Clear filter",
+    "ra_Update": "Update",
+    "ra_Load configuration from file": "Load configuration from file",
+    "ra_Save configuration to file": "Save configuration to file",
+    "sc_cron": "CRON",
+    "sc_date": "Date",
+    "sc_dates": "Dates",
+    "sc_dows": "Day of week",
+    "sc_every": "Every",
+    "sc_everyN_dates": "every N days",
+    "sc_everyN_dows": "every N day of week",
+    "sc_everyN_hours": "every N hours",
+    "sc_everyN_minutes": "every N minutes",
+    "sc_everyN_months": "every N months",
+    "sc_everyN_seconds": "every N seconds",
+    "sc_every_dates": "every day",
+    "sc_every_dows": "every day of the week",
+    "sc_every_hours": "every hour",
+    "sc_every_minutes": "every minute",
+    "sc_every_months": "every month",
+    "sc_every_seconds": "every second",
+    "sc_from": "From",
+    "sc_hours": "Hours",
+    "sc_interval": "Interval",
+    "sc_intervalBetween": "Interval between",
+    "sc_minutes": "Minutes",
+    "sc_months": "months",
+    "sc_once": "Once",
+    "sc_period": "Period",
+    "sc_seconds": "Seconds",
+    "sc_simple": "Simple",
+    "sc_specific": "Specific time",
+    "sc_specific_dates": "specific dates",
+    "sc_specific_dows": "specific day of weeks",
+    "sc_specific_hours": "specific hours",
+    "sc_specific_minutes": "specific minutes",
+    "sc_specific_months": "specific months",
+    "sc_specific_seconds": "specific seconds",
+    "sc_time": "Time",
+    "sc_to": "To",
+    "sc_wizard": "Wizard",
+    "sch_all": "all",
+    "sch_astroDay": "Astro day",
+    "sch_astroNight": "Astro night",
+    "sch_astro_dawn": "Dawn",
+    "sch_astro_dusk": "Dusk",
+    "sch_astro_goldenHour": "Golden hour",
+    "sch_astro_goldenHourEnd": "Golden hour end",
+    "sch_astro_nadir": "Nadir",
+    "sch_astro_nauticalDawn": "Nautical dawn",
+    "sch_astro_nauticalDusk": "Nautical dusk",
+    "sch_astro_night": "Night",
+    "sch_astro_nightEnd": "Night end",
+    "sch_astro_solarNoon": "Solar noon",
+    "sch_astro_sunrise": "Sunrise",
+    "sch_astro_sunriseEnd": "Sunrise end",
+    "sch_astro_sunset": "Sunset",
+    "sch_astro_sunsetStart": "Sunset start",
+    "sch_at": "at",
+    "sch_desc_atTime": "at %s",
+    "sch_desc_everyDay": "every day",
+    "sch_desc_everyHour": "every hour",
+    "sch_desc_everyMinute": "every minute",
+    "sch_desc_everyMonth": "every month",
+    "sch_desc_everyNDay": "every %s day",
+    "sch_desc_everyNHours": "every %s hours",
+    "sch_desc_everyNMinutes": "every %s minutes",
+    "sch_desc_everyNMonths": "every %s months",
+    "sch_desc_everyNWeeks": "every %s weeks",
+    "sch_desc_everyNYears": "every %s years",
+    "sch_desc_everyWeek": "every week",
+    "sch_desc_everyYear": "every year",
+    "sch_desc_intervalFromTo": "from %s to %s",
+    "sch_desc_never": "never",
+    "sch_desc_onDate": "on %s of %s",
+    "sch_desc_onDates": "on %s and %s of",
+    "sch_desc_onEveryDate": "on every date of",
+    "sch_desc_onMonth": "%s",
+    "sch_desc_onMonths": "%s and %s",
+    "sch_desc_onWeekday": "on %s",
+    "sch_desc_onWeekdays": "on %s and %s",
+    "sch_desc_onWeekends": "on weekends",
+    "sch_desc_onWorkdays": "on working days",
+    "sch_desc_onceInPast": "will ne be not executed any more, because start is in the past",
+    "sch_desc_once_on": "on %s",
+    "sch_desc_validFrom": "from %s",
+    "sch_desc_validFromTo": "Execute from to",
+    "sch_desc_validTo": "to %s",
+    "sch_every": "every",
+    "sch_exactTime": "Specific time",
+    "sch_from": "from",
+    "sch_fromTo": "From-to",
+    "sch_intervalTime": "Interval time",
+    "sch_invert": "invert",
+    "sch_no_one": "none",
+    "sch_on": "on",
+    "sch_period": "Period",
+    "sch_periodDaily": "Daily",
+    "sch_periodDates": "Dates",
+    "sch_periodDay": "Day",
+    "sch_periodEvery": "Every",
+    "sch_periodEveryDay": "Every day",
+    "sch_periodEveryMonth": "Every month",
+    "sch_periodEveryWeek": "Every week",
+    "sch_periodEveryYear": "Every year",
+    "sch_periodHours": "Hours",
+    "sch_periodMinutes": "Minutes",
+    "sch_periodMonth": "month",
+    "sch_periodMonthly": "Monthly",
+    "sch_periodOnce": "Once",
+    "sch_periodSpecificMonths": "Specific months",
+    "sch_periodWeek": "Week",
+    "sch_periodWeekdays": "Weekdays",
+    "sch_periodWeekend": "Weekend",
+    "sch_periodWeekly": "Weekly",
+    "sch_periodWorkdays": "Workdays",
+    "sch_periodYear": "Year",
+    "sch_periodYearly": "Yearly",
+    "sch_specificTime": "Specific time",
+    "sch_time": "Time",
+    "sch_to": "to",
+    "sch_valid": "Valid",
+    "sch_validFrom": "from",
+    "sch_validTo": "to",
+    "sch_wholeDay": "Whole day",
+    "sch_yearEveryMonth": "every month",
+    "ra_Define schedule...": "Define schedule...",
+    "ra_Repeat": "Repeat",
+    "ra_use seconds": "use seconds",
+    "ra_close": "close",
+    "ra_Toggle the states view": "Toggle the states view",
+    "ra_Add new child object to selected parent": "Add new child object to selected parent",
+    "ra_Add objects tree from JSON file": "Add objects tree from JSON file",
+    "ra_Save objects tree as JSON file": "Save objects tree as JSON file",
+    "ra_Objects": "Objects",
+    "ra_States": "States",
+    "ra_object_changed_by_user": "Object last changed at",
+    "ra_object_changed_by": "Object changed by",
+    "ra_state_changed_from": "Object changed from",
+    "ra_state_changed_by": "State changed by",
+    "ra_aclOwner_read_object": "Owner can read object",
+    "ra_aclOwner_read_state": "Owner can read state",
+    "ra_aclOwner_write_object": "Owner can write object",
+    "ra_aclOwner_write_state": "Owner can write state",
+    "ra_aclGroup_read_object": "Group can read object",
+    "ra_aclGroup_read_state": "Group can read state",
+    "ra_aclGroup_write_object": "Group can write object",
+    "ra_aclGroup_write_state": "Group can write state",
+    "ra_aclEveryone_read_object": "Everyone can read object",
+    "ra_aclEveryone_read_state": "Everyone can read state",
+    "ra_aclEveryone_write_object": "Everyone can write object",
+    "ra_aclEveryone_write_state": "Everyone can write state",
+    "ra_Folders always first": "Folders always first",
+    "ra_changedFrom": "Changed from",
+    "ra_qualityCode": "Quality code",
+    "ra_timestamp": "Timestamp",
+    "ra_lastChange": "Last change",
+    "ra_Owner group": "Owner group",
+    "ra_Owner user": "Owner user",
+    "ra_Create": "Create",
+    "ra_Changed from": "Changed from",
+    "ra_Quality code": "Quality",
+    "ra_Timestamp": "Timestamp",
+    "ra_Last change": "Last change",
+    "ra_Collapse all nodes": "Collapse all nodes",
+    "ra_Edit custom config": "Edit custom config",
+    "ra_Collapse one step node": "Collapse one level",
+    "ra_Expand one step node": "Expand one level",
+    "ra_Refresh tree": "Refresh tree",
+    "ra_Expand all nodes": "Expand all nodes",
+    "ra_Deselect all": "Unselect all",
+    "ra_Select all": "Select all",
+    "ra_%s object(s) processed": "%s object(s) processed",
+    "ra_Invalid structure": "Invalid structure",
+    "ra_%s was imported": "%s was imported",
+    "ra_Failed to open JSON File": "Failed to open JSON File",
+    "ra_Only following structures of objects are available:": "Only following structures of objects are available:",
+    "ra_Folder → State": "Folder → State",
+    "ra_Folder → Channel → State": "Folder → Channel → State",
+    "ra_Folder → Device → Channel → State": "Folder → Device → Channel → State",
+    "ra_Device → Channel → State": "Device → Channel → State",
+    "ra_Channel → State": "Channel → State",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\")."
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/de.json":[function(require,module,exports) {
 module.exports = {
@@ -68350,7 +68693,7 @@ module.exports = {
     "re_Root": "Anfang",
     "re_Back to %s": "Zurück zu %s",
     "ra_Place your files here or click here to open the browse dialog": "Platzieren Sie Ihre Dateien hier oder klicken Sie hier, um den Suchdialog zu öffnen",
-    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Wenn im Ordner keine Datei erstellt wird, verschwindet diese nach dem Schließen des Browsers",
+    "ra_If no file will be created in the folder, it will disappear after the browser closed": "Wenn im Ordner keine Datei erstellt wird, verschwindet dieser nach dem Schließen des Browsers",
     "ra_Folder name": "Ordnernamen",
     "ra_Create new folder in %s": "Einen neuen Ordner in \"%s\" erstellen",
     "ra_Duplicate name": "Doppelter Name",
@@ -68537,9 +68880,22 @@ module.exports = {
     "ra_Collapse one step node": "Eine Ebene zuklappen",
     "ra_Expand one step node": "Eine Ebene aufklappen",
     "ra_Refresh tree": "Baum aktualisieren",
-    "ra_Expand all nodes": "Alle Knoten aufklappen"
-}
-;
+    "ra_Expand all nodes": "Alle Knoten aufklappen",
+    "ra_Deselect all": "Alles abwählen",
+    "ra_Select all": "Alle auswählen ",
+    "ra_%s object(s) processed": "%s Objekt(e) verarbeitet",
+    "ra_Invalid structure": "Ungültige Struktur",
+    "ra_%s was imported": "%s wurde importiert",
+    "ra_Failed to open JSON File": "Fehler beim Öffnen der JSON-Datei",
+    "ra_Only following structures of objects are available:": "Es stehen nur folgende Objektstrukturen zur Verfügung:",
+    "ra_Folder → State": "Ordner → Zustand",
+    "ra_Folder → Channel → State": "Ordner → Kanal → Zustand",
+    "ra_Folder → Device → Channel → State": "Ordner → Gerät → Kanal → Zustand",
+    "ra_Device → Channel → State": "Gerät → Kanal → Status",
+    "ra_Channel → State": "Kanal → Status",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Nicht-Experten dürfen neue Objekte nur in \"0_userdata.0\" oder \"alias.0\" erstellen.",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Die Experten können Objekte überall erstellen, außer auf der zweiten Ebene (z. B. \"vis.0\" oder \"javascript.0\")."
+};
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/ru.json":[function(require,module,exports) {
 module.exports = {
     "ra_filter_func": "функция",
@@ -68796,9 +69152,22 @@ module.exports = {
     "ra_Collapse one step node": "Свернуть один уровень",
     "ra_Expand one step node": "Открыть один уровень",
     "ra_Refresh tree": "Обновить дерево",
-    "ra_Expand all nodes": "Развернуть все узлы"
-}
-;
+    "ra_Expand all nodes": "Развернуть все узлы",
+    "ra_Deselect all": "Убрать выбор везде",
+    "ra_Select all": "Выбрать все",
+    "ra_%s object(s) processed": "Объектов обработано: %s",
+    "ra_Invalid structure": "Неверная структура",
+    "ra_%s was imported": "%s был импортирован",
+    "ra_Failed to open JSON File": "Не удалось открыть файл JSON",
+    "ra_Only following structures of objects are available:": "Доступны только следующие структуры объектов:",
+    "ra_Folder → State": "Папка → Состояние",
+    "ra_Folder → Channel → State": "Папка → Канал → Состояние",
+    "ra_Folder → Device → Channel → State": "Папка → Устройство → Канал → Состояние",
+    "ra_Device → Channel → State": "Устройство → Канал → Состояние",
+    "ra_Channel → State": "Канал → Состояние",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Не-эксперты могут создавать новые объекты только в «0_userdata.0» или «alias.0».",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Эксперты могут создавать объекты везде, кроме второго уровня (например, «vis.0» или «javascript.0»)."
+};
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/pt.json":[function(require,module,exports) {
 module.exports = {
     "ra_filter_func": "Função",
@@ -69042,9 +69411,22 @@ module.exports = {
     "ra_Collapse one step node": "Recolher um nível",
     "ra_Expand one step node": "Expanda um nível",
     "ra_Refresh tree": "Atualizar árvore",
-    "ra_Expand all nodes": "Expanda todos os nós"
-}
-;
+    "ra_Expand all nodes": "Expanda todos os nós",
+    "ra_Deselect all": "Desmarque todos",
+    "ra_Select all": "Selecionar tudo",
+    "ra_%s object(s) processed": "%s objeto(s) processado(s)",
+    "ra_Invalid structure": "Estrutura inválida",
+    "ra_%s was imported": "%s foi importado",
+    "ra_Failed to open JSON File": "Falha ao abrir arquivo JSON",
+    "ra_Only following structures of objects are available:": "Apenas as seguintes estruturas de objetos estão disponíveis:",
+    "ra_Folder → State": "Pasta → Estado",
+    "ra_Folder → Channel → State": "Pasta → Canal → Estado",
+    "ra_Folder → Device → Channel → State": "Pasta → Dispositivo → Canal → Estado",
+    "ra_Device → Channel → State": "Dispositivo → Canal → Estado",
+    "ra_Channel → State": "Canal → Estado",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Os não especialistas podem criar novos objetos apenas em \"0_userdata.0\" ou \"alias.0\".",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Os especialistas podem criar objetos em qualquer lugar, exceto no segundo nível (por exemplo, \"vis.0\" ou \"javascript.0\")."
+};
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/nl.json":[function(require,module,exports) {
 module.exports = {
     "ra_filter_func": "Functie",
@@ -69288,9 +69670,22 @@ module.exports = {
     "ra_Collapse one step node": "Eén niveau samenvouwen",
     "ra_Expand one step node": "Vouw een niveau uit",
     "ra_Refresh tree": "Vernieuw de boom",
-    "ra_Expand all nodes": "Vouw alle knooppunten uit"
-}
-;
+    "ra_Expand all nodes": "Vouw alle knooppunten uit",
+    "ra_Deselect all": "Deselecteer alles",
+    "ra_Select all": "Selecteer alles",
+    "ra_%s object(s) processed": "%s object(en) verwerkt",
+    "ra_Invalid structure": "Ongeldige structuur",
+    "ra_%s was imported": "%s is geïmporteerd",
+    "ra_Failed to open JSON File": "JSON-bestand kan niet worden geopend",
+    "ra_Only following structures of objects are available:": "Alleen de volgende structuren van objecten zijn beschikbaar:",
+    "ra_Folder → State": "Map → Staat",
+    "ra_Folder → Channel → State": "Map → Kanaal → Staat",
+    "ra_Folder → Device → Channel → State": "Map → Apparaat → Kanaal → Staat",
+    "ra_Device → Channel → State": "Apparaat → Kanaal → Staat",
+    "ra_Channel → State": "Kanaal → Staat",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Niet-experts mogen alleen nieuwe objecten maken in \"0_userdata.0\" of \"alias.0\".",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "De experts kunnen overal objecten maken, behalve vanaf het tweede niveau (bijv. \"Vis.0\" of \"javascript.0\")."
+};
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/fr.json":[function(require,module,exports) {
 module.exports = {
     "ra_filter_func": "Une fonction",
@@ -69534,9 +69929,22 @@ module.exports = {
     "ra_Collapse one step node": "Réduire d'un niveau",
     "ra_Expand one step node": "Développer un niveau",
     "ra_Refresh tree": "Rafraîchir l'arborescence",
-    "ra_Expand all nodes": "Développer tous les nœuds"
-}
-;
+    "ra_Expand all nodes": "Développer tous les nœuds",
+    "ra_Deselect all": "Tout déselectionner",
+    "ra_Select all": "Tout sélectionner",
+    "ra_%s object(s) processed": "%s objet(s) traité(s)",
+    "ra_Invalid structure": "Structure invalide",
+    "ra_%s was imported": "%s a été importé",
+    "ra_Failed to open JSON File": "Échec de l'ouverture du fichier JSON",
+    "ra_Only following structures of objects are available:": "Seules les structures d'objets suivantes sont disponibles:",
+    "ra_Folder → State": "Dossier → État",
+    "ra_Folder → Channel → State": "Dossier → Chaîne → État",
+    "ra_Folder → Device → Channel → State": "Dossier → Appareil → Canal → État",
+    "ra_Device → Channel → State": "Appareil → Canal → État",
+    "ra_Channel → State": "Canal → État",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Les non-experts ne peuvent créer de nouveaux objets que dans \"0_userdata.0\" ou \"alias.0\".",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Les experts peuvent créer des objets partout mais à partir du deuxième niveau (par exemple \"vis.0\" ou \"javascript.0\")."
+};
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/it.json":[function(require,module,exports) {
 module.exports = {
     "ra_filter_func": "Funzione",
@@ -69780,9 +70188,22 @@ module.exports = {
     "ra_Collapse one step node": "Comprimi un livello",
     "ra_Expand one step node": "Espandi un livello",
     "ra_Refresh tree": "Aggiorna l'albero",
-    "ra_Expand all nodes": "Espandi tutti i nodi"
-}
-;
+    "ra_Expand all nodes": "Espandi tutti i nodi",
+    "ra_Deselect all": "Deseleziona tutto",
+    "ra_Select all": "Seleziona tutto",
+    "ra_%s object(s) processed": "%s oggetti elaborati",
+    "ra_Invalid structure": "Struttura non valida",
+    "ra_%s was imported": "%s è stato importato",
+    "ra_Failed to open JSON File": "Impossibile aprire il file JSON",
+    "ra_Only following structures of objects are available:": "Sono disponibili solo le seguenti strutture di oggetti:",
+    "ra_Folder → State": "Cartella → Stato",
+    "ra_Folder → Channel → State": "Cartella → Canale → Stato",
+    "ra_Folder → Device → Channel → State": "Cartella → Dispositivo → Canale → Stato",
+    "ra_Device → Channel → State": "Dispositivo → Canale → Stato",
+    "ra_Channel → State": "Canale → Stato",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "I non esperti possono creare nuovi oggetti solo in \"0_userdata.0\" o \"alias.0\".",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Gli esperti possono creare oggetti ovunque ma dal secondo livello (es. \"Vis.0\" o \"javascript.0\")."
+};
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/es.json":[function(require,module,exports) {
 module.exports = {
     "ra_filter_func": "Función",
@@ -70026,9 +70447,22 @@ module.exports = {
     "ra_Collapse one step node": "Contraer un nivel",
     "ra_Expand one step node": "Expandir un nivel",
     "ra_Refresh tree": "Actualizar árbol",
-    "ra_Expand all nodes": "Expandir todos los nodos"
-}
-;
+    "ra_Expand all nodes": "Expandir todos los nodos",
+    "ra_Deselect all": "Deselecciona todo",
+    "ra_Select all": "Seleccionar todo",
+    "ra_%s object(s) processed": "%s objeto(s) procesados",
+    "ra_Invalid structure": "Estructura inválida",
+    "ra_%s was imported": "%s fue importado",
+    "ra_Failed to open JSON File": "No se pudo abrir el archivo JSON",
+    "ra_Only following structures of objects are available:": "Solo están disponibles las siguientes estructuras de objetos:",
+    "ra_Folder → State": "Carpeta → Estado",
+    "ra_Folder → Channel → State": "Carpeta → Canal → Estado",
+    "ra_Folder → Device → Channel → State": "Carpeta → Dispositivo → Canal → Estado",
+    "ra_Device → Channel → State": "Dispositivo → Canal → Estado",
+    "ra_Channel → State": "Canal → Estado",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Los no expertos pueden crear nuevos objetos solo en \"0_userdata.0\" o \"alias.0\".",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Los expertos pueden crear objetos en todas partes excepto desde el segundo nivel (por ejemplo, \"vis.0\" o \"javascript.0\")."
+};
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/pl.json":[function(require,module,exports) {
 module.exports = {
     "ra_filter_func": "Funkcjonować",
@@ -70272,9 +70706,22 @@ module.exports = {
     "ra_Collapse one step node": "Zwiń o jeden poziom",
     "ra_Expand one step node": "Rozwiń o jeden poziom",
     "ra_Refresh tree": "Odśwież drzewo",
-    "ra_Expand all nodes": "Rozwiń wszystkie węzły"
-}
-;
+    "ra_Expand all nodes": "Rozwiń wszystkie węzły",
+    "ra_Deselect all": "Odznacz wszystko",
+    "ra_Select all": "Zaznacz wszystko",
+    "ra_%s object(s) processed": "Przetworzono %s obiektów",
+    "ra_Invalid structure": "Nieprawidłowa struktura",
+    "ra_%s was imported": "%s został zaimportowany",
+    "ra_Failed to open JSON File": "Nie udało się otworzyć pliku JSON",
+    "ra_Only following structures of objects are available:": "Dostępne są tylko następujące struktury obiektów:",
+    "ra_Folder → State": "Folder → Stan",
+    "ra_Folder → Channel → State": "Folder → Kanał → Stan",
+    "ra_Folder → Device → Channel → State": "Folder → Urządzenie → Kanał → Stan",
+    "ra_Device → Channel → State": "Urządzenie → Kanał → Stan",
+    "ra_Channel → State": "Kanał → Stan",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Osoby nie będące ekspertami mogą tworzyć nowe obiekty tylko w „0_userdata.0” lub „alias.0”.",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Eksperci mogą tworzyć obiekty wszędzie poza drugim poziomem (np. „Vis.0” lub „javascript.0”)."
+};
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/zh-cn.json":[function(require,module,exports) {
 module.exports = {
     "ra_filter_func": "功能",
@@ -70518,9 +70965,22 @@ module.exports = {
     "ra_Collapse one step node": "折叠一级",
     "ra_Expand one step node": "扩大一级",
     "ra_Refresh tree": "刷新树",
-    "ra_Expand all nodes": "展开所有节点"
-}
-;
+    "ra_Expand all nodes": "展开所有节点",
+    "ra_Deselect all": "全部取消选择",
+    "ra_Select all": "全选",
+    "ra_%s object(s) processed": "已处理%s个对象",
+    "ra_Invalid structure": "结构无效",
+    "ra_%s was imported": "对象已导入",
+    "ra_Failed to open JSON File": "无法打开JSON文件",
+    "ra_Only following structures of objects are available:": "仅以下对象结构可用：",
+    "ra_Folder → State": "文件夹→状态",
+    "ra_Folder → Channel → State": "文件夹→频道→状态",
+    "ra_Folder → Device → Channel → State": "文件夹→设备→频道→状态",
+    "ra_Device → Channel → State": "设备→频道→状态",
+    "ra_Channel → State": "频道→状态",
+    "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "非专家只能在“ 0_userdata.0”或“ alias.0”中创建新对象。",
+    "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "专家可以在任何地方创建对象，但要从第二层开始（例如“ vis.0”或“ javascript.0”）。"
+};
 },{}],"../../node_modules/@iobroker/adapter-react/GenericApp.js":[function(require,module,exports) {
 "use strict";
 
@@ -70696,13 +71156,20 @@ var GenericApp = /*#__PURE__*/function (_Router) {
     }).forEach(function (b) {
       var parts = b.split('=');
       args[parts[0]] = parts.length === 2 ? parts[1] : true;
+
+      if (args[parts[0]] === 'true') {
+        args[parts[0]] = true;
+      } else if (args[parts[0]] === 'false') {
+        args[parts[0]] = false;
+      }
     }); // extract instance from URL
 
     _this.instance = args.instance !== undefined ? parseInt(args.instance, 10) || 0 : parseInt(window.location.search.slice(1), 10) || 0; // extract adapter name from URL
 
     var tmp = window.location.pathname.split('/');
     _this.adapterName = (settings === null || settings === void 0 ? void 0 : settings.adapterName) || props.adapterName || window.adapterName || tmp[tmp.length - 2] || 'iot';
-    _this.instanceId = 'system.adapter.' + _this.adapterName + '.' + _this.instance;
+    _this.instanceId = "system.adapter.".concat(_this.adapterName, ".").concat(_this.instance);
+    _this.newReact = args.newReact === true; // it is admin5
 
     var location = _Router2["default"].getLocation();
 
@@ -71324,6 +71791,7 @@ var GenericApp = /*#__PURE__*/function (_Router) {
       if (this.state.bottomButtons) {
         return /*#__PURE__*/_react["default"].createElement(_SaveCloseButtons["default"], {
           theme: this.state.theme,
+          newReact: this.newReact,
           noTextOnButtons: this.state.width === 'xs' || this.state.width === 'sm' || this.state.width === 'md',
           changed: this.state.changed,
           onSave: function onSave(isClose) {
