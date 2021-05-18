@@ -42017,30 +42017,38 @@ var Utils = /*#__PURE__*/function () {
   }, {
     key: "renderTextWithA",
     value: function renderTextWithA(text) {
-      var m = text.match(/<a [^<]+<\/a>/);
+      var m = text.match(/<a [^<]+<\/a>|<br\/?>/);
 
       if (m) {
         var result = [];
         var key = 1;
 
         do {
-          var href = m[0].match(/href="([^"]+)"/) || m[0].match(/href='([^']+)'/);
-          var target = m[0].match(/target="([^"]+)"/) || m[0].match(/target='([^']+)'/);
-          var rel = m[0].match(/rel="([^"]+)"/) || m[0].match(/rel='([^']+)'/);
-          var title = m[0].match(/>([^<]*)</);
           var p = text.split(m[0]);
           p[0] && result.push( /*#__PURE__*/_react["default"].createElement("span", {
             key: 'a' + key++
-          }, p[0])); // eslint-disable-next-line
+          }, p[0]));
 
-          result.push( /*#__PURE__*/_react["default"].createElement("a", {
-            key: 'a' + key++,
-            href: href ? href[1] : '',
-            target: target ? target[1] : '_blank',
-            rel: rel ? rel[1] : ''
-          }, title ? title[1] : ''));
+          if (m[0].startsWith('<br')) {
+            result.push( /*#__PURE__*/_react["default"].createElement("br", {
+              key: 'a' + key++
+            }));
+          } else {
+            var href = m[0].match(/href="([^"]+)"/) || m[0].match(/href='([^']+)'/);
+            var target = m[0].match(/target="([^"]+)"/) || m[0].match(/target='([^']+)'/);
+            var rel = m[0].match(/rel="([^"]+)"/) || m[0].match(/rel='([^']+)'/);
+            var title = m[0].match(/>([^<]*)</); // eslint-disable-next-line
+
+            result.push( /*#__PURE__*/_react["default"].createElement("a", {
+              key: 'a' + key++,
+              href: href ? href[1] : '',
+              target: target ? target[1] : '_blank',
+              rel: rel ? rel[1] : ''
+            }, title ? title[1] : ''));
+          }
+
           text = p[1];
-          m = text && text.match(/<a [^<]+<\/a>/);
+          m = text && text.match(/<a [^<]+<\/a>|<br\/?>/);
 
           if (!m) {
             p[1] && result.push( /*#__PURE__*/_react["default"].createElement("span", {
@@ -42418,7 +42426,8 @@ var Utils = /*#__PURE__*/function () {
       }
 
       if (hex.length !== 6) {
-        throw new Error('Invalid HEX color.');
+        console.warn('Cannot invert color: ' + hex);
+        return hex;
       }
 
       var r = parseInt(hex.slice(0, 2), 16);
@@ -43352,7 +43361,7 @@ var Connection = /*#__PURE__*/function () {
         } // Read system configuration
 
 
-        return _this3.getCompactSystemConfig().then(function (data) {
+        return _this3.getSystemConfig().then(function (data) {
           if (_this3.doNotLoadACL) {
             if (_this3.loaded) {
               return;
@@ -43389,10 +43398,6 @@ var Connection = /*#__PURE__*/function () {
               _this3.props.onReady && _this3.props.onReady(_this3.objects);
             });
           } else {
-            _this3.objects = {
-              'system.config': data
-            };
-
             _this3.onProgress(PROGRESS.READY);
 
             _this3.props.onReady && _this3.props.onReady(_this3.objects);
@@ -46609,7 +46614,7 @@ exports.LogLevel = LogLevel;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SessionStatus = void 0;
+exports.RequestSessionStatus = exports.SessionStatus = void 0;
 
 /**
  * Session Status
@@ -46630,6 +46635,20 @@ exports.SessionStatus = SessionStatus;
 
   SessionStatus["Abnormal"] = "abnormal";
 })(SessionStatus || (exports.SessionStatus = SessionStatus = {}));
+
+var RequestSessionStatus;
+exports.RequestSessionStatus = RequestSessionStatus;
+
+(function (RequestSessionStatus) {
+  /** JSDoc */
+  RequestSessionStatus["Ok"] = "ok";
+  /** JSDoc */
+
+  RequestSessionStatus["Errored"] = "errored";
+  /** JSDoc */
+
+  RequestSessionStatus["Crashed"] = "crashed";
+})(RequestSessionStatus || (exports.RequestSessionStatus = RequestSessionStatus = {}));
 },{}],"../../node_modules/@sentry/types/esm/severity.js":[function(require,module,exports) {
 "use strict";
 
@@ -46798,6 +46817,12 @@ Object.defineProperty(exports, "SessionStatus", {
   enumerable: true,
   get: function () {
     return _session.SessionStatus;
+  }
+});
+Object.defineProperty(exports, "RequestSessionStatus", {
+  enumerable: true,
+  get: function () {
+    return _session.RequestSessionStatus;
   }
 });
 Object.defineProperty(exports, "Severity", {
@@ -47588,6 +47613,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isNodeEnv = isNodeEnv;
 exports.dynamicRequire = dynamicRequire;
+exports.loadModule = loadModule;
 
 /**
  * Checks whether we're in the Node.js or Browser environment
@@ -47608,6 +47634,37 @@ function isNodeEnv() {
 function dynamicRequire(mod, request) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   return mod.require(request);
+}
+/**
+ * Helper for dynamically loading module that should work with linked dependencies.
+ * The problem is that we _should_ be using `require(require.resolve(moduleName, { paths: [cwd()] }))`
+ * However it's _not possible_ to do that with Webpack, as it has to know all the dependencies during
+ * build time. `require.resolve` is also not available in any other way, so we cannot create,
+ * a fake helper like we do with `dynamicRequire`.
+ *
+ * We always prefer to use local package, thus the value is not returned early from each `try/catch` block.
+ * That is to mimic the behavior of `require.resolve` exactly.
+ *
+ * @param moduleName module name to require
+ * @returns possibly required module
+ */
+
+
+function loadModule(moduleName) {
+  var mod;
+
+  try {
+    mod = dynamicRequire(module, moduleName);
+  } catch (e) {// no-empty
+  }
+
+  try {
+    var cwd = dynamicRequire(module, 'process').cwd;
+    mod = dynamicRequire(module, cwd() + "/node_modules/" + moduleName);
+  } catch (e) {// no-empty
+  }
+
+  return mod;
 }
 },{"process":"../../node_modules/process/browser.js"}],"../../node_modules/@sentry/utils/esm/string.js":[function(require,module,exports) {
 "use strict";
@@ -50640,6 +50697,7 @@ function () {
       newScope._transactionName = scope._transactionName;
       newScope._fingerprint = scope._fingerprint;
       newScope._eventProcessors = (0, _tslib.__spread)(scope._eventProcessors);
+      newScope._requestSession = scope._requestSession;
     }
 
     return newScope;
@@ -50688,6 +50746,23 @@ function () {
 
   Scope.prototype.getUser = function () {
     return this._user;
+  };
+  /**
+   * @inheritDoc
+   */
+
+
+  Scope.prototype.getRequestSession = function () {
+    return this._requestSession;
+  };
+  /**
+   * @inheritDoc
+   */
+
+
+  Scope.prototype.setRequestSession = function (requestSession) {
+    this._requestSession = requestSession;
+    return this;
   };
   /**
    * @inheritDoc
@@ -50903,6 +50978,10 @@ function () {
       if (captureContext._fingerprint) {
         this._fingerprint = captureContext._fingerprint;
       }
+
+      if (captureContext._requestSession) {
+        this._requestSession = captureContext._requestSession;
+      }
     } else if ((0, _utils.isPlainObject)(captureContext)) {
       // eslint-disable-next-line no-param-reassign
       captureContext = captureContext;
@@ -50920,6 +50999,10 @@ function () {
 
       if (captureContext.fingerprint) {
         this._fingerprint = captureContext.fingerprint;
+      }
+
+      if (captureContext.requestSession) {
+        this._requestSession = captureContext.requestSession;
       }
     }
 
@@ -50939,6 +51022,7 @@ function () {
     this._level = undefined;
     this._transactionName = undefined;
     this._fingerprint = undefined;
+    this._requestSession = undefined;
     this._span = undefined;
     this._session = undefined;
 
@@ -51128,148 +51212,7 @@ function getGlobalEventProcessors() {
 function addGlobalEventProcessor(callback) {
   getGlobalEventProcessors().push(callback);
 }
-},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js"}],"../../node_modules/@sentry/hub/esm/session.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Session = void 0;
-
-var _types = require("@sentry/types");
-
-var _utils = require("@sentry/utils");
-
-/**
- * @inheritdoc
- */
-var Session =
-/** @class */
-function () {
-  function Session(context) {
-    this.errors = 0;
-    this.sid = (0, _utils.uuid4)();
-    this.timestamp = Date.now();
-    this.started = Date.now();
-    this.duration = 0;
-    this.status = _types.SessionStatus.Ok;
-    this.init = true;
-
-    if (context) {
-      this.update(context);
-    }
-  }
-  /** JSDoc */
-  // eslint-disable-next-line complexity
-
-
-  Session.prototype.update = function (context) {
-    if (context === void 0) {
-      context = {};
-    }
-
-    if (context.user) {
-      if (context.user.ip_address) {
-        this.ipAddress = context.user.ip_address;
-      }
-
-      if (!context.did) {
-        this.did = context.user.id || context.user.email || context.user.username;
-      }
-    }
-
-    this.timestamp = context.timestamp || Date.now();
-
-    if (context.sid) {
-      // Good enough uuid validation. — Kamil
-      this.sid = context.sid.length === 32 ? context.sid : (0, _utils.uuid4)();
-    }
-
-    if (context.init !== undefined) {
-      this.init = context.init;
-    }
-
-    if (context.did) {
-      this.did = "" + context.did;
-    }
-
-    if (typeof context.started === 'number') {
-      this.started = context.started;
-    }
-
-    if (typeof context.duration === 'number') {
-      this.duration = context.duration;
-    } else {
-      this.duration = this.timestamp - this.started;
-    }
-
-    if (context.release) {
-      this.release = context.release;
-    }
-
-    if (context.environment) {
-      this.environment = context.environment;
-    }
-
-    if (context.ipAddress) {
-      this.ipAddress = context.ipAddress;
-    }
-
-    if (context.userAgent) {
-      this.userAgent = context.userAgent;
-    }
-
-    if (typeof context.errors === 'number') {
-      this.errors = context.errors;
-    }
-
-    if (context.status) {
-      this.status = context.status;
-    }
-  };
-  /** JSDoc */
-
-
-  Session.prototype.close = function (status) {
-    if (status) {
-      this.update({
-        status: status
-      });
-    } else if (this.status === _types.SessionStatus.Ok) {
-      this.update({
-        status: _types.SessionStatus.Exited
-      });
-    } else {
-      this.update();
-    }
-  };
-  /** JSDoc */
-
-
-  Session.prototype.toJSON = function () {
-    return (0, _utils.dropUndefinedKeys)({
-      sid: "" + this.sid,
-      init: this.init,
-      started: new Date(this.started).toISOString(),
-      timestamp: new Date(this.timestamp).toISOString(),
-      status: this.status,
-      errors: this.errors,
-      did: typeof this.did === 'number' || typeof this.did === 'string' ? "" + this.did : undefined,
-      duration: this.duration,
-      attrs: (0, _utils.dropUndefinedKeys)({
-        release: this.release,
-        environment: this.environment,
-        ip_address: this.ipAddress,
-        user_agent: this.userAgent
-      })
-    });
-  };
-
-  return Session;
-}();
-
-exports.Session = Session;
-},{"@sentry/types":"../../node_modules/@sentry/types/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js"}],"../../node_modules/@sentry/hub/esm/hub.js":[function(require,module,exports) {
+},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js"}],"../../node_modules/@sentry/hub/esm/hub.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51303,7 +51246,7 @@ var _session = require("./session");
  *
  * @hidden
  */
-var API_VERSION = 3;
+var API_VERSION = 4;
 /**
  * Default maximum number of breadcrumbs added to an event. Can be overwritten
  * with {@link Options.maxBreadcrumbs}.
@@ -51821,7 +51764,13 @@ function () {
 
 exports.Hub = Hub;
 
-/** Returns the global shim registry. */
+/**
+ * Returns the global shim registry.
+ *
+ * FIXME: This function is problematic, because despite always returning a valid Carrier,
+ * it has an optional `__SENTRY__` property, which then in turn requires us to always perform an unnecessary check
+ * at the call-site. We always access the carrier through this function, so we can guarantee that `__SENTRY__` is there.
+ **/
 function getMainCarrier() {
   var carrier = (0, _utils.getGlobalObject)();
   carrier.__SENTRY__ = carrier.__SENTRY__ || {
@@ -51949,7 +51898,283 @@ function setHubOnCarrier(carrier, hub) {
   carrier.__SENTRY__.hub = hub;
   return true;
 }
-},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/types":"../../node_modules/@sentry/types/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js","./scope":"../../node_modules/@sentry/hub/esm/scope.js","./session":"../../node_modules/@sentry/hub/esm/session.js"}],"../../node_modules/@sentry/hub/esm/index.js":[function(require,module,exports) {
+},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/types":"../../node_modules/@sentry/types/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js","./scope":"../../node_modules/@sentry/hub/esm/scope.js","./session":"../../node_modules/@sentry/hub/esm/session.js"}],"../../node_modules/@sentry/hub/esm/session.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SessionFlusher = exports.Session = void 0;
+
+var _types = require("@sentry/types");
+
+var _utils = require("@sentry/utils");
+
+var _hub = require("./hub");
+
+/**
+ * @inheritdoc
+ */
+var Session =
+/** @class */
+function () {
+  function Session(context) {
+    this.errors = 0;
+    this.sid = (0, _utils.uuid4)();
+    this.timestamp = Date.now();
+    this.started = Date.now();
+    this.duration = 0;
+    this.status = _types.SessionStatus.Ok;
+    this.init = true;
+
+    if (context) {
+      this.update(context);
+    }
+  }
+  /** JSDoc */
+  // eslint-disable-next-line complexity
+
+
+  Session.prototype.update = function (context) {
+    if (context === void 0) {
+      context = {};
+    }
+
+    if (context.user) {
+      if (context.user.ip_address) {
+        this.ipAddress = context.user.ip_address;
+      }
+
+      if (!context.did) {
+        this.did = context.user.id || context.user.email || context.user.username;
+      }
+    }
+
+    this.timestamp = context.timestamp || Date.now();
+
+    if (context.sid) {
+      // Good enough uuid validation. — Kamil
+      this.sid = context.sid.length === 32 ? context.sid : (0, _utils.uuid4)();
+    }
+
+    if (context.init !== undefined) {
+      this.init = context.init;
+    }
+
+    if (context.did) {
+      this.did = "" + context.did;
+    }
+
+    if (typeof context.started === 'number') {
+      this.started = context.started;
+    }
+
+    if (typeof context.duration === 'number') {
+      this.duration = context.duration;
+    } else {
+      this.duration = this.timestamp - this.started;
+    }
+
+    if (context.release) {
+      this.release = context.release;
+    }
+
+    if (context.environment) {
+      this.environment = context.environment;
+    }
+
+    if (context.ipAddress) {
+      this.ipAddress = context.ipAddress;
+    }
+
+    if (context.userAgent) {
+      this.userAgent = context.userAgent;
+    }
+
+    if (typeof context.errors === 'number') {
+      this.errors = context.errors;
+    }
+
+    if (context.status) {
+      this.status = context.status;
+    }
+  };
+  /** JSDoc */
+
+
+  Session.prototype.close = function (status) {
+    if (status) {
+      this.update({
+        status: status
+      });
+    } else if (this.status === _types.SessionStatus.Ok) {
+      this.update({
+        status: _types.SessionStatus.Exited
+      });
+    } else {
+      this.update();
+    }
+  };
+  /** JSDoc */
+
+
+  Session.prototype.toJSON = function () {
+    return (0, _utils.dropUndefinedKeys)({
+      sid: "" + this.sid,
+      init: this.init,
+      started: new Date(this.started).toISOString(),
+      timestamp: new Date(this.timestamp).toISOString(),
+      status: this.status,
+      errors: this.errors,
+      did: typeof this.did === 'number' || typeof this.did === 'string' ? "" + this.did : undefined,
+      duration: this.duration,
+      attrs: (0, _utils.dropUndefinedKeys)({
+        release: this.release,
+        environment: this.environment,
+        ip_address: this.ipAddress,
+        user_agent: this.userAgent
+      })
+    });
+  };
+
+  return Session;
+}();
+
+exports.Session = Session;
+
+/**
+ * @inheritdoc
+ */
+var SessionFlusher =
+/** @class */
+function () {
+  function SessionFlusher(transport, attrs) {
+    var _this = this;
+
+    this.flushTimeout = 60;
+    this._pendingAggregates = {};
+    this._isEnabled = true;
+    this._transport = transport; // Call to setInterval, so that flush is called every 60 seconds
+
+    this._intervalId = setInterval(function () {
+      return _this.flush();
+    }, this.flushTimeout * 1000);
+    this._sessionAttrs = attrs;
+  }
+  /** Sends session aggregates to Transport */
+
+
+  SessionFlusher.prototype.sendSessionAggregates = function (sessionAggregates) {
+    if (!this._transport.sendSession) {
+      _utils.logger.warn("Dropping session because custom transport doesn't implement sendSession");
+
+      return;
+    }
+
+    this._transport.sendSession(sessionAggregates).then(null, function (reason) {
+      _utils.logger.error("Error while sending session: " + reason);
+    });
+  };
+  /** Checks if `pendingAggregates` has entries, and if it does flushes them by calling `sendSessions` */
+
+
+  SessionFlusher.prototype.flush = function () {
+    var sessionAggregates = this.getSessionAggregates();
+
+    if (sessionAggregates.aggregates.length === 0) {
+      return;
+    }
+
+    this._pendingAggregates = {};
+    this.sendSessionAggregates(sessionAggregates);
+  };
+  /** Massages the entries in `pendingAggregates` and returns aggregated sessions */
+
+
+  SessionFlusher.prototype.getSessionAggregates = function () {
+    var _this = this;
+
+    var aggregates = Object.keys(this._pendingAggregates).map(function (key) {
+      return _this._pendingAggregates[parseInt(key)];
+    });
+    var sessionAggregates = {
+      attrs: this._sessionAttrs,
+      aggregates: aggregates
+    };
+    return (0, _utils.dropUndefinedKeys)(sessionAggregates);
+  };
+  /** JSDoc */
+
+
+  SessionFlusher.prototype.close = function () {
+    clearInterval(this._intervalId);
+    this._isEnabled = false;
+    this.flush();
+  };
+  /**
+   * Wrapper function for _incrementSessionStatusCount that checks if the instance of SessionFlusher is enabled then
+   * fetches the session status of the request from `Scope.getRequestSession().status` on the scope and passes them to
+   * `_incrementSessionStatusCount` along with the start date
+   */
+
+
+  SessionFlusher.prototype.incrementSessionStatusCount = function () {
+    var _a, _b;
+
+    if (!this._isEnabled) {
+      return;
+    }
+
+    var scope = (0, _hub.getCurrentHub)().getScope();
+    var requestSession = (_a = scope) === null || _a === void 0 ? void 0 : _a.getRequestSession();
+
+    if (requestSession && requestSession.status) {
+      this._incrementSessionStatusCount(requestSession.status, new Date()); // This is not entirely necessarily but is added as a safe guard to indicate the bounds of a request and so in
+      // case captureRequestSession is called more than once to prevent double count
+
+
+      (_b = scope) === null || _b === void 0 ? void 0 : _b.setRequestSession(undefined);
+      /* eslint-enable @typescript-eslint/no-unsafe-member-access */
+    }
+  };
+  /**
+   * Increments status bucket in pendingAggregates buffer (internal state) corresponding to status of
+   * the session received
+   */
+
+
+  SessionFlusher.prototype._incrementSessionStatusCount = function (status, date) {
+    // Truncate minutes and seconds on Session Started attribute to have one minute bucket keys
+    var sessionStartedTrunc = new Date(date).setSeconds(0, 0);
+    this._pendingAggregates[sessionStartedTrunc] = this._pendingAggregates[sessionStartedTrunc] || {}; // corresponds to aggregated sessions in one specific minute bucket
+    // for example, {"started":"2021-03-16T08:00:00.000Z","exited":4, "errored": 1}
+
+    var aggregationCounts = this._pendingAggregates[sessionStartedTrunc];
+
+    if (!aggregationCounts.started) {
+      aggregationCounts.started = new Date(sessionStartedTrunc).toISOString();
+    }
+
+    switch (status) {
+      case _types.RequestSessionStatus.Errored:
+        aggregationCounts.errored = (aggregationCounts.errored || 0) + 1;
+        return aggregationCounts.errored;
+
+      case _types.RequestSessionStatus.Ok:
+        aggregationCounts.exited = (aggregationCounts.exited || 0) + 1;
+        return aggregationCounts.exited;
+
+      case _types.RequestSessionStatus.Crashed:
+        aggregationCounts.crashed = (aggregationCounts.crashed || 0) + 1;
+        return aggregationCounts.crashed;
+    }
+  };
+
+  return SessionFlusher;
+}();
+
+exports.SessionFlusher = SessionFlusher;
+},{"@sentry/types":"../../node_modules/@sentry/types/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js","./hub":"../../node_modules/@sentry/hub/esm/hub.js"}],"../../node_modules/@sentry/hub/esm/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51971,6 +52196,12 @@ Object.defineProperty(exports, "Session", {
   enumerable: true,
   get: function () {
     return _session.Session;
+  }
+});
+Object.defineProperty(exports, "SessionFlusher", {
+  enumerable: true,
+  get: function () {
+    return _session.SessionFlusher;
   }
 });
 Object.defineProperty(exports, "getActiveDomain", {
@@ -52469,39 +52700,41 @@ var _hub = require("@sentry/hub");
 var _utils = require("@sentry/utils");
 
 var installedIntegrations = [];
-/** Gets integration to install */
+/**
+ * @private
+ */
 
 exports.installedIntegrations = installedIntegrations;
+
+function filterDuplicates(integrations) {
+  return integrations.reduce(function (acc, integrations) {
+    if (acc.every(function (accIntegration) {
+      return integrations.name !== accIntegration.name;
+    })) {
+      acc.push(integrations);
+    }
+
+    return acc;
+  }, []);
+}
+/** Gets integration to install */
+
 
 function getIntegrationsToSetup(options) {
   var defaultIntegrations = options.defaultIntegrations && (0, _tslib.__spread)(options.defaultIntegrations) || [];
   var userIntegrations = options.integrations;
-  var integrations = [];
+  var integrations = (0, _tslib.__spread)(filterDuplicates(defaultIntegrations));
 
   if (Array.isArray(userIntegrations)) {
-    var userIntegrationsNames_1 = userIntegrations.map(function (i) {
-      return i.name;
-    });
-    var pickedIntegrationsNames_1 = []; // Leave only unique default integrations, that were not overridden with provided user integrations
-
-    defaultIntegrations.forEach(function (defaultIntegration) {
-      if (userIntegrationsNames_1.indexOf(defaultIntegration.name) === -1 && pickedIntegrationsNames_1.indexOf(defaultIntegration.name) === -1) {
-        integrations.push(defaultIntegration);
-        pickedIntegrationsNames_1.push(defaultIntegration.name);
-      }
-    }); // Don't add same user integration twice
-
-    userIntegrations.forEach(function (userIntegration) {
-      if (pickedIntegrationsNames_1.indexOf(userIntegration.name) === -1) {
-        integrations.push(userIntegration);
-        pickedIntegrationsNames_1.push(userIntegration.name);
-      }
-    });
+    // Filter out integrations that are also included in user options
+    integrations = (0, _tslib.__spread)(integrations.filter(function (integrations) {
+      return userIntegrations.every(function (userIntegration) {
+        return userIntegration.name !== integrations.name;
+      });
+    }), filterDuplicates(userIntegrations));
   } else if (typeof userIntegrations === 'function') {
-    integrations = userIntegrations(defaultIntegrations);
+    integrations = userIntegrations(integrations);
     integrations = Array.isArray(integrations) ? integrations : [integrations];
-  } else {
-    integrations = (0, _tslib.__spread)(defaultIntegrations);
   } // Make sure that if present, `Debug` integration will always run last
 
 
@@ -53336,13 +53569,15 @@ function sessionToSentryRequest(session, api) {
     sent_at: new Date().toISOString()
   }, sdkInfo && {
     sdk: sdkInfo
-  }));
+  })); // I know this is hacky but we don't want to add `session` to request type since it's never rate limited
+
+  var type = 'aggregates' in session ? 'sessions' : 'session';
   var itemHeaders = JSON.stringify({
-    type: 'session'
+    type: type
   });
   return {
     body: envelopeHeaders + "\n" + itemHeaders + "\n" + JSON.stringify(session),
-    type: 'session',
+    type: type,
     url: api.getEnvelopeEndpointWithUrlEncodedAuth()
   };
 }
@@ -53424,11 +53659,14 @@ var _utils = require("@sentry/utils");
  * @param options Options to pass to the client.
  */
 function initAndBind(clientClass, options) {
+  var _a;
+
   if (options.debug === true) {
     _utils.logger.enable();
   }
 
   var hub = (0, _hub.getCurrentHub)();
+  (_a = hub.getScope()) === null || _a === void 0 ? void 0 : _a.update(options.initialScope);
   var client = new clientClass(options);
   hub.bindClient(client);
 }
@@ -53439,7 +53677,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.SDK_VERSION = void 0;
-var SDK_VERSION = '6.3.6';
+var SDK_VERSION = '6.4.0';
 exports.SDK_VERSION = SDK_VERSION;
 },{}],"../../node_modules/@sentry/core/esm/integrations/functiontostring.js":[function(require,module,exports) {
 "use strict";
@@ -68646,7 +68884,7 @@ module.exports = {
     "ra_Copied %s": "%s kopiert",
     "ra_Define functions": "Funktionen definieren",
     "ra_Define rooms": "Räume definieren",
-    "ra_Error": "Error",
+    "ra_Error": "Fehler",
     "ra_Message": "Meldung",
     "ra_Ok": "OK",
     "ra_Please select object ID...": "Bitte Objekt-ID auswählen...",
@@ -68667,7 +68905,7 @@ module.exports = {
     "ra_dow_Th": "Do",
     "ra_dow_Tu": "Di",
     "ra_dow_We": "Mi",
-    "ra_Listen on all IPs": "Hören Sie auf alle IPs",
+    "ra_Listen on all IPs": "Zugriff von allen IPs zulassen",
     "ra_Save": "Speichern",
     "ra_Save and close": "Speichern und schließen",
     "ra_Close": "Schließen",
@@ -68695,7 +68933,7 @@ module.exports = {
     "ra_Place your files here or click here to open the browse dialog": "Platzieren Sie Ihre Dateien hier oder klicken Sie hier, um den Suchdialog zu öffnen",
     "ra_If no file will be created in the folder, it will disappear after the browser closed": "Wenn im Ordner keine Datei erstellt wird, verschwindet dieser nach dem Schließen des Browsers",
     "ra_Folder name": "Ordnernamen",
-    "ra_Create new folder in %s": "Einen neuen Ordner in \"%s\" erstellen",
+    "ra_Create new folder in %s": "Neuen Ordner in \"%s\" erstellen",
     "ra_Duplicate name": "Doppelter Name",
     "ra_Invalid parent folder!": "Ungültiger übergeordneter Ordner!",
     "ra_Drop file here": "Datei hier ablegen",
@@ -68716,7 +68954,7 @@ module.exports = {
     "sc_everyN_months": "alle N Monate",
     "sc_everyN_seconds": "alle N Sekunden",
     "sc_every_dates": "jeden Tag",
-    "sc_every_dows": "jeden tag der woche",
+    "sc_every_dows": "jeden Tag der Woche",
     "sc_every_hours": "jede Stunde",
     "sc_every_minutes": "jede Minute",
     "sc_every_months": "jeden Monat",
@@ -68742,17 +68980,17 @@ module.exports = {
     "sc_to": "Bis",
     "sc_wizard": "Wizard",
     "sch_all": "alle",
-    "sch_astroDay": "Tag",
-    "sch_astroNight": "Nachts",
+    "sch_astroDay": "Astronomisch Tag",
+    "sch_astroNight": "Astronomisch Nacht",
     "sch_astro_dawn": "Morgendämmerung",
     "sch_astro_dusk": "Abenddämmerung",
     "sch_astro_goldenHour": "Goldene Stunde",
-    "sch_astro_goldenHourEnd": "Goldenes Stundenende",
+    "sch_astro_goldenHourEnd": "Goldene Stundenende",
     "sch_astro_nadir": "Nadir",
     "sch_astro_nauticalDawn": "Nautische Morgendämmerung",
     "sch_astro_nauticalDusk": "Nautische Abenddämmerung",
     "sch_astro_night": "Nacht",
-    "sch_astro_nightEnd": "Nachtsende",
+    "sch_astro_nightEnd": "Nachtende",
     "sch_astro_solarNoon": "Sonnenmittag",
     "sch_astro_sunrise": "Sonnenaufgang",
     "sch_astro_sunriseEnd": "Sonnenaufgangende",
@@ -68783,7 +69021,7 @@ module.exports = {
     "sch_desc_onWeekdays": "auf %s und %s",
     "sch_desc_onWeekends": "an Wochenenden",
     "sch_desc_onWorkdays": "an Werktagen",
-    "sch_desc_onceInPast": "wird ne nicht mehr ausgeführt, weil start in der vergangenheit ist",
+    "sch_desc_onceInPast": "wird nicht mehr ausgeführt, weil der Start in der Vergangenheit ist",
     "sch_desc_once_on": "auf %s",
     "sch_desc_validFrom": "von %s",
     "sch_desc_validFromTo": "Ausführen von bis",
@@ -68805,8 +69043,8 @@ module.exports = {
     "sch_periodEveryMonth": "Jeden Monat",
     "sch_periodEveryWeek": "Jede Woche",
     "sch_periodEveryYear": "Jedes Jahr",
-    "sch_periodHours": "Std",
-    "sch_periodMinutes": "Protokoll",
+    "sch_periodHours": "Stunden",
+    "sch_periodMinutes": "Minuten",
     "sch_periodMonth": "Monat",
     "sch_periodMonthly": "Monatlich",
     "sch_periodOnce": "Einmal",
@@ -68841,10 +69079,10 @@ module.exports = {
     "ra_months_Nov": "Nov",
     "ra_months_Oct": "Oct",
     "ra_months_Sep": "Sep",
-    "ra_Toggle the states view": "Statusansicht umschalten ",
+    "ra_Toggle the states view": "Statusansicht umschalten",
     "ra_Add new child object to selected parent": "Dem ausgewählten übergeordneten Objekt ein neues untergeordnetes Objekt hinzufügen",
-    "ra_Add objects tree from JSON file": "Einen Objektbaum aus der JSON-Datei hinzufügen",
-    "ra_Save objects tree as JSON file": "Den Objektbaum als JSON-Datei speichern ",
+    "ra_Add objects tree from JSON file": "Objektbaum aus JSON-Datei hinzufügen",
+    "ra_Save objects tree as JSON file": "Objektbaum als JSON-Datei speichern",
     "ra_Objects": "Objekte",
     "ra_States": "Zustände",
     "ra_object_changed_by_user": "Objekt zuletzt geändert um",
@@ -68864,7 +69102,7 @@ module.exports = {
     "ra_aclEveryone_write_object": "Jeder kann ein Objekt schreiben",
     "ra_aclEveryone_write_state": "Jeder kann Zustand schreiben",
     "ra_Folders always first": "Ordner immer zuerst",
-    "ra_changedFrom": "Gewechselt von",
+    "ra_changedFrom": "Geändert von",
     "ra_qualityCode": "Qualitätscode",
     "ra_timestamp": "Zeitstempel",
     "ra_lastChange": "Letzte Änderung",
@@ -68876,7 +69114,7 @@ module.exports = {
     "ra_Timestamp": "Zeitstempel",
     "ra_Last change": "Letzte Änderung",
     "ra_Collapse all nodes": "Alle Knoten zuklappen",
-    "ra_Edit custom config": "Benutzerdefinierte Konfiguration bearbeiten",
+    "ra_Edit custom config": "Bearbeite Benutzerdefinierte Konfiguration",
     "ra_Collapse one step node": "Eine Ebene zuklappen",
     "ra_Expand one step node": "Eine Ebene aufklappen",
     "ra_Refresh tree": "Baum aktualisieren",
@@ -68895,7 +69133,8 @@ module.exports = {
     "ra_Channel → State": "Kanal → Status",
     "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Nicht-Experten dürfen neue Objekte nur in \"0_userdata.0\" oder \"alias.0\" erstellen.",
     "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Die Experten können Objekte überall erstellen, außer auf der zweiten Ebene (z. B. \"vis.0\" oder \"javascript.0\")."
-};
+}
+;
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/ru.json":[function(require,module,exports) {
 module.exports = {
     "ra_filter_func": "функция",
@@ -71396,18 +71635,7 @@ var GenericApp = /*#__PURE__*/function (_Router) {
   }, {
     key: "getSystemConfig",
     value: function getSystemConfig() {
-      if (this._systemConfig) {
-        return Promise.resolve(this._systemConfig);
-      }
-
-      if (this.socket.objects && this.socket.objects['system.config']) {
-        return Promise.resolve(this.socket.objects['system.config']);
-      } else {
-        // @ts-ignore
-        return this.socket.getObject('system.config').then(function (obj) {
-          return (obj === null || obj === void 0 ? void 0 : obj.common) || {};
-        });
-      }
+      return this.socket.getSystemConfig();
     }
     /**
      * Get current expert mode
@@ -79943,7 +80171,7 @@ module.exports = {
 module.exports = {
   "matomo adapter settings": "Adaptereinstellungen für matomo",
   "serverAdresse": "Server Adresse",
-  "port": "Hafen",
+  "port": "Port",
   "pollingInterval": "Polling interval",
   "apiKey": "API-Schlüssel"
 };
