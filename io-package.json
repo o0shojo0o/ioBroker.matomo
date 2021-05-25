@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matomo",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "news": {
+            "0.0.4": {
+                "en": "update of dependencies\nbugfix",
+                "de": "Aktualisierung von Abhängigkeiten\nFehlerbehebung",
+                "ru": "обновление зависимостей\nИсправлена ошибка",
+                "pt": "atualização de dependências\ncorreção de bug",
+                "nl": "update van afhankelijkheden\nbugfix",
+                "fr": "mise à jour des dépendances\ncorrection d'un bug",
+                "it": "aggiornamento delle dipendenze\nrisoluzione del problema",
+                "es": "actualización de dependencias\narreglo del fallo",
+                "pl": "aktualizacja zależności\nnaprawa błędów",
+                "zh-cn": "依赖关系的更新\n错误修正"
+            },
             "0.0.3": {
                 "en": "deploys the final package to NPM",
                 "de": "stellt das endgültige Paket für NPM bereit",

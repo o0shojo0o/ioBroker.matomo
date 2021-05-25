@@ -29,10 +29,8 @@ class Matomo extends utils.Adapter {
 		this.setStateChanged("info.connection", false, true);
 		this.log.info("config serverAdresse: " + this.config.serverAdresse);
 		this.log.info("config port: " + this.config.port);
-		this.log.info("config apiKey: " + this.config.apiKey);
+		this.log.info("config apiKey: ******************");
 		this.log.info("config pollingInterval: " + this.config.pollingInterval);
-
-		await worker(this.config.serverAdresse, this.config.apiKey);
 
 		intervalTick(this.config.serverAdresse, this.config.apiKey, this.config.pollingInterval * 1000);
 	}
@@ -50,6 +48,8 @@ async function intervalTick(matomoUrl: string, apiKey: string, pollingInterval: 
 	if (currentTimeout) {
 		clearTimeout(currentTimeout);
 	}
+
+	await worker(matomoUrl, apiKey);
 
 	currentTimeout = setTimeout(async () => {
 		intervalTick(matomoUrl, apiKey, pollingInterval);
