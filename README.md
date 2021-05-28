@@ -35,7 +35,7 @@ Imports daily statistical data from Matomo.
 	### **WORK IN PROGRESS**
 -->
 
-### 0.0.4 (2021-05-28)
+### **WORK IN PROGRESS**
 
 -   (o0shojo0o) update of dependencies
 -   (o0shojo0o) bugfix
