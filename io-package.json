@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matomo",
-        "version": "0.0.4",
+        "version": "0.0.5",
         "news": {
+            "0.0.5": {
+                "en": "fix npm error",
+                "de": "npm Fehler beheben",
+                "ru": "исправить ошибку npm",
+                "pt": "corrigir erro de npm",
+                "nl": "fix npm-fout",
+                "fr": "corriger l'erreur npm",
+                "it": "correggere l'errore npm",
+                "es": "corregir error npm",
+                "pl": "napraw błąd npm",
+                "zh-cn": "修复npm错误"
+            },
             "0.0.4": {
                 "en": "update of dependencies\nbugfix",
                 "de": "Aktualisierung von Abhängigkeiten\nFehlerbehebung",
