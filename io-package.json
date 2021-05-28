@@ -1,141 +1,120 @@
 {
-    "common": {
-        "name": "matomo",
-        "version": "0.0.4",
-        "news": {
-            "0.0.4": {
-                "en": "update of dependencies\nbugfix",
-                "de": "Aktualisierung von Abhängigkeiten\nFehlerbehebung",
-                "ru": "обновление зависимостей\nИсправлена ошибка",
-                "pt": "atualização de dependências\ncorreção de bug",
-                "nl": "update van afhankelijkheden\nbugfix",
-                "fr": "mise à jour des dépendances\ncorrection d'un bug",
-                "it": "aggiornamento delle dipendenze\nrisoluzione del problema",
-                "es": "actualización de dependencias\narreglo del fallo",
-                "pl": "aktualizacja zależności\nnaprawa błędów",
-                "zh-cn": "依赖关系的更新\n错误修正"
-            },
-            "0.0.3": {
-                "en": "deploys the final package to NPM",
-                "de": "stellt das endgültige Paket für NPM bereit",
-                "ru": "развертывает окончательный пакет в NPM",
-                "pt": "implanta o pacote final para NPM",
-                "nl": "implementeert het laatste pakket naar NPM",
-                "fr": "déploie le package final sur NPM",
-                "it": "distribuisce il pacchetto finale a NPM",
-                "es": "implementa el paquete final en NPM",
-                "pl": "wdraża ostateczny pakiet do NPM",
-                "zh-cn": "将最终程序包部署到NPM"
-            },
-            "0.0.2": {
-                "en": "first version that provides data",
-                "de": "erste Version, die Daten bereitstellt",
-                "ru": "первая версия, которая предоставляет данные",
-                "pt": "primeira versão que fornece dados",
-                "nl": "eerste versie die gegevens levert",
-                "fr": "première version qui fournit des données",
-                "it": "prima versione che fornisce i dati",
-                "es": "primera versión que proporciona datos",
-                "pl": "pierwsza wersja, która dostarcza dane",
-                "zh-cn": "提供数据的第一个版本"
-            },
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
-            }
-        },
-        "titleLang": {
-            "en": "Matomo",
-            "de": "Matomo",
-            "ru": "Matomo",
-            "pt": "Matomo",
-            "nl": "Matomo",
-            "fr": "Matomo",
-            "it": "Matomo",
-            "es": "Matomo",
-            "pl": "Matomo",
-            "zh-cn": "马托莫"
-        },
-        "desc": {
-            "en": "Imports statistical data from Matomo",
-            "de": "Importiert statistische Daten aus Matomo",
-            "ru": "Импортирует статистические данные из Matomo.",
-            "pt": "Importa dados estatísticos do Matomo",
-            "nl": "Importeert statistische gegevens uit Matomo",
-            "fr": "Importe des données statistiques de Matomo",
-            "it": "Importa dati statistici da Matomo",
-            "es": "Importa datos estadísticos de Matomo",
-            "pl": "Importuje dane statystyczne z Matomo",
-            "zh-cn": "从Matomo导入统计数据"
-        },
-        "authors": [
-            "Dennis Rathjen <dennis.rathjen@outlook.de>"
-        ],
-        "keywords": [
-            "matomo",
-            "web analytics"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "icon": "matomo.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/o0shojo0o/ioBroker.matomo/master/admin/matomo.png",
-        "readme": "https://github.com/o0shojo0o/ioBroker.matomo/blob/master/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "misc-data",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "materialize": true,
-        "dependencies": [
-            {
-                "js-controller": ">=2.0.0"
-            }
-        ]
-    },
-    "encryptedNative": [
-        "apiKey"
-    ],
-    "protectedNative": [
-        "apiKey"
-    ],
-    "native": {
-        "serverAdresse": "https://",
-        "port": "443",
-        "apiKey": "",
-        "pollingInterval": "10"
-    },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Device or service connected",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
-    ]
+	"common": {
+		"name": "matomo",
+		"version": "0.0.3",
+		"news": {
+			"0.0.3": {
+				"en": "deploys the final package to NPM",
+				"de": "stellt das endgültige Paket für NPM bereit",
+				"ru": "развертывает окончательный пакет в NPM",
+				"pt": "implanta o pacote final para NPM",
+				"nl": "implementeert het laatste pakket naar NPM",
+				"fr": "déploie le package final sur NPM",
+				"it": "distribuisce il pacchetto finale a NPM",
+				"es": "implementa el paquete final en NPM",
+				"pl": "wdraża ostateczny pakiet do NPM",
+				"zh-cn": "将最终程序包部署到NPM"
+			},
+			"0.0.2": {
+				"en": "first version that provides data",
+				"de": "erste Version, die Daten bereitstellt",
+				"ru": "первая версия, которая предоставляет данные",
+				"pt": "primeira versão que fornece dados",
+				"nl": "eerste versie die gegevens levert",
+				"fr": "première version qui fournit des données",
+				"it": "prima versione che fornisce i dati",
+				"es": "primera versión que proporciona datos",
+				"pl": "pierwsza wersja, która dostarcza dane",
+				"zh-cn": "提供数据的第一个版本"
+			},
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"titleLang": {
+			"en": "Matomo",
+			"de": "Matomo",
+			"ru": "Matomo",
+			"pt": "Matomo",
+			"nl": "Matomo",
+			"fr": "Matomo",
+			"it": "Matomo",
+			"es": "Matomo",
+			"pl": "Matomo",
+			"zh-cn": "马托莫"
+		},
+		"desc": {
+			"en": "Imports statistical data from Matomo",
+			"de": "Importiert statistische Daten aus Matomo",
+			"ru": "Импортирует статистические данные из Matomo.",
+			"pt": "Importa dados estatísticos do Matomo",
+			"nl": "Importeert statistische gegevens uit Matomo",
+			"fr": "Importe des données statistiques de Matomo",
+			"it": "Importa dati statistici da Matomo",
+			"es": "Importa datos estadísticos de Matomo",
+			"pl": "Importuje dane statystyczne z Matomo",
+			"zh-cn": "从Matomo导入统计数据"
+		},
+		"authors": ["Dennis Rathjen <dennis.rathjen@outlook.de>"],
+		"keywords": ["matomo", "web analytics"],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"icon": "matomo.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/o0shojo0o/ioBroker.matomo/master/admin/matomo.png",
+		"readme": "https://github.com/o0shojo0o/ioBroker.matomo/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "misc-data",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"encryptedNative": ["apiKey"],
+	"protectedNative": ["apiKey"],
+	"native": {
+		"serverAdresse": "https://",
+		"port": "443",
+		"apiKey": "",
+		"pollingInterval": "10"
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		}
+	]
 }
