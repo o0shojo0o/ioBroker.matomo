@@ -53682,7 +53682,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.SDK_VERSION = void 0;
-var SDK_VERSION = '6.4.1';
+var SDK_VERSION = '6.5.0';
 exports.SDK_VERSION = SDK_VERSION;
 },{}],"../../node_modules/@sentry/core/esm/integrations/functiontostring.js":[function(require,module,exports) {
 "use strict";
@@ -56895,7 +56895,14 @@ function startSessionTracking() {
   hub.captureSession(); // We want to create a session for every navigation as well
 
   (0, _utils.addInstrumentationHandler)({
-    callback: function () {
+    callback: function (_a) {
+      var from = _a.from,
+          to = _a.to; // Don't create an additional session for the initial route or if the location did not change
+
+      if (from === undefined || from === to) {
+        return;
+      }
+
       hub.startSession();
       hub.captureSession();
     },
