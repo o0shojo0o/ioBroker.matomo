@@ -41257,7 +41257,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -42392,13 +42392,11 @@ var Utils = /*#__PURE__*/function () {
 
         if (invertedColor === '#FFFFFF' && (themeType === 'dark' || invert && themeType === 'light')) {
           return '#DDD';
-        }
-
-        if (invertedColor === '#000000' && (themeType === 'light' || invert && themeType === 'dark')) {
+        } else if (invertedColor === '#000000' && (themeType === 'light' || invert && themeType === 'dark')) {
           return '#222';
+        } else {
+          return undefined;
         }
-
-        return undefined;
       }
     } // Big thanks to: https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
 
@@ -42955,7 +42953,7 @@ exports["default"] = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.ERRORS = exports.PROGRESS = void 0;
+exports["default"] = exports.ERRORS = exports.NOT_CONNECTED = exports.PERMISSION_ERROR = exports.PROGRESS = void 0;
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -42969,7 +42967,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -42995,7 +42993,9 @@ var PROGRESS = {
 };
 exports.PROGRESS = PROGRESS;
 var PERMISSION_ERROR = 'permissionError';
+exports.PERMISSION_ERROR = PERMISSION_ERROR;
 var NOT_CONNECTED = 'notConnectedError';
+exports.NOT_CONNECTED = NOT_CONNECTED;
 var ERRORS = {
   PERMISSION_ERROR: PERMISSION_ERROR,
   NOT_CONNECTED: NOT_CONNECTED
@@ -43007,6 +43007,8 @@ var Connection = /*#__PURE__*/function () {
    * @param {import('./types').ConnectionProps} props
    */
   function Connection(props) {
+    var _this = this;
+
     _classCallCheck(this, Connection);
 
     props = props || {
@@ -43035,6 +43037,9 @@ var Connection = /*#__PURE__*/function () {
 
     this.systemLang = 'en';
     this.connected = false;
+    this._waitForFirstConnection = new Promise(function (resolve) {
+      _this._waitForFirstConnectionResolve = resolve;
+    });
     /** @type {Record<string, { reg: RegExp; cbs: ioBroker.StateChangeHandler[]}>} */
 
     this.statesSubscribes = {}; // subscribe for states
@@ -43052,7 +43057,6 @@ var Connection = /*#__PURE__*/function () {
     this.loaded = false;
     this.loadTimer = null;
     this.loadCounter = 0;
-    this.certPromise = null;
     this.admin5only = this.props.admin5only || false;
     /** @type {((connected: boolean) => void)[]} */
 
@@ -43079,7 +43083,7 @@ var Connection = /*#__PURE__*/function () {
      * @returns {void}
      */
     function startSocket() {
-      var _this = this;
+      var _this2 = this;
 
       // if socket io is not yet loaded
       if (typeof window.io === 'undefined') {
@@ -43092,7 +43096,7 @@ var Connection = /*#__PURE__*/function () {
           if (this.scriptLoadCounter < 30) {
             // wait till the script loaded
             setTimeout(function () {
-              return _this.startSocket();
+              return _this2.startSocket();
             }, 100);
             return;
           } else {
@@ -43101,7 +43105,7 @@ var Connection = /*#__PURE__*/function () {
         } else {
           // register on load
           window.registerSocketOnLoad(function () {
-            return _this.startSocket();
+            return _this2.startSocket();
           });
         }
 
@@ -43140,7 +43144,7 @@ var Connection = /*#__PURE__*/function () {
         // If the user is not admin it takes some time to install the handlers, because all rights must be checked
         if (noTimeout !== true) {
           setTimeout(function () {
-            return _this.getVersion().then(function (info) {
+            return _this2.getVersion().then(function (info) {
               var _info$version$split = info.version.split('.'),
                   _info$version$split2 = _slicedToArray(_info$version$split, 3),
                   major = _info$version$split2[0],
@@ -43150,59 +43154,59 @@ var Connection = /*#__PURE__*/function () {
               var v = parseInt(major, 10) * 10000 + parseInt(minor, 10) * 100 + parseInt(patch, 10);
 
               if (v < 40102) {
-                _this._authTimer = null; // possible this is old version of admin
+                _this2._authTimer = null; // possible this is old version of admin
 
-                _this.onPreConnect(false, false);
+                _this2.onPreConnect(false, false);
               } else {
-                _this._socket.emit('authenticate', function (isOk, isSecure) {
-                  return _this.onPreConnect(isOk, isSecure);
+                _this2._socket.emit('authenticate', function (isOk, isSecure) {
+                  return _this2.onPreConnect(isOk, isSecure);
                 });
               }
             });
           }, 500);
         } else {
           // iobroker websocket waits, till all handlers are installed
-          _this._socket.emit('authenticate', function (isOk, isSecure) {
-            return _this.onPreConnect(isOk, isSecure);
+          _this2._socket.emit('authenticate', function (isOk, isSecure) {
+            return _this2.onPreConnect(isOk, isSecure);
           });
         }
       });
 
       this._socket.on('reconnect', function () {
-        _this.onProgress(PROGRESS.READY);
+        _this2.onProgress(PROGRESS.READY);
 
-        _this.connected = true;
+        _this2.connected = true;
 
-        if (_this.waitForRestart) {
+        if (_this2.waitForRestart) {
           window.location.reload(false);
         } else {
-          _this._subscribe(true);
+          _this2._subscribe(true);
 
-          _this.onConnectionHandlers.forEach(function (cb) {
+          _this2.onConnectionHandlers.forEach(function (cb) {
             return cb(true);
           });
         }
       });
 
       this._socket.on('disconnect', function () {
-        _this.connected = false;
-        _this.subscribed = false;
+        _this2.connected = false;
+        _this2.subscribed = false;
 
-        _this.onProgress(PROGRESS.CONNECTING);
+        _this2.onProgress(PROGRESS.CONNECTING);
 
-        _this.onConnectionHandlers.forEach(function (cb) {
+        _this2.onConnectionHandlers.forEach(function (cb) {
           return cb(false);
         });
       });
 
       this._socket.on('reauthenticate', function () {
-        return _this.authenticate();
+        return _this2.authenticate();
       });
 
       this._socket.on('log', function (message) {
-        _this.props.onLog && _this.props.onLog(message);
+        _this2.props.onLog && _this2.props.onLog(message);
 
-        _this.onLogHandlers.forEach(function (cb) {
+        _this2.onLogHandlers.forEach(function (cb) {
           return cb(message);
         });
       });
@@ -43218,7 +43222,7 @@ var Connection = /*#__PURE__*/function () {
         _err = _err.toString();
 
         if (_err.includes('User not authorized')) {
-          _this.authenticate();
+          _this2.authenticate();
         } else {
           window.alert("Socket Error: ".concat(err));
         }
@@ -43229,7 +43233,7 @@ var Connection = /*#__PURE__*/function () {
       });
 
       this._socket.on('permissionError', function (err) {
-        return _this.onError({
+        return _this2.onError({
           message: 'no permission',
           operation: err.operation,
           type: err.type,
@@ -43239,26 +43243,26 @@ var Connection = /*#__PURE__*/function () {
 
       this._socket.on('objectChange', function (id, obj) {
         return setTimeout(function () {
-          return _this.objectChange(id, obj);
+          return _this2.objectChange(id, obj);
         }, 0);
       });
 
       this._socket.on('stateChange', function (id, state) {
         return setTimeout(function () {
-          return _this.stateChange(id, state);
+          return _this2.stateChange(id, state);
         }, 0);
       });
 
       this._socket.on('cmdStdout', function (id, text) {
-        return _this.onCmdStdoutHandler && _this.onCmdStdoutHandler(id, text);
+        return _this2.onCmdStdoutHandler && _this2.onCmdStdoutHandler(id, text);
       });
 
       this._socket.on('cmdStderr', function (id, text) {
-        return _this.onCmdStderrHandler && _this.onCmdStderrHandler(id, text);
+        return _this2.onCmdStderrHandler && _this2.onCmdStderrHandler(id, text);
       });
 
       this._socket.on('cmdExit', function (id, exitCode) {
-        return _this.onCmdExitHandler && _this.onCmdExitHandler(id, exitCode);
+        return _this2.onCmdExitHandler && _this2.onCmdExitHandler(id, exitCode);
       });
     }
     /**
@@ -43271,7 +43275,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "onPreConnect",
     value: function onPreConnect(isOk, isSecure) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this._authTimer) {
         clearTimeout(this._authTimer);
@@ -43287,11 +43291,11 @@ var Connection = /*#__PURE__*/function () {
         if (this.firstConnect) {
           // retry strategy
           this.loadTimer = setTimeout(function () {
-            _this2.loadTimer = null;
-            _this2.loadCounter++;
+            _this3.loadTimer = null;
+            _this3.loadCounter++;
 
-            if (_this2.loadCounter < 10) {
-              _this2.onConnect();
+            if (_this3.loadCounter < 10) {
+              _this3.onConnect();
             }
           }, 1000);
 
@@ -43308,6 +43312,12 @@ var Connection = /*#__PURE__*/function () {
           return cb(true);
         });
       }
+
+      if (this._waitForFirstConnectionResolve) {
+        this._waitForFirstConnectionResolve();
+
+        this._waitForFirstConnectionResolve = null;
+      }
     }
     /**
      * Checks if the socket is connected.
@@ -43318,6 +43328,16 @@ var Connection = /*#__PURE__*/function () {
     key: "isConnected",
     value: function isConnected() {
       return this.connected;
+    }
+    /**
+    * Checks if the socket is connected.
+    * @returns {Promise<void>} Promise resolves if once connected.
+    */
+
+  }, {
+    key: "waitForFirstConnection",
+    value: function waitForFirstConnection() {
+      return this._waitForFirstConnection;
     }
     /**
      * Called internally.
@@ -43341,74 +43361,76 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "onConnect",
     value: function onConnect() {
-      var _this3 = this;
+      var _this4 = this;
 
       this._getUserPermissions(function (err, acl) {
         if (err) {
-          return _this3.onError('Cannot read user permissions: ' + err);
-        } else if (!_this3.doNotLoadACL) {
-          if (_this3.loaded) {
+          return _this4.onError('Cannot read user permissions: ' + err);
+        } else if (!_this4.doNotLoadACL) {
+          if (_this4.loaded) {
             return;
           }
 
-          _this3.loaded = true;
-          clearTimeout(_this3.loadTimer);
-          _this3.loadTimer = null;
+          _this4.loaded = true;
+          clearTimeout(_this4.loadTimer);
+          _this4.loadTimer = null;
 
-          _this3.onProgress(PROGRESS.CONNECTED);
+          _this4.onProgress(PROGRESS.CONNECTED);
 
-          _this3.firstConnect = false;
-          _this3.acl = acl;
+          _this4.firstConnect = false;
+          _this4.acl = acl;
         } // Read system configuration
 
 
-        return (_this3.admin5only ? _this3.getCompactSystemConfig() : _this3.getSystemConfig()).then(function (data) {
-          if (_this3.doNotLoadACL) {
-            if (_this3.loaded) {
-              return;
+        return (_this4.admin5only ? _this4.getCompactSystemConfig() : _this4.getSystemConfig()).then(function (data) {
+          if (_this4.doNotLoadACL) {
+            if (_this4.loaded) {
+              return undefined;
             }
 
-            _this3.loaded = true;
-            clearTimeout(_this3.loadTimer);
-            _this3.loadTimer = null;
+            _this4.loaded = true;
+            clearTimeout(_this4.loadTimer);
+            _this4.loadTimer = null;
 
-            _this3.onProgress(PROGRESS.CONNECTED);
+            _this4.onProgress(PROGRESS.CONNECTED);
 
-            _this3.firstConnect = false;
+            _this4.firstConnect = false;
           }
 
-          _this3.systemConfig = data;
+          _this4.systemConfig = data;
 
-          if (_this3.systemConfig && _this3.systemConfig.common) {
-            _this3.systemLang = _this3.systemConfig.common.language;
+          if (_this4.systemConfig && _this4.systemConfig.common) {
+            _this4.systemLang = _this4.systemConfig.common.language;
           } else {
-            _this3.systemLang = window.navigator.userLanguage || window.navigator.language;
+            _this4.systemLang = window.navigator.userLanguage || window.navigator.language;
 
-            if (_this3.systemLang !== 'en' && _this3.systemLang !== 'de' && _this3.systemLang !== 'ru') {
-              _this3.systemConfig.common.language = 'en';
-              _this3.systemLang = 'en';
+            if (_this4.systemLang !== 'en' && _this4.systemLang !== 'de' && _this4.systemLang !== 'ru') {
+              _this4.systemConfig.common.language = 'en';
+              _this4.systemLang = 'en';
             }
           }
 
-          _this3.props.onLanguage && _this3.props.onLanguage(_this3.systemLang);
+          _this4.props.onLanguage && _this4.props.onLanguage(_this4.systemLang);
 
-          if (!_this3.doNotLoadAllObjects) {
-            return _this3.getObjects().then(function () {
-              _this3.onProgress(PROGRESS.READY);
+          if (!_this4.doNotLoadAllObjects) {
+            return _this4.getObjects().then(function () {
+              _this4.onProgress(PROGRESS.READY);
 
-              _this3.props.onReady && _this3.props.onReady(_this3.objects);
+              _this4.props.onReady && _this4.props.onReady(_this4.objects);
             });
           } else {
-            _this3.objects = _this3.admin5only ? {} : {
+            _this4.objects = _this4.admin5only ? {} : {
               'system.config': data
             };
 
-            _this3.onProgress(PROGRESS.READY);
+            _this4.onProgress(PROGRESS.READY);
 
-            _this3.props.onReady && _this3.props.onReady(_this3.objects);
+            _this4.props.onReady && _this4.props.onReady(_this4.objects);
           }
+
+          return undefined;
         })["catch"](function (e) {
-          return _this3.onError('Cannot read system config: ' + e);
+          return _this4.onError('Cannot read system config: ' + e);
         });
       });
     }
@@ -43433,11 +43455,11 @@ var Connection = /*#__PURE__*/function () {
      */
 
     /**
-    * Subscribe to changes of the given state.
-    * @param {string} id The ioBroker state ID.
-    * @param {boolean} binary Set to true if the given state is binary and requires Base64 decoding.
-    * @param {ioBroker.StateChangeHandler} cb The callback.
-    */
+     * Subscribe to changes of the given state.
+     * @param {string} id The ioBroker state ID.
+     * @param {boolean} binary Set to true if the given state is binary and requires Base64 decoding.
+     * @param {ioBroker.StateChangeHandler} cb The callback.
+     */
 
   }, {
     key: "subscribeState",
@@ -43490,10 +43512,10 @@ var Connection = /*#__PURE__*/function () {
      */
 
     /**
-    * Unsubscribes the given callback from changes of the given state.
-    * @param {string} id The ioBroker state ID.
-    * @param {ioBroker.StateChangeHandler} cb The callback.
-    */
+     * Unsubscribes the given callback from changes of the given state.
+     * @param {string} id The ioBroker state ID.
+     * @param {ioBroker.StateChangeHandler} cb The callback.
+     */
 
   }, {
     key: "unsubscribeState",
@@ -43525,7 +43547,7 @@ var Connection = /*#__PURE__*/function () {
       if (!this.objectsSubscribes[id]) {
         var reg = id.replace(/\./g, '\\.').replace(/\*/g, '.*');
 
-        if (reg.indexOf('*') === -1) {
+        if (!reg.includes('*')) {
           reg += '$';
         }
 
@@ -43548,11 +43570,11 @@ var Connection = /*#__PURE__*/function () {
      */
 
     /**
-    * Unsubscribes the given callback from changes of the given object.
-    * @param {string} id The ioBroker object ID.
-    * @param {import('./types').ObjectChangeHandler} cb The callback.
-    * @returns {Promise<void>}
-    */
+     * Unsubscribes the given callback from changes of the given object.
+     * @param {string} id The ioBroker object ID.
+     * @param {import('./types').ObjectChangeHandler} cb The callback.
+     * @returns {Promise<void>}
+     */
 
   }, {
     key: "unsubscribeObject",
@@ -43583,7 +43605,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "objectChange",
     value: function objectChange(id, obj) {
-      var _this4 = this;
+      var _this5 = this;
 
       // update main.objects cache
       if (!this.objects) {
@@ -43621,8 +43643,9 @@ var Connection = /*#__PURE__*/function () {
       }
 
       Object.keys(this.objectsSubscribes).forEach(function (_id) {
-        if (_id === id || _this4.objectsSubscribes[_id].reg.test(id)) {
-          _this4.objectsSubscribes[_id].cbs.forEach(function (cb) {
+        if (_id === id || _this5.objectsSubscribes[_id].reg.test(id)) {
+          //@ts-ignore
+          _this5.objectsSubscribes[_id].cbs.forEach(function (cb) {
             return cb(id, obj, oldObj);
           });
         }
@@ -43659,17 +43682,18 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getStates",
     value: function getStates(disableProgressUpdate) {
-      var _this5 = this;
+      var _this6 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this5._socket.emit('getStates', function (err, res) {
-          _this5.states = res;
-          !disableProgressUpdate && _this5.onProgress(PROGRESS.STATES_LOADED);
-          return err ? reject(err) : resolve(_this5.states);
+        return _this6._socket.emit('getStates', function (err, res) {
+          _this6.states = res; //@ts-ignore
+
+          !disableProgressUpdate && _this6.onProgress(PROGRESS.STATES_LOADED);
+          return err ? reject(err) : resolve(_this6.states);
         });
       });
     }
@@ -43682,14 +43706,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getState",
     value: function getState(id) {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this6._socket.emit('getState', id, function (err, state) {
+        return _this7._socket.emit('getState', id, function (err, state) {
           return err ? reject(err) : resolve(state);
         });
       });
@@ -43703,7 +43727,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getBinaryState",
     value: function getBinaryState(id) {
-      var _this7 = this;
+      var _this8 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
@@ -43711,7 +43735,7 @@ var Connection = /*#__PURE__*/function () {
 
 
       return new Promise(function (resolve, reject) {
-        return _this7._socket.emit('getBinaryState', id, function (err, state) {
+        return _this8._socket.emit('getBinaryState', id, function (err, state) {
           return err ? reject(err) : resolve(state);
         });
       });
@@ -43726,7 +43750,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "setBinaryState",
     value: function setBinaryState(id, base64) {
-      var _this8 = this;
+      var _this9 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
@@ -43734,7 +43758,7 @@ var Connection = /*#__PURE__*/function () {
 
 
       return new Promise(function (resolve, reject) {
-        return _this8._socket.emit('setBinaryState', id, base64, function (err) {
+        return _this9._socket.emit('setBinaryState', id, base64, function (err) {
           return err ? reject(err) : resolve();
         });
       });
@@ -43749,14 +43773,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "setState",
     value: function setState(id, val) {
-      var _this9 = this;
+      var _this10 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this9._socket.emit('setState', id, val, function (err) {
+        return _this10._socket.emit('setState', id, val, function (err) {
           return err ? reject(err) : resolve();
         });
       });
@@ -43768,52 +43792,31 @@ var Connection = /*#__PURE__*/function () {
      */
 
     /**
-    * Gets all objects.
-    * @param {boolean} update Set to true to retrieve all objects from the server (instead of using the local cache).
-    * @param {boolean} disableProgressUpdate don't call onProgress() when done
-    * @returns {Promise<Record<string, ioBroker.Object>> | undefined}
-    */
+     * Gets all objects.
+     * @param {boolean} update Set to true to retrieve all objects from the server (instead of using the local cache).
+     * @param {boolean} disableProgressUpdate don't call onProgress() when done
+     * @returns {Promise<Record<string, ioBroker.Object>> | undefined}
+     */
 
   }, {
     key: "getObjects",
     value: function getObjects(update, disableProgressUpdate) {
-      var _this10 = this;
+      var _this11 = this;
 
-      if (typeof update === 'function') {
-        var callback = update; // BF(2020_06_01): old code, must be removed when adapter-react will be updated
-
-        if (!this.connected) {
-          console.error(NOT_CONNECTED);
-          callback();
-        } else {
-          if (this.objects && Object.keys(this.objects).length > 2) {
-            setTimeout(function () {
-              return callback(_this10.objects);
-            }, 100);
-          } else {
-            this._socket.emit('getAllObjects', function (err, res) {
-              _this10.objects = res || {};
-              disableProgressUpdate && _this10.onProgress(PROGRESS.OBJECTS_LOADED);
-              callback(_this10.objects);
-            });
-          }
-        }
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
       } else {
-        if (!this.connected) {
-          return Promise.reject(NOT_CONNECTED);
-        } else {
-          return new Promise(function (resolve, reject) {
-            if (!update && _this10.objects) {
-              return resolve(_this10.objects);
-            }
+        return new Promise(function (resolve, reject) {
+          if (!update && _this11.objects) {
+            return resolve(_this11.objects);
+          }
 
-            _this10._socket.emit('getAllObjects', function (err, res) {
-              _this10.objects = res;
-              disableProgressUpdate && _this10.onProgress(PROGRESS.OBJECTS_LOADED);
-              err ? reject(err) : resolve(_this10.objects);
-            });
+          _this11._socket.emit(Connection.isWeb() ? 'getObjects' : 'getAllObjects', function (err, res) {
+            _this11.objects = res;
+            disableProgressUpdate && _this11.onProgress(PROGRESS.OBJECTS_LOADED);
+            err ? reject(err) : resolve(_this11.objects);
           });
-        }
+        });
       }
     }
     /**
@@ -43825,37 +43828,37 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "_subscribe",
     value: function _subscribe(isEnable) {
-      var _this11 = this;
+      var _this12 = this;
 
       if (isEnable && !this.subscribed) {
         this.subscribed = true;
         this.autoSubscribes.forEach(function (id) {
-          return _this11._socket.emit('subscribeObjects', id);
+          return _this12._socket.emit('subscribeObjects', id);
         }); // re subscribe objects
 
         Object.keys(this.objectsSubscribes).forEach(function (id) {
-          return _this11._socket.emit('subscribeObjects', id);
+          return _this12._socket.emit('subscribeObjects', id);
         }); // re-subscribe logs
 
         this.autoSubscribeLog && this._socket.emit('requireLog', true); // re subscribe states
 
         Object.keys(this.statesSubscribes).forEach(function (id) {
-          return _this11._socket.emit('subscribe', id);
+          return _this12._socket.emit('subscribe', id);
         });
       } else if (!isEnable && this.subscribed) {
         this.subscribed = false; // un-subscribe objects
 
         this.autoSubscribes.forEach(function (id) {
-          return _this11._socket.emit('unsubscribeObjects', id);
+          return _this12._socket.emit('unsubscribeObjects', id);
         });
         Object.keys(this.objectsSubscribes).forEach(function (id) {
-          return _this11._socket.emit('unsubscribeObjects', id);
+          return _this12._socket.emit('unsubscribeObjects', id);
         }); // un-subscribe logs
 
         this.autoSubscribeLog && this._socket.emit('requireLog', false); // un-subscribe states
 
         Object.keys(this.statesSubscribes).forEach(function (id) {
-          return _this11._socket.emit('unsubscribe', id);
+          return _this12._socket.emit('unsubscribe', id);
         });
       }
     }
@@ -43868,14 +43871,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "requireLog",
     value: function requireLog(isEnabled) {
-      var _this12 = this;
+      var _this13 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this12._socket.emit('requireLog', isEnabled, function (err) {
+        return _this13._socket.emit('requireLog', isEnabled, function (err) {
           return err ? reject(err) : resolve();
         });
       });
@@ -43890,14 +43893,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "delObject",
     value: function delObject(id, maintenance) {
-      var _this13 = this;
+      var _this14 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this13._socket.emit('delObject', id, {
+        return _this14._socket.emit('delObject', id, {
           maintenance: !!maintenance
         }, function (err) {
           return err ? reject(err) : resolve();
@@ -43914,14 +43917,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "delObjects",
     value: function delObjects(id, maintenance) {
-      var _this14 = this;
+      var _this15 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this14._socket.emit('delObjects', id, {
+        return _this15._socket.emit('delObjects', id, {
           maintenance: !!maintenance
         }, function (err) {
           return err ? reject(err) : resolve();
@@ -43938,7 +43941,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "setObject",
     value: function setObject(id, obj) {
-      var _this15 = this;
+      var _this16 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
@@ -43963,7 +43966,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this15._socket.emit('setObject', id, obj, function (err) {
+        return _this16._socket.emit('setObject', id, obj, function (err) {
           return err ? reject(err) : resolve();
         });
       });
@@ -43977,14 +43980,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getObject",
     value: function getObject(id) {
-      var _this16 = this;
+      var _this17 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this16._socket.emit('getObject', id, function (err, obj) {
+        return _this17._socket.emit('getObject', id, function (err, obj) {
           return err ? reject(err) : resolve(obj);
         });
       });
@@ -43996,16 +43999,20 @@ var Connection = /*#__PURE__*/function () {
      */
 
     /**
-    * Get all instances of the given adapter.
-    * @param {string} adapter The name of the adapter.
-    * @param {boolean} [update] Force update.
-    * @returns {Promise<ioBroker.Object[]>}
-    */
+     * Get all instances of the given adapter.
+     * @param {string} adapter The name of the adapter.
+     * @param {boolean} [update] Force update.
+     * @returns {Promise<ioBroker.Object[]>}
+     */
 
   }, {
     key: "getAdapterInstances",
     value: function getAdapterInstances(adapter, update) {
-      var _this17 = this;
+      var _this18 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
 
       if (typeof adapter === 'boolean') {
         update = adapter;
@@ -44023,7 +44030,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['instances_' + adapter] = new Promise(function (resolve, reject) {
-        return _this17._socket.emit('getAdapterInstances', adapter, function (err, instances) {
+        return _this18._socket.emit('getAdapterInstances', adapter, function (err, instances) {
           return err ? reject(err) : resolve(instances);
         });
       });
@@ -44036,16 +44043,20 @@ var Connection = /*#__PURE__*/function () {
      */
 
     /**
-    * Get adapters with the given name.
-    * @param {string} adapter The name of the adapter.
-    * @param {boolean} [update] Force update.
-    * @returns {Promise<ioBroker.Object[]>}
-    */
+     * Get adapters with the given name.
+     * @param {string} adapter The name of the adapter.
+     * @param {boolean} [update] Force update.
+     * @returns {Promise<ioBroker.Object[]>}
+     */
 
   }, {
     key: "getAdapters",
     value: function getAdapters(adapter, update) {
-      var _this18 = this;
+      var _this19 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
 
       if (typeof adapter === 'boolean') {
         update = adapter;
@@ -44063,7 +44074,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['adapter_' + adapter] = new Promise(function (resolve, reject) {
-        return _this18._socket.emit('getAdapters', adapter, function (err, instances) {
+        return _this19._socket.emit('getAdapters', adapter, function (err, instances) {
           return err ? reject(err) : resolve(instances);
         });
       });
@@ -44079,7 +44090,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "_renameGroups",
     value: function _renameGroups(objs, cb) {
-      var _this19 = this;
+      var _this20 = this;
 
       if (!objs || !objs.length) {
         cb && cb();
@@ -44088,10 +44099,10 @@ var Connection = /*#__PURE__*/function () {
         this.delObject(obj._id).then(function () {
           obj._id = obj.newId;
           delete obj.newId;
-          return _this19.setObject(obj._id, obj);
+          return _this20.setObject(obj._id, obj);
         }).then(function () {
           return setTimeout(function () {
-            return _this19._renameGroups(objs, cb);
+            return _this20._renameGroups(objs, cb);
           }, 0);
         })["catch"](function (err) {
           return cb && cb(err);
@@ -44108,18 +44119,23 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "renameGroup",
     value: function renameGroup(id, newId, newName) {
-      var _this20 = this;
+      var _this21 = this;
+
+      if (Connection.isWeb()) {
+        return Promise.reject('Allowed only in admin');
+      }
 
       return this.getGroups(true).then(function (groups) {
         if (groups.length) {
           // find all elements
           var groupsToRename = groups.filter(function (group) {
             return group._id.startsWith(id + '.');
-          }).forEach(function (group) {
+          });
+          groupsToRename.forEach(function (group) {
             return group.newId = newId + group._id.substring(id.length);
           });
           return new Promise(function (resolve, reject) {
-            return _this20._renameGroups(groupsToRename, function (err) {
+            return _this21._renameGroups(groupsToRename, function (err) {
               return err ? reject(err) : resolve();
             });
           }).then(function () {
@@ -44135,7 +44151,7 @@ var Connection = /*#__PURE__*/function () {
                 obj.common.name = newName;
               }
 
-              return _this20.setObject(obj._id, obj);
+              return _this21.setObject(obj._id, obj);
             }
           });
         }
@@ -44152,14 +44168,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "sendTo",
     value: function sendTo(instance, command, data) {
-      var _this21 = this;
+      var _this22 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve) {
-        return _this21._socket.emit('sendTo', instance, command, data, function (result) {
+        return _this22._socket.emit('sendTo', instance, command, data, function (result) {
           return resolve(result);
         });
       });
@@ -44173,7 +44189,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "extendObject",
     value: function extendObject(id, obj) {
-      var _this22 = this;
+      var _this23 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
@@ -44194,7 +44210,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this22._socket.emit('extendObject', id, obj, function (err) {
+        return _this23._socket.emit('extendObject', id, obj, function (err) {
           return err ? reject(err) : resolve();
         });
       });
@@ -44311,7 +44327,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getEnums",
     value: function getEnums(_enum, update) {
-      var _this23 = this;
+      var _this24 = this;
 
       if (!update && this._promises['enums_' + (_enum || 'all')]) {
         return this._promises['enums_' + (_enum || 'all')];
@@ -44322,7 +44338,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['enums_' + (_enum || 'all')] = new Promise(function (resolve, reject) {
-        _this23._socket.emit('getObjectView', 'system', 'enum', {
+        _this24._socket.emit('getObjectView', 'system', 'enum', {
           startkey: 'enum.' + (_enum || ''),
           endkey: 'enum.' + (_enum ? _enum + '.' : '') + "\u9999"
         }, function (err, res) {
@@ -44356,7 +44372,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getObjectView",
     value: function getObjectView(start, end, type) {
-      var _this24 = this;
+      var _this25 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
@@ -44365,7 +44381,7 @@ var Connection = /*#__PURE__*/function () {
       start = start || '';
       end = end || "\u9999";
       return new Promise(function (resolve, reject) {
-        _this24._socket.emit('getObjectView', 'system', type, {
+        _this25._socket.emit('getObjectView', 'system', type, {
           startkey: start,
           endkey: end
         }, function (err, res) {
@@ -44466,7 +44482,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getLogs",
     value: function getLogs(host, linesNumber) {
-      var _this25 = this;
+      var _this26 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44477,7 +44493,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve) {
-        return _this25._socket.emit('sendToHost', host, 'getLogs', linesNumber || 200, function (lines) {
+        return _this26._socket.emit('sendToHost', host, 'getLogs', linesNumber || 200, function (lines) {
           return resolve(lines);
         });
       });
@@ -44489,8 +44505,8 @@ var Connection = /*#__PURE__*/function () {
 
   }, {
     key: "getLogsFiles",
-    value: function getLogsFiles() {
-      var _this26 = this;
+    value: function getLogsFiles(host) {
+      var _this27 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44501,7 +44517,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this26._socket.emit('readLogs', function (err, files) {
+        return _this27._socket.emit('readLogs', host, function (err, files) {
           return err ? reject(err) : resolve(files);
         });
       });
@@ -44515,7 +44531,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "delLogs",
     value: function delLogs(host) {
-      var _this27 = this;
+      var _this28 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44526,7 +44542,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this27._socket.emit('sendToHost', host, 'delLogs', null, function (error) {
+        return _this28._socket.emit('sendToHost', host, 'delLogs', null, function (error) {
           return error ? reject(error) : resolve();
         });
       });
@@ -44539,14 +44555,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "readMetaItems",
     value: function readMetaItems() {
-      var _this28 = this;
+      var _this29 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this28._socket.emit('getObjectView', 'system', 'meta', {
+        return _this29._socket.emit('getObjectView', 'system', 'meta', {
           startkey: '',
           endkey: "\u9999"
         }, function (err, objs) {
@@ -44566,21 +44582,6 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "readDir",
     value: function readDir(adapter, fileName) {
-      var _this29 = this;
-
-      if (!this.connected) {
-        return Promise.reject(NOT_CONNECTED);
-      }
-
-      return new Promise(function (resolve, reject) {
-        return _this29._socket.emit('readDir', adapter, fileName, function (err, files) {
-          return err ? reject(err) : resolve(files);
-        });
-      });
-    }
-  }, {
-    key: "readFile",
-    value: function readFile(adapter, fileName, base64) {
       var _this30 = this;
 
       if (!this.connected) {
@@ -44588,17 +44589,31 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
+        return _this30._socket.emit('readDir', adapter, fileName, function (err, files) {
+          return err ? reject(err) : resolve(files);
+        });
+      });
+    }
+  }, {
+    key: "readFile",
+    value: function readFile(adapter, fileName, base64) {
+      var _this31 = this;
+
+      if (!this.connected) {
+        return Promise.reject(NOT_CONNECTED);
+      }
+
+      return new Promise(function (resolve, reject) {
         if (!base64) {
-          _this30._socket.emit('readFile', adapter, fileName, function (err, data, type) {
+          _this31._socket.emit('readFile', adapter, fileName, function (err, data, type) {
+            //@ts-ignore
             err ? reject(err) : resolve(data, type);
           });
         } else {
-          _this30._socket.emit('readFile64', adapter, fileName, base64, function (err, data) {
+          _this31._socket.emit('readFile64', adapter, fileName, base64, function (err, data) {
             return err ? reject(err) : resolve(data);
           });
         }
-
-        ;
       });
     }
     /**
@@ -44612,7 +44627,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "writeFile64",
     value: function writeFile64(adapter, fileName, data) {
-      var _this31 = this;
+      var _this32 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
@@ -44620,7 +44635,7 @@ var Connection = /*#__PURE__*/function () {
 
       return new Promise(function (resolve, reject) {
         if (typeof data === 'string') {
-          _this31._socket.emit('writeFile', adapter, fileName, data, function (err) {
+          _this32._socket.emit('writeFile', adapter, fileName, data, function (err) {
             return err ? reject(err) : resolve();
           });
         } else {
@@ -44628,7 +44643,7 @@ var Connection = /*#__PURE__*/function () {
             return data + String.fromCharCode(_byte);
           }, ''));
 
-          _this31._socket.emit('writeFile64', adapter, fileName, base64, function (err) {
+          _this32._socket.emit('writeFile64', adapter, fileName, base64, function (err) {
             return err ? reject(err) : resolve();
           });
         }
@@ -44644,7 +44659,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "deleteFile",
     value: function deleteFile(adapter, fileName) {
-      var _this32 = this;
+      var _this33 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44655,7 +44670,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this32._socket.emit('deleteFile', adapter, fileName, function (err) {
+        return _this33._socket.emit('deleteFile', adapter, fileName, function (err) {
           return err ? reject(err) : resolve();
         });
       });
@@ -44670,7 +44685,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "deleteFolder",
     value: function deleteFolder(adapter, folderName) {
-      var _this33 = this;
+      var _this34 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44681,7 +44696,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this33._socket.emit('deleteFolder', adapter, folderName, function (err) {
+        return _this34._socket.emit('deleteFolder', adapter, folderName, function (err) {
           return err ? reject(err) : resolve();
         });
       });
@@ -44695,7 +44710,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHosts",
     value: function getHosts(update) {
-      var _this34 = this;
+      var _this35 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44710,7 +44725,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.hosts = new Promise(function (resolve, reject) {
-        return _this34._socket.emit('getObjectView', 'system', 'host', {
+        return _this35._socket.emit('getObjectView', 'system', 'host', {
           startkey: 'system.host.',
           endkey: "system.host.\u9999"
         }, function (err, doc) {
@@ -44734,7 +44749,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getUsers",
     value: function getUsers(update) {
-      var _this35 = this;
+      var _this36 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44749,7 +44764,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.users = new Promise(function (resolve, reject) {
-        return _this35._socket.emit('getObjectView', 'system', 'user', {
+        return _this36._socket.emit('getObjectView', 'system', 'user', {
           startkey: 'system.user.',
           endkey: "system.user.\u9999"
         }, function (err, doc) {
@@ -44773,7 +44788,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getGroups",
     value: function getGroups(update) {
-      var _this36 = this;
+      var _this37 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44788,7 +44803,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.groups = new Promise(function (resolve, reject) {
-        return _this36._socket.emit('getObjectView', 'system', 'group', {
+        return _this37._socket.emit('getObjectView', 'system', 'group', {
           startkey: 'system.group.',
           endkey: "system.group.\u9999"
         }, function (err, doc) {
@@ -44814,7 +44829,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHostInfo",
     value: function getHostInfo(host, update, timeoutMs) {
-      var _this37 = this;
+      var _this38 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44838,9 +44853,9 @@ var Connection = /*#__PURE__*/function () {
             timeout = null;
             reject('getHostInfo timeout');
           }
-        }, timeoutMs || _this37.props.cmdTimeout);
+        }, timeoutMs || _this38.props.cmdTimeout);
 
-        _this37._socket.emit('sendToHost', host, 'getHostInfo', null, function (data) {
+        _this38._socket.emit('sendToHost', host, 'getHostInfo', null, function (data) {
           if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -44868,7 +44883,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHostInfoShort",
     value: function getHostInfoShort(host, update, timeoutMs) {
-      var _this38 = this;
+      var _this39 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44892,9 +44907,9 @@ var Connection = /*#__PURE__*/function () {
             timeout = null;
             reject('hostInfoShort timeout');
           }
-        }, timeoutMs || _this38.props.cmdTimeout);
+        }, timeoutMs || _this39.props.cmdTimeout);
 
-        _this38._socket.emit('sendToHost', host, 'getHostInfoShort', null, function (data) {
+        _this39._socket.emit('sendToHost', host, 'getHostInfoShort', null, function (data) {
           if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -44923,7 +44938,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getRepository",
     value: function getRepository(host, args, update, timeoutMs) {
-      var _this39 = this;
+      var _this40 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -44947,9 +44962,9 @@ var Connection = /*#__PURE__*/function () {
             timeout = null;
             reject('getRepository timeout');
           }
-        }, timeoutMs || _this39.props.cmdTimeout);
+        }, timeoutMs || _this40.props.cmdTimeout);
 
-        _this39._socket.emit('sendToHost', host, 'getRepository', args, function (data) {
+        _this40._socket.emit('sendToHost', host, 'getRepository', args, function (data) {
           if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -44977,7 +44992,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getInstalled",
     value: function getInstalled(host, update, cmdTimeout) {
-      var _this40 = this;
+      var _this41 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45003,9 +45018,9 @@ var Connection = /*#__PURE__*/function () {
             timeout = null;
             reject('getInstalled timeout');
           }
-        }, cmdTimeout || _this40.props.cmdTimeout);
+        }, cmdTimeout || _this41.props.cmdTimeout);
 
-        _this40._socket.emit('sendToHost', host, 'getInstalled', null, function (data) {
+        _this41._socket.emit('sendToHost', host, 'getInstalled', null, function (data) {
           if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -45034,7 +45049,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "cmdExec",
     value: function cmdExec(host, cmd, cmdId, cmdTimeout) {
-      var _this41 = this;
+      var _this42 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45056,7 +45071,7 @@ var Connection = /*#__PURE__*/function () {
           }
         }, cmdTimeout);
 
-        _this41._socket.emit('cmdExec', host, cmdId, cmd, null, function (err) {
+        _this42._socket.emit('cmdExec', host, cmdId, cmd, null, function (err) {
           if (!cmdTimeout || timeout) {
             timeout && clearTimeout(timeout);
             timeout = null;
@@ -45080,7 +45095,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "checkFeatureSupported",
     value: function checkFeatureSupported(feature, update) {
-      var _this42 = this;
+      var _this43 = this;
 
       if (!update && this._promises['supportedFeatures_' + feature]) {
         return this._promises['supportedFeatures_' + feature];
@@ -45091,7 +45106,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['supportedFeatures_' + feature] = new Promise(function (resolve, reject) {
-        return _this42._socket.emit('checkFeatureSupported', feature, function (err, features) {
+        return _this43._socket.emit('checkFeatureSupported', feature, function (err, features) {
           err ? reject(err) : resolve(features);
         });
       });
@@ -45106,7 +45121,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "readBaseSettings",
     value: function readBaseSettings(host) {
-      var _this43 = this;
+      var _this44 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45114,7 +45129,7 @@ var Connection = /*#__PURE__*/function () {
 
       return this.checkFeatureSupported('CONTROLLER_READWRITE_BASE_SETTINGS').then(function (result) {
         if (result) {
-          if (!_this43.connected) {
+          if (!_this44.connected) {
             return Promise.reject(NOT_CONNECTED);
           }
 
@@ -45124,13 +45139,13 @@ var Connection = /*#__PURE__*/function () {
                 timeout = null;
                 reject('readBaseSettings timeout');
               }
-            }, _this43.props.cmdTimeout);
+            }, _this44.props.cmdTimeout);
 
             if (host.startsWith('system.host.')) {
               host = host.replace(/^system\.host\./, '');
             }
 
-            _this43._socket.emit('sendToHost', host, 'readBaseSettings', null, function (data) {
+            _this44._socket.emit('sendToHost', host, 'readBaseSettings', null, function (data) {
               if (timeout) {
                 clearTimeout(timeout);
                 timeout = null;
@@ -45160,7 +45175,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "writeBaseSettings",
     value: function writeBaseSettings(host, config) {
-      var _this44 = this;
+      var _this45 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45168,7 +45183,7 @@ var Connection = /*#__PURE__*/function () {
 
       return this.checkFeatureSupported('CONTROLLER_READWRITE_BASE_SETTINGS').then(function (result) {
         if (result) {
-          if (!_this44.connected) {
+          if (!_this45.connected) {
             return Promise.reject(NOT_CONNECTED);
           }
 
@@ -45178,9 +45193,9 @@ var Connection = /*#__PURE__*/function () {
                 timeout = null;
                 reject('writeBaseSettings timeout');
               }
-            }, _this44.props.cmdTimeout);
+            }, _this45.props.cmdTimeout);
 
-            _this44._socket.emit('sendToHost', host, 'writeBaseSettings', config, function (data) {
+            _this45._socket.emit('sendToHost', host, 'writeBaseSettings', config, function (data) {
               if (timeout) {
                 clearTimeout(timeout);
                 timeout = null;
@@ -45209,14 +45224,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "restartController",
     value: function restartController(host) {
-      var _this45 = this;
+      var _this46 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve, reject) {
-        _this45._socket.emit('sendToHost', host, 'restartController', null, function (error) {
+        _this46._socket.emit('sendToHost', host, 'restartController', null, function (error) {
           error ? reject(error) : resolve(true);
         });
       });
@@ -45231,14 +45246,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getDiagData",
     value: function getDiagData(host, typeOfDiag) {
-      var _this46 = this;
+      var _this47 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve) {
-        _this46._socket.emit('sendToHost', host, 'getDiagData', typeOfDiag, function (result) {
+        _this47._socket.emit('sendToHost', host, 'getDiagData', typeOfDiag, function (result) {
           return resolve(result);
         });
       });
@@ -45252,14 +45267,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getForeignStates",
     value: function getForeignStates(pattern) {
-      var _this47 = this;
+      var _this48 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this47._socket.emit('getForeignStates', pattern || '*', function (err, states) {
+        return _this48._socket.emit('getForeignStates', pattern || '*', function (err, states) {
           return err ? reject(err) : resolve(states);
         });
       });
@@ -45274,14 +45289,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getForeignObjects",
     value: function getForeignObjects(pattern, type) {
-      var _this48 = this;
+      var _this49 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this48._socket.emit('getForeignObjects', pattern || '*', type, function (err, states) {
+        return _this49._socket.emit('getForeignObjects', pattern || '*', type, function (err, states) {
           return err ? reject(err) : resolve(states);
         });
       });
@@ -45304,8 +45319,11 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.systemConfig = this.getObject('system.config').then(function (systemConfig) {
-        systemConfig = systemConfig || {};
-        systemConfig.common = systemConfig.common || {};
+        //@ts-ignore
+        systemConfig = systemConfig || {}; //@ts-ignore
+
+        systemConfig.common = systemConfig.common || {}; //@ts-ignore
+
         systemConfig["native"] = systemConfig["native"] || {};
         return systemConfig;
       });
@@ -45320,10 +45338,10 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "setSystemConfig",
     value: function setSystemConfig(obj) {
-      var _this49 = this;
+      var _this50 = this;
 
       return this.setObject('system.config', obj).then(function () {
-        return _this49._promises.systemConfig = Promise.resolve(obj);
+        return _this50._promises.systemConfig = Promise.resolve(obj);
       });
     }
     /**
@@ -45346,14 +45364,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHistory",
     value: function getHistory(id, options) {
-      var _this50 = this;
+      var _this51 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this50._socket.emit('getHistory', id, options, function (err, values) {
+        return _this51._socket.emit('getHistory', id, options, function (err, values) {
           return err ? reject(err) : resolve(values);
         });
       });
@@ -45368,14 +45386,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHistoryEx",
     value: function getHistoryEx(id, options) {
-      var _this51 = this;
+      var _this52 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this51._socket.emit('getHistory', id, options, function (err, values, stepIgnore, sessionId) {
+        return _this52._socket.emit('getHistory', id, options, function (err, values, stepIgnore, sessionId) {
           return err ? reject(err) : resolve({
             values: values,
             sessionId: sessionId,
@@ -45394,14 +45412,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "changePassword",
     value: function changePassword(user, password) {
-      var _this52 = this;
+      var _this53 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve, reject) {
-        return _this52._socket.emit('changePassword', user, password, function (err) {
+        return _this53._socket.emit('changePassword', user, password, function (err) {
           return err ? reject(err) : resolve();
         });
       });
@@ -45443,7 +45461,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getHostByIp",
     value: function getHostByIp(ipOrHostName, update) {
-      var _this53 = this;
+      var _this54 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45458,7 +45476,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['rIPs_' + ipOrHostName] = new Promise(function (resolve) {
-        return _this53._socket.emit('getHostByIp', ipOrHostName, function (ip, host) {
+        return _this54._socket.emit('getHostByIp', ipOrHostName, function (ip, host) {
           var _host$native, _host$native$hardware;
 
           var IPs4 = [{
@@ -45514,14 +45532,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "encrypt",
     value: function encrypt(text) {
-      var _this54 = this;
+      var _this55 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve, reject) {
-        return _this54._socket.emit('encrypt', text, function (err, text) {
+        return _this55._socket.emit('encrypt', text, function (err, text) {
           return err ? reject(err) : resolve(text);
         });
       });
@@ -45535,14 +45553,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "decrypt",
     value: function decrypt(encryptedText) {
-      var _this55 = this;
+      var _this56 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
       }
 
       return new Promise(function (resolve, reject) {
-        return _this55._socket.emit('decrypt', encryptedText, function (err, text) {
+        return _this56._socket.emit('decrypt', encryptedText, function (err, text) {
           return err ? reject(err) : resolve(text);
         });
       });
@@ -45555,10 +45573,10 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getVersion",
     value: function getVersion() {
-      var _this56 = this;
+      var _this57 = this;
 
       this._promises.version = this._promises.version || new Promise(function (resolve, reject) {
-        return _this56._socket.emit('getVersion', function (err, version, serverName) {
+        return _this57._socket.emit('getVersion', function (err, version, serverName) {
           // support of old socket.io
           if (err && !version && typeof err === 'string' && err.match(/\d+\.\d+\.\d+/)) {
             resolve({
@@ -45583,10 +45601,10 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getWebServerName",
     value: function getWebServerName() {
-      var _this57 = this;
+      var _this58 = this;
 
       this._promises.webName = this._promises.webName || new Promise(function (resolve, reject) {
-        return _this57._socket.emit('getAdapterName', function (err, name) {
+        return _this58._socket.emit('getAdapterName', function (err, name) {
           return err ? reject(err) : resolve(name);
         });
       });
@@ -45615,7 +45633,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "chmodFile",
     value: function chmodFile(adapter, filename, options) {
-      var _this58 = this;
+      var _this59 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45626,7 +45644,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this58._socket.emit('chmodFile', adapter, filename, options, function (err, entries, id) {
+        return _this59._socket.emit('chmodFile', adapter, filename, options, function (err, entries, id) {
           return err ? reject(err) : resolve({
             entries: entries,
             id: id
@@ -45645,7 +45663,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "chownFile",
     value: function chownFile(adapter, filename, options) {
-      var _this59 = this;
+      var _this60 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45656,7 +45674,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this59._socket.emit('chownFile', adapter, filename, options, function (err, entries, id) {
+        return _this60._socket.emit('chownFile', adapter, filename, options, function (err, entries, id) {
           return err ? reject(err) : resolve({
             entries: entries,
             id: id
@@ -45674,14 +45692,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "fileExists",
     value: function fileExists(adapter, filename) {
-      var _this60 = this;
+      var _this61 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve, reject) {
-        return _this60._socket.emit('fileExists', adapter, filename, function (err, exists) {
+        return _this61._socket.emit('fileExists', adapter, filename, function (err, exists) {
           return err ? reject(err) : resolve(exists);
         });
       });
@@ -45696,7 +45714,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getNotifications",
     value: function getNotifications(host, category) {
-      var _this61 = this;
+      var _this62 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45707,7 +45725,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve) {
-        return _this61._socket.emit('sendToHost', host, 'getNotifications', {
+        return _this62._socket.emit('sendToHost', host, 'getNotifications', {
           category: category
         }, function (notifications) {
           return resolve(notifications);
@@ -45724,7 +45742,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "clearNotifications",
     value: function clearNotifications(host, category) {
-      var _this62 = this;
+      var _this63 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45735,7 +45753,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve) {
-        return _this62._socket.emit('sendToHost', host, 'clearNotifications', {
+        return _this63._socket.emit('sendToHost', host, 'clearNotifications', {
           category: category
         }, function (notifications) {
           return resolve(notifications);
@@ -45750,7 +45768,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getIsEasyModeStrict",
     value: function getIsEasyModeStrict() {
-      var _this63 = this;
+      var _this64 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45761,7 +45779,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this63._socket.emit('getIsEasyModeStrict', function (error, isStrict) {
+        return _this64._socket.emit('getIsEasyModeStrict', function (error, isStrict) {
           return error ? reject(error) : resolve(isStrict);
         });
       });
@@ -45774,7 +45792,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getEasyMode",
     value: function getEasyMode() {
-      var _this64 = this;
+      var _this65 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45785,7 +45803,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this64._socket.emit('getEasyMode', function (error, config) {
+        return _this65._socket.emit('getEasyMode', function (error, config) {
           return error ? reject(error) : resolve(config);
         });
       });
@@ -45798,14 +45816,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCurrentUser",
     value: function getCurrentUser() {
-      var _this65 = this;
+      var _this66 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       return new Promise(function (resolve) {
-        return _this65._socket.emit('authEnabled', function (isSecure, user) {
+        return _this66._socket.emit('authEnabled', function (isSecure, user) {
           return resolve(user);
         });
       });
@@ -45849,7 +45867,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getRatings",
     value: function getRatings(update) {
-      var _this66 = this;
+      var _this67 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45860,7 +45878,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       return new Promise(function (resolve, reject) {
-        return _this66._socket.emit('getRatings', update, function (err, ratings) {
+        return _this67._socket.emit('getRatings', update, function (err, ratings) {
           return err ? reject(err) : resolve(ratings);
         });
       });
@@ -45873,14 +45891,14 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCurrentInstance",
     value: function getCurrentInstance() {
-      var _this67 = this;
+      var _this68 = this;
 
       if (!this.connected) {
         return Promise.reject(NOT_CONNECTED);
       }
 
       this._promises.currentInstance = this._promises.currentInstance || new Promise(function (resolve, reject) {
-        return _this67._socket.emit('getCurrentInstance', function (err, namespace) {
+        return _this68._socket.emit('getCurrentInstance', function (err, namespace) {
           return err ? reject(err) : resolve(namespace);
         });
       });
@@ -45890,7 +45908,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCompactAdapters",
     value: function getCompactAdapters(update) {
-      var _this68 = this;
+      var _this69 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45905,7 +45923,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.compactAdapters = new Promise(function (resolve, reject) {
-        return _this68._socket.emit('getCompactAdapters', function (err, systemConfig) {
+        return _this69._socket.emit('getCompactAdapters', function (err, systemConfig) {
           return err ? reject(err) : resolve(systemConfig);
         });
       });
@@ -45915,7 +45933,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCompactInstances",
     value: function getCompactInstances(update) {
-      var _this69 = this;
+      var _this70 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45930,7 +45948,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.compactInstances = new Promise(function (resolve, reject) {
-        return _this69._socket.emit('getCompactInstances', function (err, systemConfig) {
+        return _this70._socket.emit('getCompactInstances', function (err, systemConfig) {
           return err ? reject(err) : resolve(systemConfig);
         });
       });
@@ -45941,7 +45959,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCompactInstalled",
     value: function getCompactInstalled(host, update, cmdTimeout) {
-      var _this70 = this;
+      var _this71 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -45967,9 +45985,9 @@ var Connection = /*#__PURE__*/function () {
             timeout = null;
             reject('getCompactInstalled timeout');
           }
-        }, cmdTimeout || _this70.props.cmdTimeout);
+        }, cmdTimeout || _this71.props.cmdTimeout);
 
-        _this70._socket.emit('getCompactInstalled', host, function (data) {
+        _this71._socket.emit('getCompactInstalled', host, function (data) {
           if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -45990,7 +46008,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCompactSystemConfig",
     value: function getCompactSystemConfig(update) {
-      var _this71 = this;
+      var _this72 = this;
 
       if (!update && this._promises.systemConfigCommon) {
         return this._promises.systemConfigCommon;
@@ -46001,7 +46019,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.systemConfigCommon = new Promise(function (resolve, reject) {
-        return _this71._socket.emit('getCompactSystemConfig', function (err, systemConfig) {
+        return _this72._socket.emit('getCompactSystemConfig', function (err, systemConfig) {
           return err ? reject(err) : resolve(systemConfig);
         });
       });
@@ -46018,7 +46036,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCompactRepository",
     value: function getCompactRepository(host, update, timeoutMs) {
-      var _this72 = this;
+      var _this73 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -46042,9 +46060,9 @@ var Connection = /*#__PURE__*/function () {
             timeout = null;
             reject('getCompactRepository timeout');
           }
-        }, timeoutMs || _this72.props.cmdTimeout);
+        }, timeoutMs || _this73.props.cmdTimeout);
 
-        _this72._socket.emit('getCompactRepository', host, function (data) {
+        _this73._socket.emit('getCompactRepository', host, function (data) {
           if (timeout) {
             clearTimeout(timeout);
             timeout = null;
@@ -46070,7 +46088,7 @@ var Connection = /*#__PURE__*/function () {
   }, {
     key: "getCompactHosts",
     value: function getCompactHosts(update) {
-      var _this73 = this;
+      var _this74 = this;
 
       if (Connection.isWeb()) {
         return Promise.reject('Allowed only in admin');
@@ -46085,7 +46103,7 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.hostsCompact = new Promise(function (resolve, reject) {
-        return _this73._socket.emit('getCompactHosts', function (err, systemConfig) {
+        return _this74._socket.emit('getCompactHosts', function (err, systemConfig) {
           return err ? reject(err) : resolve(systemConfig);
         });
       });
@@ -46107,7 +46125,8 @@ var Connection = /*#__PURE__*/function () {
         return Promise.reject(NOT_CONNECTED);
       }
 
-      this._promises.uuid = this.getObject('system.meta.uuid').then(function (obj) {
+      this._promises.uuid = this.getObject('system.meta.uuid') //@ts-ignore
+      .then(function (obj) {
         var _obj$native;
 
         return obj === null || obj === void 0 ? void 0 : (_obj$native = obj["native"]) === null || _obj$native === void 0 ? void 0 : _obj$native.uuid;
@@ -46872,7 +46891,7 @@ exports.forget = forget;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function forget(promise) {
-  promise.then(null, function (e) {
+  void promise.then(null, function (e) {
     // TODO: Use a better logging mechanism
     // eslint-disable-next-line no-console
     console.error(e);
@@ -47089,7 +47108,7 @@ var _is = require("./is");
  * e.g. [HTMLElement] => body > div > input#foo.btn[name=baz]
  * @returns generated DOM path
  */
-function htmlTreeAsString(elem) {
+function htmlTreeAsString(elem, keyAttrs) {
   // try/catch both:
   // - accessing event.target (see getsentry/raven-js#838, #768)
   // - `htmlTreeAsString` because it's complex, and just accessing the DOM incorrectly
@@ -47106,7 +47125,7 @@ function htmlTreeAsString(elem) {
     var nextStr = void 0; // eslint-disable-next-line no-plusplus
 
     while (currentElem && height++ < MAX_TRAVERSE_HEIGHT) {
-      nextStr = _htmlElementAsString(currentElem); // bail out if
+      nextStr = _htmlElementAsString(currentElem, keyAttrs); // bail out if
       // - nextStr is the 'html' element
       // - the length of the string that would be created exceeds MAX_OUTPUT_LEN
       //   (ignore this limit if we are on the first iteration)
@@ -47132,7 +47151,9 @@ function htmlTreeAsString(elem) {
  */
 
 
-function _htmlElementAsString(el) {
+function _htmlElementAsString(el, keyAttrs) {
+  var _a, _b;
+
   var elem = el;
   var out = [];
   var className;
@@ -47145,20 +47166,32 @@ function _htmlElementAsString(el) {
     return '';
   }
 
-  out.push(elem.tagName.toLowerCase());
+  out.push(elem.tagName.toLowerCase()); // Pairs of attribute keys defined in `serializeAttribute` and their values on element.
 
-  if (elem.id) {
-    out.push("#" + elem.id);
-  } // eslint-disable-next-line prefer-const
+  var keyAttrPairs = ((_a = keyAttrs) === null || _a === void 0 ? void 0 : _a.length) ? keyAttrs.filter(function (keyAttr) {
+    return elem.getAttribute(keyAttr);
+  }).map(function (keyAttr) {
+    return [keyAttr, elem.getAttribute(keyAttr)];
+  }) : null;
+
+  if ((_b = keyAttrPairs) === null || _b === void 0 ? void 0 : _b.length) {
+    keyAttrPairs.forEach(function (keyAttrPair) {
+      out.push("[" + keyAttrPair[0] + "=\"" + keyAttrPair[1] + "\"]");
+    });
+  } else {
+    if (elem.id) {
+      out.push("#" + elem.id);
+    } // eslint-disable-next-line prefer-const
 
 
-  className = elem.className;
+    className = elem.className;
 
-  if (className && (0, _is.isString)(className)) {
-    classes = className.split(/\s+/);
+    if (className && (0, _is.isString)(className)) {
+      classes = className.split(/\s+/);
 
-    for (i = 0; i < classes.length; i++) {
-      out.push("." + classes[i]);
+      for (i = 0; i < classes.length; i++) {
+        out.push("." + classes[i]);
+      }
     }
   }
 
@@ -49906,7 +49939,7 @@ function () {
       }
 
       if ((0, _is.isThenable)(value)) {
-        value.then(_this._resolve, _this._reject);
+        void value.then(_this._resolve, _this._reject);
         return;
       }
 
@@ -49997,7 +50030,7 @@ function () {
       var counter = collection.length;
       var resolvedCollection = [];
       collection.forEach(function (item, index) {
-        SyncPromise.resolve(item).then(function (value) {
+        void SyncPromise.resolve(item).then(function (value) {
           resolvedCollection[index] = value;
           counter -= 1;
 
@@ -50137,23 +50170,26 @@ function () {
   /**
    * Add a promise to the queue.
    *
-   * @param task Can be any PromiseLike<T>
+   * @param taskProducer A function producing any PromiseLike<T>; In previous versions this used to be `task: PromiseLike<T>`,
+   *        however, Promises were instantly created on the call-site, making them fall through the buffer limit.
    * @returns The original promise.
    */
 
 
-  PromiseBuffer.prototype.add = function (task) {
+  PromiseBuffer.prototype.add = function (taskProducer) {
     var _this = this;
 
     if (!this.isReady()) {
       return _syncpromise.SyncPromise.reject(new _error.SentryError('Not adding Promise due to buffer limit reached.'));
     }
 
+    var task = taskProducer();
+
     if (this._buffer.indexOf(task) === -1) {
       this._buffer.push(task);
     }
 
-    task.then(function () {
+    void task.then(function () {
       return _this.remove(task);
     }).then(null, function () {
       return _this.remove(task).then(null, function () {// We have to add this catch here otherwise we have an unhandledPromiseRejection
@@ -50200,8 +50236,7 @@ function () {
           resolve(false);
         }
       }, timeout);
-
-      _syncpromise.SyncPromise.all(_this._buffer).then(function () {
+      void _syncpromise.SyncPromise.all(_this._buffer).then(function () {
         clearTimeout(capturedSetTimeout);
         resolve(true);
       }).then(null, function () {
@@ -50355,7 +50390,7 @@ var browserPerformanceTimeOrigin = function () {
   // data as reliable if they are within a reasonable threshold of the current time.
   var performance = (0, _misc.getGlobalObject)().performance;
 
-  if (!performance) {
+  if (!performance || !performance.now) {
     exports._browserPerformanceTimeOriginMode = _browserPerformanceTimeOriginMode = 'none';
     return undefined;
   }
@@ -50650,9 +50685,15 @@ var _tslib = require("tslib");
 var _utils = require("@sentry/utils");
 
 /**
+ * Absolute maximum number of breadcrumbs added to an event.
+ * The `maxBreadcrumbs` option cannot be higher than this value.
+ */
+var MAX_BREADCRUMBS = 100;
+/**
  * Holds additional event information. {@link Scope.applyToEvent} will be
  * called by the client before an event will be sent.
  */
+
 var Scope =
 /** @class */
 function () {
@@ -51041,10 +51082,16 @@ function () {
 
 
   Scope.prototype.addBreadcrumb = function (breadcrumb, maxBreadcrumbs) {
+    var maxCrumbs = typeof maxBreadcrumbs === 'number' ? Math.min(maxBreadcrumbs, MAX_BREADCRUMBS) : MAX_BREADCRUMBS; // No data has been changed, so don't notify scope listeners
+
+    if (maxCrumbs <= 0) {
+      return this;
+    }
+
     var mergedBreadcrumb = (0, _tslib.__assign)({
       timestamp: (0, _utils.dateTimestampInSeconds)()
     }, breadcrumb);
-    this._breadcrumbs = maxBreadcrumbs !== undefined && maxBreadcrumbs >= 0 ? (0, _tslib.__spread)(this._breadcrumbs, [mergedBreadcrumb]).slice(-maxBreadcrumbs) : (0, _tslib.__spread)(this._breadcrumbs, [mergedBreadcrumb]);
+    this._breadcrumbs = (0, _tslib.__spread)(this._breadcrumbs, [mergedBreadcrumb]).slice(-maxCrumbs);
 
     this._notifyScopeListeners();
 
@@ -51142,11 +51189,11 @@ function () {
         var result = processor((0, _tslib.__assign)({}, event), hint);
 
         if ((0, _utils.isThenable)(result)) {
-          result.then(function (final) {
+          void result.then(function (final) {
             return _this._notifyEventProcessors(processors, final, hint, index + 1).then(resolve);
           }).then(null, reject);
         } else {
-          _this._notifyEventProcessors(processors, result, hint, index + 1).then(resolve).then(null, reject);
+          void _this._notifyEventProcessors(processors, result, hint, index + 1).then(resolve).then(null, reject);
         }
       }
     });
@@ -51217,7 +51264,160 @@ function getGlobalEventProcessors() {
 function addGlobalEventProcessor(callback) {
   getGlobalEventProcessors().push(callback);
 }
-},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js"}],"../../node_modules/@sentry/hub/esm/hub.js":[function(require,module,exports) {
+},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js"}],"../../node_modules/@sentry/hub/esm/session.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Session = void 0;
+
+var _types = require("@sentry/types");
+
+var _utils = require("@sentry/utils");
+
+/**
+ * @inheritdoc
+ */
+var Session =
+/** @class */
+function () {
+  function Session(context) {
+    this.errors = 0;
+    this.sid = (0, _utils.uuid4)();
+    this.duration = 0;
+    this.status = _types.SessionStatus.Ok;
+    this.init = true;
+    this.ignoreDuration = false; // Both timestamp and started are in seconds since the UNIX epoch.
+
+    var startingTime = (0, _utils.timestampInSeconds)();
+    this.timestamp = startingTime;
+    this.started = startingTime;
+
+    if (context) {
+      this.update(context);
+    }
+  }
+  /** JSDoc */
+  // eslint-disable-next-line complexity
+
+
+  Session.prototype.update = function (context) {
+    if (context === void 0) {
+      context = {};
+    }
+
+    if (context.user) {
+      if (!this.ipAddress && context.user.ip_address) {
+        this.ipAddress = context.user.ip_address;
+      }
+
+      if (!this.did && !context.did) {
+        this.did = context.user.id || context.user.email || context.user.username;
+      }
+    }
+
+    this.timestamp = context.timestamp || (0, _utils.timestampInSeconds)();
+
+    if (context.ignoreDuration) {
+      this.ignoreDuration = context.ignoreDuration;
+    }
+
+    if (context.sid) {
+      // Good enough uuid validation. — Kamil
+      this.sid = context.sid.length === 32 ? context.sid : (0, _utils.uuid4)();
+    }
+
+    if (context.init !== undefined) {
+      this.init = context.init;
+    }
+
+    if (!this.did && context.did) {
+      this.did = "" + context.did;
+    }
+
+    if (typeof context.started === 'number') {
+      this.started = context.started;
+    }
+
+    if (this.ignoreDuration) {
+      this.duration = undefined;
+    } else if (typeof context.duration === 'number') {
+      this.duration = context.duration;
+    } else {
+      var duration = this.timestamp - this.started;
+      this.duration = duration >= 0 ? duration : 0;
+    }
+
+    if (context.release) {
+      this.release = context.release;
+    }
+
+    if (context.environment) {
+      this.environment = context.environment;
+    }
+
+    if (!this.ipAddress && context.ipAddress) {
+      this.ipAddress = context.ipAddress;
+    }
+
+    if (!this.userAgent && context.userAgent) {
+      this.userAgent = context.userAgent;
+    }
+
+    if (typeof context.errors === 'number') {
+      this.errors = context.errors;
+    }
+
+    if (context.status) {
+      this.status = context.status;
+    }
+  };
+  /** JSDoc */
+
+
+  Session.prototype.close = function (status) {
+    if (status) {
+      this.update({
+        status: status
+      });
+    } else if (this.status === _types.SessionStatus.Ok) {
+      this.update({
+        status: _types.SessionStatus.Exited
+      });
+    } else {
+      this.update();
+    }
+  };
+  /** JSDoc */
+
+
+  Session.prototype.toJSON = function () {
+    return (0, _utils.dropUndefinedKeys)({
+      sid: "" + this.sid,
+      init: this.init,
+      // Make sure that sec is converted to ms for date constructor
+      started: new Date(this.started * 1000).toISOString(),
+      timestamp: new Date(this.timestamp * 1000).toISOString(),
+      status: this.status,
+      errors: this.errors,
+      did: typeof this.did === 'number' || typeof this.did === 'string' ? "" + this.did : undefined,
+      duration: this.duration,
+      attrs: (0, _utils.dropUndefinedKeys)({
+        release: this.release,
+        environment: this.environment,
+        ip_address: this.ipAddress,
+        user_agent: this.userAgent
+      })
+    });
+  };
+
+  return Session;
+}();
+
+exports.Session = Session;
+},{"@sentry/types":"../../node_modules/@sentry/types/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js"}],"../../node_modules/@sentry/hub/esm/hub.js":[function(require,module,exports) {
+var global = arguments[3];
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51259,12 +51459,6 @@ var API_VERSION = 4;
 
 exports.API_VERSION = API_VERSION;
 var DEFAULT_BREADCRUMBS = 100;
-/**
- * Absolute maximum number of breadcrumbs added to an event. The
- * `maxBreadcrumbs` option cannot be higher than this value.
- */
-
-var MAX_BREADCRUMBS = 100;
 /**
  * @inheritDoc
  */
@@ -51497,7 +51691,7 @@ function () {
       return beforeBreadcrumb(mergedBreadcrumb, hint);
     }) : mergedBreadcrumb;
     if (finalBreadcrumb === null) return;
-    scope.addBreadcrumb(finalBreadcrumb, Math.min(maxBreadcrumbs, MAX_BREADCRUMBS));
+    scope.addBreadcrumb(finalBreadcrumb, maxBreadcrumbs);
   };
   /**
    * @inheritDoc
@@ -51668,13 +51862,18 @@ function () {
 
     var _b = client && client.getOptions() || {},
         release = _b.release,
-        environment = _b.environment;
+        environment = _b.environment; // Will fetch userAgent if called from browser sdk
 
-    var session = new _session.Session((0, _tslib.__assign)((0, _tslib.__assign)({
+
+    var global = (0, _utils.getGlobalObject)();
+    var userAgent = (global.navigator || {}).userAgent;
+    var session = new _session.Session((0, _tslib.__assign)((0, _tslib.__assign)((0, _tslib.__assign)({
       release: release,
       environment: environment
     }, scope && {
       user: scope.getUser()
+    }), userAgent && {
+      userAgent: userAgent
     }), context));
 
     if (scope) {
@@ -51903,149 +52102,19 @@ function setHubOnCarrier(carrier, hub) {
   carrier.__SENTRY__.hub = hub;
   return true;
 }
-},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/types":"../../node_modules/@sentry/types/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js","./scope":"../../node_modules/@sentry/hub/esm/scope.js","./session":"../../node_modules/@sentry/hub/esm/session.js"}],"../../node_modules/@sentry/hub/esm/session.js":[function(require,module,exports) {
+},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/types":"../../node_modules/@sentry/types/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js","./scope":"../../node_modules/@sentry/hub/esm/scope.js","./session":"../../node_modules/@sentry/hub/esm/session.js"}],"../../node_modules/@sentry/hub/esm/sessionflusher.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SessionFlusher = exports.Session = void 0;
+exports.SessionFlusher = void 0;
 
 var _types = require("@sentry/types");
 
 var _utils = require("@sentry/utils");
 
 var _hub = require("./hub");
-
-/**
- * @inheritdoc
- */
-var Session =
-/** @class */
-function () {
-  function Session(context) {
-    this.errors = 0;
-    this.sid = (0, _utils.uuid4)();
-    this.timestamp = Date.now();
-    this.started = Date.now();
-    this.duration = 0;
-    this.status = _types.SessionStatus.Ok;
-    this.init = true;
-
-    if (context) {
-      this.update(context);
-    }
-  }
-  /** JSDoc */
-  // eslint-disable-next-line complexity
-
-
-  Session.prototype.update = function (context) {
-    if (context === void 0) {
-      context = {};
-    }
-
-    if (context.user) {
-      if (context.user.ip_address) {
-        this.ipAddress = context.user.ip_address;
-      }
-
-      if (!context.did) {
-        this.did = context.user.id || context.user.email || context.user.username;
-      }
-    }
-
-    this.timestamp = context.timestamp || Date.now();
-
-    if (context.sid) {
-      // Good enough uuid validation. — Kamil
-      this.sid = context.sid.length === 32 ? context.sid : (0, _utils.uuid4)();
-    }
-
-    if (context.init !== undefined) {
-      this.init = context.init;
-    }
-
-    if (context.did) {
-      this.did = "" + context.did;
-    }
-
-    if (typeof context.started === 'number') {
-      this.started = context.started;
-    }
-
-    if (typeof context.duration === 'number') {
-      this.duration = context.duration;
-    } else {
-      this.duration = this.timestamp - this.started;
-    }
-
-    if (context.release) {
-      this.release = context.release;
-    }
-
-    if (context.environment) {
-      this.environment = context.environment;
-    }
-
-    if (context.ipAddress) {
-      this.ipAddress = context.ipAddress;
-    }
-
-    if (context.userAgent) {
-      this.userAgent = context.userAgent;
-    }
-
-    if (typeof context.errors === 'number') {
-      this.errors = context.errors;
-    }
-
-    if (context.status) {
-      this.status = context.status;
-    }
-  };
-  /** JSDoc */
-
-
-  Session.prototype.close = function (status) {
-    if (status) {
-      this.update({
-        status: status
-      });
-    } else if (this.status === _types.SessionStatus.Ok) {
-      this.update({
-        status: _types.SessionStatus.Exited
-      });
-    } else {
-      this.update();
-    }
-  };
-  /** JSDoc */
-
-
-  Session.prototype.toJSON = function () {
-    return (0, _utils.dropUndefinedKeys)({
-      sid: "" + this.sid,
-      init: this.init,
-      started: new Date(this.started).toISOString(),
-      timestamp: new Date(this.timestamp).toISOString(),
-      status: this.status,
-      errors: this.errors,
-      did: typeof this.did === 'number' || typeof this.did === 'string' ? "" + this.did : undefined,
-      duration: this.duration,
-      attrs: (0, _utils.dropUndefinedKeys)({
-        release: this.release,
-        environment: this.environment,
-        ip_address: this.ipAddress,
-        user_agent: this.userAgent
-      })
-    });
-  };
-
-  return Session;
-}();
-
-exports.Session = Session;
 
 /**
  * @inheritdoc
@@ -52076,7 +52145,7 @@ function () {
       return;
     }
 
-    this._transport.sendSession(sessionAggregates).then(null, function (reason) {
+    void this._transport.sendSession(sessionAggregates).then(null, function (reason) {
       _utils.logger.error("Error while sending session: " + reason);
     });
   };
@@ -52206,7 +52275,7 @@ Object.defineProperty(exports, "Session", {
 Object.defineProperty(exports, "SessionFlusher", {
   enumerable: true,
   get: function () {
-    return _session.SessionFlusher;
+    return _sessionflusher.SessionFlusher;
   }
 });
 Object.defineProperty(exports, "getActiveDomain", {
@@ -52256,8 +52325,10 @@ var _scope = require("./scope");
 
 var _session = require("./session");
 
+var _sessionflusher = require("./sessionflusher");
+
 var _hub = require("./hub");
-},{"./scope":"../../node_modules/@sentry/hub/esm/scope.js","./session":"../../node_modules/@sentry/hub/esm/session.js","./hub":"../../node_modules/@sentry/hub/esm/hub.js"}],"../../node_modules/@sentry/minimal/esm/index.js":[function(require,module,exports) {
+},{"./scope":"../../node_modules/@sentry/hub/esm/scope.js","./session":"../../node_modules/@sentry/hub/esm/session.js","./sessionflusher":"../../node_modules/@sentry/hub/esm/sessionflusher.js","./hub":"../../node_modules/@sentry/hub/esm/hub.js"}],"../../node_modules/@sentry/minimal/esm/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52535,7 +52606,7 @@ var API =
 /** @class */
 function () {
   /** Create a new instance of API */
-  function API(dsn, metadata) {
+  function API(dsn, metadata, tunnel) {
     if (metadata === void 0) {
       metadata = {};
     }
@@ -52543,6 +52614,7 @@ function () {
     this.dsn = dsn;
     this._dsnObject = new _utils.Dsn(dsn);
     this.metadata = metadata;
+    this._tunnel = tunnel;
   }
   /** Returns the Dsn object. */
 
@@ -52550,11 +52622,17 @@ function () {
   API.prototype.getDsn = function () {
     return this._dsnObject;
   };
+  /** Does this transport force envelopes? */
+
+
+  API.prototype.forceEnvelope = function () {
+    return !!this._tunnel;
+  };
   /** Returns the prefix to construct Sentry ingestion API endpoints. */
 
 
   API.prototype.getBaseApiEndpoint = function () {
-    var dsn = this._dsnObject;
+    var dsn = this.getDsn();
     var protocol = dsn.protocol ? dsn.protocol + ":" : '';
     var port = dsn.port ? ":" + dsn.port : '';
     return protocol + "//" + dsn.host + port + (dsn.path ? "/" + dsn.path : '') + "/api/";
@@ -52583,13 +52661,17 @@ function () {
 
 
   API.prototype.getEnvelopeEndpointWithUrlEncodedAuth = function () {
+    if (this.forceEnvelope()) {
+      return this._tunnel;
+    }
+
     return this._getEnvelopeEndpoint() + "?" + this._encodedAuth();
   };
   /** Returns only the path component for the store endpoint. */
 
 
   API.prototype.getStoreEndpointPath = function () {
-    var dsn = this._dsnObject;
+    var dsn = this.getDsn();
     return (dsn.path ? "/" + dsn.path : '') + "/api/" + dsn.projectId + "/store/";
   };
   /**
@@ -52600,7 +52682,7 @@ function () {
 
   API.prototype.getRequestHeaders = function (clientName, clientVersion) {
     // CHANGE THIS to use metadata but keep clientName and clientVersion compatible
-    var dsn = this._dsnObject;
+    var dsn = this.getDsn();
     var header = ["Sentry sentry_version=" + SENTRY_API_VERSION];
     header.push("sentry_client=" + clientName + "/" + clientVersion);
     header.push("sentry_key=" + dsn.publicKey);
@@ -52622,7 +52704,7 @@ function () {
       dialogOptions = {};
     }
 
-    var dsn = this._dsnObject;
+    var dsn = this.getDsn();
     var endpoint = this.getBaseApiEndpoint() + "embed/error-page/";
     var encodedOptions = [];
     encodedOptions.push("dsn=" + dsn.toString());
@@ -52665,15 +52747,19 @@ function () {
 
 
   API.prototype._getIngestEndpoint = function (target) {
+    if (this._tunnel) {
+      return this._tunnel;
+    }
+
     var base = this.getBaseApiEndpoint();
-    var dsn = this._dsnObject;
+    var dsn = this.getDsn();
     return "" + base + dsn.projectId + "/" + target + "/";
   };
   /** Returns a URL-encoded string with auth config suitable for a query string. */
 
 
   API.prototype._encodedAuth = function () {
-    var dsn = this._dsnObject;
+    var dsn = this.getDsn();
     var auth = {
       // We send only the minimum set of required information. See
       // https://github.com/getsentry/sentry-javascript/issues/2572.
@@ -52915,6 +53001,12 @@ function () {
 
 
   BaseClient.prototype.captureSession = function (session) {
+    if (!this._isEnabled()) {
+      _utils.logger.warn('SDK not enabled, will not capture session.');
+
+      return;
+    }
+
     if (!(typeof session.release === 'string')) {
       _utils.logger.warn('Discarded session because of missing or non-string release');
     } else {
@@ -53001,7 +53093,6 @@ function () {
 
     var crashed = false;
     var errored = false;
-    var userAgent;
     var exceptions = event.exception && event.exception.values;
 
     if (exceptions) {
@@ -53028,29 +53119,22 @@ function () {
           if (e_1) throw e_1.error;
         }
       }
+    } // A session is updated and that session update is sent in only one of the two following scenarios:
+    // 1. Session with non terminal status and 0 errors + an error occurred -> Will set error count to 1 and send update
+    // 2. Session with non terminal status and 1 error + a crash occurred -> Will set status crashed and send update
+
+
+    var sessionNonTerminal = session.status === _types.SessionStatus.Ok;
+    var shouldUpdateAndSend = sessionNonTerminal && session.errors === 0 || sessionNonTerminal && crashed;
+
+    if (shouldUpdateAndSend) {
+      session.update((0, _tslib.__assign)((0, _tslib.__assign)({}, crashed && {
+        status: _types.SessionStatus.Crashed
+      }), {
+        errors: session.errors || Number(errored || crashed)
+      }));
+      this.captureSession(session);
     }
-
-    var user = event.user;
-
-    if (!session.userAgent) {
-      var headers = event.request ? event.request.headers : {};
-
-      for (var key in headers) {
-        if (key.toLowerCase() === 'user-agent') {
-          userAgent = headers[key];
-          break;
-        }
-      }
-    }
-
-    session.update((0, _tslib.__assign)((0, _tslib.__assign)({}, crashed && {
-      status: _types.SessionStatus.Crashed
-    }), {
-      user: user,
-      userAgent: userAgent,
-      errors: session.errors + Number(errored || crashed)
-    }));
-    this.captureSession(session);
   };
   /** Deliver captured session to Sentry */
 
@@ -53302,7 +53386,7 @@ function () {
         sampleRate = _a.sampleRate;
 
     if (!this._isEnabled()) {
-      return _utils.SyncPromise.reject(new _utils.SentryError('SDK not enabled, will not send event.'));
+      return _utils.SyncPromise.reject(new _utils.SentryError('SDK not enabled, will not capture event.'));
     }
 
     var isTransaction = event.type === 'transaction'; // 1.0 === 100% events are sent
@@ -53325,18 +53409,7 @@ function () {
       }
 
       var beforeSendResult = beforeSend(prepared, hint);
-
-      if (typeof beforeSendResult === 'undefined') {
-        throw new _utils.SentryError('`beforeSend` method has to return `null` or a valid event.');
-      } else if ((0, _utils.isThenable)(beforeSendResult)) {
-        return beforeSendResult.then(function (event) {
-          return event;
-        }, function (e) {
-          throw new _utils.SentryError("beforeSend rejected with " + e);
-        });
-      }
-
-      return beforeSendResult;
+      return _this._ensureBeforeSendRv(beforeSendResult);
     }).then(function (processedEvent) {
       if (processedEvent === null) {
         throw new _utils.SentryError('`beforeSend` returned `null`, will not send event.');
@@ -53375,13 +53448,37 @@ function () {
     var _this = this;
 
     this._processing += 1;
-    promise.then(function (value) {
+    void promise.then(function (value) {
       _this._processing -= 1;
       return value;
     }, function (reason) {
       _this._processing -= 1;
       return reason;
     });
+  };
+  /**
+   * Verifies that return value of configured `beforeSend` is of expected type.
+   */
+
+
+  BaseClient.prototype._ensureBeforeSendRv = function (rv) {
+    var nullErr = '`beforeSend` method has to return `null` or a valid event.';
+
+    if ((0, _utils.isThenable)(rv)) {
+      return rv.then(function (event) {
+        if (!((0, _utils.isPlainObject)(event) || event === null)) {
+          throw new _utils.SentryError(nullErr);
+        }
+
+        return event;
+      }, function (e) {
+        throw new _utils.SentryError("beforeSend rejected with " + e);
+      });
+    } else if (!((0, _utils.isPlainObject)(rv) || rv === null)) {
+      throw new _utils.SentryError(nullErr);
+    }
+
+    return rv;
   };
 
   return BaseClient;
@@ -53481,7 +53578,7 @@ function () {
 
 
   BaseBackend.prototype.sendEvent = function (event) {
-    this._transport.sendEvent(event).then(null, function (reason) {
+    void this._transport.sendEvent(event).then(null, function (reason) {
       _utils.logger.error("Error while sending event: " + reason);
     });
   };
@@ -53497,7 +53594,7 @@ function () {
       return;
     }
 
-    this._transport.sendSession(session).then(null, function (reason) {
+    void this._transport.sendSession(session).then(null, function (reason) {
       _utils.logger.error("Error while sending session: " + reason);
     });
   };
@@ -53570,10 +53667,12 @@ function enhanceEventWithSdkInfo(event, sdkInfo) {
 
 function sessionToSentryRequest(session, api) {
   var sdkInfo = getSdkMetadataForEnvelopeHeader(api);
-  var envelopeHeaders = JSON.stringify((0, _tslib.__assign)({
+  var envelopeHeaders = JSON.stringify((0, _tslib.__assign)((0, _tslib.__assign)({
     sent_at: new Date().toISOString()
   }, sdkInfo && {
     sdk: sdkInfo
+  }), api.forceEnvelope() && {
+    dsn: api.getDsn().toString()
   })); // I know this is hacky but we don't want to add `session` to request type since it's never rate limited
 
   var type = 'aggregates' in session ? 'sessions' : 'session';
@@ -53592,7 +53691,7 @@ function sessionToSentryRequest(session, api) {
 function eventToSentryRequest(event, api) {
   var sdkInfo = getSdkMetadataForEnvelopeHeader(api);
   var eventType = event.type || 'event';
-  var useEnvelope = eventType === 'transaction';
+  var useEnvelope = eventType === 'transaction' || api.forceEnvelope();
 
   var _a = event.debug_meta || {},
       transactionSampling = _a.transactionSampling,
@@ -53619,14 +53718,16 @@ function eventToSentryRequest(event, api) {
   // serialize events inline here.
 
   if (useEnvelope) {
-    var envelopeHeaders = JSON.stringify((0, _tslib.__assign)({
+    var envelopeHeaders = JSON.stringify((0, _tslib.__assign)((0, _tslib.__assign)({
       event_id: event.event_id,
       sent_at: new Date().toISOString()
     }, sdkInfo && {
       sdk: sdkInfo
+    }), api.forceEnvelope() && {
+      dsn: api.getDsn().toString()
     }));
     var itemHeaders = JSON.stringify({
-      type: event.type,
+      type: eventType,
       // TODO: Right now, sampleRate may or may not be defined (it won't be in the cases of inheritance and
       // explicitly-set sampling decisions). Are we good with that?
       sample_rates: [{
@@ -53682,7 +53783,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.SDK_VERSION = void 0;
-var SDK_VERSION = '6.5.0';
+var SDK_VERSION = '6.8.0';
 exports.SDK_VERSION = SDK_VERSION;
 },{}],"../../node_modules/@sentry/core/esm/integrations/functiontostring.js":[function(require,module,exports) {
 "use strict";
@@ -54763,7 +54864,7 @@ function () {
     /** Locks transport after receiving rate limits in a response */
 
     this._rateLimits = {};
-    this._api = new _core.API(options.dsn, options._metadata); // eslint-disable-next-line deprecation/deprecation
+    this._api = new _core.API(options.dsn, options._metadata, options.tunnel); // eslint-disable-next-line deprecation/deprecation
 
     this.url = this._api.getStoreEndpointWithUrlEncodedAuth();
   }
@@ -54804,7 +54905,7 @@ function () {
 
     var limited = this._handleRateLimit(headers);
 
-    if (limited) _utils.logger.warn("Too many requests, backing off until: " + this._disabledUntil(requestType));
+    if (limited) _utils.logger.warn("Too many " + requestType + " requests, backing off until: " + this._disabledUntil(requestType));
 
     if (status === _types.Status.Success) {
       resolve({
@@ -55039,7 +55140,7 @@ function (_super) {
       return Promise.reject({
         event: originalPayload,
         type: sentryRequest.type,
-        reason: "Transport locked till " + this._disabledUntil(sentryRequest.type) + " due to too many requests.",
+        reason: "Transport for " + sentryRequest.type + " requests locked till " + this._disabledUntil(sentryRequest.type) + " due to too many requests.",
         status: 429
       });
     }
@@ -55062,22 +55163,24 @@ function (_super) {
       options.headers = this.options.headers;
     }
 
-    return this._buffer.add(new _utils.SyncPromise(function (resolve, reject) {
-      _this._fetch(sentryRequest.url, options).then(function (response) {
-        var headers = {
-          'x-sentry-rate-limits': response.headers.get('X-Sentry-Rate-Limits'),
-          'retry-after': response.headers.get('Retry-After')
-        };
+    return this._buffer.add(function () {
+      return new _utils.SyncPromise(function (resolve, reject) {
+        void _this._fetch(sentryRequest.url, options).then(function (response) {
+          var headers = {
+            'x-sentry-rate-limits': response.headers.get('X-Sentry-Rate-Limits'),
+            'retry-after': response.headers.get('Retry-After')
+          };
 
-        _this._handleResponse({
-          requestType: sentryRequest.type,
-          response: response,
-          headers: headers,
-          resolve: resolve,
-          reject: reject
-        });
-      }).catch(reject);
-    }));
+          _this._handleResponse({
+            requestType: sentryRequest.type,
+            response: response,
+            headers: headers,
+            resolve: resolve,
+            reject: reject
+          });
+        }).catch(reject);
+      });
+    });
   };
 
   return FetchTransport;
@@ -55138,41 +55241,43 @@ function (_super) {
       return Promise.reject({
         event: originalPayload,
         type: sentryRequest.type,
-        reason: "Transport locked till " + this._disabledUntil(sentryRequest.type) + " due to too many requests.",
+        reason: "Transport for " + sentryRequest.type + " requests locked till " + this._disabledUntil(sentryRequest.type) + " due to too many requests.",
         status: 429
       });
     }
 
-    return this._buffer.add(new _utils.SyncPromise(function (resolve, reject) {
-      var request = new XMLHttpRequest();
+    return this._buffer.add(function () {
+      return new _utils.SyncPromise(function (resolve, reject) {
+        var request = new XMLHttpRequest();
 
-      request.onreadystatechange = function () {
-        if (request.readyState === 4) {
-          var headers = {
-            'x-sentry-rate-limits': request.getResponseHeader('X-Sentry-Rate-Limits'),
-            'retry-after': request.getResponseHeader('Retry-After')
-          };
+        request.onreadystatechange = function () {
+          if (request.readyState === 4) {
+            var headers = {
+              'x-sentry-rate-limits': request.getResponseHeader('X-Sentry-Rate-Limits'),
+              'retry-after': request.getResponseHeader('Retry-After')
+            };
 
-          _this._handleResponse({
-            requestType: sentryRequest.type,
-            response: request,
-            headers: headers,
-            resolve: resolve,
-            reject: reject
-          });
+            _this._handleResponse({
+              requestType: sentryRequest.type,
+              response: request,
+              headers: headers,
+              resolve: resolve,
+              reject: reject
+            });
+          }
+        };
+
+        request.open('POST', sentryRequest.url);
+
+        for (var header in _this.options.headers) {
+          if (_this.options.headers.hasOwnProperty(header)) {
+            request.setRequestHeader(header, _this.options.headers[header]);
+          }
         }
-      };
 
-      request.open('POST', sentryRequest.url);
-
-      for (var header in _this.options.headers) {
-        if (_this.options.headers.hasOwnProperty(header)) {
-          request.setRequestHeader(header, _this.options.headers[header]);
-        }
-      }
-
-      request.send(sentryRequest.body);
-    }));
+        request.send(sentryRequest.body);
+      });
+    });
   };
 
   return XHRTransport;
@@ -55274,6 +55379,7 @@ function (_super) {
 
     var transportOptions = (0, _tslib.__assign)((0, _tslib.__assign)({}, this._options.transportOptions), {
       dsn: this._options.dsn,
+      tunnel: this._options.tunnel,
       _metadata: this._options._metadata
     });
 
@@ -55584,7 +55690,7 @@ function () {
         }
 
         var client = currentHub.getClient();
-        var event = (0, _utils.isPrimitive)(error) ? _this._eventFromIncompleteOnError(data.msg, data.url, data.line, data.column) : _this._enhanceEventWithInitialFrame((0, _eventbuilder.eventFromUnknownInput)(error, undefined, {
+        var event = error === undefined && (0, _utils.isString)(data.msg) ? _this._eventFromIncompleteOnError(data.msg, data.url, data.line, data.column) : _this._enhanceEventWithInitialFrame((0, _eventbuilder.eventFromUnknownInput)(error || data.msg, undefined, {
           attachStacktrace: client && client.getOptions().attachStacktrace,
           rejection: false
         }), data.url, data.line, data.column);
@@ -55669,14 +55775,11 @@ function () {
 
     var message = (0, _utils.isErrorEvent)(msg) ? msg.message : msg;
     var name;
+    var groups = message.match(ERROR_TYPES_RE);
 
-    if ((0, _utils.isString)(message)) {
-      var groups = message.match(ERROR_TYPES_RE);
-
-      if (groups) {
-        name = groups[1];
-        message = groups[2];
-      }
+    if (groups) {
+      name = groups[1];
+      message = groups[2];
     }
 
     var event = {
@@ -56008,9 +56111,7 @@ var _types = require("@sentry/types");
 
 var _utils = require("@sentry/utils");
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
-/* eslint-disable max-lines */
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function (obj) { return typeof obj; }; } else { _typeof = function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
  * Default Breadcrumbs instrumentations
@@ -56182,10 +56283,16 @@ function () {
 
 
   Breadcrumbs.prototype._domBreadcrumb = function (handlerData) {
-    var target; // Accessing event.target can throw (see getsentry/raven-js#838, #768)
+    var target;
+    var keyAttrs = _typeof(this._options.dom) === 'object' ? this._options.dom.serializeAttribute : undefined;
+
+    if (typeof keyAttrs === 'string') {
+      keyAttrs = [keyAttrs];
+    } // Accessing event.target can throw (see getsentry/raven-js#838, #768)
+
 
     try {
-      target = handlerData.event.target ? (0, _utils.htmlTreeAsString)(handlerData.event.target) : (0, _utils.htmlTreeAsString)(handlerData.event);
+      target = handlerData.event.target ? (0, _utils.htmlTreeAsString)(handlerData.event.target, keyAttrs) : (0, _utils.htmlTreeAsString)(handlerData.event, keyAttrs);
     } catch (e) {
       target = '<unknown>';
     }
@@ -56497,7 +56604,221 @@ function () {
 }();
 
 exports.UserAgent = UserAgent;
-},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/core":"../../node_modules/@sentry/core/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js"}],"../../node_modules/@sentry/browser/esm/integrations/index.js":[function(require,module,exports) {
+},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/core":"../../node_modules/@sentry/core/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js"}],"../../node_modules/@sentry/browser/esm/integrations/dedupe.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Dedupe = void 0;
+
+/** Deduplication filter */
+var Dedupe =
+/** @class */
+function () {
+  function Dedupe() {
+    /**
+     * @inheritDoc
+     */
+    this.name = Dedupe.id;
+  }
+  /**
+   * @inheritDoc
+   */
+
+
+  Dedupe.prototype.setupOnce = function (addGlobalEventProcessor, getCurrentHub) {
+    addGlobalEventProcessor(function (currentEvent) {
+      var self = getCurrentHub().getIntegration(Dedupe);
+
+      if (self) {
+        // Juuust in case something goes wrong
+        try {
+          if (self._shouldDropEvent(currentEvent, self._previousEvent)) {
+            return null;
+          }
+        } catch (_oO) {
+          return self._previousEvent = currentEvent;
+        }
+
+        return self._previousEvent = currentEvent;
+      }
+
+      return currentEvent;
+    });
+  };
+  /** JSDoc */
+
+
+  Dedupe.prototype._shouldDropEvent = function (currentEvent, previousEvent) {
+    if (!previousEvent) {
+      return false;
+    }
+
+    if (this._isSameMessageEvent(currentEvent, previousEvent)) {
+      return true;
+    }
+
+    if (this._isSameExceptionEvent(currentEvent, previousEvent)) {
+      return true;
+    }
+
+    return false;
+  };
+  /** JSDoc */
+
+
+  Dedupe.prototype._isSameMessageEvent = function (currentEvent, previousEvent) {
+    var currentMessage = currentEvent.message;
+    var previousMessage = previousEvent.message; // If neither event has a message property, they were both exceptions, so bail out
+
+    if (!currentMessage && !previousMessage) {
+      return false;
+    } // If only one event has a stacktrace, but not the other one, they are not the same
+
+
+    if (currentMessage && !previousMessage || !currentMessage && previousMessage) {
+      return false;
+    }
+
+    if (currentMessage !== previousMessage) {
+      return false;
+    }
+
+    if (!this._isSameFingerprint(currentEvent, previousEvent)) {
+      return false;
+    }
+
+    if (!this._isSameStacktrace(currentEvent, previousEvent)) {
+      return false;
+    }
+
+    return true;
+  };
+  /** JSDoc */
+
+
+  Dedupe.prototype._getFramesFromEvent = function (event) {
+    var exception = event.exception;
+
+    if (exception) {
+      try {
+        // @ts-ignore Object could be undefined
+        return exception.values[0].stacktrace.frames;
+      } catch (_oO) {
+        return undefined;
+      }
+    } else if (event.stacktrace) {
+      return event.stacktrace.frames;
+    }
+
+    return undefined;
+  };
+  /** JSDoc */
+
+
+  Dedupe.prototype._isSameStacktrace = function (currentEvent, previousEvent) {
+    var currentFrames = this._getFramesFromEvent(currentEvent);
+
+    var previousFrames = this._getFramesFromEvent(previousEvent); // If neither event has a stacktrace, they are assumed to be the same
+
+
+    if (!currentFrames && !previousFrames) {
+      return true;
+    } // If only one event has a stacktrace, but not the other one, they are not the same
+
+
+    if (currentFrames && !previousFrames || !currentFrames && previousFrames) {
+      return false;
+    }
+
+    currentFrames = currentFrames;
+    previousFrames = previousFrames; // If number of frames differ, they are not the same
+
+    if (previousFrames.length !== currentFrames.length) {
+      return false;
+    } // Otherwise, compare the two
+
+
+    for (var i = 0; i < previousFrames.length; i++) {
+      var frameA = previousFrames[i];
+      var frameB = currentFrames[i];
+
+      if (frameA.filename !== frameB.filename || frameA.lineno !== frameB.lineno || frameA.colno !== frameB.colno || frameA.function !== frameB.function) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+  /** JSDoc */
+
+
+  Dedupe.prototype._getExceptionFromEvent = function (event) {
+    return event.exception && event.exception.values && event.exception.values[0];
+  };
+  /** JSDoc */
+
+
+  Dedupe.prototype._isSameExceptionEvent = function (currentEvent, previousEvent) {
+    var previousException = this._getExceptionFromEvent(previousEvent);
+
+    var currentException = this._getExceptionFromEvent(currentEvent);
+
+    if (!previousException || !currentException) {
+      return false;
+    }
+
+    if (previousException.type !== currentException.type || previousException.value !== currentException.value) {
+      return false;
+    }
+
+    if (!this._isSameFingerprint(currentEvent, previousEvent)) {
+      return false;
+    }
+
+    if (!this._isSameStacktrace(currentEvent, previousEvent)) {
+      return false;
+    }
+
+    return true;
+  };
+  /** JSDoc */
+
+
+  Dedupe.prototype._isSameFingerprint = function (currentEvent, previousEvent) {
+    var currentFingerprint = currentEvent.fingerprint;
+    var previousFingerprint = previousEvent.fingerprint; // If neither event has a fingerprint, they are assumed to be the same
+
+    if (!currentFingerprint && !previousFingerprint) {
+      return true;
+    } // If only one event has a fingerprint, but not the other one, they are not the same
+
+
+    if (currentFingerprint && !previousFingerprint || !currentFingerprint && previousFingerprint) {
+      return false;
+    }
+
+    currentFingerprint = currentFingerprint;
+    previousFingerprint = previousFingerprint; // Otherwise, compare the two
+
+    try {
+      return !!(currentFingerprint.join('') === previousFingerprint.join(''));
+    } catch (_oO) {
+      return false;
+    }
+  };
+  /**
+   * @inheritDoc
+   */
+
+
+  Dedupe.id = 'Dedupe';
+  return Dedupe;
+}();
+
+exports.Dedupe = Dedupe;
+},{}],"../../node_modules/@sentry/browser/esm/integrations/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -56533,6 +56854,12 @@ Object.defineProperty(exports, "UserAgent", {
     return _useragent.UserAgent;
   }
 });
+Object.defineProperty(exports, "Dedupe", {
+  enumerable: true,
+  get: function () {
+    return _dedupe.Dedupe;
+  }
+});
 
 var _globalhandlers = require("./globalhandlers");
 
@@ -56543,7 +56870,9 @@ var _breadcrumbs = require("./breadcrumbs");
 var _linkederrors = require("./linkederrors");
 
 var _useragent = require("./useragent");
-},{"./globalhandlers":"../../node_modules/@sentry/browser/esm/integrations/globalhandlers.js","./trycatch":"../../node_modules/@sentry/browser/esm/integrations/trycatch.js","./breadcrumbs":"../../node_modules/@sentry/browser/esm/integrations/breadcrumbs.js","./linkederrors":"../../node_modules/@sentry/browser/esm/integrations/linkederrors.js","./useragent":"../../node_modules/@sentry/browser/esm/integrations/useragent.js"}],"../../node_modules/@sentry/browser/esm/client.js":[function(require,module,exports) {
+
+var _dedupe = require("./dedupe");
+},{"./globalhandlers":"../../node_modules/@sentry/browser/esm/integrations/globalhandlers.js","./trycatch":"../../node_modules/@sentry/browser/esm/integrations/trycatch.js","./breadcrumbs":"../../node_modules/@sentry/browser/esm/integrations/breadcrumbs.js","./linkederrors":"../../node_modules/@sentry/browser/esm/integrations/linkederrors.js","./useragent":"../../node_modules/@sentry/browser/esm/integrations/useragent.js","./dedupe":"../../node_modules/@sentry/browser/esm/integrations/dedupe.js"}],"../../node_modules/@sentry/browser/esm/client.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -56681,7 +57010,7 @@ var _helpers = require("./helpers");
 
 var _integrations = require("./integrations");
 
-var defaultIntegrations = [new _core.Integrations.InboundFilters(), new _core.Integrations.FunctionToString(), new _integrations.TryCatch(), new _integrations.Breadcrumbs(), new _integrations.GlobalHandlers(), new _integrations.LinkedErrors(), new _integrations.UserAgent()];
+var defaultIntegrations = [new _core.Integrations.InboundFilters(), new _core.Integrations.FunctionToString(), new _integrations.TryCatch(), new _integrations.Breadcrumbs(), new _integrations.GlobalHandlers(), new _integrations.LinkedErrors(), new _integrations.Dedupe(), new _integrations.UserAgent()];
 /**
  * The Sentry Browser SDK Client.
  *
@@ -56889,9 +57218,15 @@ function startSessionTracking() {
 
   if (typeof hub.startSession !== 'function' || typeof hub.captureSession !== 'function') {
     return;
-  }
+  } // The session duration for browser sessions does not track a meaningful
+  // concept that can be used as a metric.
+  // Automatically captured sessions are akin to page views, and thus we
+  // discard their duration.
 
-  hub.startSession();
+
+  hub.startSession({
+    ignoreDuration: true
+  });
   hub.captureSession(); // We want to create a session for every navigation as well
 
   (0, _utils.addInstrumentationHandler)({
@@ -56903,7 +57238,9 @@ function startSessionTracking() {
         return;
       }
 
-      hub.startSession();
+      hub.startSession({
+        ignoreDuration: true
+      });
       hub.captureSession();
     },
     type: 'history'
@@ -65498,7 +65835,6 @@ var DialogError = /*#__PURE__*/function (_React$Component) {
       var _this = this;
 
       return /*#__PURE__*/_react["default"].createElement(_Dialog["default"], {
-        key: this.props.key,
         open: true,
         maxWidth: "sm",
         fullWidth: true,
@@ -65530,7 +65866,6 @@ var DialogError = /*#__PURE__*/function (_React$Component) {
 }(_react["default"].Component);
 
 DialogError.propTypes = {
-  key: _propTypes["default"].string,
   onClose: _propTypes["default"].func,
   title: _propTypes["default"].string,
   text: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].element]),
@@ -67740,7 +68075,7 @@ var styles = function styles(theme) {
  * @property {number} [size] The size in pixels of this loader.
  * @property {string} [themeType] The chosen theme type.
  * @property {string} [theme] The chosen theme.
- * 
+ *
  * @extends {React.Component<LoaderProps>}
  */
 
@@ -67768,7 +68103,6 @@ var Loader = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var theme = this.props.themeType || this.props.theme || 'light';
       return /*#__PURE__*/_react["default"].createElement("div", {
-        key: this.props.key,
         className: 'logo-back logo-background-' + theme
       }, /*#__PURE__*/_react["default"].createElement("div", {
         className: "logo-div",
@@ -67817,7 +68151,6 @@ var Loader = /*#__PURE__*/function (_React$Component) {
 }(_react["default"].Component);
 
 Loader.propTypes = {
-  key: _propTypes["default"].string,
   size: _propTypes["default"].number,
   themeType: _propTypes["default"].string
 };
@@ -68875,7 +69208,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").",
   "ra_expertMode": "Expert mode",
-  "ra_On weekdays": "On weekdays"
+  "ra_On weekdays": "On weekdays",
+  "ra_Drop the files here...": "Drop the file here...",
+  "ra_Drag 'n' drop some files here, or click to select files": "Drag 'n' drop some files here, or click to select files",
+  "ra_Clear": "Delete",
+  "ra_Clear icon": "Clear icon",
+  "ra_none": "none",
+  "ra_Select predefined icon": "Select predefined icon"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/de.json":[function(require,module,exports) {
 module.exports = {
@@ -69149,7 +69488,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Nicht-Experten dürfen neue Objekte nur in \"0_userdata.0\" oder \"alias.0\" erstellen.",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Die Experten können Objekte überall erstellen, außer auf der zweiten Ebene (z. B. \"vis.0\" oder \"javascript.0\").",
   "ra_expertMode": "Expertenmodus",
-  "ra_On weekdays": "An Wochentagen"
+  "ra_On weekdays": "An Wochentagen",
+  "ra_Drop the files here...": "Datei hier ablegen...",
+  "ra_Drag 'n' drop some files here, or click to select files": "Die Datei hierher ziehen und ablegen, oder klicken, um die Datei auszuwählen",
+  "ra_Clear": "Löschen",
+  "ra_Clear icon": "Symbol löschen",
+  "ra_none": "kein",
+  "ra_Select predefined icon": "Vordefiniertes Symbol auswählen"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/ru.json":[function(require,module,exports) {
 module.exports = {
@@ -69423,7 +69768,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Не-эксперты могут создавать новые объекты только в «0_userdata.0» или «alias.0».",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Эксперты могут создавать объекты везде, кроме второго уровня (например, «vis.0» или «javascript.0»).",
   "ra_expertMode": "Экспертный режим",
-  "ra_On weekdays": "На выходных"
+  "ra_On weekdays": "На выходных",
+  "ra_Drop the files here...": "Перетащите файл сюда ...",
+  "ra_Drag 'n' drop some files here, or click to select files": "Перетащите сюда несколько файлов или щелкните, чтобы выбрать файлы",
+  "ra_Clear": "Удалить",
+  "ra_Clear icon": "Очистить значок",
+  "ra_none": "ничего",
+  "ra_Select predefined icon": "Выберите предопределенный значок"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/pt.json":[function(require,module,exports) {
 module.exports = {
@@ -69684,7 +70035,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Os não especialistas podem criar novos objetos apenas em \"0_userdata.0\" ou \"alias.0\".",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Os especialistas podem criar objetos em qualquer lugar, exceto no segundo nível (por exemplo, \"vis.0\" ou \"javascript.0\").",
   "ra_expertMode": "Modo especialista",
-  "ra_On weekdays": "Nos dias úteis"
+  "ra_On weekdays": "Nos dias úteis",
+  "ra_Drop the files here...": "Solte o arquivo aqui ...",
+  "ra_Drag 'n' drop some files here, or click to select files": "Arraste e solte alguns arquivos aqui ou clique para selecionar arquivos",
+  "ra_Clear": "Excluir",
+  "ra_Clear icon": "Ícone de limpeza",
+  "ra_none": "Nenhum",
+  "ra_Select predefined icon": "Selecione o ícone predefinido"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/nl.json":[function(require,module,exports) {
 module.exports = {
@@ -69945,7 +70302,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Niet-experts mogen alleen nieuwe objecten maken in \"0_userdata.0\" of \"alias.0\".",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "De experts kunnen overal objecten maken, behalve vanaf het tweede niveau (bijv. \"Vis.0\" of \"javascript.0\").",
   "ra_expertMode": "Expert modus",
-  "ra_On weekdays": "Op weekdagen"
+  "ra_On weekdays": "Op weekdagen",
+  "ra_Drop the files here...": "Zet het bestand hier neer...",
+  "ra_Drag 'n' drop some files here, or click to select files": "Sleep enkele bestanden hierheen, of klik om bestanden te selecteren",
+  "ra_Clear": "Verwijderen",
+  "ra_Clear icon": "Pictogram wissen",
+  "ra_none": "geen",
+  "ra_Select predefined icon": "Selecteer voorgedefinieerd pictogram"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/fr.json":[function(require,module,exports) {
 module.exports = {
@@ -70206,7 +70569,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Les non-experts ne peuvent créer de nouveaux objets que dans \"0_userdata.0\" ou \"alias.0\".",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Les experts peuvent créer des objets partout mais à partir du deuxième niveau (par exemple \"vis.0\" ou \"javascript.0\").",
   "ra_expertMode": "Mode expert",
-  "ra_On weekdays": "En semaine"
+  "ra_On weekdays": "En semaine",
+  "ra_Drop the files here...": "Déposez le fichier ici...",
+  "ra_Drag 'n' drop some files here, or click to select files": "Glissez-déposez des fichiers ici, ou cliquez pour sélectionner des fichiers",
+  "ra_Clear": "Effacer",
+  "ra_Clear icon": "Effacer l'icône",
+  "ra_none": "rien",
+  "ra_Select predefined icon": "Sélectionnez l'icône prédéfinie"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/it.json":[function(require,module,exports) {
 module.exports = {
@@ -70467,7 +70836,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "I non esperti possono creare nuovi oggetti solo in \"0_userdata.0\" o \"alias.0\".",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Gli esperti possono creare oggetti ovunque ma dal secondo livello (es. \"Vis.0\" o \"javascript.0\").",
   "ra_expertMode": "Modalità esperto",
-  "ra_On weekdays": "Nei giorni della settimana"
+  "ra_On weekdays": "Nei giorni della settimana",
+  "ra_Drop the files here...": "Trascina qui il file...",
+  "ra_Drag 'n' drop some files here, or click to select files": "Trascina e rilascia alcuni file qui o fai clic per selezionare i file",
+  "ra_Clear": "Elimina",
+  "ra_Clear icon": "Cancella icona",
+  "ra_none": "nessuna",
+  "ra_Select predefined icon": "Seleziona l'icona predefinita"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/es.json":[function(require,module,exports) {
 module.exports = {
@@ -70728,7 +71103,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Los no expertos pueden crear nuevos objetos solo en \"0_userdata.0\" o \"alias.0\".",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Los expertos pueden crear objetos en todas partes excepto desde el segundo nivel (por ejemplo, \"vis.0\" o \"javascript.0\").",
   "ra_expertMode": "Modo experto",
-  "ra_On weekdays": "De lunes a viernes"
+  "ra_On weekdays": "De lunes a viernes",
+  "ra_Drop the files here...": "Suelta el archivo aquí ...",
+  "ra_Drag 'n' drop some files here, or click to select files": "Arrastre y suelte algunos archivos aquí, o haga clic para seleccionar archivos",
+  "ra_Clear": "Borrar",
+  "ra_Clear icon": "Icono claro",
+  "ra_none": "ninguno",
+  "ra_Select predefined icon": "Seleccionar icono predefinido"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/pl.json":[function(require,module,exports) {
 module.exports = {
@@ -70989,7 +71370,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "Osoby nie będące ekspertami mogą tworzyć nowe obiekty tylko w „0_userdata.0” lub „alias.0”.",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "Eksperci mogą tworzyć obiekty wszędzie poza drugim poziomem (np. „Vis.0” lub „javascript.0”).",
   "ra_expertMode": "Tryb ekspercki",
-  "ra_On weekdays": "W dni powszednie"
+  "ra_On weekdays": "W dni powszednie",
+  "ra_Drop the files here...": "Upuść plik tutaj...",
+  "ra_Drag 'n' drop some files here, or click to select files": "Przeciągnij i upuść kilka plików tutaj lub kliknij, aby wybrać pliki",
+  "ra_Clear": "Kasować",
+  "ra_Clear icon": "Wyczyść ikonę",
+  "ra_none": "Żaden",
+  "ra_Select predefined icon": "Wybierz predefiniowaną ikonę"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/i18n/zh-cn.json":[function(require,module,exports) {
 module.exports = {
@@ -71250,7 +71637,13 @@ module.exports = {
   "ra_Non-experts may create new objects only in \"0_userdata.0\" or \"alias.0\".": "非专家只能在“ 0_userdata.0”或“ alias.0”中创建新对象。",
   "ra_The experts may create objects everywhere but from second level (e.g. \"vis.0\" or \"javascript.0\").": "专家可以在任何地方创建对象，但要从第二层开始（例如“ vis.0”或“ javascript.0”）。",
   "ra_expertMode": "专家模式",
-  "ra_On weekdays": "在工作日"
+  "ra_On weekdays": "在工作日",
+  "ra_Drop the files here...": "把文件放在这里...",
+  "ra_Drag 'n' drop some files here, or click to select files": "将一些文件拖放到此处，或单击以选择文件",
+  "ra_Clear": "删除",
+  "ra_Clear icon": "清除图标",
+  "ra_none": "没有任何",
+  "ra_Select predefined icon": "选择预定义图标"
 };
 },{}],"../../node_modules/@iobroker/adapter-react/GenericApp.js":[function(require,module,exports) {
 "use strict";
@@ -71358,6 +71751,11 @@ var GenericApp = /*#__PURE__*/function (_Router) {
     var _this;
 
     _classCallCheck(this, GenericApp);
+
+    if (window.io && window.location.port === '3000') {
+      delete window.io;
+      window.io = new window.SocketClient();
+    }
 
     _this = _super.call(this, props);
 
@@ -80390,7 +80788,10 @@ function (_super) {
     }
 
     return react_1.default.createElement("div", {
-      className: "App"
+      className: "App",
+      style: {
+        background: this.state.themeType === "dark" ? "#1f1f1f" : "white"
+      }
     }, react_1.default.createElement(settings_1.default, {
       native: this.state.native,
       onChange: function onChange(attr, value) {
