@@ -31332,6 +31332,7 @@ exports.getContrastRatio = getContrastRatio;
 exports.getLuminance = getLuminance;
 exports.emphasize = emphasize;
 exports.fade = fade;
+exports.alpha = alpha;
 exports.darken = darken;
 exports.lighten = lighten;
 
@@ -31557,6 +31558,8 @@ function emphasize(color) {
   var coefficient = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.15;
   return getLuminance(color) > 0.5 ? darken(color, coefficient) : lighten(color, coefficient);
 }
+
+var warnedOnce = false;
 /**
  * Set the absolute transparency of a color.
  * Any existing alpha values are overwritten.
@@ -31564,10 +31567,32 @@ function emphasize(color) {
  * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
  * @param {number} value - value to set the alpha channel to in the range 0 -1
  * @returns {string} A CSS color string. Hex input values are returned as rgb
+ *
+ * @deprecated
+ * Use `import { alpha } from '@material-ui/core/styles'` instead.
+ */
+
+function fade(color, value) {
+  if ("development" !== 'production') {
+    if (!warnedOnce) {
+      warnedOnce = true;
+      console.error(['Material-UI: The `fade` color utility was renamed to `alpha` to better describe its functionality.', '', "You should use `import { alpha } from '@material-ui/core/styles'`"].join('\n'));
+    }
+  }
+
+  return alpha(color, value);
+}
+/**
+ * Set the absolute transparency of a color.
+ * Any existing alpha value is overwritten.
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {number} value - value to set the alpha channel to in the range 0-1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
  */
 
 
-function fade(color, value) {
+function alpha(color, value) {
   color = decomposeColor(color);
   value = clamp(value);
 
@@ -31744,7 +31769,16 @@ function createBreakpoints(breakpoints) {
     return between(key, key);
   }
 
+  var warnedOnce = false;
+
   function width(key) {
+    if ("development" !== 'production') {
+      if (!warnedOnce) {
+        warnedOnce = true;
+        console.warn(["Material-UI: The `theme.breakpoints.width` utility is deprecated because it's redundant.", 'Use the `theme.breakpoints.values` instead.'].join('\n'));
+      }
+    }
+
     return values[key];
   }
 
@@ -31777,23 +31811,8 @@ function createMixins(breakpoints, spacing, mixins) {
 
   return (0, _extends2.default)({
     gutters: function gutters() {
-      var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}; // To deprecate in v4.1
-      //       warning(
-      //         false,
-      //         [
-      //           'Material-UI: Theme.mixins.gutters() is deprecated.',
-      //           'You can use the source of the mixin directly:',
-      //           `
-      // paddingLeft: theme.spacing(2),
-      // paddingRight: theme.spacing(2),
-      // [theme.breakpoints.up('sm')]: {
-      //   paddingLeft: theme.spacing(3),
-      //   paddingRight: theme.spacing(3),
-      // },
-      // `,
-      //         ].join('\n'),
-      //       );
-
+      var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      console.warn(['Material-UI: theme.mixins.gutters() is deprecated.', 'You can use the source of the mixin directly:', "\n      paddingLeft: theme.spacing(2),\n      paddingRight: theme.spacing(2),\n      [theme.breakpoints.up('sm')]: {\n        paddingLeft: theme.spacing(3),\n        paddingRight: theme.spacing(3),\n      },\n      "].join('\n'));
       return (0, _extends2.default)({
         paddingLeft: spacing(2),
         paddingRight: spacing(2)
@@ -32195,7 +32214,7 @@ function createPalette(palette) {
     }
 
     if (typeof color.main !== 'string') {
-      throw new Error("development" !== "production" ? "Material-UI: The color provided to augmentColor(color) is invalid.\n`color.main` should be a string, but `".concat(JSON.stringify(color.main), "` was provided instead.\n\nDid you intend to use one of the following approaches?\n\nimport {\xA0green } from \"@material-ui/core/colors\";\n\nconst theme1 = createMuiTheme({ palette: {\n  primary: green,\n} });\n\nconst theme2 = createMuiTheme({ palette: {\n  primary: { main: green[500] },\n} });") : (0, _utils.formatMuiErrorMessage)(5, JSON.stringify(color.main)));
+      throw new Error("development" !== "production" ? "Material-UI: The color provided to augmentColor(color) is invalid.\n`color.main` should be a string, but `".concat(JSON.stringify(color.main), "` was provided instead.\n\nDid you intend to use one of the following approaches?\n\nimport {\xA0green } from \"@material-ui/core/colors\";\n\nconst theme1 = createTheme({ palette: {\n  primary: green,\n} });\n\nconst theme2 = createTheme({ palette: {\n  primary: { main: green[500] },\n} });") : (0, _utils.formatMuiErrorMessage)(5, JSON.stringify(color.main)));
     }
 
     addLightOrDark(color, 'light', lightShade, tonalOffset);
@@ -32270,6 +32289,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function round(value) {
   return Math.round(value * 1e5) / 1e5;
+}
+
+var warnedOnce = false;
+
+function roundWithDeprecationWarning(value) {
+  if ("development" !== 'production') {
+    if (!warnedOnce) {
+      console.warn(['Material-UI: The `theme.typography.round` helper is deprecated.', 'Head to https://material-ui.com/r/migration-v4/#theme for a migration path.'].join('\n'));
+      warnedOnce = true;
+    }
+  }
+
+  return round(value);
 }
 
 var caseAllCaps = {
@@ -32347,7 +32379,7 @@ function createTypography(palette, typography) {
   return (0, _utils.deepmerge)((0, _extends2.default)({
     htmlFontSize: htmlFontSize,
     pxToRem: pxToRem,
-    round: round,
+    round: roundWithDeprecationWarning,
     // TODO v5: remove
     fontFamily: fontFamily,
     fontSize: fontSize,
@@ -32817,12 +32849,13 @@ exports.borderRadius = borderRadius;
 var borders = (0, _compose.default)(border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderRadius);
 var _default = borders;
 exports.default = _default;
-},{"./style":"../../node_modules/@material-ui/system/esm/style.js","./compose":"../../node_modules/@material-ui/system/esm/compose.js"}],"../../node_modules/@material-ui/system/esm/css.js":[function(require,module,exports) {
+},{"./style":"../../node_modules/@material-ui/system/esm/style.js","./compose":"../../node_modules/@material-ui/system/esm/compose.js"}],"../../node_modules/@material-ui/system/esm/styleFunctionSx.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.css = css;
 exports.default = void 0;
 
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/toConsumableArray"));
@@ -32830,6 +32863,8 @@ var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _utils = require("@material-ui/utils");
 
 var _merge = _interopRequireDefault(require("./merge"));
 
@@ -32845,7 +32880,9 @@ function omit(input, fields) {
   return output;
 }
 
-function css(styleFunction) {
+var warnedOnce = false;
+
+function styleFunctionSx(styleFunction) {
   var newStyleFunction = function newStyleFunction(props) {
     var output = styleFunction(props);
 
@@ -32855,19 +32892,47 @@ function css(styleFunction) {
       }, props.css))), omit(props.css, [styleFunction.filterProps]));
     }
 
+    if (props.sx) {
+      return (0, _extends2.default)({}, (0, _merge.default)(output, styleFunction((0, _extends2.default)({
+        theme: props.theme
+      }, props.sx))), omit(props.sx, [styleFunction.filterProps]));
+    }
+
     return output;
   };
 
   newStyleFunction.propTypes = "development" !== 'production' ? (0, _extends2.default)({}, styleFunction.propTypes, {
-    css: _propTypes.default.object
+    css: (0, _utils.chainPropTypes)(_propTypes.default.object, function (props) {
+      if (!warnedOnce && props.css !== undefined) {
+        warnedOnce = true;
+        return new Error('Material-UI: The `css` prop is deprecated, please use the `sx` prop instead.');
+      }
+
+      return null;
+    }),
+    sx: _propTypes.default.object
   }) : {};
-  newStyleFunction.filterProps = ['css'].concat((0, _toConsumableArray2.default)(styleFunction.filterProps));
+  newStyleFunction.filterProps = ['css', 'sx'].concat((0, _toConsumableArray2.default)(styleFunction.filterProps));
   return newStyleFunction;
 }
+/**
+ *
+ * @deprecated
+ * The css style function is deprecated. Use the `styleFunctionSx` instead.
+ */
 
-var _default = css;
+
+function css(styleFunction) {
+  if ("development" !== 'production') {
+    console.warn('Material-UI: The `css` function is deprecated. Use the `styleFunctionSx` instead.');
+  }
+
+  return styleFunctionSx(styleFunction);
+}
+
+var _default = styleFunctionSx;
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/toConsumableArray":"../../node_modules/@babel/runtime/helpers/esm/toConsumableArray.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","prop-types":"../../node_modules/prop-types/index.js","./merge":"../../node_modules/@material-ui/system/esm/merge.js"}],"../../node_modules/@material-ui/system/esm/display.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/toConsumableArray":"../../node_modules/@babel/runtime/helpers/esm/toConsumableArray.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","prop-types":"../../node_modules/prop-types/index.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","./merge":"../../node_modules/@material-ui/system/esm/merge.js"}],"../../node_modules/@material-ui/system/esm/display.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33521,7 +33586,7 @@ var _exportNames = {
   borders: true,
   breakpoints: true,
   compose: true,
-  css: true,
+  styleFunctionSx: true,
   display: true,
   flexbox: true,
   grid: true,
@@ -33551,10 +33616,10 @@ Object.defineProperty(exports, "compose", {
     return _compose.default;
   }
 });
-Object.defineProperty(exports, "css", {
+Object.defineProperty(exports, "styleFunctionSx", {
   enumerable: true,
   get: function () {
-    return _css.default;
+    return _styleFunctionSx.default;
   }
 });
 Object.defineProperty(exports, "display", {
@@ -33636,7 +33701,19 @@ var _breakpoints = _interopRequireDefault(require("./breakpoints"));
 
 var _compose = _interopRequireDefault(require("./compose"));
 
-var _css = _interopRequireDefault(require("./css"));
+var _styleFunctionSx = _interopRequireWildcard(require("./styleFunctionSx"));
+
+Object.keys(_styleFunctionSx).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _styleFunctionSx[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function () {
+      return _styleFunctionSx[key];
+    }
+  });
+});
 
 var _display = _interopRequireDefault(require("./display"));
 
@@ -33747,7 +33824,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-},{"./borders":"../../node_modules/@material-ui/system/esm/borders.js","./breakpoints":"../../node_modules/@material-ui/system/esm/breakpoints.js","./compose":"../../node_modules/@material-ui/system/esm/compose.js","./css":"../../node_modules/@material-ui/system/esm/css.js","./display":"../../node_modules/@material-ui/system/esm/display.js","./flexbox":"../../node_modules/@material-ui/system/esm/flexbox.js","./grid":"../../node_modules/@material-ui/system/esm/grid.js","./palette":"../../node_modules/@material-ui/system/esm/palette.js","./positions":"../../node_modules/@material-ui/system/esm/positions.js","./shadows":"../../node_modules/@material-ui/system/esm/shadows.js","./sizing":"../../node_modules/@material-ui/system/esm/sizing.js","./spacing":"../../node_modules/@material-ui/system/esm/spacing.js","./style":"../../node_modules/@material-ui/system/esm/style.js","./typography":"../../node_modules/@material-ui/system/esm/typography.js"}],"../../node_modules/@material-ui/core/esm/styles/createSpacing.js":[function(require,module,exports) {
+},{"./borders":"../../node_modules/@material-ui/system/esm/borders.js","./breakpoints":"../../node_modules/@material-ui/system/esm/breakpoints.js","./compose":"../../node_modules/@material-ui/system/esm/compose.js","./styleFunctionSx":"../../node_modules/@material-ui/system/esm/styleFunctionSx.js","./display":"../../node_modules/@material-ui/system/esm/display.js","./flexbox":"../../node_modules/@material-ui/system/esm/flexbox.js","./grid":"../../node_modules/@material-ui/system/esm/grid.js","./palette":"../../node_modules/@material-ui/system/esm/palette.js","./positions":"../../node_modules/@material-ui/system/esm/positions.js","./shadows":"../../node_modules/@material-ui/system/esm/shadows.js","./sizing":"../../node_modules/@material-ui/system/esm/sizing.js","./spacing":"../../node_modules/@material-ui/system/esm/spacing.js","./style":"../../node_modules/@material-ui/system/esm/style.js","./typography":"../../node_modules/@material-ui/system/esm/typography.js"}],"../../node_modules/@material-ui/core/esm/styles/createSpacing.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33954,12 +34031,13 @@ var zIndex = {
 };
 var _default = zIndex;
 exports.default = _default;
-},{}],"../../node_modules/@material-ui/core/esm/styles/createMuiTheme.js":[function(require,module,exports) {
+},{}],"../../node_modules/@material-ui/core/esm/styles/createTheme.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.createMuiTheme = createMuiTheme;
 exports.default = void 0;
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/defineProperty"));
@@ -33988,7 +34066,7 @@ var _zIndex = _interopRequireDefault(require("./zIndex"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function createMuiTheme() {
+function createTheme() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var _options$breakpoints = options.breakpoints,
       breakpointsInput = _options$breakpoints === void 0 ? {} : _options$breakpoints,
@@ -34061,7 +34139,20 @@ function createMuiTheme() {
   return muiTheme;
 }
 
-var _default = createMuiTheme;
+var warnedOnce = false;
+
+function createMuiTheme() {
+  if ("development" !== 'production') {
+    if (!warnedOnce) {
+      warnedOnce = true;
+      console.error(['Material-UI: the createMuiTheme function was renamed to createTheme.', '', "You should use `import { createTheme } from '@material-ui/core/styles'`"].join('\n'));
+    }
+  }
+
+  return createTheme.apply(void 0, arguments);
+}
+
+var _default = createTheme;
 exports.default = _default;
 },{"@babel/runtime/helpers/esm/defineProperty":"../../node_modules/@babel/runtime/helpers/esm/defineProperty.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","./createBreakpoints":"../../node_modules/@material-ui/core/esm/styles/createBreakpoints.js","./createMixins":"../../node_modules/@material-ui/core/esm/styles/createMixins.js","./createPalette":"../../node_modules/@material-ui/core/esm/styles/createPalette.js","./createTypography":"../../node_modules/@material-ui/core/esm/styles/createTypography.js","./shadows":"../../node_modules/@material-ui/core/esm/styles/shadows.js","./shape":"../../node_modules/@material-ui/core/esm/styles/shape.js","./createSpacing":"../../node_modules/@material-ui/core/esm/styles/createSpacing.js","./transitions":"../../node_modules/@material-ui/core/esm/styles/transitions.js","./zIndex":"../../node_modules/@material-ui/core/esm/styles/zIndex.js"}],"../../node_modules/@material-ui/core/esm/styles/createMuiStrictModeTheme.js":[function(require,module,exports) {
 "use strict";
@@ -34073,7 +34164,7 @@ exports.default = createMuiStrictModeTheme;
 
 var _utils = require("@material-ui/utils");
 
-var _createMuiTheme = _interopRequireDefault(require("./createMuiTheme"));
+var _createTheme = _interopRequireDefault(require("./createTheme"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34082,11 +34173,11 @@ function createMuiStrictModeTheme(options) {
     args[_key - 1] = arguments[_key];
   }
 
-  return _createMuiTheme.default.apply(void 0, [(0, _utils.deepmerge)({
+  return _createTheme.default.apply(void 0, [(0, _utils.deepmerge)({
     unstable_strictMode: true
   }, options)].concat(args));
 }
-},{"@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","./createMuiTheme":"../../node_modules/@material-ui/core/esm/styles/createMuiTheme.js"}],"../../node_modules/@material-ui/styles/esm/ThemeProvider/nested.js":[function(require,module,exports) {
+},{"@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","./createTheme":"../../node_modules/@material-ui/core/esm/styles/createTheme.js"}],"../../node_modules/@material-ui/styles/esm/ThemeProvider/nested.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34541,7 +34632,7 @@ function toCss(selector, style, options) {
 
           if (value != null) {
             if (result) result += '\n';
-            result += "" + indentStr(prop + ": " + toCssValue(value) + ";", indent);
+            result += indentStr(prop + ": " + toCssValue(value) + ";", indent);
           }
         }
       }
@@ -34552,7 +34643,7 @@ function toCss(selector, style, options) {
 
         if (_value != null) {
           if (result) result += '\n';
-          result += "" + indentStr(_prop + ": " + toCssValue(_value) + ";", indent);
+          result += indentStr(_prop + ": " + toCssValue(_value) + ";", indent);
         }
       }
     }
@@ -34563,7 +34654,7 @@ function toCss(selector, style, options) {
 
     if (_value2 != null && _prop2 !== 'fallbacks') {
       if (result) result += '\n';
-      result += "" + indentStr(_prop2 + ": " + toCssValue(_value2) + ";", indent);
+      result += indentStr(_prop2 + ": " + toCssValue(_value2) + ";", indent);
     }
   } // Allow empty style in this case, because properties will be added dynamically.
 
@@ -35874,7 +35965,8 @@ var createGenerateId = function createGenerateId(options) {
   }
 
   var ruleCounter = 0;
-  return function (rule, sheet) {
+
+  var generateId = function generateId(rule, sheet) {
     ruleCounter += 1;
 
     if (ruleCounter > maxRules) {
@@ -35901,6 +35993,8 @@ var createGenerateId = function createGenerateId(options) {
 
     return prefix + rule.key + "-" + moduleId + (jssId ? "-" + jssId : '') + "-" + ruleCounter;
   };
+
+  return generateId;
 };
 /**
  * Cache the value from the first time a function is called.
@@ -36374,7 +36468,7 @@ var instanceCounter = 0;
 var Jss = /*#__PURE__*/function () {
   function Jss(options) {
     this.id = instanceCounter++;
-    this.version = "10.6.0";
+    this.version = "10.7.1";
     this.plugins = new PluginsRegistry();
     this.options = {
       id: {
@@ -40261,14 +40355,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _createMuiTheme = _interopRequireDefault(require("./createMuiTheme"));
+var _createTheme = _interopRequireDefault(require("./createTheme"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var defaultTheme = (0, _createMuiTheme.default)();
+var defaultTheme = (0, _createTheme.default)();
 var _default = defaultTheme;
 exports.default = _default;
-},{"./createMuiTheme":"../../node_modules/@material-ui/core/esm/styles/createMuiTheme.js"}],"../../node_modules/@material-ui/core/esm/styles/makeStyles.js":[function(require,module,exports) {
+},{"./createTheme":"../../node_modules/@material-ui/core/esm/styles/createTheme.js"}],"../../node_modules/@material-ui/core/esm/styles/makeStyles.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40625,6 +40719,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var _exportNames = {
+  createTheme: true,
   createMuiTheme: true,
   unstable_createMuiStrictModeTheme: true,
   createStyles: true,
@@ -40641,10 +40736,16 @@ var _exportNames = {
   MuiThemeProvider: true,
   ThemeProvider: true
 };
+Object.defineProperty(exports, "createTheme", {
+  enumerable: true,
+  get: function () {
+    return _createTheme.default;
+  }
+});
 Object.defineProperty(exports, "createMuiTheme", {
   enumerable: true,
   get: function () {
-    return _createMuiTheme.default;
+    return _createTheme.createMuiTheme;
   }
 });
 Object.defineProperty(exports, "unstable_createMuiStrictModeTheme", {
@@ -40746,7 +40847,7 @@ Object.keys(_colorManipulator).forEach(function (key) {
   });
 });
 
-var _createMuiTheme = _interopRequireDefault(require("./createMuiTheme"));
+var _createTheme = _interopRequireWildcard(require("./createTheme"));
 
 var _createMuiStrictModeTheme = _interopRequireDefault(require("./createMuiStrictModeTheme"));
 
@@ -40781,7 +40882,11 @@ var _withTheme = _interopRequireDefault(require("./withTheme"));
 var _styles = require("@material-ui/styles");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./colorManipulator":"../../node_modules/@material-ui/core/esm/styles/colorManipulator.js","./createMuiTheme":"../../node_modules/@material-ui/core/esm/styles/createMuiTheme.js","./createMuiStrictModeTheme":"../../node_modules/@material-ui/core/esm/styles/createMuiStrictModeTheme.js","./createStyles":"../../node_modules/@material-ui/core/esm/styles/createStyles.js","./makeStyles":"../../node_modules/@material-ui/core/esm/styles/makeStyles.js","./responsiveFontSizes":"../../node_modules/@material-ui/core/esm/styles/responsiveFontSizes.js","./styled":"../../node_modules/@material-ui/core/esm/styles/styled.js","./transitions":"../../node_modules/@material-ui/core/esm/styles/transitions.js","./useTheme":"../../node_modules/@material-ui/core/esm/styles/useTheme.js","./withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","./withTheme":"../../node_modules/@material-ui/core/esm/styles/withTheme.js","@material-ui/styles":"../../node_modules/@material-ui/styles/esm/index.js"}],"../../node_modules/@material-ui/core/colors/orange.js":[function(require,module,exports) {
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+},{"./colorManipulator":"../../node_modules/@material-ui/core/esm/styles/colorManipulator.js","./createTheme":"../../node_modules/@material-ui/core/esm/styles/createTheme.js","./createMuiStrictModeTheme":"../../node_modules/@material-ui/core/esm/styles/createMuiStrictModeTheme.js","./createStyles":"../../node_modules/@material-ui/core/esm/styles/createStyles.js","./makeStyles":"../../node_modules/@material-ui/core/esm/styles/makeStyles.js","./responsiveFontSizes":"../../node_modules/@material-ui/core/esm/styles/responsiveFontSizes.js","./styled":"../../node_modules/@material-ui/core/esm/styles/styled.js","./transitions":"../../node_modules/@material-ui/core/esm/styles/transitions.js","./useTheme":"../../node_modules/@material-ui/core/esm/styles/useTheme.js","./withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","./withTheme":"../../node_modules/@material-ui/core/esm/styles/withTheme.js","@material-ui/styles":"../../node_modules/@material-ui/styles/esm/index.js"}],"../../node_modules/@material-ui/core/colors/orange.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42953,7 +43058,7 @@ exports["default"] = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.ERRORS = exports.NOT_CONNECTED = exports.PERMISSION_ERROR = exports.PROGRESS = void 0;
+exports["default"] = exports.ERRORS = exports.PROGRESS = void 0;
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -42993,9 +43098,7 @@ var PROGRESS = {
 };
 exports.PROGRESS = PROGRESS;
 var PERMISSION_ERROR = 'permissionError';
-exports.PERMISSION_ERROR = PERMISSION_ERROR;
 var NOT_CONNECTED = 'notConnectedError';
-exports.NOT_CONNECTED = NOT_CONNECTED;
 var ERRORS = {
   PERMISSION_ERROR: PERMISSION_ERROR,
   NOT_CONNECTED: NOT_CONNECTED
@@ -44096,10 +44199,11 @@ var Connection = /*#__PURE__*/function () {
         cb && cb();
       } else {
         var obj = objs.pop();
-        this.delObject(obj._id).then(function () {
-          obj._id = obj.newId;
-          delete obj.newId;
-          return _this20.setObject(obj._id, obj);
+        var oldId = obj._id;
+        obj._id = obj.newId;
+        delete obj.newId;
+        this.setObject(obj._id, obj).then(function () {
+          return _this20.delObject(oldId);
         }).then(function () {
           return setTimeout(function () {
             return _this20._renameGroups(objs, cb);
@@ -44151,7 +44255,9 @@ var Connection = /*#__PURE__*/function () {
                 obj.common.name = newName;
               }
 
-              return _this21.setObject(obj._id, obj);
+              return _this21.setObject(obj._id, obj).then(function () {
+                return _this21.delObject(id);
+              });
             }
           });
         }
@@ -47260,9 +47366,7 @@ var _tslib = require("tslib");
 var _polyfill = require("./polyfill");
 
 /** An error emitted by Sentry SDKs and related utilities. */
-var SentryError =
-/** @class */
-function (_super) {
+var SentryError = function (_super) {
   (0, _tslib.__extends)(SentryError, _super);
 
   function SentryError(message) {
@@ -47299,9 +47403,7 @@ var DSN_REGEX = /^(?:(\w+):)\/\/(?:(\w+)(?::(\w+))?@)([\w.-]+)(?::(\d+))?\/(.+)/
 var ERROR_MESSAGE = 'Invalid Dsn';
 /** The Sentry Dsn, identifying a Sentry instance and project. */
 
-var Dsn =
-/** @class */
-function () {
+var Dsn = function () {
   /** Creates a new Dsn component */
   function Dsn(from) {
     if (typeof from === 'string') {
@@ -48156,9 +48258,7 @@ var global = (0, _misc.getGlobalObject)();
 var PREFIX = 'Sentry Logger ';
 /** JSDoc */
 
-var Logger =
-/** @class */
-function () {
+var Logger = function () {
   /** JSDoc */
   function Logger() {
     this._enabled = false;
@@ -48254,9 +48354,7 @@ exports.Memo = void 0;
 /**
  * Memo class used for decycle json objects. Uses WeakSet if available otherwise array.
  */
-var Memo =
-/** @class */
-function () {
+var Memo = function () {
   function Memo() {
     this._hasWeakSet = typeof WeakSet === 'function';
     this._inner = this._hasWeakSet ? new WeakSet() : [];
@@ -49507,13 +49605,13 @@ function makeDOMEventHandler(handler, globalListener) {
     } // If there is a debounce awaiting, see if the new event is different enough to treat it as a unique one.
     // If that's the case, emit the previous event and store locally the newly-captured DOM event.
     else if (shouldShortcircuitPreviousDebounce(lastCapturedEvent, event)) {
-        handler({
-          event: event,
-          name: name,
-          global: globalListener
-        });
-        lastCapturedEvent = event;
-      } // Start a new debounce timer that will prevent us from capturing multiple events that should be grouped together.
+      handler({
+        event: event,
+        name: name,
+        global: globalListener
+      });
+      lastCapturedEvent = event;
+    } // Start a new debounce timer that will prevent us from capturing multiple events that should be grouped together.
 
 
     clearTimeout(debounceTimerID);
@@ -49911,9 +50009,7 @@ var States;
  */
 
 
-var SyncPromise =
-/** @class */
-function () {
+var SyncPromise = function () {
   function SyncPromise(executor) {
     var _this = this;
 
@@ -50150,9 +50246,7 @@ var _error = require("./error");
 var _syncpromise = require("./syncpromise");
 
 /** A simple queue that holds promises. */
-var PromiseBuffer =
-/** @class */
-function () {
+var PromiseBuffer = function () {
   function PromiseBuffer(_limit) {
     this._limit = _limit;
     /** Internal set of queued Promises */
@@ -50168,10 +50262,13 @@ function () {
     return this._limit === undefined || this.length() < this._limit;
   };
   /**
-   * Add a promise to the queue.
+   * Add a promise (representing an in-flight action) to the queue, and set it to remove itself on fulfillment.
    *
-   * @param taskProducer A function producing any PromiseLike<T>; In previous versions this used to be `task: PromiseLike<T>`,
-   *        however, Promises were instantly created on the call-site, making them fall through the buffer limit.
+   * @param taskProducer A function producing any PromiseLike<T>; In previous versions this used to be `task:
+   *        PromiseLike<T>`, but under that model, Promises were instantly created on the call-site and their executor
+   *        functions therefore ran immediately. Thus, even if the buffer was full, the action still happened. By
+   *        requiring the promise to be wrapped in a function, we can defer promise creation until after the buffer
+   *        limit check.
    * @returns The original promise.
    */
 
@@ -50181,7 +50278,8 @@ function () {
 
     if (!this.isReady()) {
       return _syncpromise.SyncPromise.reject(new _error.SentryError('Not adding Promise due to buffer limit reached.'));
-    }
+    } // start the task and add its promise to the queue
+
 
     var task = taskProducer();
 
@@ -50191,15 +50289,17 @@ function () {
 
     void task.then(function () {
       return _this.remove(task);
-    }).then(null, function () {
-      return _this.remove(task).then(null, function () {// We have to add this catch here otherwise we have an unhandledPromiseRejection
-        // because it's a new Promise chain.
+    }) // Use `then(null, rejectionHandler)` rather than `catch(rejectionHandler)` so that we can use `PromiseLike`
+    // rather than `Promise`. `PromiseLike` doesn't have a `.catch` method, making its polyfill smaller. (ES5 didn't
+    // have promises, so TS has to polyfill when down-compiling.)
+    .then(null, function () {
+      return _this.remove(task).then(null, function () {// We have to add another catch here because `this.remove()` starts a new promise chain.
       });
     });
     return task;
   };
   /**
-   * Remove a promise to the queue.
+   * Remove a promise from the queue.
    *
    * @param task Can be any PromiseLike<T>
    * @returns Removed promise.
@@ -50220,10 +50320,13 @@ function () {
     return this._buffer.length;
   };
   /**
-   * This will drain the whole queue, returns true if queue is empty or drained.
-   * If timeout is provided and the queue takes longer to drain, the promise still resolves but with false.
+   * Wait for all promises in the queue to resolve or for timeout to expire, whichever comes first.
    *
-   * @param timeout Number in ms to wait until it resolves with false.
+   * @param timeout The time, in ms, after which to resolve to `false` if the queue is still non-empty. Passing `0` (or
+   * not passing anything) will make the promise wait as long as it takes for the queue to drain before resolving to
+   * `true`.
+   * @returns A promise which will resolve to `true` if the queue is already empty or drains before the timeout, and
+   * `false` otherwise
    */
 
 
@@ -50231,11 +50334,13 @@ function () {
     var _this = this;
 
     return new _syncpromise.SyncPromise(function (resolve) {
+      // wait for `timeout` ms and then resolve to `false` (if not cancelled first)
       var capturedSetTimeout = setTimeout(function () {
         if (timeout && timeout > 0) {
           resolve(false);
         }
-      }, timeout);
+      }, timeout); // if all promises resolve in time, cancel the timer and resolve to `true`
+
       void _syncpromise.SyncPromise.all(_this._buffer).then(function () {
         clearTimeout(capturedSetTimeout);
         resolve(true);
@@ -50694,9 +50799,7 @@ var MAX_BREADCRUMBS = 100;
  * called by the client before an event will be sent.
  */
 
-var Scope =
-/** @class */
-function () {
+var Scope = function () {
   function Scope() {
     /** Flag if notifiying is happening. */
     this._notifyingListeners = false;
@@ -51279,9 +51382,7 @@ var _utils = require("@sentry/utils");
 /**
  * @inheritdoc
  */
-var Session =
-/** @class */
-function () {
+var Session = function () {
   function Session(context) {
     this.errors = 0;
     this.sid = (0, _utils.uuid4)();
@@ -51463,9 +51564,7 @@ var DEFAULT_BREADCRUMBS = 100;
  * @inheritDoc
  */
 
-var Hub =
-/** @class */
-function () {
+var Hub = function () {
   /**
    * Creates a new instance of the hub, will push one {@link Layer} into the
    * internal stack on creation.
@@ -52119,9 +52218,7 @@ var _hub = require("./hub");
 /**
  * @inheritdoc
  */
-var SessionFlusher =
-/** @class */
-function () {
+var SessionFlusher = function () {
   function SessionFlusher(transport, attrs) {
     var _this = this;
 
@@ -52602,9 +52699,7 @@ var SENTRY_API_VERSION = '7';
  * Supports both envelopes and regular event requests.
  **/
 
-var API =
-/** @class */
-function () {
+var API = function () {
   /** Create a new instance of API */
   function API(dsn, metadata, tunnel) {
     if (metadata === void 0) {
@@ -52921,9 +53016,7 @@ var _integration = require("./integration");
  *   // ...
  * }
  */
-var BaseClient =
-/** @class */
-function () {
+var BaseClient = function () {
   /**
    * Initializes this client instance.
    *
@@ -52933,9 +53026,9 @@ function () {
   function BaseClient(backendClass, options) {
     /** Array of used integrations. */
     this._integrations = {};
-    /** Number of call being processed */
+    /** Number of calls being processed */
 
-    this._processing = 0;
+    this._numProcessing = 0;
     this._backend = new backendClass(options);
     this._options = options;
 
@@ -53042,9 +53135,9 @@ function () {
   BaseClient.prototype.flush = function (timeout) {
     var _this = this;
 
-    return this._isClientProcessing(timeout).then(function (ready) {
+    return this._isClientDoneProcessing(timeout).then(function (clientFinished) {
       return _this._getBackend().getTransport().close(timeout).then(function (transportFlushed) {
-        return ready && transportFlushed;
+        return clientFinished && transportFlushed;
       });
     });
   };
@@ -53142,17 +53235,26 @@ function () {
   BaseClient.prototype._sendSession = function (session) {
     this._getBackend().sendSession(session);
   };
-  /** Waits for the client to be done with processing. */
+  /**
+   * Determine if the client is finished processing. Returns a promise because it will wait `timeout` ms before saying
+   * "no" (resolving to `false`) in order to give the client a chance to potentially finish first.
+   *
+   * @param timeout The time, in ms, after which to resolve to `false` if the client is still busy. Passing `0` (or not
+   * passing anything) will make the promise wait as long as it takes for processing to finish before resolving to
+   * `true`.
+   * @returns A promise which will resolve to `true` if processing is already done or finishes before the timeout, and
+   * `false` otherwise
+   */
 
 
-  BaseClient.prototype._isClientProcessing = function (timeout) {
+  BaseClient.prototype._isClientDoneProcessing = function (timeout) {
     var _this = this;
 
     return new _utils.SyncPromise(function (resolve) {
       var ticked = 0;
       var tick = 1;
       var interval = setInterval(function () {
-        if (_this._processing == 0) {
+        if (_this._numProcessing == 0) {
           clearInterval(interval);
           resolve(true);
         } else {
@@ -53274,6 +53376,13 @@ function () {
     if (event.contexts && event.contexts.trace) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       normalized.contexts.trace = event.contexts.trace;
+    }
+
+    var _a = this.getOptions()._experiments,
+        _experiments = _a === void 0 ? {} : _a;
+
+    if (_experiments.ensureNoCircularStructures) {
+      return (0, _utils.normalize)(normalized);
     }
 
     return normalized;
@@ -53447,12 +53556,12 @@ function () {
   BaseClient.prototype._process = function (promise) {
     var _this = this;
 
-    this._processing += 1;
+    this._numProcessing += 1;
     void promise.then(function (value) {
-      _this._processing -= 1;
+      _this._numProcessing -= 1;
       return value;
     }, function (reason) {
-      _this._processing -= 1;
+      _this._numProcessing -= 1;
       return reason;
     });
   };
@@ -53498,9 +53607,7 @@ var _types = require("@sentry/types");
 var _utils = require("@sentry/utils");
 
 /** Noop transport */
-var NoopTransport =
-/** @class */
-function () {
+var NoopTransport = function () {
   function NoopTransport() {}
   /**
    * @inheritDoc
@@ -53542,9 +53649,7 @@ var _noop = require("./transports/noop");
  * This is the base implemention of a Backend.
  * @hidden
  */
-var BaseBackend =
-/** @class */
-function () {
+var BaseBackend = function () {
   /** Creates a new backend instance. */
   function BaseBackend(options) {
     this._options = options;
@@ -53783,7 +53888,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.SDK_VERSION = void 0;
-var SDK_VERSION = '6.8.0';
+var SDK_VERSION = '6.10.0';
 exports.SDK_VERSION = SDK_VERSION;
 },{}],"../../node_modules/@sentry/core/esm/integrations/functiontostring.js":[function(require,module,exports) {
 "use strict";
@@ -53795,9 +53900,7 @@ exports.FunctionToString = void 0;
 var originalFunctionToString;
 /** Patch toString calls to return proper name for wrapped functions */
 
-var FunctionToString =
-/** @class */
-function () {
+var FunctionToString = function () {
   function FunctionToString() {
     /**
      * @inheritDoc
@@ -53853,9 +53956,7 @@ var _utils = require("@sentry/utils");
 var DEFAULT_IGNORE_ERRORS = [/^Script error\.?$/, /^Javascript error: Script error\.? on line 0$/];
 /** Inbound filters configurable by the user */
 
-var InboundFilters =
-/** @class */
-function () {
+var InboundFilters = function () {
   function InboundFilters(_options) {
     if (_options === void 0) {
       _options = {};
@@ -54853,9 +54954,7 @@ var CATEGORY_MAPPING = {
 };
 /** Base Transport class implementation */
 
-var BaseTransport =
-/** @class */
-function () {
+var BaseTransport = function () {
   function BaseTransport(options) {
     this.options = options;
     /** A simple buffer holding all requests. */
@@ -55096,9 +55195,7 @@ function getNativeFetchImplementation() {
 /** `fetch` based transport */
 
 
-var FetchTransport =
-/** @class */
-function (_super) {
+var FetchTransport = function (_super) {
   (0, _tslib.__extends)(FetchTransport, _super);
 
   function FetchTransport(options, fetchImpl) {
@@ -55204,9 +55301,7 @@ var _utils = require("@sentry/utils");
 var _base = require("./base");
 
 /** `XHR` based transport */
-var XHRTransport =
-/** @class */
-function (_super) {
+var XHRTransport = function (_super) {
   (0, _tslib.__extends)(XHRTransport, _super);
 
   function XHRTransport() {
@@ -55338,9 +55433,7 @@ var _transports = require("./transports");
  * The Sentry Browser SDK Backend.
  * @hidden
  */
-var BrowserBackend =
-/** @class */
-function (_super) {
+var BrowserBackend = function (_super) {
   (0, _tslib.__extends)(BrowserBackend, _super);
 
   function BrowserBackend() {
@@ -55627,9 +55720,7 @@ var _helpers = require("../helpers");
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 /** Global handlers */
-var GlobalHandlers =
-/** @class */
-function () {
+var GlobalHandlers = function () {
   /** JSDoc */
   function GlobalHandlers(options) {
     /**
@@ -55732,8 +55823,8 @@ function () {
           // see https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent and
           // https://github.com/getsentry/sentry-javascript/issues/2380
           else if ('detail' in e && 'reason' in e.detail) {
-              error = e.detail.reason;
-            }
+            error = e.detail.reason;
+          }
         } catch (_oO) {// no-empty
         }
 
@@ -55865,9 +55956,7 @@ var _helpers = require("../helpers");
 var DEFAULT_EVENT_TARGET = ['EventTarget', 'Window', 'Node', 'ApplicationCache', 'AudioTrackList', 'ChannelMergerNode', 'CryptoOperation', 'EventSource', 'FileReader', 'HTMLUnknownElement', 'IDBDatabase', 'IDBRequest', 'IDBTransaction', 'KeyOperation', 'MediaController', 'MessagePort', 'ModalWindow', 'Notification', 'SVGElementInstance', 'Screen', 'TextTrack', 'TextTrackCue', 'TextTrackList', 'WebSocket', 'WebSocketWorker', 'Worker', 'XMLHttpRequest', 'XMLHttpRequestEventTarget', 'XMLHttpRequestUpload'];
 /** Wrap timer functions and event targets to catch errors and provide better meta data */
 
-var TryCatch =
-/** @class */
-function () {
+var TryCatch = function () {
   /**
    * @inheritDoc
    */
@@ -56117,9 +56206,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
  * Default Breadcrumbs instrumentations
  * TODO: Deprecated - with v6, this will be renamed to `Instrument`
  */
-var Breadcrumbs =
-/** @class */
-function () {
+var Breadcrumbs = function () {
   /**
    * @inheritDoc
    */
@@ -56452,9 +56539,7 @@ var DEFAULT_KEY = 'cause';
 var DEFAULT_LIMIT = 5;
 /** Adds SDK info to an event. */
 
-var LinkedErrors =
-/** @class */
-function () {
+var LinkedErrors = function () {
   /**
    * @inheritDoc
    */
@@ -56548,9 +56633,7 @@ var _utils = require("@sentry/utils");
 var global = (0, _utils.getGlobalObject)();
 /** UserAgent */
 
-var UserAgent =
-/** @class */
-function () {
+var UserAgent = function () {
   function UserAgent() {
     /**
      * @inheritDoc
@@ -56613,9 +56696,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.Dedupe = void 0;
 
 /** Deduplication filter */
-var Dedupe =
-/** @class */
-function () {
+var Dedupe = function () {
   function Dedupe() {
     /**
      * @inheritDoc
@@ -56898,9 +56979,7 @@ var _integrations = require("./integrations");
  * @see BrowserOptions for documentation on configuration options.
  * @see SentryClient for usage documentation.
  */
-var BrowserClient =
-/** @class */
-function (_super) {
+var BrowserClient = function (_super) {
   (0, _tslib.__extends)(BrowserClient, _super);
   /**
    * Creates a new Browser SDK instance.
@@ -56999,6 +57078,8 @@ exports.flush = flush;
 exports.close = close;
 exports.wrap = wrap;
 exports.defaultIntegrations = void 0;
+
+var _tslib = require("tslib");
 
 var _core = require("@sentry/core");
 
@@ -57110,11 +57191,18 @@ function showReportDialog(options) {
     options = {};
   }
 
-  if (!options.eventId) {
-    options.eventId = (0, _core.getCurrentHub)().lastEventId();
+  var hub = (0, _core.getCurrentHub)();
+  var scope = hub.getScope();
+
+  if (scope) {
+    options.user = (0, _tslib.__assign)((0, _tslib.__assign)({}, scope.getUser()), options.user);
   }
 
-  var client = (0, _core.getCurrentHub)().getClient();
+  if (!options.eventId) {
+    options.eventId = hub.lastEventId();
+  }
+
+  var client = hub.getClient();
 
   if (client) {
     client.showReportDialog(options);
@@ -57246,7 +57334,7 @@ function startSessionTracking() {
     type: 'history'
   });
 }
-},{"@sentry/core":"../../node_modules/@sentry/core/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js","./client":"../../node_modules/@sentry/browser/esm/client.js","./helpers":"../../node_modules/@sentry/browser/esm/helpers.js","./integrations":"../../node_modules/@sentry/browser/esm/integrations/index.js"}],"../../node_modules/@sentry/browser/esm/version.js":[function(require,module,exports) {
+},{"tslib":"../../node_modules/tslib/tslib.es6.js","@sentry/core":"../../node_modules/@sentry/core/esm/index.js","@sentry/utils":"../../node_modules/@sentry/utils/esm/index.js","./client":"../../node_modules/@sentry/browser/esm/client.js","./helpers":"../../node_modules/@sentry/browser/esm/helpers.js","./integrations":"../../node_modules/@sentry/browser/esm/integrations/index.js"}],"../../node_modules/@sentry/browser/esm/version.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57648,10 +57736,10 @@ exports.keys = void 0;
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
-
-// Sorted ASC by size. That's important.
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties")); // Sorted ASC by size. That's important.
 // It can't be configured as it's used statically for propTypes.
+
+
 var keys = ['xs', 'sm', 'md', 'lg', 'xl']; // Keep in mind that @media is inclusive by the CSS specification.
 
 exports.keys = keys;
@@ -57703,7 +57791,16 @@ function createBreakpoints(breakpoints) {
     return between(key, key);
   }
 
+  var warnedOnce = false;
+
   function width(key) {
+    if ("development" !== 'production') {
+      if (!warnedOnce) {
+        warnedOnce = true;
+        console.warn(["Material-UI: The `theme.breakpoints.width` utility is deprecated because it's redundant.", 'Use the `theme.breakpoints.values` instead.'].join('\n'));
+      }
+    }
+
     return values[key];
   }
 
@@ -57737,22 +57834,7 @@ function createMixins(breakpoints, spacing, mixins) {
   return (0, _extends3.default)({
     gutters: function gutters() {
       var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      // To deprecate in v4.1
-      //       warning(
-      //         false,
-      //         [
-      //           'Material-UI: Theme.mixins.gutters() is deprecated.',
-      //           'You can use the source of the mixin directly:',
-      //           `
-      // paddingLeft: theme.spacing(2),
-      // paddingRight: theme.spacing(2),
-      // [theme.breakpoints.up('sm')]: {
-      //   paddingLeft: theme.spacing(3),
-      //   paddingRight: theme.spacing(3),
-      // },
-      // `,
-      //         ].join('\n'),
-      //       );
+      console.warn(['Material-UI: theme.mixins.gutters() is deprecated.', 'You can use the source of the mixin directly:', "\n      paddingLeft: theme.spacing(2),\n      paddingRight: theme.spacing(2),\n      [theme.breakpoints.up('sm')]: {\n        paddingLeft: theme.spacing(3),\n        paddingRight: theme.spacing(3),\n      },\n      "].join('\n'));
       return (0, _extends3.default)({
         paddingLeft: spacing(2),
         paddingRight: spacing(2)
@@ -57948,6 +58030,7 @@ exports.getContrastRatio = getContrastRatio;
 exports.getLuminance = getLuminance;
 exports.emphasize = emphasize;
 exports.fade = fade;
+exports.alpha = alpha;
 exports.darken = darken;
 exports.lighten = lighten;
 
@@ -58174,6 +58257,8 @@ function emphasize(color) {
   var coefficient = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.15;
   return getLuminance(color) > 0.5 ? darken(color, coefficient) : lighten(color, coefficient);
 }
+
+var warnedOnce = false;
 /**
  * Set the absolute transparency of a color.
  * Any existing alpha values are overwritten.
@@ -58181,10 +58266,32 @@ function emphasize(color) {
  * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
  * @param {number} value - value to set the alpha channel to in the range 0 -1
  * @returns {string} A CSS color string. Hex input values are returned as rgb
+ *
+ * @deprecated
+ * Use `import { alpha } from '@material-ui/core/styles'` instead.
+ */
+
+function fade(color, value) {
+  if ("development" !== 'production') {
+    if (!warnedOnce) {
+      warnedOnce = true;
+      console.error(['Material-UI: The `fade` color utility was renamed to `alpha` to better describe its functionality.', '', "You should use `import { alpha } from '@material-ui/core/styles'`"].join('\n'));
+    }
+  }
+
+  return alpha(color, value);
+}
+/**
+ * Set the absolute transparency of a color.
+ * Any existing alpha value is overwritten.
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {number} value - value to set the alpha channel to in the range 0-1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
  */
 
 
-function fade(color, value) {
+function alpha(color, value) {
   color = decomposeColor(color);
   value = clamp(value);
 
@@ -58437,7 +58544,7 @@ function createPalette(palette) {
     }
 
     if (typeof color.main !== 'string') {
-      throw new Error("development" !== "production" ? "Material-UI: The color provided to augmentColor(color) is invalid.\n`color.main` should be a string, but `".concat(JSON.stringify(color.main), "` was provided instead.\n\nDid you intend to use one of the following approaches?\n\nimport {\xA0green } from \"@material-ui/core/colors\";\n\nconst theme1 = createMuiTheme({ palette: {\n  primary: green,\n} });\n\nconst theme2 = createMuiTheme({ palette: {\n  primary: { main: green[500] },\n} });") : _formatMuiErrorMessage(5, JSON.stringify(color.main)));
+      throw new Error("development" !== "production" ? "Material-UI: The color provided to augmentColor(color) is invalid.\n`color.main` should be a string, but `".concat(JSON.stringify(color.main), "` was provided instead.\n\nDid you intend to use one of the following approaches?\n\nimport {\xA0green } from \"@material-ui/core/colors\";\n\nconst theme1 = createTheme({ palette: {\n  primary: green,\n} });\n\nconst theme2 = createTheme({ palette: {\n  primary: { main: green[500] },\n} });") : _formatMuiErrorMessage(5, JSON.stringify(color.main)));
     }
 
     addLightOrDark(color, 'light', lightShade, tonalOffset);
@@ -58512,6 +58619,19 @@ var _utils = require("@material-ui/utils");
 
 function round(value) {
   return Math.round(value * 1e5) / 1e5;
+}
+
+var warnedOnce = false;
+
+function roundWithDeprecationWarning(value) {
+  if ("development" !== 'production') {
+    if (!warnedOnce) {
+      console.warn(['Material-UI: The `theme.typography.round` helper is deprecated.', 'Head to https://material-ui.com/r/migration-v4/#theme for a migration path.'].join('\n'));
+      warnedOnce = true;
+    }
+  }
+
+  return round(value);
 }
 
 var caseAllCaps = {
@@ -58589,7 +58709,7 @@ function createTypography(palette, typography) {
   return (0, _utils.deepmerge)((0, _extends2.default)({
     htmlFontSize: htmlFontSize,
     pxToRem: pxToRem,
-    round: round,
+    round: roundWithDeprecationWarning,
     // TODO v5: remove
     fontFamily: fontFamily,
     fontSize: fontSize,
@@ -58840,7 +58960,7 @@ var zIndex = {
 };
 var _default = zIndex;
 exports.default = _default;
-},{}],"../../node_modules/@material-ui/core/styles/createMuiTheme.js":[function(require,module,exports) {
+},{}],"../../node_modules/@material-ui/core/styles/createTheme.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -58848,6 +58968,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.createMuiTheme = createMuiTheme;
 exports.default = void 0;
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
@@ -58874,7 +58995,7 @@ var _transitions = _interopRequireDefault(require("./transitions"));
 
 var _zIndex = _interopRequireDefault(require("./zIndex"));
 
-function createMuiTheme() {
+function createTheme() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var _options$breakpoints = options.breakpoints,
       breakpointsInput = _options$breakpoints === void 0 ? {} : _options$breakpoints,
@@ -58947,7 +59068,20 @@ function createMuiTheme() {
   return muiTheme;
 }
 
-var _default = createMuiTheme;
+var warnedOnce = false;
+
+function createMuiTheme() {
+  if ("development" !== 'production') {
+    if (!warnedOnce) {
+      warnedOnce = true;
+      console.error(['Material-UI: the createMuiTheme function was renamed to createTheme.', '', "You should use `import { createTheme } from '@material-ui/core/styles'`"].join('\n'));
+    }
+  }
+
+  return createTheme.apply(void 0, arguments);
+}
+
+var _default = createTheme;
 exports.default = _default;
 },{"@babel/runtime/helpers/interopRequireDefault":"../../node_modules/@babel/runtime/helpers/interopRequireDefault.js","@babel/runtime/helpers/defineProperty":"../../node_modules/@babel/runtime/helpers/defineProperty.js","@babel/runtime/helpers/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","./createBreakpoints":"../../node_modules/@material-ui/core/styles/createBreakpoints.js","./createMixins":"../../node_modules/@material-ui/core/styles/createMixins.js","./createPalette":"../../node_modules/@material-ui/core/styles/createPalette.js","./createTypography":"../../node_modules/@material-ui/core/styles/createTypography.js","./shadows":"../../node_modules/@material-ui/core/styles/shadows.js","./shape":"../../node_modules/@material-ui/core/styles/shape.js","./createSpacing":"../../node_modules/@material-ui/core/styles/createSpacing.js","./transitions":"../../node_modules/@material-ui/core/styles/transitions.js","./zIndex":"../../node_modules/@material-ui/core/styles/zIndex.js"}],"../../node_modules/@material-ui/core/styles/defaultTheme.js":[function(require,module,exports) {
 "use strict";
@@ -58959,12 +59093,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _createMuiTheme = _interopRequireDefault(require("./createMuiTheme"));
+var _createTheme = _interopRequireDefault(require("./createTheme"));
 
-var defaultTheme = (0, _createMuiTheme.default)();
+var defaultTheme = (0, _createTheme.default)();
 var _default = defaultTheme;
 exports.default = _default;
-},{"@babel/runtime/helpers/interopRequireDefault":"../../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./createMuiTheme":"../../node_modules/@material-ui/core/styles/createMuiTheme.js"}],"../../node_modules/@material-ui/core/styles/withStyles.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/interopRequireDefault":"../../node_modules/@babel/runtime/helpers/interopRequireDefault.js","./createTheme":"../../node_modules/@material-ui/core/styles/createTheme.js"}],"../../node_modules/@material-ui/core/styles/withStyles.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -59069,7 +59203,33 @@ function useEventCallback(fn) {
     return (0, ref.current).apply(void 0, arguments);
   }, []);
 }
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@material-ui/core/esm/utils/useIsFocusVisible.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = deprecatedPropType;
+
+function deprecatedPropType(validator, reason) {
+  if ("development" === 'production') {
+    return function () {
+      return null;
+    };
+  }
+
+  return function (props, propName, componentName, location, propFullName) {
+    var componentNameSafe = componentName || '<<anonymous>>';
+    var propFullNameSafe = propFullName || propName;
+
+    if (typeof props[propName] !== 'undefined') {
+      return new Error("The ".concat(location, " `").concat(propFullNameSafe, "` of ") + "`".concat(componentNameSafe, "` is deprecated. ").concat(reason));
+    }
+
+    return null;
+  };
+}
+},{}],"../../node_modules/@material-ui/core/esm/utils/useIsFocusVisible.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59806,7 +59966,10 @@ Transition.propTypes = "development" !== "production" ? {
    *     [test/CSSTransition-test.js](https://github.com/reactjs/react-transition-group/blob/13435f897b3ab71f6e19d724f145596f5910581c/test/CSSTransition-test.js#L362-L437)).
    */
   nodeRef: _propTypes.default.shape({
-    current: typeof Element === 'undefined' ? _propTypes.default.any : _propTypes.default.instanceOf(Element)
+    current: typeof Element === 'undefined' ? _propTypes.default.any : function (propValue, key, componentName, location, propFullName, secret) {
+      var value = propValue[key];
+      return _propTypes.default.instanceOf(value && 'ownerDocument' in value ? value.ownerDocument.defaultView.Element : Element)(propValue, key, componentName, location, propFullName, secret);
+    }
   }),
 
   /**
@@ -60243,7 +60406,7 @@ var CSSTransition = /*#__PURE__*/function (_React$Component) {
 
     if (type === 'appear' && phase === 'done' && doneClassName) {
       className += " " + doneClassName;
-    } // This is for to force a repaint,
+    } // This is to force a repaint,
     // which is necessary in order to transition styles when adding a class name.
 
 
@@ -61758,6 +61921,8 @@ var _useForkRef = _interopRequireDefault(require("../utils/useForkRef"));
 
 var _useEventCallback = _interopRequireDefault(require("../utils/useEventCallback"));
 
+var _deprecatedPropType = _interopRequireDefault(require("../utils/deprecatedPropType"));
+
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _useIsFocusVisible2 = _interopRequireDefault(require("../utils/useIsFocusVisible"));
@@ -62101,7 +62266,7 @@ var ButtonBase = /*#__PURE__*/React.forwardRef(function ButtonBase(props, ref) {
    * Use that prop to pass a ref to the native button component.
    * @deprecated Use `ref` instead.
    */
-  buttonRef: _utils.refType,
+  buttonRef: (0, _deprecatedPropType.default)(_utils.refType, 'Use `ref` instead.'),
 
   /**
    * If `true`, the ripples will be centered.
@@ -62155,8 +62320,8 @@ var ButtonBase = /*#__PURE__*/React.forwardRef(function ButtonBase(props, ref) {
   focusRipple: _propTypes.default.bool,
 
   /**
-   * This prop can help a person know which element has the keyboard focus.
-   * The class name will be applied when the element gain the focus through a keyboard interaction.
+   * This prop can help identify which element has keyboard focus.
+   * The class name will be applied when the element gains the focus through keyboard interaction.
    * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
    * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/master/explainer.md).
    * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
@@ -62256,7 +62421,7 @@ var _default = (0, _withStyles.default)(styles, {
 })(ButtonBase);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","react-dom":"../../node_modules/react-dom/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../utils/useForkRef":"../../node_modules/@material-ui/core/esm/utils/useForkRef.js","../utils/useEventCallback":"../../node_modules/@material-ui/core/esm/utils/useEventCallback.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../utils/useIsFocusVisible":"../../node_modules/@material-ui/core/esm/utils/useIsFocusVisible.js","./TouchRipple":"../../node_modules/@material-ui/core/esm/ButtonBase/TouchRipple.js"}],"../../node_modules/@material-ui/core/esm/ButtonBase/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","react-dom":"../../node_modules/react-dom/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../utils/useForkRef":"../../node_modules/@material-ui/core/esm/utils/useForkRef.js","../utils/useEventCallback":"../../node_modules/@material-ui/core/esm/utils/useEventCallback.js","../utils/deprecatedPropType":"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../utils/useIsFocusVisible":"../../node_modules/@material-ui/core/esm/utils/useIsFocusVisible.js","./TouchRipple":"../../node_modules/@material-ui/core/esm/ButtonBase/TouchRipple.js"}],"../../node_modules/@material-ui/core/esm/ButtonBase/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62339,7 +62504,7 @@ var styles = function styles(theme) {
       }),
       '&:hover': {
         textDecoration: 'none',
-        backgroundColor: (0, _colorManipulator.fade)(theme.palette.text.primary, theme.palette.action.hoverOpacity),
+        backgroundColor: (0, _colorManipulator.alpha)(theme.palette.text.primary, theme.palette.action.hoverOpacity),
         // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent'
@@ -62371,7 +62536,7 @@ var styles = function styles(theme) {
     textPrimary: {
       color: theme.palette.primary.main,
       '&:hover': {
-        backgroundColor: (0, _colorManipulator.fade)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
+        backgroundColor: (0, _colorManipulator.alpha)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
         // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent'
@@ -62383,7 +62548,7 @@ var styles = function styles(theme) {
     textSecondary: {
       color: theme.palette.secondary.main,
       '&:hover': {
-        backgroundColor: (0, _colorManipulator.fade)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
+        backgroundColor: (0, _colorManipulator.alpha)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
         // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent'
@@ -62403,10 +62568,10 @@ var styles = function styles(theme) {
     /* Styles applied to the root element if `variant="outlined"` and `color="primary"`. */
     outlinedPrimary: {
       color: theme.palette.primary.main,
-      border: "1px solid ".concat((0, _colorManipulator.fade)(theme.palette.primary.main, 0.5)),
+      border: "1px solid ".concat((0, _colorManipulator.alpha)(theme.palette.primary.main, 0.5)),
       '&:hover': {
         border: "1px solid ".concat(theme.palette.primary.main),
-        backgroundColor: (0, _colorManipulator.fade)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
+        backgroundColor: (0, _colorManipulator.alpha)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
         // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent'
@@ -62417,10 +62582,10 @@ var styles = function styles(theme) {
     /* Styles applied to the root element if `variant="outlined"` and `color="secondary"`. */
     outlinedSecondary: {
       color: theme.palette.secondary.main,
-      border: "1px solid ".concat((0, _colorManipulator.fade)(theme.palette.secondary.main, 0.5)),
+      border: "1px solid ".concat((0, _colorManipulator.alpha)(theme.palette.secondary.main, 0.5)),
       '&:hover': {
         border: "1px solid ".concat(theme.palette.secondary.main),
-        backgroundColor: (0, _colorManipulator.fade)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
+        backgroundColor: (0, _colorManipulator.alpha)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
         // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent'
@@ -62800,6 +62965,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _utils = require("@material-ui/utils");
 
+var _deprecatedPropType = _interopRequireDefault(require("../utils/deprecatedPropType"));
+
 var _setRef = _interopRequireDefault(require("../utils/setRef"));
 
 var _useForkRef = _interopRequireDefault(require("../utils/useForkRef"));
@@ -62898,9 +63065,10 @@ var Portal = /*#__PURE__*/React.forwardRef(function Portal(props, ref) {
   /**
    * Callback fired once the children has been mounted into the `container`.
    *
-   * This prop will be deprecated and removed in v5, the ref can be used instead.
+   * This prop will be removed in v5, the ref can be used instead.
+   * @deprecated Use the ref instead.
    */
-  onRendered: _propTypes.default.func
+  onRendered: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the ref instead.')
 } : void 0;
 
 if ("development" !== 'production') {
@@ -62910,7 +63078,7 @@ if ("development" !== 'production') {
 
 var _default = Portal;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","prop-types":"../../node_modules/prop-types/index.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../utils/setRef":"../../node_modules/@material-ui/core/esm/utils/setRef.js","../utils/useForkRef":"../../node_modules/@material-ui/core/esm/utils/useForkRef.js"}],"../../node_modules/@material-ui/core/esm/Portal/index.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","prop-types":"../../node_modules/prop-types/index.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../utils/deprecatedPropType":"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js","../utils/setRef":"../../node_modules/@material-ui/core/esm/utils/setRef.js","../utils/useForkRef":"../../node_modules/@material-ui/core/esm/utils/useForkRef.js"}],"../../node_modules/@material-ui/core/esm/Portal/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -63611,6 +63779,8 @@ var _styles = require("@material-ui/styles");
 
 var _utils = require("@material-ui/utils");
 
+var _deprecatedPropType = _interopRequireDefault(require("../utils/deprecatedPropType"));
+
 var _ownerDocument = _interopRequireDefault(require("../utils/ownerDocument"));
 
 var _Portal = _interopRequireDefault(require("../Portal"));
@@ -63932,7 +64102,7 @@ var Modal = /*#__PURE__*/React.forwardRef(function Modal(inProps, ref) {
   /**
    * If `true`, clicking the backdrop will not fire `onClose`.
    */
-  disableBackdropClick: _propTypes.default.bool,
+  disableBackdropClick: (0, _deprecatedPropType.default)(_propTypes.default.bool, 'Use the onClose prop with the `reason` argument to filter the `backdropClick` events.'),
 
   /**
    * If `true`, the modal will not prevent focus from leaving the modal while open.
@@ -63984,7 +64154,7 @@ var Modal = /*#__PURE__*/React.forwardRef(function Modal(inProps, ref) {
   /**
    * Callback fired when the backdrop is clicked.
    */
-  onBackdropClick: _propTypes.default.func,
+  onBackdropClick: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the onClose prop with the `reason` argument to handle the `backdropClick` events.'),
 
   /**
    * Callback fired when the component requests to be closed.
@@ -63999,15 +64169,15 @@ var Modal = /*#__PURE__*/React.forwardRef(function Modal(inProps, ref) {
    * Callback fired when the escape key is pressed,
    * `disableEscapeKeyDown` is false and the modal is in focus.
    */
-  onEscapeKeyDown: _propTypes.default.func,
+  onEscapeKeyDown: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the onClose prop with the `reason` argument to handle the `escapeKeyDown` events.'),
 
   /**
    * Callback fired once the children has been mounted into the `container`.
    * It signals that the `open={true}` prop took effect.
    *
-   * This prop will be deprecated and removed in v5, the ref can be used instead.
+   * This prop will be removed in v5, the ref can be used instead.
    */
-  onRendered: _propTypes.default.func,
+  onRendered: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the ref instead.'),
 
   /**
    * If `true`, the modal is open.
@@ -64016,7 +64186,7 @@ var Modal = /*#__PURE__*/React.forwardRef(function Modal(inProps, ref) {
 } : void 0;
 var _default = Modal;
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","prop-types":"../../node_modules/prop-types/index.js","@material-ui/styles":"../../node_modules/@material-ui/styles/esm/index.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../utils/ownerDocument":"../../node_modules/@material-ui/core/esm/utils/ownerDocument.js","../Portal":"../../node_modules/@material-ui/core/esm/Portal/index.js","../utils/createChainedFunction":"../../node_modules/@material-ui/core/esm/utils/createChainedFunction.js","../utils/useForkRef":"../../node_modules/@material-ui/core/esm/utils/useForkRef.js","../utils/useEventCallback":"../../node_modules/@material-ui/core/esm/utils/useEventCallback.js","../styles/zIndex":"../../node_modules/@material-ui/core/esm/styles/zIndex.js","./ModalManager":"../../node_modules/@material-ui/core/esm/Modal/ModalManager.js","../Unstable_TrapFocus":"../../node_modules/@material-ui/core/esm/Unstable_TrapFocus/index.js","./SimpleBackdrop":"../../node_modules/@material-ui/core/esm/Modal/SimpleBackdrop.js"}],"../../node_modules/@material-ui/core/esm/Modal/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","prop-types":"../../node_modules/prop-types/index.js","@material-ui/styles":"../../node_modules/@material-ui/styles/esm/index.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../utils/deprecatedPropType":"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js","../utils/ownerDocument":"../../node_modules/@material-ui/core/esm/utils/ownerDocument.js","../Portal":"../../node_modules/@material-ui/core/esm/Portal/index.js","../utils/createChainedFunction":"../../node_modules/@material-ui/core/esm/utils/createChainedFunction.js","../utils/useForkRef":"../../node_modules/@material-ui/core/esm/utils/useForkRef.js","../utils/useEventCallback":"../../node_modules/@material-ui/core/esm/utils/useEventCallback.js","../styles/zIndex":"../../node_modules/@material-ui/core/esm/styles/zIndex.js","./ModalManager":"../../node_modules/@material-ui/core/esm/Modal/ModalManager.js","../Unstable_TrapFocus":"../../node_modules/@material-ui/core/esm/Unstable_TrapFocus/index.js","./SimpleBackdrop":"../../node_modules/@material-ui/core/esm/Modal/SimpleBackdrop.js"}],"../../node_modules/@material-ui/core/esm/Modal/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -64611,6 +64781,8 @@ var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
+var _deprecatedPropType = _interopRequireDefault(require("../utils/deprecatedPropType"));
+
 var _Modal = _interopRequireDefault(require("../Modal"));
 
 var _Backdrop = _interopRequireDefault(require("../Backdrop"));
@@ -64844,8 +65016,10 @@ var Dialog = /*#__PURE__*/React.forwardRef(function Dialog(props, ref) {
     BackdropProps: (0, _extends2.default)({
       transitionDuration: transitionDuration
     }, BackdropProps),
-    closeAfterTransition: true,
-    disableBackdropClick: disableBackdropClick,
+    closeAfterTransition: true
+  }, disableBackdropClick ? {
+    disableBackdropClick: disableBackdropClick
+  } : {}, {
     disableEscapeKeyDown: disableEscapeKeyDown,
     onEscapeKeyDown: onEscapeKeyDown,
     onClose: onClose,
@@ -64914,8 +65088,9 @@ var Dialog = /*#__PURE__*/React.forwardRef(function Dialog(props, ref) {
 
   /**
    * If `true`, clicking the backdrop will not fire the `onClose` callback.
+   * @deprecated Use the onClose prop with the `reason` argument to filter the `backdropClick` events.
    */
-  disableBackdropClick: _propTypes.default.bool,
+  disableBackdropClick: (0, _deprecatedPropType.default)(_propTypes.default.bool, 'Use the onClose prop with the `reason` argument to filter the `backdropClick` events.'),
 
   /**
    * If `true`, hitting escape will not fire the `onClose` callback.
@@ -64943,8 +65118,9 @@ var Dialog = /*#__PURE__*/React.forwardRef(function Dialog(props, ref) {
 
   /**
    * Callback fired when the backdrop is clicked.
+   * @deprecated Use the onClose prop with the `reason` argument to handle the `backdropClick` events.
    */
-  onBackdropClick: _propTypes.default.func,
+  onBackdropClick: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the onClose prop with the `reason` argument to handle the `backdropClick` events.'),
 
   /**
    * Callback fired when the component requests to be closed.
@@ -64956,39 +65132,46 @@ var Dialog = /*#__PURE__*/React.forwardRef(function Dialog(props, ref) {
 
   /**
    * Callback fired before the dialog enters.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEnter: _propTypes.default.func,
+  onEnter: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the dialog has entered.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEntered: _propTypes.default.func,
+  onEntered: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the dialog is entering.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEntering: _propTypes.default.func,
+  onEntering: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the escape key is pressed,
    * `disableKeyboard` is false and the modal is in focus.
+   * @deprecated Use the onClose prop with the `reason` argument to handle the `escapeKeyDown` events.
    */
-  onEscapeKeyDown: _propTypes.default.func,
+  onEscapeKeyDown: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the onClose prop with the `reason` argument to handle the `escapeKeyDown` events.'),
 
   /**
    * Callback fired before the dialog exits.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExit: _propTypes.default.func,
+  onExit: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the dialog has exited.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExited: _propTypes.default.func,
+  onExited: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the dialog is exiting.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExiting: _propTypes.default.func,
+  onExiting: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * If `true`, the Dialog is open.
@@ -65037,7 +65220,7 @@ var _default = (0, _withStyles.default)(styles, {
 })(Dialog);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","@babel/runtime/helpers/esm/defineProperty":"../../node_modules/@babel/runtime/helpers/esm/defineProperty.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../utils/capitalize":"../../node_modules/@material-ui/core/esm/utils/capitalize.js","../Modal":"../../node_modules/@material-ui/core/esm/Modal/index.js","../Backdrop":"../../node_modules/@material-ui/core/esm/Backdrop/index.js","../Fade":"../../node_modules/@material-ui/core/esm/Fade/index.js","../styles/transitions":"../../node_modules/@material-ui/core/esm/styles/transitions.js","../Paper":"../../node_modules/@material-ui/core/esm/Paper/index.js"}],"../../node_modules/@material-ui/core/esm/Dialog/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","@babel/runtime/helpers/esm/defineProperty":"../../node_modules/@babel/runtime/helpers/esm/defineProperty.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../utils/capitalize":"../../node_modules/@material-ui/core/esm/utils/capitalize.js","../utils/deprecatedPropType":"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js","../Modal":"../../node_modules/@material-ui/core/esm/Modal/index.js","../Backdrop":"../../node_modules/@material-ui/core/esm/Backdrop/index.js","../Fade":"../../node_modules/@material-ui/core/esm/Fade/index.js","../styles/transitions":"../../node_modules/@material-ui/core/esm/styles/transitions.js","../Paper":"../../node_modules/@material-ui/core/esm/Paper/index.js"}],"../../node_modules/@material-ui/core/esm/Dialog/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -66567,6 +66750,8 @@ var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
 
 var _createChainedFunction = _interopRequireDefault(require("../utils/createChainedFunction"));
 
+var _deprecatedPropType = _interopRequireDefault(require("../utils/deprecatedPropType"));
+
 var _Grow = _interopRequireDefault(require("../Grow"));
 
 var _SnackbarContent = _interopRequireDefault(require("../SnackbarContent"));
@@ -66886,33 +67071,39 @@ var Snackbar = /*#__PURE__*/React.forwardRef(function Snackbar(props, ref) {
 
   /**
    * Callback fired before the transition is entering.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEnter: _propTypes.default.func,
+  onEnter: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the transition has entered.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEntered: _propTypes.default.func,
+  onEntered: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the transition is entering.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEntering: _propTypes.default.func,
+  onEntering: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired before the transition is exiting.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExit: _propTypes.default.func,
+  onExit: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the transition has exited.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExited: _propTypes.default.func,
+  onExited: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the transition is exiting.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExiting: _propTypes.default.func,
+  onExiting: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * @ignore
@@ -66965,7 +67156,7 @@ var _default = (0, _withStyles.default)(styles, {
 })(Snackbar);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","@babel/runtime/helpers/esm/defineProperty":"../../node_modules/@babel/runtime/helpers/esm/defineProperty.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../styles/transitions":"../../node_modules/@material-ui/core/esm/styles/transitions.js","../ClickAwayListener":"../../node_modules/@material-ui/core/esm/ClickAwayListener/index.js","../utils/useEventCallback":"../../node_modules/@material-ui/core/esm/utils/useEventCallback.js","../utils/capitalize":"../../node_modules/@material-ui/core/esm/utils/capitalize.js","../utils/createChainedFunction":"../../node_modules/@material-ui/core/esm/utils/createChainedFunction.js","../Grow":"../../node_modules/@material-ui/core/esm/Grow/index.js","../SnackbarContent":"../../node_modules/@material-ui/core/esm/SnackbarContent/index.js"}],"../../node_modules/@material-ui/core/esm/Snackbar/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","@babel/runtime/helpers/esm/defineProperty":"../../node_modules/@babel/runtime/helpers/esm/defineProperty.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../styles/transitions":"../../node_modules/@material-ui/core/esm/styles/transitions.js","../ClickAwayListener":"../../node_modules/@material-ui/core/esm/ClickAwayListener/index.js","../utils/useEventCallback":"../../node_modules/@material-ui/core/esm/utils/useEventCallback.js","../utils/capitalize":"../../node_modules/@material-ui/core/esm/utils/capitalize.js","../utils/createChainedFunction":"../../node_modules/@material-ui/core/esm/utils/createChainedFunction.js","../utils/deprecatedPropType":"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js","../Grow":"../../node_modules/@material-ui/core/esm/Grow/index.js","../SnackbarContent":"../../node_modules/@material-ui/core/esm/SnackbarContent/index.js"}],"../../node_modules/@material-ui/core/esm/Snackbar/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -67031,7 +67222,7 @@ var styles = function styles(theme) {
         duration: theme.transitions.duration.shortest
       }),
       '&:hover': {
-        backgroundColor: (0, _colorManipulator.fade)(theme.palette.action.active, theme.palette.action.hoverOpacity),
+        backgroundColor: (0, _colorManipulator.alpha)(theme.palette.action.active, theme.palette.action.hoverOpacity),
         // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent'
@@ -67068,7 +67259,7 @@ var styles = function styles(theme) {
     colorPrimary: {
       color: theme.palette.primary.main,
       '&:hover': {
-        backgroundColor: (0, _colorManipulator.fade)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
+        backgroundColor: (0, _colorManipulator.alpha)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
         // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent'
@@ -67080,7 +67271,7 @@ var styles = function styles(theme) {
     colorSecondary: {
       color: theme.palette.secondary.main,
       '&:hover': {
-        backgroundColor: (0, _colorManipulator.fade)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
+        backgroundColor: (0, _colorManipulator.alpha)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
         // Reset on touch devices, it doesn't add specificity
         '@media (hover: none)': {
           backgroundColor: 'transparent'
@@ -67322,6 +67513,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _clsx = _interopRequireDefault(require("clsx"));
 
+var _utils = require("@material-ui/utils");
+
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _capitalize = _interopRequireDefault(require("../utils/capitalize"));
@@ -67400,14 +67593,14 @@ var SvgIcon = /*#__PURE__*/React.forwardRef(function SvgIcon(props, ref) {
       _props$component = props.component,
       Component = _props$component === void 0 ? 'svg' : _props$component,
       _props$fontSize = props.fontSize,
-      fontSize = _props$fontSize === void 0 ? 'default' : _props$fontSize,
+      fontSize = _props$fontSize === void 0 ? 'medium' : _props$fontSize,
       htmlColor = props.htmlColor,
       titleAccess = props.titleAccess,
       _props$viewBox = props.viewBox,
       viewBox = _props$viewBox === void 0 ? '0 0 24 24' : _props$viewBox,
       other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "color", "component", "fontSize", "htmlColor", "titleAccess", "viewBox"]);
   return /*#__PURE__*/React.createElement(Component, (0, _extends2.default)({
-    className: (0, _clsx.default)(classes.root, className, color !== 'inherit' && classes["color".concat((0, _capitalize.default)(color))], fontSize !== 'default' && classes["fontSize".concat((0, _capitalize.default)(fontSize))]),
+    className: (0, _clsx.default)(classes.root, className, color !== 'inherit' && classes["color".concat((0, _capitalize.default)(color))], fontSize !== 'default' && fontSize !== 'medium' && classes["fontSize".concat((0, _capitalize.default)(fontSize))]),
     focusable: "false",
     viewBox: viewBox,
     color: htmlColor,
@@ -67455,7 +67648,15 @@ var SvgIcon = /*#__PURE__*/React.forwardRef(function SvgIcon(props, ref) {
   /**
    * The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
    */
-  fontSize: _propTypes.default.oneOf(['default', 'inherit', 'large', 'small']),
+  fontSize: (0, _utils.chainPropTypes)(_propTypes.default.oneOf(['default', 'inherit', 'large', 'medium', 'small']), function (props) {
+    var fontSize = props.fontSize;
+
+    if (fontSize === 'default') {
+      throw new Error('Material-UI: `fontSize="default"` is deprecated. Use `fontSize="medium"` instead.');
+    }
+
+    return null;
+  }),
 
   /**
    * Applies a color attribute to the SVG element.
@@ -67491,7 +67692,7 @@ var _default = (0, _withStyles.default)(styles, {
 })(SvgIcon);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../utils/capitalize":"../../node_modules/@material-ui/core/esm/utils/capitalize.js"}],"../../node_modules/@material-ui/core/esm/SvgIcon/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../utils/capitalize":"../../node_modules/@material-ui/core/esm/utils/capitalize.js"}],"../../node_modules/@material-ui/core/esm/SvgIcon/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -67577,32 +67778,6 @@ function debounce(func) {
   };
 
   return debounced;
-}
-},{}],"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = deprecatedPropType;
-
-function deprecatedPropType(validator, reason) {
-  if ("development" === 'production') {
-    return function () {
-      return null;
-    };
-  }
-
-  return function (props, propName, componentName, location, propFullName) {
-    var componentNameSafe = componentName || '<<anonymous>>';
-    var propFullNameSafe = propFullName || propName;
-
-    if (typeof props[propName] !== 'undefined') {
-      return new Error("The ".concat(location, " `").concat(propFullNameSafe, "` of ") + "`".concat(componentNameSafe, "` is deprecated. ").concat(reason));
-    }
-
-    return null;
-  };
 }
 },{}],"../../node_modules/@material-ui/core/esm/utils/isMuiElement.js":[function(require,module,exports) {
 "use strict";
@@ -68334,6 +68509,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _clsx = _interopRequireDefault(require("clsx"));
 
+var _utils = require("@material-ui/utils");
+
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _ButtonBase = _interopRequireDefault(require("../ButtonBase"));
@@ -68488,10 +68665,10 @@ var Fab = /*#__PURE__*/React.forwardRef(function Fab(props, ref) {
       _props$size = props.size,
       size = _props$size === void 0 ? 'large' : _props$size,
       _props$variant = props.variant,
-      variant = _props$variant === void 0 ? 'round' : _props$variant,
+      variant = _props$variant === void 0 ? 'circular' : _props$variant,
       other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"]);
   return /*#__PURE__*/React.createElement(_ButtonBase.default, (0, _extends2.default)({
-    className: (0, _clsx.default)(classes.root, className, variant !== "round" && classes.extended, size !== 'large' && classes["size".concat((0, _capitalize.default)(size))], disabled && classes.disabled, {
+    className: (0, _clsx.default)(classes.root, className, size !== 'large' && classes["size".concat((0, _capitalize.default)(size))], disabled && classes.disabled, variant === 'extended' && classes.extended, {
       'primary': classes.primary,
       'secondary': classes.secondary,
       'inherit': classes.colorInherit
@@ -68576,8 +68753,15 @@ var Fab = /*#__PURE__*/React.forwardRef(function Fab(props, ref) {
 
   /**
    * The variant to use.
+   * 'round' is deprecated, use 'circular' instead.
    */
-  variant: _propTypes.default.oneOf(['extended', 'round'])
+  variant: (0, _utils.chainPropTypes)(_propTypes.default.oneOf(['extended', 'circular', 'round']), function (props) {
+    if (props.variant === 'round') {
+      throw new Error('Material-UI: variant="round" was renamed variant="circular" for consistency.');
+    }
+
+    return null;
+  })
 } : void 0;
 
 var _default = (0, _withStyles.default)(styles, {
@@ -68585,7 +68769,7 @@ var _default = (0, _withStyles.default)(styles, {
 })(Fab);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../ButtonBase":"../../node_modules/@material-ui/core/esm/ButtonBase/index.js","../utils/capitalize":"../../node_modules/@material-ui/core/esm/utils/capitalize.js"}],"../../node_modules/@material-ui/core/esm/Fab/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../ButtonBase":"../../node_modules/@material-ui/core/esm/ButtonBase/index.js","../utils/capitalize":"../../node_modules/@material-ui/core/esm/utils/capitalize.js"}],"../../node_modules/@material-ui/core/esm/Fab/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72710,6 +72894,8 @@ var _debounce = _interopRequireDefault(require("../utils/debounce"));
 
 var _useForkRef = _interopRequireDefault(require("../utils/useForkRef"));
 
+var _deprecatedPropType = _interopRequireDefault(require("../utils/deprecatedPropType"));
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -72741,12 +72927,15 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
   var onChange = props.onChange,
       rows = props.rows,
       rowsMax = props.rowsMax,
-      _props$rowsMin = props.rowsMin,
-      rowsMinProp = _props$rowsMin === void 0 ? 1 : _props$rowsMin,
+      rowsMinProp = props.rowsMin,
+      maxRowsProp = props.maxRows,
+      _props$minRows = props.minRows,
+      minRowsProp = _props$minRows === void 0 ? 1 : _props$minRows,
       style = props.style,
       value = props.value,
-      other = (0, _objectWithoutProperties2.default)(props, ["onChange", "rows", "rowsMax", "rowsMin", "style", "value"]);
-  var rowsMin = rows || rowsMinProp;
+      other = (0, _objectWithoutProperties2.default)(props, ["onChange", "rows", "rowsMax", "rowsMin", "maxRows", "minRows", "style", "value"]);
+  var maxRows = maxRowsProp || rowsMax;
+  var minRows = rows || rowsMinProp || minRowsProp;
 
   var _React$useRef = React.useRef(value != null),
       isControlled = _React$useRef.current;
@@ -72785,12 +72974,12 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
 
     var outerHeight = innerHeight;
 
-    if (rowsMin) {
-      outerHeight = Math.max(Number(rowsMin) * singleRowHeight, outerHeight);
+    if (minRows) {
+      outerHeight = Math.max(Number(minRows) * singleRowHeight, outerHeight);
     }
 
-    if (rowsMax) {
-      outerHeight = Math.min(Number(rowsMax) * singleRowHeight, outerHeight);
+    if (maxRows) {
+      outerHeight = Math.min(Number(maxRows) * singleRowHeight, outerHeight);
     }
 
     outerHeight = Math.max(outerHeight, singleRowHeight); // Take the box sizing into account for applying this value as a style.
@@ -72816,7 +73005,7 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
 
       return prevState;
     });
-  }, [rowsMax, rowsMin, props.placeholder]);
+  }, [maxRows, minRows, props.placeholder]);
   React.useEffect(function () {
     var handleResize = (0, _debounce.default)(function () {
       renders.current = 0;
@@ -72852,7 +73041,7 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
     onChange: handleChange,
     ref: handleRef // Apply the rows prop to get a "correct" first SSR paint
     ,
-    rows: rowsMin,
+    rows: minRows,
     style: (0, _extends2.default)({
       height: state.outerHeightStyle,
       // Need a large enough difference to allow scrolling.
@@ -72880,6 +73069,16 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
   className: _propTypes.default.string,
 
   /**
+   * Maximum number of rows to display.
+   */
+  maxRows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
+   * Minimum number of rows to display.
+   */
+  minRows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
    * @ignore
    */
   onChange: _propTypes.default.func,
@@ -72890,21 +73089,22 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
   placeholder: _propTypes.default.string,
 
   /**
-   * Use `rowsMin` instead. The prop will be removed in v5.
-   *
-   * @deprecated
+   * Minimum number of rows to display.
+   * @deprecated Use `rowsMin` instead.
    */
-  rows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+  rows: (0, _deprecatedPropType.default)(_propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]), 'Use `rowsMin` instead.'),
 
   /**
    * Maximum number of rows to display.
+   * @deprecated Use `maxRows` instead.
    */
-  rowsMax: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+  rowsMax: (0, _deprecatedPropType.default)(_propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]), 'Use `maxRows` instead.'),
 
   /**
    * Minimum number of rows to display.
+   * @deprecated Use `minRows` instead.
    */
-  rowsMin: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+  rowsMin: (0, _deprecatedPropType.default)(_propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]), 'Use `minRows` instead.'),
 
   /**
    * @ignore
@@ -72918,7 +73118,7 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
 } : void 0;
 var _default = TextareaAutosize;
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","../utils/debounce":"../../node_modules/@material-ui/core/esm/utils/debounce.js","../utils/useForkRef":"../../node_modules/@material-ui/core/esm/utils/useForkRef.js"}],"../../node_modules/@material-ui/core/esm/TextareaAutosize/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","../utils/debounce":"../../node_modules/@material-ui/core/esm/utils/debounce.js","../utils/useForkRef":"../../node_modules/@material-ui/core/esm/utils/useForkRef.js","../utils/deprecatedPropType":"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js"}],"../../node_modules/@material-ui/core/esm/TextareaAutosize/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -73230,11 +73430,13 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
       rows = props.rows,
       rowsMax = props.rowsMax,
       rowsMin = props.rowsMin,
+      maxRows = props.maxRows,
+      minRows = props.minRows,
       startAdornment = props.startAdornment,
       _props$type = props.type,
       type = _props$type === void 0 ? 'text' : _props$type,
       valueProp = props.value,
-      other = (0, _objectWithoutProperties2.default)(props, ["aria-describedby", "autoComplete", "autoFocus", "classes", "className", "color", "defaultValue", "disabled", "endAdornment", "error", "fullWidth", "id", "inputComponent", "inputProps", "inputRef", "margin", "multiline", "name", "onBlur", "onChange", "onClick", "onFocus", "onKeyDown", "onKeyUp", "placeholder", "readOnly", "renderSuffix", "rows", "rowsMax", "rowsMin", "startAdornment", "type", "value"]);
+      other = (0, _objectWithoutProperties2.default)(props, ["aria-describedby", "autoComplete", "autoFocus", "classes", "className", "color", "defaultValue", "disabled", "endAdornment", "error", "fullWidth", "id", "inputComponent", "inputProps", "inputRef", "margin", "multiline", "name", "onBlur", "onChange", "onClick", "onFocus", "onKeyDown", "onKeyUp", "placeholder", "readOnly", "renderSuffix", "rows", "rowsMax", "rowsMin", "maxRows", "minRows", "startAdornment", "type", "value"]);
   var value = inputPropsProp.value != null ? inputPropsProp.value : valueProp;
 
   var _React$useRef = React.useRef(value != null),
@@ -73402,12 +73604,13 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
       ref: null
     });
   } else if (multiline) {
-    if (rows && !rowsMax && !rowsMin) {
+    if (rows && !maxRows && !minRows && !rowsMax && !rowsMin) {
       InputComponent = 'textarea';
     } else {
       inputProps = (0, _extends2.default)({
-        rows: rows,
-        rowsMax: rowsMax
+        minRows: rows || minRows,
+        rowsMax: rowsMax,
+        maxRows: maxRows
       }, inputProps);
       InputComponent = _TextareaAutosize.default;
     }
@@ -73554,6 +73757,16 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
   margin: _propTypes.default.oneOf(['dense', 'none']),
 
   /**
+   * Maximum number of rows to display when multiline option is set to true.
+   */
+  maxRows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
+   * Minimum number of rows to display when multiline option is set to true.
+   */
+  minRows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
    * If `true`, a textarea element will be rendered.
    */
   multiline: _propTypes.default.bool,
@@ -73625,12 +73838,14 @@ var InputBase = /*#__PURE__*/React.forwardRef(function InputBase(props, ref) {
   rows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
 
   /**
-   * Maximum number of rows to display when multiline option is set to true.
+   * Maximum number of rows to display.
+   * @deprecated Use `maxRows` instead.
    */
   rowsMax: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
 
   /**
-   * Minimum number of rows to display when multiline option is set to true.
+   * Minimum number of rows to display.
+   * @deprecated Use `minRows` instead.
    */
   rowsMin: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
 
@@ -73921,6 +74136,11 @@ var Input = /*#__PURE__*/React.forwardRef(function Input(props, ref) {
   margin: _propTypes.default.oneOf(['dense', 'none']),
 
   /**
+   * Maximum number of rows to display when multiline option is set to true.
+   */
+  maxRows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
    * If `true`, a textarea element will be rendered.
    */
   multiline: _propTypes.default.bool,
@@ -73958,11 +74178,6 @@ var Input = /*#__PURE__*/React.forwardRef(function Input(props, ref) {
    * Number of rows to display when multiline option is set to true.
    */
   rows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-
-  /**
-   * Maximum number of rows to display when multiline option is set to true.
-   */
-  rowsMax: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
 
   /**
    * Start `InputAdornment` for this component.
@@ -74306,6 +74521,11 @@ var FilledInput = /*#__PURE__*/React.forwardRef(function FilledInput(props, ref)
   margin: _propTypes.default.oneOf(['dense', 'none']),
 
   /**
+   * Maximum number of rows to display when multiline option is set to true.
+   */
+  maxRows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
    * If `true`, a textarea element will be rendered.
    */
   multiline: _propTypes.default.bool,
@@ -74343,11 +74563,6 @@ var FilledInput = /*#__PURE__*/React.forwardRef(function FilledInput(props, ref)
    * Number of rows to display when multiline option is set to true.
    */
   rows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-
-  /**
-   * Maximum number of rows to display when multiline option is set to true.
-   */
-  rowsMax: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
 
   /**
    * Start `InputAdornment` for this component.
@@ -74846,6 +75061,11 @@ var OutlinedInput = /*#__PURE__*/React.forwardRef(function OutlinedInput(props, 
   margin: _propTypes.default.oneOf(['dense', 'none']),
 
   /**
+   * Maximum number of rows to display when multiline option is set to true.
+   */
+  maxRows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
    * If `true`, a textarea element will be rendered.
    */
   multiline: _propTypes.default.bool,
@@ -74888,11 +75108,6 @@ var OutlinedInput = /*#__PURE__*/React.forwardRef(function OutlinedInput(props, 
    * Number of rows to display when multiline option is set to true.
    */
   rows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-
-  /**
-   * Maximum number of rows to display when multiline option is set to true.
-   */
-  rowsMax: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
 
   /**
    * Start `InputAdornment` for this component.
@@ -75962,6 +76177,8 @@ var _ownerWindow = _interopRequireDefault(require("../utils/ownerWindow"));
 
 var _createChainedFunction = _interopRequireDefault(require("../utils/createChainedFunction"));
 
+var _deprecatedPropType = _interopRequireDefault(require("../utils/deprecatedPropType"));
+
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
 var _Modal = _interopRequireDefault(require("../Modal"));
@@ -76432,33 +76649,39 @@ var Popover = /*#__PURE__*/React.forwardRef(function Popover(props, ref) {
 
   /**
    * Callback fired before the component is entering.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEnter: _propTypes.default.func,
+  onEnter: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the component has entered.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEntered: _propTypes.default.func,
+  onEntered: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the component is entering.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEntering: _propTypes.default.func,
+  onEntering: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired before the component is exiting.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExit: _propTypes.default.func,
+  onExit: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the component has exited.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExited: _propTypes.default.func,
+  onExited: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the component is exiting.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExiting: _propTypes.default.func,
+  onExiting: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * If `true`, the popover is visible.
@@ -76513,7 +76736,7 @@ var _default = (0, _withStyles.default)(styles, {
 })(Popover);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","react-dom":"../../node_modules/react-dom/index.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../utils/debounce":"../../node_modules/@material-ui/core/esm/utils/debounce.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","../utils/ownerDocument":"../../node_modules/@material-ui/core/esm/utils/ownerDocument.js","../utils/ownerWindow":"../../node_modules/@material-ui/core/esm/utils/ownerWindow.js","../utils/createChainedFunction":"../../node_modules/@material-ui/core/esm/utils/createChainedFunction.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../Modal":"../../node_modules/@material-ui/core/esm/Modal/index.js","../Grow":"../../node_modules/@material-ui/core/esm/Grow/index.js","../Paper":"../../node_modules/@material-ui/core/esm/Paper/index.js"}],"../../node_modules/@material-ui/core/esm/Popover/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","prop-types":"../../node_modules/prop-types/index.js","react-dom":"../../node_modules/react-dom/index.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../utils/debounce":"../../node_modules/@material-ui/core/esm/utils/debounce.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","../utils/ownerDocument":"../../node_modules/@material-ui/core/esm/utils/ownerDocument.js","../utils/ownerWindow":"../../node_modules/@material-ui/core/esm/utils/ownerWindow.js","../utils/createChainedFunction":"../../node_modules/@material-ui/core/esm/utils/createChainedFunction.js","../utils/deprecatedPropType":"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../Modal":"../../node_modules/@material-ui/core/esm/Modal/index.js","../Grow":"../../node_modules/@material-ui/core/esm/Grow/index.js","../Paper":"../../node_modules/@material-ui/core/esm/Paper/index.js"}],"../../node_modules/@material-ui/core/esm/Popover/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -77074,6 +77297,8 @@ var _setRef = _interopRequireDefault(require("../utils/setRef"));
 
 var _useTheme = _interopRequireDefault(require("../styles/useTheme"));
 
+var _deprecatedPropType = _interopRequireDefault(require("../utils/deprecatedPropType"));
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -77116,16 +77341,20 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
       _props$MenuListProps = props.MenuListProps,
       MenuListProps = _props$MenuListProps === void 0 ? {} : _props$MenuListProps,
       onClose = props.onClose,
-      onEntering = props.onEntering,
+      onEnteringProp = props.onEntering,
       open = props.open,
       _props$PaperProps = props.PaperProps,
       PaperProps = _props$PaperProps === void 0 ? {} : _props$PaperProps,
       PopoverClasses = props.PopoverClasses,
       _props$transitionDura = props.transitionDuration,
       transitionDuration = _props$transitionDura === void 0 ? 'auto' : _props$transitionDura,
+      _props$TransitionProp = props.TransitionProps;
+  _props$TransitionProp = _props$TransitionProp === void 0 ? {} : _props$TransitionProp;
+  var onEntering = _props$TransitionProp.onEntering,
+      TransitionProps = (0, _objectWithoutProperties2.default)(_props$TransitionProp, ["onEntering"]),
       _props$variant = props.variant,
       variant = _props$variant === void 0 ? 'selectedMenu' : _props$variant,
-      other = (0, _objectWithoutProperties2.default)(props, ["autoFocus", "children", "classes", "disableAutoFocusItem", "MenuListProps", "onClose", "onEntering", "open", "PaperProps", "PopoverClasses", "transitionDuration", "variant"]);
+      other = (0, _objectWithoutProperties2.default)(props, ["autoFocus", "children", "classes", "disableAutoFocusItem", "MenuListProps", "onClose", "onEntering", "open", "PaperProps", "PopoverClasses", "transitionDuration", "TransitionProps", "variant"]);
   var theme = (0, _useTheme.default)();
   var autoFocusItem = autoFocus && !disableAutoFocusItem && open;
   var menuListActionsRef = React.useRef(null);
@@ -77138,6 +77367,10 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
   var handleEntering = function handleEntering(element, isAppearing) {
     if (menuListActionsRef.current) {
       menuListActionsRef.current.adjustStyleForScrollbar(element, theme);
+    }
+
+    if (onEnteringProp) {
+      onEnteringProp(element, isAppearing);
     }
 
     if (onEntering) {
@@ -77201,7 +77434,9 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
     getContentAnchorEl: getContentAnchorEl,
     classes: PopoverClasses,
     onClose: onClose,
-    onEntering: handleEntering,
+    TransitionProps: (0, _extends2.default)({
+      onEntering: handleEntering
+    }, TransitionProps),
     anchorOrigin: theme.direction === 'rtl' ? RTL_ORIGIN : LTR_ORIGIN,
     transformOrigin: theme.direction === 'rtl' ? RTL_ORIGIN : LTR_ORIGIN,
     PaperProps: (0, _extends2.default)({}, PaperProps, {
@@ -77278,33 +77513,39 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
 
   /**
    * Callback fired before the Menu enters.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEnter: _propTypes.default.func,
+  onEnter: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the Menu has entered.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEntered: _propTypes.default.func,
+  onEntered: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the Menu is entering.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onEntering: _propTypes.default.func,
+  onEntering: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired before the Menu exits.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExit: _propTypes.default.func,
+  onExit: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the Menu has exited.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExited: _propTypes.default.func,
+  onExited: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * Callback fired when the Menu is exiting.
+   * @deprecated Use the `TransitionProps` prop instead.
    */
-  onExiting: _propTypes.default.func,
+  onExiting: (0, _deprecatedPropType.default)(_propTypes.default.func, 'Use the `TransitionProps` prop instead.'),
 
   /**
    * If `true`, the menu is visible.
@@ -77331,6 +77572,12 @@ var Menu = /*#__PURE__*/React.forwardRef(function Menu(props, ref) {
   })]),
 
   /**
+   * Props applied to the transition element.
+   * By default, the element is based on this [`Transition`](http://reactcommunity.org/react-transition-group/transition) component.
+   */
+  TransitionProps: _propTypes.default.object,
+
+  /**
    * The variant to use. Use `menu` to prevent selected items from impacting the initial focus
    * and the vertical alignment relative to the anchor element.
    */
@@ -77342,7 +77589,7 @@ var _default = (0, _withStyles.default)(styles, {
 })(Menu);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","react-is":"../../node_modules/react-is/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../Popover":"../../node_modules/@material-ui/core/esm/Popover/index.js","../MenuList":"../../node_modules/@material-ui/core/esm/MenuList/index.js","react-dom":"../../node_modules/react-dom/index.js","../utils/setRef":"../../node_modules/@material-ui/core/esm/utils/setRef.js","../styles/useTheme":"../../node_modules/@material-ui/core/esm/styles/useTheme.js"}],"../../node_modules/@material-ui/core/esm/Select/SelectInput.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../../node_modules/react/index.js","react-is":"../../node_modules/react-is/index.js","prop-types":"../../node_modules/prop-types/index.js","clsx":"../../node_modules/clsx/dist/clsx.m.js","@material-ui/utils":"../../node_modules/@material-ui/utils/esm/index.js","../styles/withStyles":"../../node_modules/@material-ui/core/esm/styles/withStyles.js","../Popover":"../../node_modules/@material-ui/core/esm/Popover/index.js","../MenuList":"../../node_modules/@material-ui/core/esm/MenuList/index.js","react-dom":"../../node_modules/react-dom/index.js","../utils/setRef":"../../node_modules/@material-ui/core/esm/utils/setRef.js","../styles/useTheme":"../../node_modules/@material-ui/core/esm/styles/useTheme.js","../utils/deprecatedPropType":"../../node_modules/@material-ui/core/esm/utils/deprecatedPropType.js"}],"../../node_modules/@material-ui/core/esm/Select/SelectInput.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -78762,6 +79009,8 @@ var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
       required = _props$required === void 0 ? false : _props$required,
       rows = props.rows,
       rowsMax = props.rowsMax,
+      maxRows = props.maxRows,
+      minRows = props.minRows,
       _props$select = props.select,
       select = _props$select === void 0 ? false : _props$select,
       SelectProps = props.SelectProps,
@@ -78769,7 +79018,7 @@ var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
       value = props.value,
       _props$variant = props.variant,
       variant = _props$variant === void 0 ? 'standard' : _props$variant,
-      other = (0, _objectWithoutProperties2.default)(props, ["autoComplete", "autoFocus", "children", "classes", "className", "color", "defaultValue", "disabled", "error", "FormHelperTextProps", "fullWidth", "helperText", "hiddenLabel", "id", "InputLabelProps", "inputProps", "InputProps", "inputRef", "label", "multiline", "name", "onBlur", "onChange", "onFocus", "placeholder", "required", "rows", "rowsMax", "select", "SelectProps", "type", "value", "variant"]);
+      other = (0, _objectWithoutProperties2.default)(props, ["autoComplete", "autoFocus", "children", "classes", "className", "color", "defaultValue", "disabled", "error", "FormHelperTextProps", "fullWidth", "helperText", "hiddenLabel", "id", "InputLabelProps", "inputProps", "InputProps", "inputRef", "label", "multiline", "name", "onBlur", "onChange", "onFocus", "placeholder", "required", "rows", "rowsMax", "maxRows", "minRows", "select", "SelectProps", "type", "value", "variant"]);
 
   if ("development" !== 'production') {
     if (select && !children) {
@@ -78814,6 +79063,8 @@ var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
     name: name,
     rows: rows,
     rowsMax: rowsMax,
+    maxRows: maxRows,
+    minRows: minRows,
     type: type,
     value: value,
     id: id,
@@ -78961,6 +79212,16 @@ var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
   margin: _propTypes.default.oneOf(['dense', 'none', 'normal']),
 
   /**
+   * Maximum number of rows to display when multiline option is set to true.
+   */
+  maxRows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
+   * Minimum number of rows to display.
+   */
+  minRows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
+
+  /**
    * If `true`, a textarea element will be rendered instead of an input.
    */
   multiline: _propTypes.default.bool,
@@ -79000,11 +79261,13 @@ var TextField = /*#__PURE__*/React.forwardRef(function TextField(props, ref) {
 
   /**
    * Number of rows to display when multiline option is set to true.
+   * @deprecated Use `minRows` instead.
    */
   rows: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
 
   /**
-   * Maximum number of rows to display when multiline option is set to true.
+   * Maximum number of rows to display.
+   * @deprecated Use `maxRows` instead.
    */
   rowsMax: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
 
@@ -80212,7 +80475,7 @@ var styles = function styles(theme) {
       '&$checked': {
         color: theme.palette.primary.main,
         '&:hover': {
-          backgroundColor: (0, _colorManipulator.fade)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
+          backgroundColor: (0, _colorManipulator.alpha)(theme.palette.primary.main, theme.palette.action.hoverOpacity),
           // Reset on touch devices, it doesn't add specificity
           '@media (hover: none)': {
             backgroundColor: 'transparent'
@@ -80229,7 +80492,7 @@ var styles = function styles(theme) {
       '&$checked': {
         color: theme.palette.secondary.main,
         '&:hover': {
-          backgroundColor: (0, _colorManipulator.fade)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
+          backgroundColor: (0, _colorManipulator.alpha)(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
           // Reset on touch devices, it doesn't add specificity
           '@media (hover: none)': {
             backgroundColor: 'transparent'
@@ -80516,9 +80779,7 @@ var styles = function styles() {
   };
 };
 
-var Settings =
-/** @class */
-function (_super) {
+var Settings = function (_super) {
   __extends(Settings, _super);
 
   function Settings(props) {
@@ -80749,9 +81010,7 @@ var styles = function styles(_theme) {
   };
 };
 
-var App =
-/** @class */
-function (_super) {
+var App = function (_super) {
   __extends(App, _super);
 
   function App(props) {
