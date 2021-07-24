@@ -35,7 +35,7 @@ Imports daily statistical data from Matomo.
 	### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
+### 0.0.6 (2021-07-24)
 
 -   (o0Shojo0o) bugfix dark theme
 

@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matomo",
-        "version": "0.0.5",
+        "version": "0.0.6",
         "news": {
+            "0.0.6": {
+                "en": "bugfix dark theme",
+                "de": "Bugfix dunkles Thema",
+                "ru": "исправление темной темы",
+                "pt": "bug fix dark theme",
+                "nl": "bugfix donker thema",
+                "fr": "Correction de bugs thème sombre",
+                "it": "bug fix tema scuro",
+                "es": "corrección de errores tema oscuro",
+                "pl": "ciemny motyw naprawiania błędów",
+                "zh-cn": "错误修复黑暗主题"
+            },
             "0.0.5": {
                 "en": "fix npm error",
                 "de": "npm Fehler beheben",
