@@ -32,6 +32,8 @@ const axios_1 = __importDefault(require("axios"));
 const object_definitions_1 = require("./lib/object_definitions");
 let adapter;
 let currentTimeout;
+const createdObjs = [];
+let isUnloaded = false;
 class Matomo extends utils.Adapter {
     constructor(options = {}) {
         super({
@@ -55,6 +57,7 @@ class Matomo extends utils.Adapter {
     }
     onUnload(callback) {
         try {
+            isUnloaded = true;
             clearTimeout(currentTimeout);
             callback();
         }
@@ -155,14 +158,23 @@ async function setObjectAndState(objectId, stateId, stateName, value) {
     if (!obj) {
         return;
     }
+    // Check if is unload triggerted
+    if (isUnloaded) {
+        return;
+    }
     if (stateName !== null) {
         obj.common.name = stateName;
     }
-    await adapter.setObjectNotExistsAsync(stateId, {
-        type: obj.type,
-        common: JSON.parse(JSON.stringify(obj.common)),
-        native: JSON.parse(JSON.stringify(obj.native)),
-    });
+    // Check if the object must be created
+    if (createdObjs.indexOf(stateId) === -1) {
+        await adapter.setObjectNotExistsAsync(stateId, {
+            type: obj.type,
+            common: JSON.parse(JSON.stringify(obj.common)),
+            native: JSON.parse(JSON.stringify(obj.native)),
+        });
+        // Remember created object for this runtime
+        createdObjs.push(stateId);
+    }
     if (value !== null) {
         adapter.setStateChangedAsync(stateId, {
             val: value,

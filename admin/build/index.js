@@ -41121,6 +41121,37 @@ var Theme = function Theme(type) {
         }
       }
     };
+  } else if (type === 'PT') {
+    theme = {
+      name: type,
+      palette: {
+        type: 'light',
+        primary: {
+          main: '#0F99DE'
+        },
+        secondary: {
+          main: '#88A536'
+        },
+        expert: '#BD1B24'
+      },
+      overrides: {
+        MuiAppBar: {
+          colorDefault: {
+            backgroundColor: '#0F99DE'
+          }
+        },
+        MuiLink: {
+          root: {
+            textTransform: 'uppercase',
+            transition: 'color .3s ease',
+            color: _orange["default"][400],
+            '&:hover': {
+              color: _orange["default"][300]
+            }
+          }
+        }
+      }
+    };
   } else {
     theme = {
       name: type,
@@ -41160,7 +41191,7 @@ var Theme = function Theme(type) {
       height: 32
     }
   };
-  return (0, _styles.createMuiTheme)(theme);
+  return (0, _styles.createTheme)(theme);
 };
 
 var _default = Theme;
@@ -42626,6 +42657,11 @@ var Utils = /*#__PURE__*/function () {
     key: "getThemeName",
     value: function getThemeName() {
       var themeName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (window.vendorPrefix && window.vendorPrefix !== '@@vendorPrefix@@') {
+        return window.vendorPrefix;
+      }
+
       return themeName ? themeName : window.localStorage && window.localStorage.getItem('App.themeName') ? window.localStorage.getItem('App.themeName') : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'colored';
     }
     /**
@@ -42638,6 +42674,11 @@ var Utils = /*#__PURE__*/function () {
     key: "getThemeType",
     value: function getThemeType() {
       var themeName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+      if (window.vendorPrefix && window.vendorPrefix !== '@@vendorPrefix@@') {
+        return 'light';
+      }
+
       themeName = themeName || window.localStorage && window.localStorage.getItem('App.themeName');
       return themeName === 'dark' || themeName === 'blue' ? 'dark' : 'light';
     }
@@ -42649,6 +42690,10 @@ var Utils = /*#__PURE__*/function () {
   }, {
     key: "setThemeName",
     value: function setThemeName(themeName) {
+      if (window.vendorPrefix && window.vendorPrefix !== '@@vendorPrefix@@') {
+        return; // ignore
+      }
+
       window.localStorage.setItem('App.themeName', themeName);
       window.localStorage.setItem('App.theme', themeName === 'dark' || themeName === 'blue' ? 'dark' : 'light');
     }
@@ -42661,11 +42706,38 @@ var Utils = /*#__PURE__*/function () {
   }, {
     key: "toggleTheme",
     value: function toggleTheme(themeName) {
+      if (window.vendorPrefix && window.vendorPrefix !== '@@vendorPrefix@@') {
+        return window.vendorPrefix;
+      }
+
       themeName = themeName || window.localStorage && window.localStorage.getItem('App.themeName'); // dark => blue => colored => light => dark
 
-      var newThemeName = themeName === 'dark' ? 'blue' : themeName === 'blue' ? 'colored' : themeName === 'colored' ? 'light' : 'dark';
-      Utils.setThemeName(newThemeName);
-      return newThemeName;
+      var themes = Utils.getThemeNames();
+      var pos = themes.indexOf(themeName);
+      var newTheme;
+
+      if (pos !== -1) {
+        newTheme = themes[(pos + 1) % themes.length];
+      } else {
+        newTheme = themes[0];
+      }
+
+      Utils.setThemeName(newTheme);
+      return newTheme;
+    }
+    /**
+     * Get the list of themes
+     * @returns {array<string>} list of possible themes
+     */
+
+  }, {
+    key: "getThemeNames",
+    value: function getThemeNames() {
+      if (window.vendorPrefix && window.vendorPrefix !== '@@vendorPrefix@@') {
+        return [window.vendorPrefix];
+      }
+
+      return ['light', 'dark', 'blue', 'colored'];
     }
     /**
      * Parse a query string into its parts.
@@ -43099,11 +43171,50 @@ var PROGRESS = {
 exports.PROGRESS = PROGRESS;
 var PERMISSION_ERROR = 'permissionError';
 var NOT_CONNECTED = 'notConnectedError';
+var TIMEOUT_FOR_ADMIN4 = 1300;
 var ERRORS = {
   PERMISSION_ERROR: PERMISSION_ERROR,
   NOT_CONNECTED: NOT_CONNECTED
 };
 exports.ERRORS = ERRORS;
+
+function fixAdminUI(obj) {
+  if (obj && obj.common && !obj.common.adminUI) {
+    if (obj.common.noConfig) {
+      obj.common.adminUI = obj.common.adminUI || {};
+      obj.common.adminUI.config = 'none';
+    } else if (obj.common.jsonConfig) {
+      obj.common.adminUI = obj.common.adminUI || {};
+      obj.common.adminUI.config = 'json';
+    } else if (obj.common.materialize) {
+      obj.common.adminUI = obj.common.adminUI || {};
+      obj.common.adminUI.config = 'materialize';
+    } else {
+      obj.common.adminUI = obj.common.adminUI || {};
+      obj.common.adminUI.config = 'html';
+    }
+
+    if (obj.common.jsonCustom) {
+      obj.common.adminUI = obj.common.adminUI || {};
+      obj.common.adminUI.custom = 'json';
+    } else if (obj.common.supportCustoms) {
+      obj.common.adminUI = obj.common.adminUI || {};
+      obj.common.adminUI.custom = 'json';
+    }
+
+    if (obj.common.materializeTab && obj.common.adminTab) {
+      obj.common.adminUI = obj.common.adminUI || {};
+      obj.common.adminUI.tab = 'materialize';
+    } else if (obj.common.adminTab) {
+      obj.common.adminUI = obj.common.adminUI || {};
+      obj.common.adminUI.tab = 'html';
+    }
+
+    obj.common.adminUI && console.debug("Please add to \"".concat(obj._id.replace(/\.\d+$/, ''), "\" common.adminUI=").concat(JSON.stringify(obj.common.adminUI)));
+  }
+
+  return obj;
+}
 
 var Connection = /*#__PURE__*/function () {
   /**
@@ -43123,7 +43234,7 @@ var Connection = /*#__PURE__*/function () {
     this.autoSubscribeLog = this.props.autoSubscribeLog;
     this.props.protocol = this.props.protocol || window.location.protocol;
     this.props.host = this.props.host || window.location.hostname;
-    this.props.port = this.props.port || (window.location.port === '3000' ? 8081 : window.location.port);
+    this.props.port = this.props.port || (window.location.port === '3000' ? Connection.isWeb() ? 8082 : 8081 : window.location.port);
     this.props.ioTimeout = Math.max(this.props.ioTimeout || 20000, 20000);
     this.props.cmdTimeout = Math.max(this.props.cmdTimeout || 5000, 5000); // breaking change. Do not load all objects by default is true
 
@@ -43433,9 +43544,9 @@ var Connection = /*#__PURE__*/function () {
       return this.connected;
     }
     /**
-    * Checks if the socket is connected.
-    * @returns {Promise<void>} Promise resolves if once connected.
-    */
+     * Checks if the socket is connected.
+     * @returns {Promise<void>} Promise resolves if once connected.
+     */
 
   }, {
     key: "waitForFirstConnection",
@@ -43485,7 +43596,7 @@ var Connection = /*#__PURE__*/function () {
         } // Read system configuration
 
 
-        return (_this4.admin5only ? _this4.getCompactSystemConfig() : _this4.getSystemConfig()).then(function (data) {
+        return (_this4.admin5only && !window.vendorPrefix ? _this4.getCompactSystemConfig() : _this4.getSystemConfig()).then(function (data) {
           if (_this4.doNotLoadACL) {
             if (_this4.loaded) {
               return undefined;
@@ -43600,12 +43711,21 @@ var Connection = /*#__PURE__*/function () {
             return console.error("Cannot getForeignStates \"".concat(id, "\": ").concat(JSON.stringify(e)));
           });
         } else {
-          this._socket.emit('getForeignStates', id, function (err, states) {
-            err && console.error("Cannot getForeignStates \"".concat(id, "\": ").concat(JSON.stringify(err)));
-            states && Object.keys(states).forEach(function (id) {
-              return cb(id, states[id]);
+          if (Connection.isWeb()) {
+            this._socket.emit('getStates', id, function (err, states) {
+              err && console.error("Cannot getForeignStates \"".concat(id, "\": ").concat(JSON.stringify(err)));
+              states && Object.keys(states).forEach(function (id) {
+                return cb(id, states[id]);
+              });
             });
-          });
+          } else {
+            this._socket.emit('getForeignStates', id, function (err, states) {
+              err && console.error("Cannot getForeignStates \"".concat(id, "\": ").concat(JSON.stringify(err)));
+              states && Object.keys(states).forEach(function (id) {
+                return cb(id, states[id]);
+              });
+            });
+          }
         }
       }
     }
@@ -44133,8 +44253,24 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['instances_' + adapter] = new Promise(function (resolve, reject) {
-        return _this18._socket.emit('getAdapterInstances', adapter, function (err, instances) {
-          return err ? reject(err) : resolve(instances);
+        var timeout = setTimeout(function () {
+          timeout = null;
+
+          _this18.getObjectView("system.adapter.".concat(adapter, "."), "system.adapter.".concat(adapter, ".\u9999"), 'instance').then(function (items) {
+            return resolve(Object.keys(items).map(function (id) {
+              return fixAdminUI(items[id]);
+            }));
+          })["catch"](function (e) {
+            return reject(e);
+          });
+        }, TIMEOUT_FOR_ADMIN4);
+
+        _this18._socket.emit('getAdapterInstances', adapter, function (err, instances) {
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+            return err ? reject(err) : resolve(instances);
+          }
         });
       });
       return this._promises['instances_' + adapter];
@@ -44177,8 +44313,24 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises['adapter_' + adapter] = new Promise(function (resolve, reject) {
-        return _this19._socket.emit('getAdapters', adapter, function (err, instances) {
-          return err ? reject(err) : resolve(instances);
+        var timeout = setTimeout(function () {
+          timeout = null;
+
+          _this19.getObjectView("system.adapter.".concat(adapter, "."), "system.adapter.".concat(adapter, ".\u9999"), 'adapter').then(function (items) {
+            return resolve(Object.keys(items).map(function (id) {
+              return fixAdminUI(items[id]);
+            }));
+          })["catch"](function (e) {
+            return reject(e);
+          });
+        }, TIMEOUT_FOR_ADMIN4);
+
+        _this19._socket.emit('getAdapters', adapter, function (err, adapters) {
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+            return err ? reject(err) : resolve(adapters);
+          }
         });
       });
       return this._promises['adapter_' + adapter];
@@ -45379,11 +45531,19 @@ var Connection = /*#__PURE__*/function () {
         return Promise.reject(NOT_CONNECTED);
       }
 
-      return new Promise(function (resolve, reject) {
-        return _this48._socket.emit('getForeignStates', pattern || '*', function (err, states) {
-          return err ? reject(err) : resolve(states);
+      if (Connection.isWeb()) {
+        return new Promise(function (resolve, reject) {
+          return _this48._socket.emit('getStates', pattern || '*', function (err, states) {
+            return err ? reject(err) : resolve(states);
+          });
         });
-      });
+      } else {
+        return new Promise(function (resolve, reject) {
+          return _this48._socket.emit('getForeignStates', pattern || '*', function (err, states) {
+            return err ? reject(err) : resolve(states);
+          });
+        });
+      }
     }
     /**
      * Get foreign objects by pattern, by specific type and resolve their enums.
@@ -46029,8 +46189,8 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.compactAdapters = new Promise(function (resolve, reject) {
-        return _this69._socket.emit('getCompactAdapters', function (err, systemConfig) {
-          return err ? reject(err) : resolve(systemConfig);
+        return _this69._socket.emit('getCompactAdapters', function (err, adapters) {
+          return err ? reject(err) : resolve(adapters);
         });
       });
       return this._promises.compactAdapters;
@@ -46054,8 +46214,8 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.compactInstances = new Promise(function (resolve, reject) {
-        return _this70._socket.emit('getCompactInstances', function (err, systemConfig) {
-          return err ? reject(err) : resolve(systemConfig);
+        return _this70._socket.emit('getCompactInstances', function (err, instances) {
+          return err ? reject(err) : resolve(instances);
         });
       });
       return this._promises.compactInstances;
@@ -46209,8 +46369,8 @@ var Connection = /*#__PURE__*/function () {
       }
 
       this._promises.hostsCompact = new Promise(function (resolve, reject) {
-        return _this74._socket.emit('getCompactHosts', function (err, systemConfig) {
-          return err ? reject(err) : resolve(systemConfig);
+        return _this74._socket.emit('getCompactHosts', function (err, hosts) {
+          return err ? reject(err) : resolve(hosts);
         });
       });
       return this._promises.hostsCompact;
@@ -46242,7 +46402,7 @@ var Connection = /*#__PURE__*/function () {
   }], [{
     key: "isWeb",
     value: function isWeb() {
-      return window.socketUrl !== undefined;
+      return window.adapterName === 'material' || window.socketUrl !== undefined;
     }
   }]);
 
@@ -71936,9 +72096,14 @@ var GenericApp = /*#__PURE__*/function (_Router) {
 
     _classCallCheck(this, GenericApp);
 
-    if (window.io && window.location.port === '3000') {
-      delete window.io;
-      window.io = new window.SocketClient();
+    // Remove `!Connection.isWeb() && window.adapterName !== 'material'` when iobroker.socket will support native ws
+    if (!_Connection["default"].isWeb() && window.io && window.location.port === '3000') {
+      try {
+        var io = new window.SocketClient();
+        delete window.io;
+        window.io = io;
+      } catch (e) {// ignore
+      }
     }
 
     _this = _super.call(this, props);
@@ -73090,9 +73255,9 @@ var TextareaAutosize = /*#__PURE__*/React.forwardRef(function TextareaAutosize(p
 
   /**
    * Minimum number of rows to display.
-   * @deprecated Use `rowsMin` instead.
+   * @deprecated Use `minRows` instead.
    */
-  rows: (0, _deprecatedPropType.default)(_propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]), 'Use `rowsMin` instead.'),
+  rows: (0, _deprecatedPropType.default)(_propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]), 'Use `minRows` instead.'),
 
   /**
    * Maximum number of rows to display.

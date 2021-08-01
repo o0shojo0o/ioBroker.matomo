@@ -10,6 +10,8 @@ import { MyObjectsDefinitions, objectDefinitions } from "./lib/object_definition
 
 let adapter: ioBroker.Adapter;
 let currentTimeout: NodeJS.Timeout;
+const createdObjs: string[] = [];
+let isUnloaded = false;
 
 class Matomo extends utils.Adapter {
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -36,6 +38,7 @@ class Matomo extends utils.Adapter {
 	}
 	private onUnload(callback: () => void): void {
 		try {
+			isUnloaded = true;
 			clearTimeout(currentTimeout);
 			callback();
 		} catch (e) {
@@ -153,15 +156,25 @@ async function setObjectAndState(objectId: string, stateId: string, stateName: s
 		return;
 	}
 
+	// Check if is unload triggerted
+	if (isUnloaded) {
+		return;
+	}
+
 	if (stateName !== null) {
 		obj.common.name = stateName;
 	}
 
-	await adapter.setObjectNotExistsAsync(stateId, {
-		type: obj.type,
-		common: JSON.parse(JSON.stringify(obj.common)),
-		native: JSON.parse(JSON.stringify(obj.native)),
-	});
+	// Check if the object must be created
+	if (createdObjs.indexOf(stateId) === -1) {
+		await adapter.setObjectNotExistsAsync(stateId, {
+			type: obj.type,
+			common: JSON.parse(JSON.stringify(obj.common)),
+			native: JSON.parse(JSON.stringify(obj.native)),
+		});
+		// Remember created object for this runtime
+		createdObjs.push(stateId);
+	}
 
 	if (value !== null) {
 		adapter.setStateChangedAsync(stateId, {

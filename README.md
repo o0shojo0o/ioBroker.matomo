@@ -35,6 +35,11 @@ Imports daily statistical data from Matomo.
 	### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+-   (o0Shojo0o) more resource-efficient handling of the States
+-   (o0Shojo0o) better unload handling
+
 ### 0.0.6 (2021-07-24)
 
 -   (o0Shojo0o) bugfix dark theme
