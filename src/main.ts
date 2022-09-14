@@ -27,7 +27,7 @@ class Matomo extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	private async onReady(): Promise<void> {
-		// eslint-disable-next-line no-use-before-define
+		// eslint-disable-next-line no-alert
 		adapter = this;
 		this.setStateChanged("info.connection", false, true);
 		this.log.info("config serverAdresse: " + this.config.serverAdresse);
