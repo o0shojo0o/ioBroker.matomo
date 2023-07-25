@@ -23,7 +23,7 @@
     "devDependencies": {
         "@alcalzone/release-script": "^3.6.0",
         "@babel/cli": "^7.21.5",
-        "@babel/core": "^7.21.8",
+        "@babel/core": "^7.22.9",
         "@babel/plugin-proposal-decorators": "^7.22.7",
         "@babel/preset-env": "^7.21.5",
         "@babel/preset-typescript": "^7.22.5",
