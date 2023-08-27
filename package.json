@@ -24,7 +24,7 @@
         "@alcalzone/release-script": "^3.6.0",
         "@babel/cli": "^7.22.9",
         "@babel/core": "^7.22.9",
-        "@babel/plugin-proposal-decorators": "^7.22.7",
+        "@babel/plugin-proposal-decorators": "^7.22.10",
         "@babel/preset-env": "^7.22.9",
         "@babel/preset-typescript": "^7.22.5",
         "@iobroker/adapter-react": "^2.2.4",
